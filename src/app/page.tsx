@@ -1,6 +1,5 @@
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import { Container, Typography, Box } from '@mui/material';
+import CheckStatusApi from '@/features/health/components/CheckStatusApi';
 
 export default function Home() {
   return (
@@ -17,6 +16,7 @@ export default function Home() {
         <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
           Hello Booking CRM team! &#128512;
         </Typography>
+        <CheckStatusApi />
       </Box>
     </Container>
   );

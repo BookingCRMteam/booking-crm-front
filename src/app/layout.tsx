@@ -3,9 +3,10 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import type { Metadata } from 'next';
 import './globals.css';
-import theme from '@/theme';
+import theme from '@/shared/theme';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import ModeSwitch from '@/components/ModeSwitch';
+import { TanstackProvider } from '@/shared/providers/TanstackProvider';
 
 export const metadata: Metadata = {
   title: 'Booking CRM',
@@ -24,8 +25,10 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <ModeSwitch />
-            {children}
+            <TanstackProvider>
+              <ModeSwitch />
+              {children}
+            </TanstackProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
