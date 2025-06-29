@@ -115,7 +115,9 @@ describe('ModeSwitch', () => {
     };
     mockedUseColorScheme.mockReturnValue(mockValue);
 
-    const { container } = renderWithTheme(<ModeSwitch />);
-    expect(container.firstChild).toBeNull();
+    const { queryByLabelText } = renderWithTheme(<ModeSwitch />);
+    const select = queryByLabelText(/theme/i);
+
+    expect(select).not.toBeInTheDocument();
   });
 });

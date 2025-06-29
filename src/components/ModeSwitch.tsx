@@ -8,9 +8,6 @@ import { useColorScheme } from '@mui/material/styles';
 
 export default function ModeSwitch() {
   const { mode, setMode } = useColorScheme();
-  if (!mode) {
-    return null;
-  }
   return (
     <Box
       sx={{
@@ -18,22 +15,27 @@ export default function ModeSwitch() {
         justifyContent: 'flex-end',
         mt: 4,
         p: 1,
+        minHeight: 64,
       }}
     >
-      <FormControl size="small" sx={{ minWidth: 120, mt: 1 }}>
-        <InputLabel id="mode-select-label">Theme</InputLabel>
-        <Select
-          labelId="mode-select-label"
-          id="mode-select"
-          value={mode}
-          onChange={(event) => setMode(event.target.value as typeof mode)}
-          label="Theme"
-        >
-          <MenuItem value="system">System</MenuItem>
-          <MenuItem value="light">Light</MenuItem>
-          <MenuItem value="dark">Dark</MenuItem>
-        </Select>
-      </FormControl>
+      {mode ? (
+        <FormControl size="small" sx={{ minWidth: 120, mt: 1 }}>
+          <InputLabel id="mode-select-label">Theme</InputLabel>
+          <Select
+            labelId="mode-select-label"
+            id="mode-select"
+            value={mode}
+            onChange={(event) => setMode(event.target.value as typeof mode)}
+            label="Theme"
+          >
+            <MenuItem value="system">System</MenuItem>
+            <MenuItem value="light">Light</MenuItem>
+            <MenuItem value="dark">Dark</MenuItem>
+          </Select>
+        </FormControl>
+      ) : (
+        <Box sx={{ minWidth: 120, mt: 1 }} />
+      )}
     </Box>
   );
 }
