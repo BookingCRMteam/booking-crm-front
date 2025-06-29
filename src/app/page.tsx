@@ -1,10 +1,23 @@
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
 export default function Home() {
   return (
-    <div>
-      <main>
-        <h1>Hello Booking CRM team! &#128512;</h1>
-      </main>
-      <footer></footer>
-    </div>
+    <Container maxWidth="lg">
+      <Box
+        sx={{
+          my: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+          Hello Booking CRM team! &#128512;
+        </Typography>
+      </Box>
+    </Container>
   );
 }
