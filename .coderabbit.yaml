@@ -2,8 +2,7 @@
 reviews:
   auto_review:
     enabled: true
-  review_status: true
-  trigger:
-    pull_request_target_branches:
+    base_branches:
       - main
       - dev
+  review_status: true
