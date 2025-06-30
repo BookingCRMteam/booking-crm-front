@@ -3,9 +3,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import type { Metadata } from 'next';
 import './globals.css';
-import theme from '@/shared/theme';
+import theme from '@/shared/theme/theme';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
-import ModeSwitch from '@/components/ModeSwitch';
+import ModeSwitch from '@/components/ModeSwitch/ModeSwitch';
 import { TanstackProvider } from '@/shared/providers/TanstackProvider';
 
 export const metadata: Metadata = {

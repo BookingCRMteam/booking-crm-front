@@ -3,7 +3,6 @@ import { getStatusApi } from '@/features/health/api/getStatusApi';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useQuery } from '@tanstack/react-query';
-import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import React, { useState } from 'react';
@@ -73,12 +72,10 @@ export default function CheckStatusApi() {
         variant="contained"
         onClick={handleCheckApi}
         disabled={isFetching}
+        loading={isFetching}
+        loadingPosition="end"
       >
-        {isFetching ? (
-          <CircularProgress size={24} color="inherit" />
-        ) : (
-          'Check API Status'
-        )}
+        Check API Status
       </Button>
 
       <Snackbar
