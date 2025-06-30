@@ -1,9 +1,9 @@
 import Home from './page';
-import { renderWithQueryClient } from '../shared/tests/renderWithQueryClient';
+import { renderWithProviders } from '../shared/tests/renderWithProviders';
 
 describe('Home page', () => {
   it('renders greeting message', () => {
-    const { getByRole } = renderWithQueryClient(<Home />);
+    const { getByRole } = renderWithProviders(<Home />);
     const heading = getByRole('heading', {
       name: /hello booking crm team/i,
     });

@@ -9,8 +9,8 @@ const customJestConfig: Config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   coverageProvider: 'v8',
   collectCoverageFrom: [
-    'src/app/**/*.{js,jsx,ts,tsx}',
-    'src/components/**/*.{js,jsx,ts,tsx}',
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.stories.{js,jsx,ts,tsx}',
   ],
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
