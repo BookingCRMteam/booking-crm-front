@@ -10,6 +10,11 @@ import React, { useState } from 'react';
 
 import { getStatusApi } from '@/features/health/api/getStatusApi';
 
+/**
+ * Renders a UI component that allows users to check the status of an API and displays the result in a snackbar alert.
+ *
+ * Provides a button to trigger the API status check and shows a success or error message based on the API response.
+ */
 export default function CheckStatusApi() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');

@@ -2,6 +2,11 @@ import { Box, Button, Container, Typography } from '@mui/material';
 
 import Link from 'next/link';
 
+/**
+ * Displays a "Not Found" page with a message and a button to return to the home page.
+ *
+ * Renders a static user interface indicating that the requested resource could not be found.
+ */
 export default function NotFound() {
   return (
     <Container maxWidth="lg">
