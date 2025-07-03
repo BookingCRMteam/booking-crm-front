@@ -1,11 +1,14 @@
 'use client';
-import { getStatusApi } from '@/features/health/api/getStatusApi';
+
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { useQuery } from '@tanstack/react-query';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import { useQuery } from '@tanstack/react-query';
+
 import React, { useState } from 'react';
+
+import { getStatusApi } from '@/features/health/api/getStatusApi';
 
 export default function CheckStatusApi() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);

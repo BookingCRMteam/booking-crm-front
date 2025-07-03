@@ -1,11 +1,12 @@
-import { render, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import ModeSwitch from './ModeSwitch';
 import {
   ThemeProvider,
   createTheme,
   useColorScheme as originalUseColorScheme,
 } from '@mui/material/styles';
+import { render, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import ModeSwitch from './ModeSwitch';
 
 type MockSupportedColorScheme = 'light' | 'dark' | 'system';
 

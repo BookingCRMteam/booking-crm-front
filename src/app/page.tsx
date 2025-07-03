@@ -1,4 +1,5 @@
-import { Container, Typography, Box } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
+
 import CheckStatusApi from '@/features/health/components/CheckStatusApi';
 
 export default function Home() {

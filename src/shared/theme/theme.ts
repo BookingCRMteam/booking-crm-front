@@ -1,5 +1,7 @@
 'use client';
+
 import { createTheme } from '@mui/material';
+
 import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({
