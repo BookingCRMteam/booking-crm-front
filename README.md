@@ -95,15 +95,19 @@ npm install
 
 ## Project Scripts
 
-| Script    | Description                                                    |
-| --------- | -------------------------------------------------------------- |
-| `dev`     | Starts the development server using Next.js (`localhost:3000`) |
-| `build`   | Builds the app for production                                  |
-| `start`   | Starts the production server after build                       |
-| `lint`    | Runs ESLint on the codebase                                    |
-| `format`  | Formats the code using Prettier                                |
-| `prepare` | Initializes Husky to enable Git hooks                          |
-| `test`    | Placeholder for future Jest tests                              |
+| Script            | Description                                                      |
+| ----------------- | ---------------------------------------------------------------- |
+| `dev`             | Starts the development server using Next.js (`localhost:3000`)   |
+| `build`           | Builds the app for production                                    |
+| `start`           | Starts the production server after build                         |
+| `lint`            | Runs ESLint on the codebase                                      |
+| `format`          | Formats the code using Prettier                                  |
+| `prepare`         | Initializes Husky to enable Git hooks                            |
+| `test`            | Runs all tests using Jest                                        |
+| `test:watch`      | Runs tests in watch mode for continuous testing                  |
+| `coverage`        | Runs tests and generates code coverage report                    |
+| `storybook`       | Starts Storybook for UI component development (`localhost:6006`) |
+| `build-storybook` | Builds a static version of Storybook for deployment              |
 
 ---
 
