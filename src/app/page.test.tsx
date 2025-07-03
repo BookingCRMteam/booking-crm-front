@@ -1,5 +1,5 @@
-import Home from './page';
 import { renderWithProviders } from '../shared/tests/renderWithProviders';
+import Home from './page';
 
 describe('Home page', () => {
   it('renders greeting message', () => {

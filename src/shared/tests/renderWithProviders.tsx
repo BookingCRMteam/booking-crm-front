@@ -1,8 +1,9 @@
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import CssBaseline from '@mui/material/CssBaseline';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import type { ReactNode } from 'react';
 
 const createTestQueryClient = () =>

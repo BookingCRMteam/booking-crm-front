@@ -1,12 +1,16 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import type { Metadata } from 'next';
-import './globals.css';
-import theme from '@/shared/theme/theme';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
+import { ThemeProvider } from '@mui/material/styles';
+
+import type { Metadata } from 'next';
+
 import ModeSwitch from '@/components/ModeSwitch/ModeSwitch';
+
 import { TanstackProvider } from '@/shared/providers/TanstackProvider';
+import theme from '@/shared/theme/theme';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Booking CRM',
