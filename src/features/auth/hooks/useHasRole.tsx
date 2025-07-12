@@ -9,11 +9,15 @@ export function useHasRole(requiredRole: string): boolean {
     return false;
   }
 
-  const userRoles = user.roles as string[] | undefined;
+  const userRoles = user.roles;
 
-  return (
-    userRoles?.some(
-      (role) => role.toLowerCase() === requiredRole.toLowerCase(),
-    ) || false
+  if (!Array.isArray(userRoles)) {
+    return false;
+  }
+
+  return userRoles.some(
+    (role) =>
+      typeof role === 'string' &&
+      role.toLowerCase() === requiredRole.toLowerCase(),
   );
 }

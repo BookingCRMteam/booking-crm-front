@@ -13,7 +13,7 @@ export const auth0 = new Auth0Client({
       ...session,
       user: {
         ...filterDefaultIdTokenClaims(session.user),
-        roles: session.user[process.env.AUTH0_ROLES_CLAIM_FULL],
+        roles: session.user[process.env.AUTH0_ROLES_CLAIM_FULL] ?? [],
       },
     };
   },

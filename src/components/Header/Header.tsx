@@ -23,6 +23,8 @@ import Link from 'next/link';
 
 import ModeSwitch from '@/components/ModeSwitch/ModeSwitch';
 
+import { AUTH_URL } from '@/shared/constants/auth';
+
 import { NAVIGATION_LINKS, USER_MENU_LINKS } from './constants';
 
 export default function Header() {
@@ -125,7 +127,7 @@ export default function Header() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            TourHub
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {NAVIGATION_LINKS.map(({ href, name }) => (
@@ -180,7 +182,7 @@ export default function Header() {
                 <Typography
                   sx={{ textAlign: 'center' }}
                   component="a"
-                  href="/auth/logout"
+                  href={AUTH_URL.LOGOUT}
                 >
                   Logout
                 </Typography>
