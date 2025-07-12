@@ -31,17 +31,35 @@ export default async function Admin() {
             gap: '20px',
           }}
         >
-          <Image
-            src={session.user.picture ?? ''}
-            alt="Profile"
-            width={80}
-            height={80}
-            style={{ borderRadius: '50%' }}
-          />
-          <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+          {session.user.picture ? (
+            <Image
+              src={session.user.picture}
+              alt="Profile"
+              width={80}
+              height={80}
+              style={{ borderRadius: '50%' }}
+            />
+          ) : (
+            <Box
+              sx={{
+                width: 80,
+                height: 80,
+                borderRadius: '50%',
+                backgroundColor: 'grey.300',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography variant="h4">
+                {session.user.name?.charAt(0)?.toUpperCase() || 'U'}
+              </Typography>
+            </Box>
+          )}
+          <Typography variant="h6" component="p" sx={{ mb: 1 }}>
             name: {session.user.name}
           </Typography>
-          <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+          <Typography variant="h6" component="p" sx={{ mb: 1 }}>
             email: {session.user.email}
           </Typography>
         </Box>

@@ -39,20 +39,38 @@ export default withPageAuthRequired(function Profile() {
                 gap: '20px',
               }}
             >
-              <Image
-                src={user.picture ?? ''}
-                alt="Profile"
-                width={80}
-                height={80}
-                style={{ borderRadius: '50%' }}
-              />
-              <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+              {user.picture ? (
+                <Image
+                  src={user.picture}
+                  alt="Profile"
+                  width={80}
+                  height={80}
+                  style={{ borderRadius: '50%' }}
+                />
+              ) : (
+                <Box
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: '50%',
+                    backgroundColor: 'grey.300',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Typography variant="h4">
+                    {user.name?.charAt(0)?.toUpperCase() || 'U'}
+                  </Typography>
+                </Box>
+              )}
+              <Typography variant="h6" component="p" sx={{ mb: 1 }}>
                 name: {user.name}
               </Typography>
-              <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+              <Typography variant="h6" component="p" sx={{ mb: 1 }}>
                 email: {user.email}
               </Typography>
-              <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+              <Typography variant="h6" component="p" sx={{ mb: 1 }}>
                 sub: {user.sub}
               </Typography>
             </Box>

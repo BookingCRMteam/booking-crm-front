@@ -8,8 +8,13 @@ import { AUTH_URL } from '@/shared/constants/auth';
 import { auth0 } from '@/shared/lib/auth/auth0';
 
 export default async function Home() {
-  const session = await auth0.getSession();
-  const isActiveUser = !!session?.user;
+  let isActiveUser = false;
+  try {
+    const session = await auth0.getSession();
+    isActiveUser = !!session?.user;
+  } catch (error) {
+    console.error('Failed to fetch session:', error);
+  }
 
   return (
     <Container maxWidth="lg">
