@@ -1,3 +1,4 @@
+import { Auth0Provider } from '@auth0/nextjs-auth0';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import CssBaseline from '@mui/material/CssBaseline';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
@@ -5,7 +6,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 import type { Metadata } from 'next';
 
-import ModeSwitch from '@/components/ModeSwitch/ModeSwitch';
+import Header from '@/components/Header/Header';
 
 import { TanstackProvider } from '@/shared/providers/TanstackProvider';
 import theme from '@/shared/theme/theme';
@@ -29,10 +30,12 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <TanstackProvider>
-              <ModeSwitch />
-              {children}
-            </TanstackProvider>
+            <Auth0Provider>
+              <TanstackProvider>
+                <Header />
+                {children}
+              </TanstackProvider>
+            </Auth0Provider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
