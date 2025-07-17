@@ -11,7 +11,7 @@ export type SearchState = {
 
 export const createSearchState: StateCreator<
   SearchState,
-  [['zustand/devtools', never], ['zustand/persist', unknown]],
+  [['zustand/devtools', never]],
   [],
   SearchState
 > = (set) => ({
