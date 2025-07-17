@@ -1,19 +1,19 @@
 import { StateCreator } from 'zustand';
 
-export type SearchSlice = {
+export type SearchState = {
   destination: string;
   origin: string;
   fromDate: string;
   toDate: string;
   travelers: number;
-  setFilters: (filters: Partial<SearchSlice>) => void;
+  setFilters: (filters: Partial<SearchState>) => void;
 };
 
-export const createSearchSlice: StateCreator<
-  SearchSlice,
+export const createSearchState: StateCreator<
+  SearchState,
   [['zustand/devtools', never], ['zustand/persist', unknown]],
   [],
-  SearchSlice
+  SearchState
 > = (set) => ({
   destination: '',
   origin: '',

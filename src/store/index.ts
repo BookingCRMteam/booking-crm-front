@@ -1,15 +1,15 @@
-import { SearchSlice, createSearchSlice } from '@/store/searchSlice';
-
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-type StoreState = SearchSlice; // Add more slice types here using '&'
+import { SearchState, createSearchState } from '@/store/searchSlice';
+
+type StoreState = SearchState; // Add more slice types here using '&'
 
 export const useStore = create<StoreState>()(
   devtools(
     persist(
       (...args) => ({
-        ...createSearchSlice(...args),
+        ...createSearchState(...args),
         // Add more slices here
       }),
       {
