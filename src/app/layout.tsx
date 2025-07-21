@@ -9,8 +9,9 @@ import type { Metadata } from 'next';
 import Header from '@/components/Header/Header';
 
 import { TanstackProvider } from '@/shared/providers/TanstackProvider';
-import theme from '@/shared/theme/theme';
+import { theme } from '@/shared/theme/theme';
 
+import { roboto } from './fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -24,10 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={roboto.variable} suppressHydrationWarning>
       <body>
         <InitColorSchemeScript attribute="class" />
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+        <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Auth0Provider>

@@ -6,8 +6,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { withThemeFromJSXProvider } from '@storybook/addon-themes';
 import type { Preview } from '@storybook/nextjs-vite';
 
-import { darkTheme } from '../src/shared/theme/dark';
-import { lightTheme } from '../src/shared/theme/light';
+import { darkTheme } from '../src/shared/theme/theme';
+import { lightTheme } from '../src/shared/theme/theme';
 
 const preview: Preview = {
   parameters: {
