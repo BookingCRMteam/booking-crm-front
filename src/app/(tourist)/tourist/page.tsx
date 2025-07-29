@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { auth0 } from '@/shared/lib/auth/auth0';
 
-export default async function Profile() {
+export default async function Tourist() {
   const session = await auth0.getSession();
   console.log(session);
   return (
@@ -20,7 +20,7 @@ export default async function Profile() {
         }}
       >
         <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Profile
+          Tourist
         </Typography>
         <Box
           sx={{

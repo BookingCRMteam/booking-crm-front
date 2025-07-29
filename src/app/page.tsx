@@ -1,21 +1,12 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 
-import { Button } from '@/components/Button/Button';
+import Link from 'next/link';
 
 import CheckStatusApi from '@/features/health/components/CheckStatusApi';
 
-import { AUTH_URL } from '@/shared/constants/auth';
-import { auth0 } from '@/shared/lib/auth/auth0';
+import { APP_ROUTE } from '@/shared/constants/routes';
 
 export default async function Home() {
-  let isActiveUser = false;
-  try {
-    const session = await auth0.getSession();
-    isActiveUser = !!session?.user;
-  } catch (error) {
-    console.error('Failed to fetch session:', error);
-  }
-
   return (
     <Container maxWidth="lg">
       <Box
@@ -31,13 +22,13 @@ export default async function Home() {
           Hello Booking CRM team! &#128512;
         </Typography>
         <Button
-          label="Login"
           variant="contained"
-          disabled={isActiveUser}
-          color="warning"
-          component="a"
-          href={AUTH_URL.LOGIN}
-        />
+          component={Link}
+          color="secondary"
+          href={APP_ROUTE.TOURS}
+        >
+          Знайти
+        </Button>
         <CheckStatusApi />
       </Box>
     </Container>

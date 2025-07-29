@@ -1,11 +1,15 @@
 import { Box, Container, Typography } from '@mui/material';
 
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
-import { withRoleProtection } from '@/shared/lib/auth/withRoleProtection';
+import { auth0 } from '@/shared/lib/auth/auth0';
 
-export default async function User() {
-  const session = await withRoleProtection({ requiredRoles: ['user'] });
+export default async function Operator() {
+  const session = await auth0.getSession();
+  if (!session) {
+    redirect('/');
+  }
   console.log(session);
   return (
     <Container maxWidth="lg">
@@ -20,7 +24,7 @@ export default async function User() {
         }}
       >
         <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          User
+          Operator
         </Typography>
         <Box
           sx={{
@@ -61,6 +65,9 @@ export default async function User() {
           </Typography>
           <Typography variant="h6" component="p" sx={{ mb: 1 }}>
             email: {session.user.email}
+          </Typography>
+          <Typography variant="h6" component="p" sx={{ mb: 1 }}>
+            roles: {session.user.roles.join(', ')}
           </Typography>
         </Box>
       </Box>

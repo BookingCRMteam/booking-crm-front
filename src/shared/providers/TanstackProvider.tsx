@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { FC, useState } from 'react';
+import { type FC, useState } from 'react';
 
 interface TanstackProviderProps {
   children: React.ReactNode;

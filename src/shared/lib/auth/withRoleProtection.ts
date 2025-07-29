@@ -15,7 +15,6 @@ export async function withRoleProtection(
   options: RoleOptions = { requiredRoles: [], redirectPath: APP_ROUTE.HOME },
 ): Promise<SessionData> {
   let session: SessionData | null = null;
-
   try {
     session = await auth0.getSession();
   } catch (error) {

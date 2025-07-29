@@ -1,22 +1,15 @@
 'use client';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import { useQuery } from '@tanstack/react-query';
-
-import React, { useState } from 'react';
 
 import { getStatusApi } from '@/features/health/api/getStatusApi';
 
-export default function CheckStatusApi() {
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<
-    'success' | 'error' | 'info'
-  >('info');
+import { useStore } from '@/store';
 
+export default function CheckStatusApi() {
+  const { showNotification } = useStore();
   const { refetch, isFetching } = useQuery<string, Error>({
     queryKey: ['health'],
     queryFn: getStatusApi,
@@ -28,38 +21,23 @@ export default function CheckStatusApi() {
   });
 
   const handleCheckApi = async () => {
-    setSnackbarOpen(false);
-
     try {
       const result = await refetch();
 
       if (result.isSuccess && result.data) {
-        setSnackbarMessage(`API Status: ${result.data}`);
-        setSnackbarSeverity('success');
+        showNotification(`API Status: ${result.data}`, 'success');
       } else if (result.isError) {
         throw result.error;
       }
     } catch (err) {
       if (err instanceof Error) {
-        setSnackbarMessage(`Помилка API: ${err.message}`);
+        showNotification(`Помилка API: ${err.message}`, 'error');
       } else {
-        setSnackbarMessage('Невідома помилка');
+        showNotification('Невідома помилка', 'error');
       }
-      setSnackbarSeverity('error');
-      setSnackbarOpen(true);
     } finally {
-      setSnackbarOpen(true);
     }
   };
-
-  const handleCloseSnackbar = (
-    event?: React.SyntheticEvent | Event,
-    reason?: SnackbarCloseReason,
-  ) => {
-    if (reason === 'clickaway') return;
-    setSnackbarOpen(false);
-  };
-
   return (
     <Box
       sx={{
@@ -80,22 +58,6 @@ export default function CheckStatusApi() {
       >
         Check API Status
       </Button>
-
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity={snackbarSeverity}
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </Box>
   );
 }
