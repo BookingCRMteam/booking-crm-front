@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 import type { Metadata } from 'next';
 
-import ModeSwitch from '@/components/ModeSwitch/ModeSwitch';
+import Header from '@/components/Header/Header';
 
 import { TanstackProvider } from '@/shared/providers/TanstackProvider';
 import theme from '@/shared/theme/theme';
@@ -30,7 +30,7 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <TanstackProvider>
-              <ModeSwitch />
+              <Header />
               {children}
             </TanstackProvider>
           </ThemeProvider>
