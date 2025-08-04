@@ -2,10 +2,15 @@ import { UserRole } from './roles';
 
 // TODO: Додати всі поля з бекенду
 export interface User {
-  id: string;
+  createdAt: string;
   email: string;
-  name: string;
-  roles: UserRole[];
-  picture?: string;
-  nickname?: string;
+  firstName: string;
+  id: number;
+  lastName: string;
+  operatorId: number;
+  passwordHash: string;
+  phone: string;
+  role: UserRole;
+  sub: string;
+  updatedAt: string;
 }
