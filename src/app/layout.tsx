@@ -6,6 +6,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import type { Metadata } from 'next';
 
 import Header from '@/components/Header/Header';
+import { Notification } from '@/components/Notification/Notification';
 
 import { TanstackProvider } from '@/shared/providers/TanstackProvider';
 import theme from '@/shared/theme/theme';
@@ -32,6 +33,7 @@ export default function RootLayout({
             <TanstackProvider>
               <Header />
               {children}
+              <Notification />
             </TanstackProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
