@@ -1,19 +1,12 @@
 import { UserRole } from '../types/roles';
 
-type Routes =
-  | '/profile'
-  | '/booking'
-  | '/tourist'
-  | '/operator'
-  | '/admin'
-  | '/super-admin';
+type Routes = '/profile' | '/operator' | '/admin' | '/super-admin';
+
 type AccessMatrix = Record<Routes, UserRole[]>;
 
 export const ACCESS_MATRIX: AccessMatrix = {
-  '/profile': ['Tourist', 'SuperAdmin', 'Admin', 'Operator'],
-  '/booking': ['Tourist', 'SuperAdmin'],
-  '/tourist': ['Tourist', 'SuperAdmin'],
-  '/operator': ['Operator', 'SuperAdmin'],
-  '/admin': ['Admin', 'SuperAdmin'],
-  '/super-admin': ['SuperAdmin'],
+  '/profile': ['traveler', 'superadmin', 'admin', 'operator'],
+  '/operator': ['operator', 'superadmin'],
+  '/admin': ['admin', 'superadmin'],
+  '/super-admin': ['superadmin'],
 } as const;

@@ -1,39 +1,35 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { NEXT_PATHS_ARR } from '@/shared/constants/routes';
 import { auth0 } from '@/shared/lib/auth0/auth0';
-import { hasAccessToPath, isPublicPath } from '@/shared/utils/access';
-
-import { UserRole } from './shared/types/roles';
+import { isPublicPath } from '@/shared/utils/access';
 
 export async function middleware(request: NextRequest) {
-  const authRes = await auth0.middleware(request);
   const pathname = request.nextUrl.pathname;
+  const authRes = await auth0.middleware(request);
 
-  // Пропускаємо публічні маршрути
-  if (isPublicPath(pathname)) {
+  if (isPublicPath(pathname) || pathname.startsWith('/api/auth')) {
     return authRes;
   }
 
   const session = await auth0.getSession(request);
 
-  // Перенаправляємо неавторизованих користувачів
-  if (!session) {
+  if (!session || !session.user) {
     const loginUrl = new URL('/auth/login', request.nextUrl.origin);
     loginUrl.searchParams.set('returnTo', pathname);
     return NextResponse.redirect(loginUrl);
-  }
-
-  // Перевіряємо права доступу
-  const userRoles = (session.user?.roles || []) as UserRole[];
-
-  if (!hasAccessToPath(pathname, userRoles)) {
-    return NextResponse.redirect(new URL('/403', request.nextUrl.origin));
   }
 
   return authRes;
 }
 
 export const config = {
-  matcher: [`/((?!${NEXT_PATHS_ARR.join('|')}|$).*)`],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|$).*)',
+  ],
 };

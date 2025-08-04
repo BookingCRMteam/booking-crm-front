@@ -16,7 +16,7 @@ export const isPublicPath = (pathname: string): boolean => {
  */
 export const hasAccessToPath = (
   pathname: string,
-  userRoles: UserRole[],
+  userRoles: UserRole,
 ): boolean => {
   for (const [routePrefix, allowedRoles] of Object.entries(ACCESS_MATRIX)) {
     if (pathname.startsWith(routePrefix)) {
