@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0';
 import {
   Avatar,
   Box,
@@ -15,12 +14,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 import { AUTH_URL } from '@/shared/constants/auth';
-import { UserRole } from '@/shared/types/roles';
+import { useCurrentUser } from '@/shared/hooks/useCurrentUser';
 
 import { ROLE_MENU_LINKS } from './constants';
 
 export const UserMenu = () => {
-  const { user, isLoading } = useUser();
+  const { user: currentUser, isLoading } = useCurrentUser();
+
+  console.log(currentUser, 'currentUser');
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -30,10 +31,10 @@ export const UserMenu = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  const roles: UserRole[] = user?.roles || [];
-  console.log(roles);
-  if (!user || isLoading) {
+  if (isLoading) {
+    return <Typography>Loading</Typography>;
+  }
+  if (!currentUser) {
     return (
       <Box sx={{ display: 'flex', gap: 2 }}>
         <Button
@@ -55,12 +56,11 @@ export const UserMenu = () => {
       </Box>
     );
   }
-
   return (
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={user.nickname} src={user.picture} />
+          <Avatar alt={currentUser.firstName} src={currentUser.firstName} />
         </IconButton>
       </Tooltip>
 
@@ -80,7 +80,7 @@ export const UserMenu = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {ROLE_MENU_LINKS[roles[0]].map(({ href, name }) => (
+        {ROLE_MENU_LINKS[currentUser.role]?.map(({ href, name }) => (
           <MenuItem key={name} onClick={handleCloseUserMenu}>
             <Typography
               sx={{ textAlign: 'center' }}
