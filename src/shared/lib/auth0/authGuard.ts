@@ -13,19 +13,20 @@ export async function authGuard(requiredPath: string): Promise<User> {
     redirect(`/auth/login?returnTo=${requiredPath}`);
   }
 
-  const accessToken = await auth0.getAccessToken();
-
+  const accessToken = session.tokenSet.accessToken;
   if (!accessToken) {
-    console.error(
-      'SERVER: Access token not available for user:',
-      session.user.sub,
-    );
-    redirect('/403');
+    redirect(`/auth/login?returnTo=${requiredPath}`);
   }
 
-  const user: User = await userApi.getCurrentUser(accessToken.token);
-  console.log(user, 'user');
-  if (user && !hasAccessToPath(requiredPath, user.role)) {
+  let user: User;
+  try {
+    user = await userApi.getCurrentUser(accessToken);
+  } catch (err) {
+    console.error(err);
+    redirect(`/auth/login?returnTo=${requiredPath}`);
+  }
+
+  if (!hasAccessToPath(requiredPath, user.role)) {
     redirect('/403');
   }
 

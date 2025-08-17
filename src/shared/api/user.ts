@@ -1,12 +1,10 @@
 import { User } from '../types/user';
-import { httpClient } from './httpClient';
+import { apiClient } from './apiClient';
 
 export const userApi = {
-  getCurrentUser: async (token: string): Promise<User> => {
-    return httpClient.post<User>('/auth', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  getCurrentUser: async (accessToken: string): Promise<User> => {
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    const res = await apiClient.post<User>('/auth', null, { headers });
+    return res.data;
   },
 };

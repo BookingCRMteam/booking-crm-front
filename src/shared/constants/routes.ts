@@ -10,28 +10,16 @@ export enum APP_ROUTE {
   CONTACT = '/contact',
   BOOKING = '/booking',
   BOOKINGS = '/bookings',
+  CATALOG = '/catalog',
 }
 
 export const PUBLIC_PATHS = {
-  HOME: '/',
-  ABOUT: '/about',
-  SEARCH: '/search',
-  TOURS: '/tours',
-  CONTACT: '/contact',
-  AUTH: '/auth',
+  HOME: APP_ROUTE.HOME,
+  CATALOG: APP_ROUTE.CATALOG,
+  ABOUT: APP_ROUTE.ABOUT,
+  TOURS: APP_ROUTE.TOURS,
+  CONTACT: APP_ROUTE.CONTACT,
 } as const;
 
 // Масив всіх публічних шляхів
 export const PUBLIC_PATHS_ARR = Object.values(PUBLIC_PATHS);
-
-// Службові шляхи Next.js
-export const NEXT_PATHS = {
-  STATIC: '_next/static',
-  IMAGE: '_next/image',
-  FAVICON: 'favicon.ico',
-  SITEMAP: 'sitemap.xml',
-  ROBOTS: 'robots.txt',
-} as const;
-
-// Масив службових шляхів
-export const NEXT_PATHS_ARR = Object.values(NEXT_PATHS);

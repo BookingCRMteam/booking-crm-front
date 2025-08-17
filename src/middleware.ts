@@ -4,16 +4,27 @@ import { auth0 } from '@/shared/lib/auth0/auth0';
 import { isPublicPath } from '@/shared/utils/access';
 
 export async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  const authRes = await auth0.middleware(request);
-
-  if (isPublicPath(pathname) || pathname.startsWith('/api/auth')) {
-    return authRes;
+  const { pathname } = request.nextUrl;
+  if (pathname.startsWith('/auth')) {
+    return auth0.middleware(request);
   }
 
-  const session = await auth0.getSession(request);
+  if (isPublicPath(pathname)) {
+    return NextResponse.next();
+  }
 
-  if (!session || !session.user) {
+  const authRes = await auth0.middleware(request);
+
+  const session = await auth0.getSession(request);
+  if (!session) {
+    const loginUrl = new URL('/auth/login', request.nextUrl.origin);
+    loginUrl.searchParams.set('returnTo', pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  try {
+    await auth0.getAccessToken(request, authRes);
+  } catch {
     const loginUrl = new URL('/auth/login', request.nextUrl.origin);
     loginUrl.searchParams.set('returnTo', pathname);
     return NextResponse.redirect(loginUrl);

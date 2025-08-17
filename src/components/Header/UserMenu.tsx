@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Avatar,
   Box,
@@ -14,14 +16,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 import { AUTH_URL } from '@/shared/constants/auth';
-import { useCurrentUser } from '@/shared/hooks/useCurrentUser';
+import { useUserStore } from '@/shared/providers/UserStoreProvider';
 
 import { ROLE_MENU_LINKS } from './constants';
 
 export const UserMenu = () => {
-  const { user: currentUser, isLoading } = useCurrentUser();
-
-  console.log(currentUser, 'currentUser');
+  const { user } = useUserStore((state) => state);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,17 +31,15 @@ export const UserMenu = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  if (isLoading) {
-    return <Typography>Loading</Typography>;
-  }
-  if (!currentUser) {
+
+  if (!user) {
     return (
       <Box sx={{ display: 'flex', gap: 2 }}>
         <Button
           variant="contained"
           color="warning"
           component="a"
-          href={AUTH_URL.LOGIN}
+          href={`${AUTH_URL.LOGIN}?returnTo=/catalog`}
         >
           Login
         </Button>
@@ -60,7 +58,7 @@ export const UserMenu = () => {
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={currentUser.firstName} src={currentUser.firstName} />
+          <Avatar alt={user.firstName} src={user.firstName} />
         </IconButton>
       </Tooltip>
 
@@ -80,7 +78,7 @@ export const UserMenu = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {ROLE_MENU_LINKS[currentUser.role]?.map(({ href, name }) => (
+        {ROLE_MENU_LINKS[user.role]?.map(({ href, name }) => (
           <MenuItem key={name} onClick={handleCloseUserMenu}>
             <Typography
               sx={{ textAlign: 'center' }}
