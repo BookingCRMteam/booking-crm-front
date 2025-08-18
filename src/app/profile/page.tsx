@@ -1,12 +1,9 @@
 import { Box, Container, Typography } from '@mui/material';
 
-import Image from 'next/image';
-
-import { auth0 } from '@/shared/lib/auth0/auth0';
+import { getUser } from '@/shared/lib/auth0/getUser';
 
 export default async function Profile() {
-  const session = await auth0.getSession();
-  console.log(session);
+  const user = await getUser();
   return (
     <Container maxWidth="lg">
       <Box
@@ -31,15 +28,7 @@ export default async function Profile() {
             gap: '20px',
           }}
         >
-          {session && session.user.picture ? (
-            <Image
-              src={session.user.picture}
-              alt="Profile"
-              width={80}
-              height={80}
-              style={{ borderRadius: '50%' }}
-            />
-          ) : (
+          {user && (
             <Box
               sx={{
                 width: 80,
@@ -52,19 +41,18 @@ export default async function Profile() {
               }}
             >
               <Typography variant="h4">
-                {(session && session.user.name?.charAt(0)?.toUpperCase()) ||
-                  'U'}
+                {user.user.firstName?.charAt(0)?.toUpperCase() || 'U'}
               </Typography>
             </Box>
           )}
           <Typography variant="h6" component="p" sx={{ mb: 1 }}>
-            name: {session && session.user.name}
+            name: {user && user.user.firstName}
           </Typography>
           <Typography variant="h6" component="p" sx={{ mb: 1 }}>
-            email: {session && session.user.email}
+            email: {user && user.user.email}
           </Typography>
           <Typography variant="h6" component="p" sx={{ mb: 1 }}>
-            roles: {session && session.user.roles}
+            roles: {user && user.user.role}
           </Typography>
         </Box>
       </Box>

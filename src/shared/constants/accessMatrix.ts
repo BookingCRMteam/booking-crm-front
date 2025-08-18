@@ -1,6 +1,12 @@
 import { UserRole } from '../types/roles';
 
-type Routes = '/profile' | '/operator' | '/admin' | '/super-admin';
+//TODO: обдумати реалізацію PRIVATE_ROUTE
+type Routes =
+  | '/profile'
+  | '/operator'
+  | '/admin'
+  | '/super-admin'
+  | '/operator-onboarding';
 
 type AccessMatrix = Record<Routes, UserRole[]>;
 
@@ -9,4 +15,5 @@ export const ACCESS_MATRIX: AccessMatrix = {
   '/operator': ['operator', 'superadmin'],
   '/admin': ['admin', 'superadmin'],
   '/super-admin': ['superadmin'],
+  '/operator-onboarding': ['traveler'],
 } as const;

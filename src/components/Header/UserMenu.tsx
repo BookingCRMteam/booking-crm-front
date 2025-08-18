@@ -16,6 +16,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 import { AUTH_URL } from '@/shared/constants/auth';
+import { APP_ROUTE } from '@/shared/constants/routes';
 import { useUserStore } from '@/shared/providers/UserStoreProvider';
 
 import { ROLE_MENU_LINKS } from './constants';
@@ -39,7 +40,7 @@ export const UserMenu = () => {
           variant="contained"
           color="warning"
           component="a"
-          href={`${AUTH_URL.LOGIN}?returnTo=/catalog`}
+          href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.CATALOG}`}
         >
           Login
         </Button>
@@ -47,7 +48,7 @@ export const UserMenu = () => {
           variant="contained"
           color="success"
           component="a"
-          href={`${AUTH_URL.LOGIN}?returnTo=/continue-signup`}
+          href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.OPERATOR_ONBOARDING}`}
         >
           Login as Operator
         </Button>

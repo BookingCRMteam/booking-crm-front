@@ -10,7 +10,7 @@ type UserWithToken = { user: User; accessToken: string };
 export async function getUser(): Promise<UserWithToken | null> {
   const session = await auth0.getSession();
   if (!session) return null;
-
+  console.log(session);
   const accessToken = session.tokenSet.accessToken;
   if (!accessToken) return null;
 

@@ -1,6 +1,8 @@
 import { Box, Container, Typography } from '@mui/material';
 
-export default function Tours() {
+import OperatorOnboardingForm from '@/features/operator/OperatorOnboardingForm/OperatorOnboardingForm';
+
+export default function OperatorOnboarding() {
   return (
     <Container maxWidth="lg">
       <Box
@@ -13,8 +15,9 @@ export default function Tours() {
         }}
       >
         <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Tours
+          Сторінка заповнення профілю
         </Typography>
+        <OperatorOnboardingForm />
       </Box>
     </Container>
   );

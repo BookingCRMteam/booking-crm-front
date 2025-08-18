@@ -4,7 +4,6 @@ import { authGuard } from '@/shared/lib/auth0/authGuard';
 
 export default async function Operator() {
   const user = await authGuard('/operator');
-  console.log(user);
   return (
     <Container maxWidth="lg">
       <Box
