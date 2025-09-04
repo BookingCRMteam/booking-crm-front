@@ -10,9 +10,7 @@ import { UserStore, createUserStore } from '@/store/userStore';
 
 type UserStoreApi = ReturnType<typeof createUserStore>;
 
-export const UserStoreContext = createContext<UserStoreApi | undefined>(
-  undefined,
-);
+export const UserStoreContext = createContext<UserStoreApi | null>(null);
 
 export const UserStoreProvider = ({
   children,

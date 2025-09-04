@@ -1,7 +1,7 @@
 'use client';
 
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import {
-  Avatar,
   Box,
   Button,
   IconButton,
@@ -37,20 +37,13 @@ export const UserMenu = () => {
     return (
       <Box sx={{ display: 'flex', gap: 2 }}>
         <Button
-          variant="contained"
-          color="warning"
+          variant="outlined"
+          color="inherit"
           component="a"
-          href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.CATALOG}`}
+          startIcon={<PeopleAltOutlinedIcon />}
+          href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.AUTH_REDIRECT}`}
         >
-          Login
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          component="a"
-          href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.OPERATOR_ONBOARDING}`}
-        >
-          Login as Operator
+          Вхід
         </Button>
       </Box>
     );
@@ -59,7 +52,7 @@ export const UserMenu = () => {
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={user.firstName} src={user.firstName} />
+          {user.firstPersonName?.charAt(0)?.toUpperCase() || 'U'}
         </IconButton>
       </Tooltip>
 
@@ -81,13 +74,11 @@ export const UserMenu = () => {
       >
         {ROLE_MENU_LINKS[user.role]?.map(({ href, name }) => (
           <MenuItem key={name} onClick={handleCloseUserMenu}>
-            <Typography
-              sx={{ textAlign: 'center' }}
-              href={href}
-              component={Link}
-            >
-              {name}
-            </Typography>
+            <Link href={href}>
+              <Typography sx={{ textAlign: 'center' }} component="p">
+                {name}
+              </Typography>
+            </Link>
           </MenuItem>
         ))}
         <MenuItem onClick={handleCloseUserMenu}>

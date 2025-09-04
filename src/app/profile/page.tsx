@@ -1,9 +1,10 @@
 import { Box, Container, Typography } from '@mui/material';
 
-import { getUser } from '@/shared/lib/auth0/getUser';
+import { APP_ROUTE } from '@/shared/constants/routes';
+import { authGuard } from '@/shared/lib/auth0/authGuard';
 
 export default async function Profile() {
-  const user = await getUser();
+  const user = await authGuard(APP_ROUTE.PROFILE, ['traveler']);
   return (
     <Container maxWidth="lg">
       <Box
@@ -41,18 +42,18 @@ export default async function Profile() {
               }}
             >
               <Typography variant="h4">
-                {user.user.firstName?.charAt(0)?.toUpperCase() || 'U'}
+                {user.firstPersonName?.charAt(0)?.toUpperCase() || 'U'}
               </Typography>
             </Box>
           )}
           <Typography variant="h6" component="p" sx={{ mb: 1 }}>
-            name: {user && user.user.firstName}
+            name: {user && user.firstPersonName}
           </Typography>
           <Typography variant="h6" component="p" sx={{ mb: 1 }}>
-            email: {user && user.user.email}
+            email: {user && user.email}
           </Typography>
           <Typography variant="h6" component="p" sx={{ mb: 1 }}>
-            roles: {user && user.user.role}
+            roles: {user && user.role}
           </Typography>
         </Box>
       </Box>

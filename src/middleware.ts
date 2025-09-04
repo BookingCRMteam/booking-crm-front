@@ -4,33 +4,33 @@ import { auth0 } from '@/shared/lib/auth0/auth0';
 import { isPublicPath } from '@/shared/utils/access';
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  if (pathname.startsWith('/auth')) {
-    return auth0.middleware(request);
-  }
-
-  if (isPublicPath(pathname)) {
-    return NextResponse.next();
-  }
-
+  const { pathname, origin } = request.nextUrl;
   const authRes = await auth0.middleware(request);
 
-  const session = await auth0.getSession(request);
-  if (!session) {
-    const loginUrl = new URL('/auth/login', request.nextUrl.origin);
-    loginUrl.searchParams.set('returnTo', pathname);
-    return NextResponse.redirect(loginUrl);
+  if (pathname.startsWith('/auth') || isPublicPath(pathname)) {
+    return authRes;
   }
 
   try {
-    await auth0.getAccessToken(request, authRes);
-  } catch {
-    const loginUrl = new URL('/auth/login', request.nextUrl.origin);
-    loginUrl.searchParams.set('returnTo', pathname);
-    return NextResponse.redirect(loginUrl);
-  }
+    const session = await auth0.getSession(request);
 
-  return authRes;
+    if (!session?.tokenSet.accessToken) {
+      return redirectToLogin(origin, pathname);
+    }
+
+    await auth0.getAccessToken(request, authRes);
+
+    return authRes;
+  } catch (err) {
+    console.error('Auth middleware error:', err);
+    return redirectToLogin(origin, pathname);
+  }
+}
+
+function redirectToLogin(origin: string, pathname: string) {
+  const loginUrl = new URL('/auth/login', origin);
+  loginUrl.searchParams.set('returnTo', pathname);
+  return NextResponse.redirect(loginUrl);
 }
 
 export const config = {

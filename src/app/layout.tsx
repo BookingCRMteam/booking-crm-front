@@ -2,6 +2,7 @@ import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 
 import type { Metadata } from 'next';
 
+import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 
 import { getUser } from '@/shared/lib/auth0/getUser';
@@ -28,6 +29,7 @@ export default async function RootLayout({
         <AppProviders accessToken={accessToken} user={user}>
           <Header />
           {children}
+          <Footer />
         </AppProviders>
       </body>
     </html>

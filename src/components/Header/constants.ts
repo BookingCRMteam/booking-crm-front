@@ -2,33 +2,15 @@ import { APP_ROUTE } from '@/shared/constants/routes';
 import { UserRole } from '@/shared/types/roles';
 
 export const NAVIGATION_LINKS = [
-  { name: 'About', href: APP_ROUTE.ABOUT },
-  { name: 'Operator', href: APP_ROUTE.OPERATOR },
+  { name: 'Каталог турів', href: APP_ROUTE.CATALOG },
+  { name: 'Як тут все влаштовано', href: APP_ROUTE.ABOUT },
+  { name: 'FAQ для мандрівників', href: APP_ROUTE.FAQ },
 ];
-
-export const USER_MENU_LINKS = [{ name: 'Profile', href: APP_ROUTE.PROFILE }];
 
 export const ROLE_MENU_LINKS: Record<
   UserRole,
-  { name: string; href: string }[]
+  { name: string; href: APP_ROUTE }[]
 > = {
   traveler: [{ name: 'Profile', href: APP_ROUTE.PROFILE }],
-  operator: [
-    { name: 'Profile', href: APP_ROUTE.PROFILE },
-    { name: 'My tours', href: APP_ROUTE.OPERATOR },
-    { name: 'New tour', href: APP_ROUTE.OPERATOR },
-  ],
-  admin: [
-    { name: 'Profile', href: APP_ROUTE.PROFILE },
-    { name: 'Moderate tours', href: APP_ROUTE.ADMIN },
-    { name: 'Moderate users', href: APP_ROUTE.ADMIN },
-    { name: 'Moderate operators', href: APP_ROUTE.ADMIN },
-  ],
-  superadmin: [
-    { name: 'Profile', href: APP_ROUTE.PROFILE },
-    { name: 'Moderate roles', href: APP_ROUTE.SUPER_ADMIN },
-    { name: 'Moderate tours', href: APP_ROUTE.SUPER_ADMIN },
-    { name: 'Moderate users', href: APP_ROUTE.SUPER_ADMIN },
-    { name: 'Moderate operators', href: APP_ROUTE.SUPER_ADMIN },
-  ],
+  operator: [{ name: 'Profile', href: APP_ROUTE.OPERATOR }],
 };

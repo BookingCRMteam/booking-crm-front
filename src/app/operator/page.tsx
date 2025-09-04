@@ -1,9 +1,10 @@
 import { Box, Container, Typography } from '@mui/material';
 
+import { APP_ROUTE } from '@/shared/constants/routes';
 import { authGuard } from '@/shared/lib/auth0/authGuard';
 
 export default async function Operator() {
-  const user = await authGuard('/operator');
+  const user = await authGuard(APP_ROUTE.OPERATOR, ['operator']);
   return (
     <Container maxWidth="lg">
       <Box
@@ -21,10 +22,10 @@ export default async function Operator() {
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Typography variant="body1" component="p">
-            First name: {user.firstName}
+            First name: {user.firstPersonName}
           </Typography>
           <Typography variant="body1" component="p">
-            Last name: {user.lastName}
+            Last name: {user.firstPersonSurname}
           </Typography>
           <Typography variant="body1" component="p">
             Email: {user.email}

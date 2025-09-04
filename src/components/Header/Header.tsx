@@ -59,7 +59,7 @@ export default function Header() {
               textDecoration: 'none',
             }}
           >
-            TourHub
+            Paired Paths
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

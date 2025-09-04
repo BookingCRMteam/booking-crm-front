@@ -1,34 +1,32 @@
 import { redirect } from 'next/navigation';
 
-import { userApi } from '@/shared/api/user';
+import { APP_ROUTE } from '@/shared/constants/routes';
+import { UserRole } from '@/shared/types/roles';
 import { User } from '@/shared/types/user';
-import { hasAccessToPath } from '@/shared/utils/access';
 
-import { auth0 } from './auth0';
+import { getUser } from './getUser';
 
-export async function authGuard(requiredPath: string): Promise<User> {
-  const session = await auth0.getSession();
+/**
+ * Returns a user object.
+ *
+ * @param requiredPath - The path to the required endpoint.
+ * @param allowedRoles - The allowed roles for the user.
+ *
+ * @returns User object.
+ */
+export async function authGuard(
+  requiredPath: APP_ROUTE,
+  allowedRoles: UserRole[],
+): Promise<User> {
+  const userWithToken = await getUser();
 
-  if (!session || !session.user) {
+  if (!userWithToken) {
     redirect(`/auth/login?returnTo=${requiredPath}`);
   }
 
-  const accessToken = session.tokenSet.accessToken;
-  if (!accessToken) {
-    redirect(`/auth/login?returnTo=${requiredPath}`);
-  }
-
-  let user: User;
-  try {
-    user = await userApi.getCurrentUser(accessToken);
-  } catch (err) {
-    console.error(err);
-    redirect(`/auth/login?returnTo=${requiredPath}`);
-  }
-
-  if (!hasAccessToPath(requiredPath, user.role)) {
+  if (!allowedRoles.includes(userWithToken.user.role)) {
     redirect('/403');
   }
 
-  return user;
+  return userWithToken.user;
 }

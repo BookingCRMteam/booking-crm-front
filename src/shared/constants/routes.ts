@@ -11,7 +11,10 @@ export enum APP_ROUTE {
   BOOKING = '/booking',
   BOOKINGS = '/bookings',
   CATALOG = '/catalog',
+  FAQ = '/faq',
+  AUTH_REDIRECT = '/auth-redirect',
   OPERATOR_ONBOARDING = '/operator-onboarding',
+  OPERATOR_PROFILE = '/operator/profile',
 }
 
 export const PUBLIC_PATHS = {
