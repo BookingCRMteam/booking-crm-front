@@ -2,7 +2,9 @@ import { matchIsValidTel } from 'mui-tel-input';
 import { z } from 'zod';
 
 const nameRegex = /^(?!.* {2})(?!.*-{2})(?!.*'{2})[\p{L}'-]+(?: [\p{L}'-]+)*$/u;
-
+const trueBooleanSchema = z.boolean().refine((val) => val === true, {
+  message: 'Value must be true',
+});
 const stringWithValidNameChars = z
   .string()
   .min(2, { message: 'Введіть від 2 до 100 символів' })
@@ -13,11 +15,8 @@ const stringWithValidNameChars = z
   });
 
 export const operatorOnboardingSchema = z.object({
-  // companyName: stringWithValidNameChars,
-  // description: stringWithValidNameChars,
   firstName: stringWithValidNameChars,
   lastName: stringWithValidNameChars,
-  email: z.email({ message: 'Введіть коректну адресу електронної пошти' }),
   phone: z
     .string()
     .refine(
@@ -26,6 +25,7 @@ export const operatorOnboardingSchema = z.object({
         message: 'Введіть коректний номер телефону',
       },
     ),
+  accept: trueBooleanSchema,
   website: z
     .url({
       protocol: /^https?$/,

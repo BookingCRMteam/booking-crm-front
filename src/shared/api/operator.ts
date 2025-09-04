@@ -1,47 +1,75 @@
-import { apiClient } from './apiClient';
+import { isAxiosError } from 'axios';
+
+import { axiosInstance } from './axiosInstance';
 
 export type Operator = {
   id: number;
+  message: string;
 };
 
-export interface OperatorOnboarding {
-  // companyName: string;
-  // description: string;
+export type OperatorOnboarding = {
   firstName: string;
   lastName: string;
-  email: string;
   website: string;
   phone: string;
-}
+};
 
-export interface ApiErrorResponse {
-  message: string | string[];
+export class ApiError extends Error {
   statusCode?: number;
-  error?: string;
+  constructor(message: string, statusCode?: number) {
+    super(message);
+    this.name = 'ApiError';
+    this.statusCode = statusCode;
+  }
 }
 
 export const operatorApi = {
   setNewOperator: async (body: OperatorOnboarding): Promise<Operator> => {
     try {
-      const res = await apiClient.patch<Operator>('/operator', body);
+      //   return setInterval(
+      //     () =>
+      //       resolve({
+      //         id: 1,
+      //         message:
+      //           'Тут буде повідомлення, чому відхилили заявку на туроператора',
+      //       }),
+      //     2000,
+      //   );
+      // });
+      const res = await axiosInstance.post<Operator>('/operator', body);
       return res.data;
     } catch (err: unknown) {
       //TODO: оптимізувати обробку помилки
-      if (typeof err === 'object' && err !== null && 'response' in err) {
-        const axiosErr = err as {
-          response?: { data?: ApiErrorResponse };
-          message?: string;
-        };
-
-        const msg = axiosErr.response?.data?.message;
-        if (msg) {
-          throw new Error(Array.isArray(msg) ? msg.join(', ') : msg);
-        }
-
-        throw new Error(axiosErr.message || 'Unknown error');
+      if (isAxiosError(err)) {
+        const msg = err.response?.data?.message;
+        const status =
+          err.response?.data?.statusCode ?? err.response?.status ?? undefined;
+        const message =
+          (Array.isArray(msg) ? msg.join(', ') : msg) ||
+          err.message ||
+          'Unknown error';
+        throw new ApiError(message, status);
       }
-
-      throw new Error('Unknown error');
+      throw new ApiError('Unknown error');
+    }
+  },
+  setPublicData: async (body: FormData): Promise<Operator> => {
+    try {
+      const res = await axiosInstance.patch<Operator>('/operator', body);
+      return res.data;
+    } catch (err: unknown) {
+      //TODO: оптимізувати обробку помилки
+      if (isAxiosError(err)) {
+        const msg = err.response?.data?.message;
+        const status =
+          err.response?.data?.statusCode ?? err.response?.status ?? undefined;
+        const message =
+          (Array.isArray(msg) ? msg.join(', ') : msg) ||
+          err.message ||
+          'Unknown error';
+        throw new ApiError(message, status);
+      }
+      throw new ApiError('Unknown error');
     }
   },
 };

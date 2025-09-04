@@ -1,58 +1,31 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Typography } from '@mui/material';
+import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-import { useRouter } from 'next/navigation';
+import { FC } from 'react';
 
 import { MuiTelInput } from 'mui-tel-input';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
-import { useUserStore } from '@/shared/providers/UserStoreProvider';
+import { OperatorOnboardingProps } from './model/types';
 
-import {
-  OperatorOnboardingSchemaValues,
-  operatorOnboardingSchema,
-} from './schema';
-import { useOperatorOnboarding } from './useOperatorOnboarding';
-
-//TODO: Оновити інпути після вточнення
-
-const OperatorOnboardingForm = () => {
-  const router = useRouter();
-  const user = useUserStore((store) => store.user);
+const OperatorOnboardingForm: FC<OperatorOnboardingProps> = ({
+  error,
+  form,
+  isError,
+  isPending,
+  isSuccess,
+  onSubmit,
+}) => {
   const {
-    control,
-    register,
     handleSubmit,
-    formState: { isValid, errors },
-  } = useForm<OperatorOnboardingSchemaValues>({
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: user?.email || 'example@gmail.com',
-      phone: '',
-      website: '',
-    },
-    resolver: zodResolver(operatorOnboardingSchema),
-    mode: 'onTouched',
-  });
-
-  const { mutateAsync, isPending, isSuccess, error, isError } =
-    useOperatorOnboarding();
-
-  const onSubmit = async (data: OperatorOnboardingSchemaValues) => {
-    try {
-      await mutateAsync(data);
-      router.push('/profile');
-    } catch (e) {
-      console.error('Mutation failed:', e);
-    }
-  };
-
+    register,
+    control,
+    formState: { errors, isValid },
+  } = form;
   return (
     <Box
       component="form"
@@ -60,36 +33,25 @@ const OperatorOnboardingForm = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 2,
-        maxWidth: 500,
+        gap: 3,
+        maxWidth: 622,
         width: '100%',
         margin: '0 auto',
-        p: 3,
+        p: 8,
         border: '1px solid #ccc',
         borderRadius: 2,
       }}
     >
-      {/* <TextField
-        label="Назва компанії"
-        {...register('companyName')}
-        error={!!errors.companyName}
-        helperText={errors.companyName?.message}
-        fullWidth
-        required
-        variant="outlined"
-      />
-
-      <TextField
-        label="Опис"
-        {...register('description')}
-        error={!!errors.description}
-        helperText={errors.description?.message}
-        fullWidth
-        required
-        variant="outlined"
-      /> */}
+      <Typography component="h1" variant="h4" sx={{ fontSize: '32px' }}>
+        Вітаємо зі створенням акаунту!
+      </Typography>
+      <Typography component="p" variant="body2" sx={{ textAlign: 'center' }}>
+        Для верифікації вашого статусу “Туроператор”, будь ласка внесіть
+        наступні дані:
+      </Typography>
       <TextField
         label="Ім'я"
+        placeholder="Ім'я"
         {...register('firstName')}
         error={!!errors.firstName}
         helperText={errors.firstName?.message}
@@ -106,17 +68,6 @@ const OperatorOnboardingForm = () => {
         helperText={errors.lastName?.message}
         fullWidth
         variant="outlined"
-      />
-
-      <TextField
-        label="Email"
-        {...register('email')}
-        error={!!errors.email}
-        helperText={errors.email?.message}
-        fullWidth
-        required
-        variant="outlined"
-        disabled
       />
 
       <Controller
@@ -151,17 +102,21 @@ const OperatorOnboardingForm = () => {
         required
         variant="outlined"
       />
-
+      <FormControlLabel
+        control={<Checkbox {...register('accept')} defaultChecked />}
+        label="Я погоджуюсь на обробку персональних даних"
+      />
       <Button
         type="submit"
         variant="contained"
+        size="large"
         disabled={!isValid || isPending}
         loading={isPending}
       >
         Надіслати на верифікацію
       </Button>
-      {isError ? (
-        <Typography variant="h5" component="p">
+      {isError && error ? (
+        <Typography variant="h5" component="p" color="error">
           Сталась помилка: {error.message}
         </Typography>
       ) : null}
