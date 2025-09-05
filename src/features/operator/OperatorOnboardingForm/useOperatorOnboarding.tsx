@@ -11,7 +11,6 @@ import {
   operatorApi,
 } from '@/shared/api/operator';
 import { APP_ROUTE } from '@/shared/constants/routes';
-import { omit } from '@/shared/utils/omit';
 
 import { useStore } from '@/store';
 
@@ -52,9 +51,9 @@ export const useOperatorOnboarding = () => {
   });
 
   const onSubmit = async (data: OperatorOnboardingSchemaValues) => {
-    const restOfOperator = omit(data, ['accept']);
+    const { firstName, lastName, phone, website } = data;
     try {
-      await mutateAsync(restOfOperator);
+      await mutateAsync({ firstName, lastName, phone, website });
       router.push(APP_ROUTE.OPERATOR);
     } catch (e) {
       console.error('Mutation failed:', e);
