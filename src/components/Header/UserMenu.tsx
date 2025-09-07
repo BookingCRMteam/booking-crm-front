@@ -59,6 +59,7 @@ export const UserMenu = () => {
       <Menu
         sx={{ mt: '45px' }}
         id="menu-appbar"
+        disableScrollLock
         anchorEl={anchorElUser}
         anchorOrigin={{
           vertical: 'top',

@@ -1,6 +1,8 @@
 import { APP_ROUTE } from '@/shared/constants/routes';
 import { UserRole } from '@/shared/types/roles';
 
+type RouteHref = (typeof APP_ROUTE)[keyof typeof APP_ROUTE];
+
 export const NAVIGATION_LINKS = [
   { name: 'Каталог турів', href: APP_ROUTE.CATALOG },
   { name: 'Як тут все влаштовано', href: APP_ROUTE.ABOUT },
@@ -9,7 +11,7 @@ export const NAVIGATION_LINKS = [
 
 export const ROLE_MENU_LINKS: Record<
   UserRole,
-  { name: string; href: APP_ROUTE }[]
+  { name: string; href: RouteHref }[]
 > = {
   traveler: [{ name: 'Profile', href: APP_ROUTE.PROFILE }],
   operator: [{ name: 'Profile', href: APP_ROUTE.OPERATOR }],

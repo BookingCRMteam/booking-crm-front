@@ -12,7 +12,7 @@ import {
 } from '@/shared/api/operator';
 import { APP_ROUTE } from '@/shared/constants/routes';
 
-import { useStore } from '@/store';
+import { useNotificationStore } from '@/store/notificationSlice';
 
 import {
   OperatorOnboardingSchemaValues,
@@ -20,7 +20,7 @@ import {
 } from './schema';
 
 export const useOperatorOnboarding = () => {
-  const showNotification = useStore((s) => s.showNotification);
+  const showNotification = useNotificationStore((s) => s.showNotification);
   const router = useRouter();
 
   const { mutateAsync, isPending, isSuccess, error, isError } = useMutation<

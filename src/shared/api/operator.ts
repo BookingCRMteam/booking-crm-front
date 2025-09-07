@@ -26,16 +26,6 @@ export class ApiError extends Error {
 export const operatorApi = {
   setNewOperator: async (body: OperatorOnboarding): Promise<Operator> => {
     try {
-      //   return setInterval(
-      //     () =>
-      //       resolve({
-      //         id: 1,
-      //         message:
-      //           'Тут буде повідомлення, чому відхилили заявку на туроператора',
-      //       }),
-      //     2000,
-      //   );
-      // });
       const res = await axiosInstance.post<Operator>('/operator', body);
       return res.data;
     } catch (err: unknown) {

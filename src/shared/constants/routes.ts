@@ -23,7 +23,5 @@ export const PUBLIC_PATHS = {
   ABOUT: APP_ROUTE.ABOUT,
   TOURS: APP_ROUTE.TOURS,
   CONTACT: APP_ROUTE.CONTACT,
+  FAQ: APP_ROUTE.FAQ,
 } as const;
-
-// Масив всіх публічних шляхів
-export const PUBLIC_PATHS_ARR = Object.values(PUBLIC_PATHS);

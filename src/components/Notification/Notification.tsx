@@ -2,11 +2,11 @@
 
 import { Alert, Snackbar } from '@mui/material';
 
-import { useStore } from '@/store';
+import { useNotificationStore } from '@/store/notificationSlice';
 
 export const Notification = () => {
   const { open, message, severity, autoHideDuration, hideNotification } =
-    useStore((state) => state);
+    useNotificationStore((state) => state);
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
