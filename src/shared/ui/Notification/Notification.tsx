@@ -2,7 +2,7 @@
 
 import { Alert, Snackbar } from '@mui/material';
 
-import { useNotificationStore } from '@/store/notificationSlice';
+import { useNotificationStore } from '@/shared/store/notificationSlice';
 
 export const Notification = () => {
   const { open, message, severity, autoHideDuration, hideNotification } =

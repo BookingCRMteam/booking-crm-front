@@ -1,14 +1,17 @@
 'use client';
 
-import { ReactNode, useCallback, useEffect } from 'react';
+import { type FC, useCallback, useEffect } from 'react';
 
-import type { InternalAxiosRequestConfig } from 'axios';
-import { AxiosHeaders, isAxiosError } from 'axios';
+import {
+  AxiosHeaders,
+  type InternalAxiosRequestConfig,
+  isAxiosError,
+} from 'axios';
 
-import { axiosInstance } from '@/shared/api/axiosInstance';
-import { useUserStore } from '@/shared/providers/UserStoreProvider';
+import { useUserStore } from '@/entities/user';
 
-type Props = { children: ReactNode };
+import { axiosInstance } from '@/shared/api';
+import type { ProviderProps } from '@/shared/types';
 
 const applyAuthHeader = (
   config: InternalAxiosRequestConfig,
@@ -26,7 +29,7 @@ const applyAuthHeader = (
   }
 };
 
-const redirectToLogin = (clearAuth: () => void) => {
+const redirectToLogin = (clearAuth: () => void): void => {
   clearAuth();
   if (typeof window !== 'undefined') {
     const returnTo = window.location.pathname + window.location.search;
@@ -34,7 +37,7 @@ const redirectToLogin = (clearAuth: () => void) => {
   }
 };
 
-export default function ApiClientProvider({ children }: Props) {
+export const ApiClientProvider: FC<ProviderProps> = ({ children }) => {
   const ensureAccessToken = useUserStore((s) => s.ensureAccessToken);
   const refreshAccessToken = useUserStore((s) => s.refreshAccessToken);
   const clearAuth = useUserStore((s) => s.clearAuth);
@@ -96,4 +99,4 @@ export default function ApiClientProvider({ children }: Props) {
   }, [ensureAccessToken, tokenInStore, handleResponseError]);
 
   return <>{children}</>;
-}
+};

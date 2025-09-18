@@ -3,7 +3,7 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import { AUTH_URL } from '@/shared/constants/auth';
 import { APP_ROUTE } from '@/shared/constants/routes';
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <Container
       maxWidth="xl"
@@ -30,13 +30,11 @@ const Footer = () => {
           variant="contained"
           color="primary"
           component="a"
-          href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.OPERATOR_ONBOARDING}`}
+          href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.AUTH_REDIRECT}&authFlow=onboarding`}
         >
-          Зареєструватись
+          Стати партнером
         </Button>
       </Box>
     </Container>
   );
 };
-
-export default Footer;

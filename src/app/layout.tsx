@@ -1,13 +1,16 @@
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
-
 import type { Metadata } from 'next';
 
-import Footer from '@/components/Footer/Footer';
-import Header from '@/components/Header/Header';
+import { Footer } from '@/widgets/Footer';
+import { Header } from '@/widgets/Header';
 
-import { getUser } from '@/shared/lib/auth0/getUser';
-import AppProviders from '@/shared/providers/AppProvider';
+import { ModalHost } from '@/features/modal';
 
+import { getUser } from '@/shared/lib/auth0';
+import type { ProviderProps } from '@/shared/types';
+import { Notification } from '@/shared/ui';
+
+import { AppProviders } from './_providers';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -17,19 +20,18 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<ProviderProps>) {
   const userWithToken = await getUser();
-  const { user = null, accessToken = null } = userWithToken ?? {};
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
         <InitColorSchemeScript attribute="class" />
-        <AppProviders accessToken={accessToken} user={user}>
+        <AppProviders userWithToken={userWithToken}>
           <Header />
           {children}
           <Footer />
+          <Notification />
+          <ModalHost />
         </AppProviders>
       </body>
     </html>
