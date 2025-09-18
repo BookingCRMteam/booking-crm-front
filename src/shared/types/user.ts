@@ -1,6 +1,5 @@
 import { UserRole } from './roles';
 
-// TODO: Додати всі поля з бекенду
 export interface User {
   id: number;
   email: string | null;

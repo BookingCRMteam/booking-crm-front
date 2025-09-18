@@ -1,7 +1,7 @@
+import Link from 'next/link';
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Button, Container, Typography } from '@mui/material';
-
-import Link from 'next/link';
 
 export default function ForbiddenPage() {
   return (

@@ -1,0 +1,1 @@
+export { isPublicPath } from './access';
