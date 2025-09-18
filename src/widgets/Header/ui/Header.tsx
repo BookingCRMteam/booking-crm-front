@@ -1,5 +1,9 @@
 'use client';
 
+import { useState } from 'react';
+
+import Link from 'next/link';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
@@ -10,16 +14,17 @@ import {
   Typography,
 } from '@mui/material';
 
-import { useState } from 'react';
+import { UserMenu } from '@/features/user-menu';
 
-import Link from 'next/link';
+import { useUserStore } from '@/entities/user';
 
-import ModeSwitch from '@/components/ModeSwitch/ModeSwitch';
+import { ModeSwitch } from '@/shared/ui';
 
-import { UserMenu } from './UserMenu';
-import { NAVIGATION_LINKS } from './constants';
+import { NAVIGATION_LINKS } from '../navigation-links';
 
-export default function Header() {
+export const Header = () => {
+  const user = useUserStore((state) => state.user);
+  const operatorStatus = useUserStore((state) => state.operatorStatus);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuToggle = () => {
@@ -79,10 +84,10 @@ export default function Header() {
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <ModeSwitch />
-            <UserMenu />
+            <UserMenu user={user} operatorStatus={operatorStatus} />
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
-}
+};
