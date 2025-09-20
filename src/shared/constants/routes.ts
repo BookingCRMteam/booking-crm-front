@@ -12,7 +12,8 @@ export enum APP_ROUTE {
   BOOKINGS = '/bookings',
   CATALOG = '/catalog',
   FAQ = '/faq',
-  AUTH_REDIRECT = '/auth-redirect',
+  AUTH_REDIRECT = '/auth-redirect/',
+  AUTH_REDIRECT_OPERATOR = '/auth-redirect/?authFlow=onboarding',
   OPERATOR_ONBOARDING = '/operator-onboarding',
   OPERATOR_PROFILE = '/operator/profile',
 }

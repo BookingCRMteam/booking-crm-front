@@ -30,7 +30,7 @@ export const Footer = () => {
           variant="contained"
           color="primary"
           component="a"
-          href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.AUTH_REDIRECT}&authFlow=onboarding`}
+          href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.AUTH_REDIRECT_OPERATOR}`}
         >
           Стати партнером
         </Button>
