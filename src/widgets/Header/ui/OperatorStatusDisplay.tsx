@@ -4,7 +4,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import RotateRightRoundedIcon from '@mui/icons-material/RotateRightRounded';
 import { Typography } from '@mui/material';
 
-import type { OperatorStatus } from '@/shared/api';
+import { OperatorStatus } from '@/entities/operator';
 
 interface OperatorStatusDisplayProps {
   status: OperatorStatus;

@@ -22,7 +22,7 @@ export const ModeSwitch = () => {
         <FormControl size="small" sx={{ minWidth: 120, mt: 1 }}>
           <InputLabel id="mode-select-label">Theme</InputLabel>
           <Select
-            inputProps={{ MenuProps: { disableScrollLock: true } }}
+            // inputProps={{ MenuProps: { disableScrollLock: true } }}
             labelId="mode-select-label"
             id="mode-select"
             value={mode}

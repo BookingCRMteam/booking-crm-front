@@ -6,7 +6,7 @@ import {
 import { render, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import ModeSwitch from './ModeSwitch';
+import { ModeSwitch } from './ModeSwitch';
 
 type MockSupportedColorScheme = 'light' | 'dark' | 'system';
 

@@ -4,28 +4,20 @@ import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
-import { FC } from 'react';
-
 import { MuiTelInput } from 'mui-tel-input';
 import { Controller } from 'react-hook-form';
 
-import { OperatorOnboardingProps } from './model/types';
+import { useOperatorOnboarding } from '../model/useOperatorOnboarding';
 
-const OperatorOnboardingForm: FC<OperatorOnboardingProps> = ({
-  error,
-  form,
-  isError,
-  isPending,
-  isSuccess,
-  onSubmit,
-}) => {
+export const OperatorOnboardingForm = () => {
+  const { form, onSubmit, isPending } = useOperatorOnboarding();
   const {
     handleSubmit,
     register,
     control,
     formState: { errors, isValid },
   } = form;
+
   return (
     <Box
       component="form"
@@ -37,7 +29,7 @@ const OperatorOnboardingForm: FC<OperatorOnboardingProps> = ({
         maxWidth: 622,
         width: '100%',
         margin: '0 auto',
-        p: 8,
+        padding: 8,
         border: '1px solid #ccc',
         borderRadius: 2,
       }}
@@ -80,15 +72,27 @@ const OperatorOnboardingForm: FC<OperatorOnboardingProps> = ({
             {...field}
             value={field.value ?? ''}
             defaultCountry="UA"
-            //TODO: додати потрібні країни, також додати їх у schema
-            onlyCountries={['UA', 'PL']}
             forceCallingCode
+            preferredCountries={['UA', 'US']}
+            continents={['EU', 'NA']}
             disableFormatting
             focusOnSelectCountry
             error={!!fieldState.error}
             helperText={fieldState.error?.message}
-            fullWidth
             variant="outlined"
+            MenuProps={{
+              PaperProps: {
+                style: {
+                  maxHeight: 250,
+                  width: 493,
+                },
+              },
+              disablePortal: true,
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+            }}
           />
         )}
       />
@@ -115,19 +119,6 @@ const OperatorOnboardingForm: FC<OperatorOnboardingProps> = ({
       >
         Надіслати на верифікацію
       </Button>
-      {isError && error ? (
-        <Typography variant="h5" component="p" color="error">
-          Сталась помилка: {error.message}
-        </Typography>
-      ) : null}
-
-      {isSuccess ? (
-        <Typography variant="h5" component="p">
-          Успішно надіслано на верифікацію
-        </Typography>
-      ) : null}
     </Box>
   );
 };
-
-export default OperatorOnboardingForm;

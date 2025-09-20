@@ -14,17 +14,17 @@ import {
   Typography,
 } from '@mui/material';
 
-import { UserMenu } from '@/features/user-menu';
-
-import { useUserStore } from '@/entities/user';
+import { useOperatorQuery } from '@/entities/operator';
+import { useUserQuery } from '@/entities/user';
 
 import { ModeSwitch } from '@/shared/ui';
 
 import { NAVIGATION_LINKS } from '../navigation-links';
+import { UserMenu } from './UserMenu';
 
 export const Header = () => {
-  const user = useUserStore((state) => state.user);
-  const operatorStatus = useUserStore((state) => state.operatorStatus);
+  const { data: user } = useUserQuery();
+  const { data: operator } = useOperatorQuery();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuToggle = () => {
@@ -84,7 +84,7 @@ export const Header = () => {
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <ModeSwitch />
-            <UserMenu user={user} operatorStatus={operatorStatus} />
+            <UserMenu user={user ?? null} operatorStatus={operator?.status} />
           </Box>
         </Toolbar>
       </Container>

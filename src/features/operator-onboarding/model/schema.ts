@@ -1,30 +1,39 @@
 import { matchIsValidTel } from 'mui-tel-input';
 import { z } from 'zod';
 
-const nameRegex = /^(?!.* {2})(?!.*-{2})(?!.*'{2})[\p{L}'-]+(?: [\p{L}'-]+)*$/u;
 const trueBooleanSchema = z.boolean().refine((val) => val === true, {
   message: 'Value must be true',
 });
-const stringWithValidNameChars = z
+
+// лише літери, апострофи і дефіси
+const onlyValidCharsRegex = /^[\p{L}'-]+$/u;
+
+// заборона подвійних дефісів і апострофів
+const noDoubleSymbolsRegex = /^(?!.*-{2})(?!.*'{2}).*$/u;
+
+// заборона дефісів на початку і в кінці
+const noEdgeHyphenRegex = /^(?!-)(?!.*-$).*$/;
+
+export const stringWithValidNameChars = z
   .string()
   .min(2, { message: 'Введіть від 2 до 100 символів' })
   .max(100, { message: 'Введіть від 2 до 100 символів' })
-  .regex(nameRegex, {
-    message:
-      'Дозволено лише літери, пробіли, дефіси (-) та апострофи (’). Не допускаються подвійні дефіси чи апострофи',
+  .regex(onlyValidCharsRegex, {
+    message: 'Дозволено лише літери, дефіси (-) та апострофи (’).',
+  })
+  .regex(noDoubleSymbolsRegex, {
+    message: 'Не допускаються подвійні дефіси чи апострофи.',
+  })
+  .regex(noEdgeHyphenRegex, {
+    message: 'Дефіс не може бути на початку або в кінці.',
   });
 
 export const operatorOnboardingSchema = z.object({
   firstName: stringWithValidNameChars,
   lastName: stringWithValidNameChars,
-  phone: z
-    .string()
-    .refine(
-      (value) => matchIsValidTel(value, { onlyCountries: ['UA', 'PL'] }),
-      {
-        message: 'Введіть коректний номер телефону',
-      },
-    ),
+  phone: z.string().refine((value) => matchIsValidTel(value), {
+    message: 'Введіть коректний номер телефону',
+  }),
   accept: trueBooleanSchema,
   website: z
     .url({

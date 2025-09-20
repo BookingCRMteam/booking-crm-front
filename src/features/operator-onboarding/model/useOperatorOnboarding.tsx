@@ -1,18 +1,17 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-
 import { useRouter } from 'next/navigation';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
 import {
-  Operator,
-  OperatorOnboarding,
+  type Operator,
+  type OperatorOnboarding,
   operatorApi,
-} from '@/shared/api/operator';
-import { APP_ROUTE } from '@/shared/constants/routes';
+} from '@/entities/operator';
 
-import { useNotificationStore } from '@/store/notificationSlice';
+import { APP_ROUTE } from '@/shared/constants';
+import { useNotificationStore } from '@/shared/store';
 
 import {
   OperatorOnboardingSchemaValues,
@@ -20,10 +19,11 @@ import {
 } from './schema';
 
 export const useOperatorOnboarding = () => {
-  const showNotification = useNotificationStore((s) => s.showNotification);
+  const qc = useQueryClient();
   const router = useRouter();
+  const showNotification = useNotificationStore((s) => s.showNotification);
 
-  const { mutateAsync, isPending, isSuccess, error, isError } = useMutation<
+  const { mutateAsync, isPending } = useMutation<
     Operator,
     Error,
     OperatorOnboarding
@@ -31,9 +31,10 @@ export const useOperatorOnboarding = () => {
     mutationFn: (body) => operatorApi.setNewOperator(body),
     onSuccess: () => {
       showNotification('Operator created successfully!', 'success');
+      qc.invalidateQueries({ queryKey: ['user', 'me'] });
+      qc.invalidateQueries({ queryKey: ['operator', 'me'] });
     },
     onError: (error) => {
-      console.log(error);
       showNotification(error.message, 'error');
     },
   });
@@ -59,5 +60,5 @@ export const useOperatorOnboarding = () => {
       console.error('Mutation failed:', e);
     }
   };
-  return { form, onSubmit, isError, isPending, isSuccess, error };
+  return { form, onSubmit, isPending };
 };

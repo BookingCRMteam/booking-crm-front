@@ -13,11 +13,12 @@ import {
   Typography,
 } from '@mui/material';
 
-import { type OperatorStatus } from '@/shared/api';
-import { AUTH_URL } from '@/shared/constants';
-import { type User } from '@/shared/types';
+import { OperatorStatus } from '@/entities/operator';
+import { User } from '@/entities/user';
 
-import { ROLE_MENU_LINKS } from '../role-menu-links';
+import { AUTH_URL } from '@/shared/constants';
+
+import { ROLE_MENU_LINKS } from '../navigation-links';
 import { OperatorStatusDisplay } from './OperatorStatusDisplay';
 
 interface AuthorizedMenuProps {

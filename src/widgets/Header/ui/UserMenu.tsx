@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import { OperatorStatus } from '@/shared/api';
-import type { User } from '@/shared/types';
+import { OperatorStatus } from '@/entities/operator';
+import { User } from '@/entities/user';
 
 import { AuthorizedMenu } from './AuthorizedMenu';
 import { UnauthorizedMenu } from './UnauthorizedMenu';
