@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
-import { OperatorStatus } from '@/entities/operator';
-import { User } from '@/entities/user';
+import type { OperatorStatus } from '@/entities/operator';
+import type { User } from '@/entities/user';
 
 import { AuthorizedMenu } from './AuthorizedMenu';
 import { UnauthorizedMenu } from './UnauthorizedMenu';
 
-export interface UserMenuProps {
+interface UserMenuProps {
   user: User | null;
   operatorStatus?: OperatorStatus;
 }

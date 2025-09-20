@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 interface TabConfig {
   label: string;
   content: React.ReactNode;
@@ -10,7 +12,7 @@ export interface OperatorTabsProps {
 }
 
 export interface CustomTabPanelProps {
-  children: React.ReactNode;
+  children: ReactNode;
   value: number;
   index: number;
 }

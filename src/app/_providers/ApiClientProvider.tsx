@@ -53,18 +53,23 @@ export const ApiClientProvider: FC<ProviderProps> = ({ children }) => {
         __retry?: boolean;
       };
 
-      if (status === 401 && !originalRequest.__retry) {
-        originalRequest.__retry = true;
-        try {
-          const newToken = await refreshAccessToken();
-          if (newToken) {
-            applyAuthHeader(originalRequest, newToken);
-            return axiosInstance(originalRequest);
+      if (status === 401) {
+        if (!originalRequest.__retry) {
+          originalRequest.__retry = true;
+          try {
+            const newToken = await refreshAccessToken();
+            if (newToken) {
+              applyAuthHeader(originalRequest, newToken);
+              return axiosInstance(originalRequest);
+            }
+          } catch (e) {
+            console.error('[Auth] Failed to refresh token', e);
           }
-        } catch (e) {
-          console.error('[Auth] Failed to refresh token', e);
+          redirectToLogin(clearAuth);
+        } else {
+          // Second 401 after retry
+          redirectToLogin(clearAuth);
         }
-        redirectToLogin(clearAuth);
       }
 
       return Promise.reject(error);

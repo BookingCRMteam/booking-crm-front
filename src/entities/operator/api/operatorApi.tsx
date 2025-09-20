@@ -1,3 +1,5 @@
+import { isAxiosError } from 'axios';
+
 import { axiosInstance } from '@/shared/api';
 import { handleApiError } from '@/shared/api';
 
@@ -22,15 +24,16 @@ export const operatorApi = {
   },
   getOperatorMe: async (accessToken?: string): Promise<OperatorMe | null> => {
     try {
-      let headers = {};
-      if (accessToken) {
-        headers = { Authorization: `Bearer ${accessToken}` };
-      }
       const res = await axiosInstance.get<OperatorMe>('/operator/me', {
-        headers,
+        headers: accessToken
+          ? { Authorization: `Bearer ${accessToken}` }
+          : undefined,
       });
       return res.data;
     } catch (e: unknown) {
+      if (isAxiosError(e) && e.response?.status === 401) {
+        return null;
+      }
       handleApiError(e);
     }
   },

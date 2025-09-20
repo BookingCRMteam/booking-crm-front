@@ -1,5 +1,3 @@
-import { cache } from 'react';
-
 import { redirect } from 'next/navigation';
 
 import 'server-only';
@@ -12,7 +10,7 @@ import { auth0 } from '@/shared/lib/auth0';
 
 import { UserWithToken } from '../model/types';
 
-export const getUser = cache(async (): Promise<UserWithToken | null> => {
+export const getUser = async (): Promise<UserWithToken | null> => {
   try {
     const session = await auth0.getSession();
 
@@ -28,4 +26,4 @@ export const getUser = cache(async (): Promise<UserWithToken | null> => {
     console.error('Failed to fetch user data:', err);
     redirect(AUTH_URL.LOGOUT);
   }
-});
+};

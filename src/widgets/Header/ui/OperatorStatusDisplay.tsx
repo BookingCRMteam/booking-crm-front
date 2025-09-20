@@ -4,7 +4,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import RotateRightRoundedIcon from '@mui/icons-material/RotateRightRounded';
 import { Typography } from '@mui/material';
 
-import { OperatorStatus } from '@/entities/operator';
+import type { OperatorStatus } from '@/entities/operator';
 
 interface OperatorStatusDisplayProps {
   status: OperatorStatus;
@@ -13,14 +13,14 @@ interface OperatorStatusDisplayProps {
 export const OperatorStatusDisplay: FC<OperatorStatusDisplayProps> = ({
   status,
 }) => {
-  if (status === 'approved') {
+  if (['rejected', 'pending'].includes(status)) {
     return (
       <Typography
         component="p"
         sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
       >
-        <DoneIcon sx={{ fontSize: '18px' }} />
-        Туроператор
+        <RotateRightRoundedIcon sx={{ fontSize: '18px' }} />
+        Ваш статус на перевірці
       </Typography>
     );
   }
@@ -30,8 +30,8 @@ export const OperatorStatusDisplay: FC<OperatorStatusDisplayProps> = ({
       component="p"
       sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
     >
-      <RotateRightRoundedIcon sx={{ fontSize: '18px' }} />
-      Ваш статус на перевірці
+      <DoneIcon sx={{ fontSize: '18px' }} />
+      Туроператор
     </Typography>
   );
 };
