@@ -1,62 +1,16 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 
-import { APP_ROUTE } from '@/shared/constants/routes';
-import { authGuard } from '@/shared/lib/auth0/authGuard';
+import { ProfilePage } from '@/pages-layer/profile';
+
+import { authGuard } from '@/features/auth';
+
+import { APP_ROUTE } from '@/shared/constants';
 
 export default async function Profile() {
-  const user = await authGuard(APP_ROUTE.PROFILE, ['traveler']);
+  await authGuard(APP_ROUTE.PROFILE, ['traveler']);
   return (
     <Container maxWidth="lg">
-      <Box
-        sx={{
-          my: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '64px',
-        }}
-      >
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Profile
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '20px',
-          }}
-        >
-          {user && (
-            <Box
-              sx={{
-                width: 80,
-                height: 80,
-                borderRadius: '50%',
-                backgroundColor: 'grey.300',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Typography variant="h4">
-                {user.firstPersonName?.charAt(0)?.toUpperCase() || 'U'}
-              </Typography>
-            </Box>
-          )}
-          <Typography variant="h6" component="p" sx={{ mb: 1 }}>
-            name: {user && user.firstPersonName}
-          </Typography>
-          <Typography variant="h6" component="p" sx={{ mb: 1 }}>
-            email: {user && user.email}
-          </Typography>
-          <Typography variant="h6" component="p" sx={{ mb: 1 }}>
-            roles: {user && user.role}
-          </Typography>
-        </Box>
-      </Box>
+      <ProfilePage />
     </Container>
   );
 }

@@ -4,9 +4,9 @@ import type { Metadata } from 'next';
 import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/Header';
 
+import { getUser } from '@/features/auth';
 import { ModalHost } from '@/features/modal';
 
-import { getUser } from '@/shared/lib/auth0';
 import type { ProviderProps } from '@/shared/types';
 import { Notification } from '@/shared/ui';
 

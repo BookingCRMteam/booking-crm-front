@@ -4,9 +4,9 @@ import type { FC } from 'react';
 
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
-import { UserStoreProvider } from '@/entities/user';
+import type { UserWithToken } from '@/features/auth';
 
-import type { UserWithToken } from '@/shared/lib/auth0';
+import { AccessTokenStoreProvider } from '@/shared/session';
 import type { ProviderProps } from '@/shared/types';
 
 import { ApiClientProvider } from './ApiClientProvider';
@@ -21,13 +21,18 @@ export const AppProviders: FC<AppProviderProps> = ({
   children,
   userWithToken,
 }) => {
+  const {
+    accessToken = null,
+    operator = null,
+    user = null,
+  } = userWithToken ?? {};
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider>
-        <QueryProvider>
-          <UserStoreProvider userWithToken={userWithToken}>
+        <QueryProvider operator={operator} user={user}>
+          <AccessTokenStoreProvider accessToken={accessToken}>
             <ApiClientProvider>{children}</ApiClientProvider>
-          </UserStoreProvider>
+          </AccessTokenStoreProvider>
         </QueryProvider>
       </ThemeProvider>
     </AppRouterCacheProvider>

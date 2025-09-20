@@ -1,40 +1,17 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 
-import { APP_ROUTE } from '@/shared/constants/routes';
-import { authGuard } from '@/shared/lib/auth0/authGuard';
+import { OperatorPage } from '@/pages-layer/operator';
+
+import { authGuard } from '@/features/auth';
+
+import { APP_ROUTE } from '@/shared/constants';
 
 export default async function Operator() {
-  const user = await authGuard(APP_ROUTE.OPERATOR, ['operator']);
+  await authGuard(APP_ROUTE.OPERATOR, ['operator']);
+
   return (
     <Container maxWidth="lg">
-      <Box
-        sx={{
-          my: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '64px',
-        }}
-      >
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Operator
-        </Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Typography variant="body1" component="p">
-            First name: {user.firstPersonName}
-          </Typography>
-          <Typography variant="body1" component="p">
-            Last name: {user.firstPersonSurname}
-          </Typography>
-          <Typography variant="body1" component="p">
-            Email: {user.email}
-          </Typography>
-          <Typography variant="body1" component="p">
-            {user.phone}
-          </Typography>
-        </Box>
-      </Box>
+      <OperatorPage />
     </Container>
   );
 }

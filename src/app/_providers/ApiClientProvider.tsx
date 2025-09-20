@@ -8,9 +8,8 @@ import {
   isAxiosError,
 } from 'axios';
 
-import { useUserStore } from '@/entities/user';
-
 import { axiosInstance } from '@/shared/api';
+import { useAccessTokenStore } from '@/shared/session';
 import type { ProviderProps } from '@/shared/types';
 
 const applyAuthHeader = (
@@ -31,17 +30,17 @@ const applyAuthHeader = (
 
 const redirectToLogin = (clearAuth: () => void): void => {
   clearAuth();
-  if (typeof window !== 'undefined') {
-    const returnTo = window.location.pathname + window.location.search;
-    window.location.href = `/auth/login?returnTo=${encodeURIComponent(returnTo)}`;
-  }
+  // if (typeof window !== 'undefined') {
+  // const returnTo = window.location.pathname + window.location.search;
+  // window.location.href = `/auth/login?returnTo=${encodeURIComponent(returnTo)}`;
+  // }
 };
 
 export const ApiClientProvider: FC<ProviderProps> = ({ children }) => {
-  const ensureAccessToken = useUserStore((s) => s.ensureAccessToken);
-  const refreshAccessToken = useUserStore((s) => s.refreshAccessToken);
-  const clearAuth = useUserStore((s) => s.clearAuth);
-  const tokenInStore = useUserStore((s) => s.accessToken);
+  const ensureAccessToken = useAccessTokenStore((s) => s.ensureAccessToken);
+  const refreshAccessToken = useAccessTokenStore((s) => s.refreshAccessToken);
+  const clearAuth = useAccessTokenStore((s) => s.clearAuth);
+  const tokenInStore = useAccessTokenStore((s) => s.accessToken);
 
   const handleResponseError = useCallback(
     async (error: unknown) => {

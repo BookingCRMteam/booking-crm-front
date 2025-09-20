@@ -1,31 +1,23 @@
-'use client';
+import { redirect } from 'next/navigation';
 
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import { Box, Container } from '@mui/material';
+import { Container } from '@mui/material';
 
-import OperatorOnboardingForm from '@/features/operator/OperatorOnboardingForm/OperatorOnboardingForm';
-import { useOperatorOnboarding } from '@/features/operator/OperatorOnboardingForm/useOperatorOnboarding';
+import { authGuard } from '@/features/auth';
+import { OperatorOnboardingForm } from '@/features/operator-onboarding';
 
-import { APP_ROUTE } from '@/shared/constants/routes';
+import { APP_ROUTE } from '@/shared/constants';
 
-export default withPageAuthRequired(
-  function OperatorOnboarding() {
-    const props = useOperatorOnboarding();
-    return (
-      <Container maxWidth="lg">
-        <Box
-          sx={{
-            my: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <OperatorOnboardingForm {...props} />
-        </Box>
-      </Container>
-    );
-  },
-  { returnTo: APP_ROUTE.OPERATOR_ONBOARDING },
-);
+export default async function OperatorOnboarding() {
+  const { operator } = await authGuard(APP_ROUTE.OPERATOR_ONBOARDING, [
+    'operator',
+    'traveler',
+  ]);
+  if (operator && operator.status && operator.status !== 'rejected') {
+    redirect(APP_ROUTE.OPERATOR);
+  }
+  return (
+    <Container maxWidth="lg" sx={{ py: 8 }}>
+      <OperatorOnboardingForm />
+    </Container>
+  );
+}
