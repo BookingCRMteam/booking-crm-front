@@ -30,10 +30,12 @@ const applyAuthHeader = (
 
 const redirectToLogin = (clearAuth: () => void): void => {
   clearAuth();
-  // if (typeof window !== 'undefined') {
-  // const returnTo = window.location.pathname + window.location.search;
-  // window.location.href = `/auth/login?returnTo=${encodeURIComponent(returnTo)}`;
-  // }
+  if (typeof window !== 'undefined') {
+    const { pathname, search } = window.location;
+    if (pathname.startsWith('/auth')) return;
+    const returnTo = pathname + search;
+    window.location.href = `/auth/login?returnTo=${encodeURIComponent(returnTo)}`;
+  }
 };
 
 export const ApiClientProvider: FC<ProviderProps> = ({ children }) => {
