@@ -1,4 +1,5 @@
-import { renderWithProviders } from '../shared/tests/renderWithProviders';
+import { renderWithProviders } from '@/shared/tests';
+
 import Home from './page';
 
 describe('Home page', () => {
