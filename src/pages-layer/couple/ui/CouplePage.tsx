@@ -1,12 +1,14 @@
 'use client';
 
+import { CoupleProfile } from '@/features/couple-profile';
+
 import { Tabs } from '@/shared/ui';
 
-export const ProfilePage = () => {
+export const CouplePage = () => {
   const tabs = [
     {
       label: 'Інформація про нас',
-      content: <>Наша інформація, форма редагування нашої інформацї</>,
+      content: <CoupleProfile />,
     },
     { label: 'Наші бронювання', content: <>Наші бронювання</> },
   ];

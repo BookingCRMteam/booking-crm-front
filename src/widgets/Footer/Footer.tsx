@@ -1,13 +1,13 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 import { AUTH_URL } from '@/shared/constants/auth';
 import { APP_ROUTE } from '@/shared/constants/routes';
 
 export const Footer = () => {
   return (
-    <Container
-      maxWidth="xl"
+    <Box
       sx={{
+        maxwidth: '100%',
         background: '#272727',
         padding: 5,
         display: 'flex',
@@ -35,6 +35,6 @@ export const Footer = () => {
           Стати партнером
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 };
