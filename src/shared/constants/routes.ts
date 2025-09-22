@@ -6,6 +6,7 @@ export enum APP_ROUTE {
   OPERATOR = '/operator',
   PROFILE = '/profile',
   TOURS = '/tours',
+  COUNTRIES = '/countries',
   ABOUT = '/about',
   CONTACT = '/contact',
   BOOKING = '/booking',
@@ -17,6 +18,11 @@ export enum APP_ROUTE {
   OPERATOR_ONBOARDING = '/operator-onboarding',
   OPERATOR_PROFILE = '/operator/profile',
 }
+
+export const DYNAMIC_ROUTE = {
+  CITIES: (iso2: string) => `/countries/${iso2}/cities`,
+  TOUR: (tourId: number) => `/tours/${tourId}`,
+};
 
 export const PUBLIC_PATHS = {
   HOME: APP_ROUTE.HOME,
