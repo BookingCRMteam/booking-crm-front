@@ -33,9 +33,16 @@ export const AvailableSpotsField = ({ control, errors }: FieldProps) => {
             }}
             value={field.value ?? ''}
             onChange={(e) => {
-              const val = Number(e.target.value);
+              const raw = e.target.value;
 
-              if (!isNaN(val)) {
+              if (raw === '') {
+                field.onChange(undefined);
+                return;
+              }
+
+              const val = Number(raw);
+
+              if (!Number.isNaN(val)) {
                 field.onChange(val);
               }
             }}

@@ -1,15 +1,17 @@
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { RefinementCtx, z } from 'zod';
 
 dayjs.extend(isSameOrAfter);
+dayjs.extend(customParseFormat);
 
 export const PhotoMetaSchema = z
   .object({
     id: z.string(),
     isMain: z.boolean(),
     file: z
-      .instanceof(File)
+      .custom<File>((f) => typeof File === 'undefined' || f instanceof File)
       .optional()
       .refine(
         (file) => !file || ['image/jpeg', 'image/png'].includes(file.type),
@@ -32,19 +34,19 @@ export const TourFormSchema = z
 
     title: z
       .string()
+      .trim()
       .min(3, 'Поле обовʼязкове. Має бути більше 3 символів.')
       .max(150, 'Максимально 150 символів.')
       .regex(
         /^(?!.*(--|''|""|\.\.|,,))(?!['" .,\-])[A-Za-zА-Яа-яЁёІіЇїЄєҐґ0-9'" .,\-]+$/,
         `Дозволені: літери, цифри, знаки . , - \n' \n" та пробіли. Не може бути повторюваних спецсимволів. Назва не може містити лише спецсимволи.`,
-      )
-      .trim(),
+      ),
 
     description: z
       .string()
+      .trim()
       .min(50, 'Поле обовʼязкове. Має бути більше 50 символів.')
-      .max(5000, 'Максимум 5000 символів.')
-      .trim(),
+      .max(5000, 'Максимум 5000 символів.'),
 
     countryISO2Code: z.string().nonempty('Поле обовʼязкове. Виберіть країну.'),
 
@@ -94,7 +96,7 @@ export const TourFormSchema = z
     },
   )
 
-  // NOTE: `.superRefine()` is deprecated in Zod 4, and there is no direct replacement yet.
+  // Cross-field validation for currency-dependent price ranges
   .superRefine((data, ctx: RefinementCtx) => {
     let min: number;
     let max: number;
