@@ -34,17 +34,20 @@ export const CityField = ({
           const selectedCity =
             cities.find((city) => city.id === field.value) || null;
 
-          const options = isLoading ? [{ id: 0, name: '' }] : cities;
+          const options = isLoading
+            ? [{ id: 0, name: 'Завантаження...', countryId: 0 }]
+            : cities;
 
           return (
             <Autocomplete
-              disabled={cities.length === 0}
+              disabled={isLoading || cities.length === 0}
               options={options}
               getOptionLabel={(option) => option.name || ''}
               value={selectedCity}
-              onChange={(_, value) =>
-                field.onChange(value && value.id !== 0 ? value.id : 0)
-              }
+              onChange={(_, value) => {
+                if (disabled) return;
+                field.onChange(value && value.id !== 0 ? value.id : 0);
+              }}
               isOptionEqualToValue={(option, value) => option.id === value?.id}
               slotProps={{
                 listbox: { sx: { maxHeight: 200, overflowY: 'auto' } },
@@ -67,7 +70,7 @@ export const CityField = ({
                 return (
                   <li
                     {...props}
-                    key={`${option.id}-${new Date()}`}
+                    key={`${option.id}`}
                     style={{ display: 'flex', alignItems: 'center' }}
                   >
                     {isLoading && option.id === 0 ? (
