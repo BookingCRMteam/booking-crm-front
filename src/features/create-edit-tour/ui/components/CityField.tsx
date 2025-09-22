@@ -59,7 +59,7 @@ export const CityField = ({
                 <TextField
                   {...params}
                   label="Місто"
-                  error={!!errors?.countryISO2Code}
+                  error={!!errors?.cityId}
                   disabled={disabled}
                 />
               )}

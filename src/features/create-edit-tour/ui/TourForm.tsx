@@ -100,7 +100,12 @@ export const TourForm = ({
   }, [ISO2Code, setValue, prevISO2Code]);
 
   const handleFormSubmit = async (data: TourFormValues) => {
-    const formData = transformFormData(data, tourData);
+    const initial =
+      mode === 'edit' && tourId && tourData
+        ? transformBackendToFormValues(tourData)
+        : undefined;
+
+    const formData = transformFormData(data, initial);
 
     setIsSubmitting(true);
     try {

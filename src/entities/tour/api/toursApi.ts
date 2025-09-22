@@ -1,21 +1,30 @@
 import { axiosInstance, handleApiError } from '@/shared/api';
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants/routes';
 
-export const createTour = async (data: FormData) => {
+import { BackendTour } from '../model/types';
+
+export const createTour = async (data: FormData): Promise<BackendTour> => {
   try {
-    await axiosInstance.post(APP_ROUTE.TOURS, data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    const { data: res } = await axiosInstance.post<BackendTour>(
+      APP_ROUTE.TOURS,
+      data,
+    );
+    return res;
   } catch (error: unknown) {
     handleApiError(error);
   }
 };
 
-export const editTour = async (id: number, data: FormData) => {
+export const editTour = async (
+  id: number,
+  data: FormData,
+): Promise<BackendTour> => {
   try {
-    await axiosInstance.patch(DYNAMIC_ROUTE.TOUR(id), data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    const { data: res } = await axiosInstance.patch<BackendTour>(
+      DYNAMIC_ROUTE.TOUR(id),
+      data,
+    );
+    return res;
   } catch (error: unknown) {
     handleApiError(error);
   }

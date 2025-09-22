@@ -20,7 +20,7 @@ export const CurrencyField = ({ control }: FieldProps) => {
               },
             }}
           >
-            <MenuItem value="UAH">UAH</MenuItem>/
+            <MenuItem value="UAH">UAH</MenuItem>
           </Select>
         )}
       />
