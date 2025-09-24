@@ -8,15 +8,12 @@ import { User } from '../api/types';
 
 export const useUserQuery = () => {
   const accessToken = useAccessTokenStore((s) => s.accessToken);
-  const isAccessToken = !!accessToken;
+
   return useQuery<User | null>({
     queryKey: ['user', 'me'],
-    queryFn: async () => {
-      return userApi.getCurrentUser();
-    },
-    staleTime: 1000 * 60 * 1,
-    refetchOnMount: isAccessToken,
-    refetchOnWindowFocus: isAccessToken,
+    queryFn: () => userApi.getCurrentUser(),
+    staleTime: 1000 * 60 * 5,
+    enabled: !!accessToken,
     retry: 1,
   });
 };
