@@ -18,7 +18,7 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
     handleSubmit,
     register,
     control,
-    formState: { errors, isValid },
+    formState: { errors },
   } = form;
   return (
     <Box
@@ -128,7 +128,7 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
           type="submit"
           variant="contained"
           size="large"
-          disabled={!isValid || !isChanged || isPending}
+          disabled={!isChanged || isPending}
           loading={isPending}
         >
           Зберегти

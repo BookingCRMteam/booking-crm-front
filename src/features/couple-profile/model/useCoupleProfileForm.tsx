@@ -41,7 +41,7 @@ export const useCoupleProfileForm = ({ onCancel }: UseCoupleProfileProps) => {
       phone: user?.phone,
     },
     resolver: zodResolver(coupleProfileSchema),
-    mode: 'onTouched',
+    mode: 'onSubmit',
   });
 
   const { watch } = form;
@@ -50,7 +50,6 @@ export const useCoupleProfileForm = ({ onCancel }: UseCoupleProfileProps) => {
   if (user) {
     isChanged = Object.keys(getChangedValues(user, watchedValues)).length > 0;
   }
-
   const onSubmit = async (data: CoupleProfileSchemaValues) => {
     if (user) {
       const changed = getChangedValues(user, data);

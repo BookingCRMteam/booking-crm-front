@@ -12,6 +12,8 @@ interface CoupleProfileInfo {
   user: User;
 }
 
+const NOT_FILLED_TEXT = 'Не заповнено';
+
 export const CoupleProfileInfo: FC<CoupleProfileInfo> = ({ user, onEdit }) => {
   const {
     phone,
@@ -30,19 +32,15 @@ export const CoupleProfileInfo: FC<CoupleProfileInfo> = ({ user, onEdit }) => {
       }}
     >
       <Typography>
-        {`${firstPersonName || ''} ${firstPersonSurname || ''}`}
+        {`${firstPersonName || NOT_FILLED_TEXT} ${firstPersonSurname || NOT_FILLED_TEXT}`}
       </Typography>
-      {(secondPersonName || secondPersonName) && (
-        <Typography>
-          {`${secondPersonName || ''} ${secondPersonSurname || ''}`}
-        </Typography>
-      )}
-      {phone && (
-        <Box sx={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
-          <LocalPhoneOutlinedIcon />
-          <Typography>{phone}</Typography>
-        </Box>
-      )}
+      <Typography>
+        {`${secondPersonName || NOT_FILLED_TEXT} ${secondPersonSurname || NOT_FILLED_TEXT}`}
+      </Typography>
+      <Box sx={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+        <LocalPhoneOutlinedIcon />
+        <Typography>{phone || NOT_FILLED_TEXT}</Typography>
+      </Box>
       {email && <Typography>{user.email}</Typography>}
       <Button
         onClick={onEdit}

@@ -7,7 +7,7 @@ export const Footer = () => {
   return (
     <Box
       sx={{
-        maxwidth: '100%',
+        maxWidth: '100%',
         background: '#272727',
         padding: 5,
         display: 'flex',
