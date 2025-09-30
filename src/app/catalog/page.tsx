@@ -1,21 +1,14 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 
-export default function Catalog() {
+import { CatalogPage } from '@/pages-layer/catalog/ui/CatalogPage';
+
+import { fetchTours } from '@/entities/tour/api/toursApi';
+
+export default async function Catalog() {
+  const tours = await fetchTours({ limit: 6, offset: 0 });
   return (
-    <Container maxWidth="lg">
-      <Box
-        sx={{
-          my: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Catalog page
-        </Typography>
-      </Box>
+    <Container maxWidth={'lg'}>
+      <CatalogPage initialData={tours} />
     </Container>
   );
 }

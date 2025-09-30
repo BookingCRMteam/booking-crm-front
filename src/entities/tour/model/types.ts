@@ -26,3 +26,88 @@ export type TourPhotoFront = {
   file?: File | null;
   isMain: boolean;
 };
+
+export type Tour = {
+  id: number;
+  operatorId: number;
+  title: string;
+  description: string;
+  countryISO2Code: string;
+  cityId: number;
+  type: null;
+  price: string;
+  currency: string;
+  startDate: string;
+  endDate: string;
+  availableSpots: number;
+  conditions: null;
+  isActive: boolean;
+  adults: 1;
+  children: 0;
+  petsAllowed: boolean;
+  departureCityId: null;
+  departureCountryISO2Code: null;
+  createdAt: string;
+  updatedAt: string;
+  photos: TourPhoto[];
+  operator: TourOperator;
+  country: {
+    id: number;
+    iso2: string;
+    iso3: string;
+    translations: [
+      {
+        id: 41;
+        countryIso2: string;
+        languageCode: string;
+        name: string;
+      },
+    ];
+  };
+  city: {
+    id: number;
+    countryIso2: string;
+    translations: {
+      id: number;
+      cityId: number;
+      languageCode: string;
+      name: string;
+    }[];
+  };
+  departureCity: null;
+};
+
+type TourOperator = {
+  id: number;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: number;
+  companyName: string;
+  description: string;
+  firstName: string;
+  lastName: string;
+  website: string;
+  phone: string;
+  status: 'approved' | 'pending' | 'rejected';
+  philosophy: null;
+  photo: string | null;
+};
+
+export type TourPhoto = {
+  id: number;
+  tourId: number;
+  url: string;
+  isMain: boolean;
+  description: string;
+};
+
+export type Tours = {
+  meta: {
+    total: string;
+    limit: number;
+    offset: number;
+  };
+  data: Tour[];
+  message: string;
+};
