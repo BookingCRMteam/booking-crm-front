@@ -12,7 +12,7 @@ export default function Home() {
           alignItems: 'center',
         }}
       >
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+        <Typography variant="h3" component="h1" sx={{ mb: 2 }}>
           Hello Booking CRM team! &#128512;
         </Typography>
       </Box>

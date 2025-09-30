@@ -14,10 +14,10 @@ export default function NotFound() {
           alignItems: 'center',
         }}
       >
-        <Typography variant="h4" component="h2" sx={{ mb: 2 }}>
+        <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
           Not Found
         </Typography>
-        <Typography variant="h4" component="p" sx={{ mb: 2 }}>
+        <Typography variant="h3" component="p" sx={{ mb: 2 }}>
           Could not find requested resource
         </Typography>
         <Button component={Link} href="/" variant="contained" color="primary">

@@ -138,7 +138,7 @@ export const TourForm = ({
       }}
       onSubmit={handleSubmit(handleFormSubmit)}
     >
-      <Typography variant="h5" textAlign="center" sx={{ mb: 2, p: 1 }}>
+      <Typography variant="h3" textAlign="center" sx={{ mb: 2, p: 1 }}>
         {mode === 'create' && 'Додати тур'}
         {mode === 'edit' && 'Редагувати тур'}
       </Typography>

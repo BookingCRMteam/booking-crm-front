@@ -34,10 +34,14 @@ export const OperatorOnboardingForm = () => {
         borderRadius: 2,
       }}
     >
-      <Typography component="h1" variant="h4" sx={{ fontSize: '32px' }}>
+      <Typography component="h1" variant="h3" sx={{ fontSize: '32px' }}>
         Вітаємо зі створенням акаунту!
       </Typography>
-      <Typography component="p" variant="body2" sx={{ textAlign: 'center' }}>
+      <Typography
+        component="p"
+        variant="bodyLarge"
+        sx={{ textAlign: 'center' }}
+      >
         Для верифікації вашого статусу “Туроператор”, будь ласка внесіть
         наступні дані:
       </Typography>

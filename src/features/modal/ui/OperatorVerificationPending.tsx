@@ -33,10 +33,14 @@ export const OperatorVerificationPending = () => {
       >
         <CloseIcon />
       </IconButton>
-      <Typography component="h3" variant="h4">
+      <Typography component="h3" variant="h3">
         Дякуємо!
       </Typography>
-      <Typography component="p" variant="body2" sx={{ textAlign: 'center' }}>
+      <Typography
+        component="p"
+        variant="bodyLarge"
+        sx={{ textAlign: 'center' }}
+      >
         Вашу заявку на статус “Туроператор” отримано. Очікуйте, будь ласка,
         підтвердження вашої веріфікації на протязі доби
       </Typography>
@@ -47,12 +51,12 @@ export const OperatorVerificationPending = () => {
           gap: 1,
         }}
       >
-        <Typography component="p" variant="body2">
+        <Typography component="p" variant="bodyLarge">
           Є питання?
         </Typography>
         <Typography
           component="p"
-          variant="body2"
+          variant="bodyLarge"
           color="info"
           sx={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}
         >
