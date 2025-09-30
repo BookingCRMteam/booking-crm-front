@@ -13,7 +13,8 @@
     "test:watch": "jest --watch",
     "coverage": "jest --coverage",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "svgr": "npx @svgr/cli --typescript --ext tsx --out-dir src/shared/icons --no-prettier --template svgr-mui-template.js --replace-attr-values \"#fff=currentColor\" -- public/svg"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,md}": [
@@ -34,6 +35,7 @@
     "@mui/material-nextjs": "^7.1.1",
     "@mui/x-date-pickers": "^8.11.3",
     "@redux-devtools/extension": "^3.3.0",
+    "@svgr/webpack": "^8.1.0",
     "@tanstack/react-query": "^5.81.5",
     "@tanstack/react-query-devtools": "^5.84.1",
     "axios": "^1.11.0",
