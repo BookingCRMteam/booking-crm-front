@@ -1,92 +1,50 @@
 'use client';
 
-import { useState } from 'react';
-
+import Image from 'next/image';
 import Link from 'next/link';
 
-import MenuIcon from '@mui/icons-material/Menu';
-import {
-  AppBar,
-  Box,
-  Container,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Container, Link as MuiLink } from '@mui/material';
 
 import { useOperatorQuery } from '@/entities/operator';
 import { useUserQuery } from '@/entities/user';
 
-import { ModeSwitch } from '@/shared/ui';
+import { APP_ROUTE } from '@/shared/constants';
+import { customPalette } from '@/shared/theme/customColors';
 
-import { NAVIGATION_LINKS } from '../navigation-links';
+import { NavigationLinks } from './NavigationLinks';
 import { UserMenu } from './UserMenu';
 
 export const Header = () => {
   const { data: user } = useUserQuery();
   const { data: operator } = useOperatorQuery();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenuToggle}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box>
-
-          <Typography
-            variant="h5"
-            noWrap
-            component={Link}
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Paired Paths
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {NAVIGATION_LINKS.map(
-              ({ href, name }: { href: string; name: string }) => (
-                <Typography
-                  key={name}
-                  component={Link}
-                  href={href}
-                  sx={{ my: 2, mx: 2, color: 'inherit', display: 'block' }}
-                >
-                  {name}
-                </Typography>
-              ),
-            )}
-          </Box>
-
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <ModeSwitch />
-            <UserMenu user={user ?? null} operatorStatus={operator?.status} />
-          </Box>
-        </Toolbar>
+    <AppBar
+      position="static"
+      component="header"
+      sx={{ background: customPalette.primary.light2, boxShadow: 'none' }}
+    >
+      <Container
+        maxWidth={'lg'}
+        sx={{
+          padding: '8px 0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <MuiLink
+          component={Link}
+          href={APP_ROUTE.HOME}
+          sx={{
+            p: 0,
+            fontSize: 0,
+            lineHeight: 0,
+          }}
+        >
+          <Image src="/images/logo.png" width={127} height={44} alt="logo" />
+        </MuiLink>
+        <NavigationLinks />
+        <UserMenu user={user ?? null} operatorStatus={operator?.status} />
       </Container>
     </AppBar>
   );
