@@ -9,7 +9,7 @@ import { useInView } from 'react-intersection-observer';
 import { fetchTours } from '@/entities/tour/api/toursApi';
 import type { Tours } from '@/entities/tour/model/types';
 
-import { TourCard } from '@/shared/ui/TourCard/TourCard2';
+import { TourCard } from '@/shared/ui';
 
 import { CatalogEmpty } from './CatalogEmpty';
 
@@ -31,6 +31,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ initialData }) => {
         return nextOffset < total ? nextOffset : undefined;
       },
       initialPageParam: 0,
+      staleTime: Infinity,
       initialData: {
         pages: [initialData],
         pageParams: [0],
@@ -64,11 +65,11 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ initialData }) => {
         )}
       </Grid>
 
-      <Box ref={ref} sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-        {isFetchingNextPage ? (
-          <CircularProgress />
-        ) : hasNextPage ? null : (
-          'Немає більше турів'
+      <Box ref={ref} sx={{ display: 'flex', justifyContent: 'center' }}>
+        {isFetchingNextPage && (
+          <Box sx={{ py: 2 }}>
+            <CircularProgress />
+          </Box>
         )}
       </Box>
     </>

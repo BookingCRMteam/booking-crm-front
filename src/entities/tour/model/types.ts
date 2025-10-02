@@ -34,19 +34,19 @@ export type Tour = {
   description: string;
   countryISO2Code: string;
   cityId: number;
-  type: null;
+  type: string | null;
   price: string;
   currency: string;
   startDate: string;
   endDate: string;
   availableSpots: number;
-  conditions: null;
+  conditions: string | null;
   isActive: boolean;
   adults: number;
   children: number;
   petsAllowed: boolean;
-  departureCityId: null;
-  departureCountryISO2Code: null;
+  departureCityId: string | null;
+  departureCountryISO2Code: string | null;
   createdAt: string;
   updatedAt: string;
   photos: TourPhoto[];
@@ -74,7 +74,7 @@ export type Tour = {
       name: string;
     }[];
   };
-  departureCity: null;
+  departureCity: string | null;
 };
 
 type TourOperator = {

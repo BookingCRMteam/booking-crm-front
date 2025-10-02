@@ -1,5 +1,7 @@
 'use client';
 
+import type { FC } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,17 +18,18 @@ import {
 
 import type { Tour } from '@/entities/tour/model/types';
 
+import { APP_ROUTE } from '@/shared/constants';
 import { CalendarIcon, MapPinIcon } from '@/shared/icons';
 import { formattedDate } from '@/shared/utils';
 
 import Label from './Label';
 import { TourOperatorDisplay } from './TourOperatorDisplay';
 
-export interface TourCardType {
+interface TourCardType {
   tour: Tour;
 }
 
-export const TourCard: React.FC<TourCardType> = ({
+export const TourCard: FC<TourCardType> = ({
   tour: {
     id,
     title,
@@ -244,7 +247,7 @@ export const TourCard: React.FC<TourCardType> = ({
             size="large"
             fullWidth
             component={Link}
-            href={`/tour/${id}`}
+            href={`${APP_ROUTE.TOUR}/${id}`}
             disabled={!isAvailable}
           >
             Детальніше

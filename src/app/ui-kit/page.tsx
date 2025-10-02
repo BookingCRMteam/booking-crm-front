@@ -17,7 +17,7 @@ import { TourCard } from '@/shared/ui/TourCard/TourCard';
 
 import { TOUR_CARDS } from './data';
 
-const page = () => {
+export default function UIKitPage() {
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   return (
     <Container
@@ -72,8 +72,8 @@ const page = () => {
             gap: 3,
           }}
         >
-          <Typography variant="tagBadge">Price / Highlight</Typography>
-          <Typography variant="priceHighlight">Tag / Badge</Typography>
+          <Typography variant="tagBadge">Tag / Badge</Typography>
+          <Typography variant="priceHighlight">Price / Highlight</Typography>
         </Box>
         <Box
           sx={{
@@ -323,13 +323,11 @@ const page = () => {
           </Grid>
           {TOUR_CARDS.map((tour) => (
             <Grid key={tour.id} size={{ xs: 12, md: 6, lg: 4 }}>
-              <TourCard tour={tour} key={tour.id} />
+              <TourCard tour={tour} />
             </Grid>
           ))}
         </Grid>
       </Box>
     </Container>
   );
-};
-
-export default page;
+}

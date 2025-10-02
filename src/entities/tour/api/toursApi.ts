@@ -51,12 +51,15 @@ export const fetchTours = async ({
 }: FetchToursArgs): Promise<Tours> => {
   try {
     const { data } = await axiosInstance.get<Tours>(APP_ROUTE.TOURS, {
-      params: { lang: 'en', limit, offset },
+      params: { limit, offset },
     });
-
     return data;
   } catch (error: unknown) {
-    handleApiError(error);
-    return { data: [], meta: { total: '0', limit, offset }, message: 'Error' };
+    console.log(error);
+    return {
+      data: [],
+      meta: { total: '0', limit, offset },
+      message: 'Failed to fetch tours',
+    };
   }
 };
