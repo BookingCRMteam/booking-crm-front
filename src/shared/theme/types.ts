@@ -13,9 +13,8 @@ declare module '@mui/material/Typography' {
     tagBadge: true;
     navLink: true;
     navLinkActive: true;
-    h4: false;
-    body1: false;
-    body2: false;
+    link: true;
+    breadcrumbLink: true;
   }
 }
 
@@ -31,6 +30,8 @@ declare module '@mui/material/styles' {
     tagBadge: React.CSSProperties;
     navLink: React.CSSProperties;
     navLinkActive: React.CSSProperties;
+    link: React.CSSProperties;
+    breadcrumbLink: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
@@ -43,18 +44,54 @@ declare module '@mui/material/styles' {
     priceHighlight?: React.CSSProperties;
     tagBadge?: React.CSSProperties;
     navLink?: React.CSSProperties;
-    navLinkActive?: React.CSSProperties;
+    Link?: React.CSSProperties;
   }
 
-  interface PaletteColor {
-    light2?: string;
-    white?: string;
-    black?: string;
+  interface Palette {
+    neutral: {
+      black: string;
+      darkGray: string;
+      gray: string;
+      white: string;
+    };
+    gray: Record<number, string>;
+    light: Record<number | string, string>;
+    status: {
+      success: string;
+      positive: string;
+      warning: string;
+      error: string;
+      info: string;
+    };
+    accent: Record<number, string>;
   }
 
-  interface SimplePaletteColorOptions {
-    light2?: string;
-    white?: string;
-    black?: string;
+  interface PaletteOptions {
+    neutral?: {
+      black: string;
+      darkGray: string;
+      gray: string;
+      white: string;
+    };
+    gray?: Record<number, string>;
+    light?: Record<number | string, string>;
+    status?: {
+      success: string;
+      positive: string;
+      warning: string;
+      error: string;
+      info: string;
+    };
+    accent?: Record<number, string>;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    neutral: true;
+    gray: true;
+    light: true;
+    status: true;
+    accent: true;
   }
 }

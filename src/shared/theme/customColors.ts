@@ -2,11 +2,11 @@ export const customPalette = {
   primary: {
     main: '#007a78',
     light: '#83c5be',
-    dark: '#006b75',
-    light2: '#edf6f9',
-    50: '#edfffd',
-    100: '#c2fffa',
-    200: '#84fff7',
+    dark: '#065b59',
+    light2: '#EDF6F9',
+    50: '#EDFFFD',
+    100: '#C2FFFA',
+    200: '#84FFF7',
     300: '#3ffff2',
     400: '#08f9e7',
     500: '#00dccd',
@@ -18,14 +18,14 @@ export const customPalette = {
   },
   neutral: {
     black: '#000500',
-    darkGray: '#333',
-    gray: '#e0e0e0',
+    darkGray: '#545454',
+    gray: '#e0e0e0', //gray 200
     white: '#fff',
   },
   gray: {
     50: '#f7f7f7',
     100: '#ededed',
-    200: '#e0e0e0',
+    200: '#e0e0e0', //neutral gray
     300: '#c8c8c8',
     400: '#adadad',
     500: '#999',
@@ -47,11 +47,11 @@ export const customPalette = {
     800: '#254a49',
     900: '#233e3e',
     950: '#0f2424',
-    2: '#edf6f9', // special case
+    2: '#edf6f9', // special case ???
   },
   background: {
-    mint: '#4ad996',
-    lightMint: '#99f2c8',
+    mint: '#4ad996', // --
+    lightMint: '#99f2c8', // --
   },
   status: {
     success: '#28a745',
