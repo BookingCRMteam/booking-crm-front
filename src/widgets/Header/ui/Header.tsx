@@ -9,7 +9,6 @@ import { useOperatorQuery } from '@/entities/operator';
 import { useUserQuery } from '@/entities/user';
 
 import { APP_ROUTE } from '@/shared/constants';
-import { customPalette } from '@/shared/theme/customColors';
 
 import { NavigationLinks } from './NavigationLinks';
 import { UserMenu } from './UserMenu';
@@ -21,10 +20,10 @@ export const Header = () => {
     <AppBar
       position="static"
       component="header"
-      sx={{ background: customPalette.primary.light2, boxShadow: 'none' }}
+      sx={{ bgcolor: 'secondary.main', boxShadow: 'none' }}
     >
       <Container
-        maxWidth={'lg'}
+        maxWidth="lg"
         sx={{
           padding: '8px 0',
           display: 'flex',
@@ -41,7 +40,13 @@ export const Header = () => {
             lineHeight: 0,
           }}
         >
-          <Image src="/images/logo.png" width={127} height={44} alt="logo" />
+          <Image
+            src="/images/logo.png"
+            width={127}
+            height={44}
+            alt="Booking CRM logo"
+            priority
+          />
         </MuiLink>
         <NavigationLinks />
         <UserMenu user={user ?? null} operatorStatus={operator?.status} />

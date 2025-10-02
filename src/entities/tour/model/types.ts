@@ -42,8 +42,8 @@ export type Tour = {
   availableSpots: number;
   conditions: null;
   isActive: boolean;
-  adults: 1;
-  children: 0;
+  adults: number;
+  children: number;
   petsAllowed: boolean;
   departureCityId: null;
   departureCountryISO2Code: null;
@@ -57,7 +57,7 @@ export type Tour = {
     iso3: string;
     translations: [
       {
-        id: 41;
+        id: number;
         countryIso2: string;
         languageCode: string;
         name: string;

@@ -12,7 +12,6 @@ export enum APP_ROUTE {
   BOOKING = '/booking',
   BOOKINGS = '/bookings',
   CATALOG = '/catalog',
-  CATALOG2 = '/catalog2',
   FAQ = '/faq',
   AUTH_REDIRECT = '/auth-redirect/',
   AUTH_REDIRECT_OPERATOR = '/auth-redirect/?authFlow=onboarding',
@@ -30,7 +29,6 @@ export const DYNAMIC_ROUTE = {
 export const PUBLIC_PATHS = {
   HOME: APP_ROUTE.HOME,
   CATALOG: APP_ROUTE.CATALOG,
-  CATALOG2: APP_ROUTE.CATALOG2,
   ABOUT: APP_ROUTE.ABOUT,
   TOURS: APP_ROUTE.TOURS,
   CONTACT: APP_ROUTE.CONTACT,

@@ -2,13 +2,12 @@ import { Box, Button, Container, Typography } from '@mui/material';
 
 import { AUTH_URL } from '@/shared/constants/auth';
 import { APP_ROUTE } from '@/shared/constants/routes';
-import { customPalette } from '@/shared/theme/customColors';
 
 export const Footer = () => {
   return (
-    <Box sx={{ background: customPalette.primary.light2 }}>
+    <Box component="footer" sx={{ bgcolor: 'secondary.main' }}>
       <Container
-        maxWidth="xl"
+        maxWidth="lg"
         sx={{
           padding: 5,
           display: 'flex',

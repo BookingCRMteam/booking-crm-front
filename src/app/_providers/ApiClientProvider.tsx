@@ -82,12 +82,8 @@ export const ApiClientProvider: FC<ProviderProps> = ({ children }) => {
   useEffect(() => {
     const reqId = axiosInstance.interceptors.request.use(
       async (config: InternalAxiosRequestConfig) => {
-        let token = tokenInStore;
-        if (!token) {
-          token = await ensureAccessToken();
-        }
-        if (token) {
-          applyAuthHeader(config, token);
+        if (tokenInStore) {
+          applyAuthHeader(config, tokenInStore);
         }
         return config;
       },

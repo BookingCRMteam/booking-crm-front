@@ -14,35 +14,35 @@ import {
   Typography,
 } from '@mui/material';
 
+import type { Tour } from '@/entities/tour/model/types';
+
 import { CalendarIcon, MapPinIcon } from '@/shared/icons';
+import { formattedDate } from '@/shared/utils';
 
 import Label from './Label';
+import { TourOperatorDisplay } from './TourOperatorDisplay';
 
-type TourCardType = {
-  id: number;
-  title: string;
-  price: string;
-  photo: string;
-  country: string;
-  date: string;
-  count: number;
-  operator: {
-    name: string;
-    photo: string;
-  };
-};
+export interface TourCardType {
+  tour: Tour;
+}
 
 export const TourCard: React.FC<TourCardType> = ({
-  title,
-  date,
-  country,
-  price,
-  count,
-  photo,
-  operator,
-  id,
+  tour: {
+    id,
+    title,
+    availableSpots,
+    operator,
+    price,
+    photos,
+    startDate,
+    endDate,
+    country,
+  },
 }) => {
-  const isAvailable = count !== 0;
+  const isAvailable = availableSpots !== 0;
+  const date = `${formattedDate(startDate)} - ${formattedDate(endDate)}`;
+
+  const mainPhoto = photos.find((photo) => photo.isMain === true) ?? photos[0];
   const dynamicStyles = (theme: Theme) => ({
     width: 331,
     minHeight: 600,
@@ -52,17 +52,16 @@ export const TourCard: React.FC<TourCardType> = ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    border: '3px solid transparent',
-    transition: 'border 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+    transition: 'all 0.3s ease-in-out',
     boxShadow: 'none',
 
     ...(isAvailable && {
       '&:has(.MuiButton-root:focus)': {
-        border: `3px solid ${theme.palette.primary.dark}`,
+        outline: `3px solid ${theme.palette.primary.dark}`,
       },
 
       '&:has(.MuiButton-root:active)': {
-        border: `3px solid ${theme.palette.primary.light}`,
+        outline: `3px solid ${theme.palette.primary.light}`,
       },
 
       '&:hover': {
@@ -92,8 +91,8 @@ export const TourCard: React.FC<TourCardType> = ({
         }}
       >
         <Image
-          src={photo}
-          alt={title}
+          src={mainPhoto?.url ?? '/images/tourCard/tour.png'}
+          alt={mainPhoto?.description ?? title}
           fill
           sizes="(max-width: 768px) 100vw, 331px"
           style={{
@@ -101,7 +100,7 @@ export const TourCard: React.FC<TourCardType> = ({
           }}
         />
       </Box>
-      <Label count={count} />
+      <Label count={availableSpots} />
       <Box
         className="tour-card-content-wrapper"
         sx={{
@@ -125,7 +124,16 @@ export const TourCard: React.FC<TourCardType> = ({
             p: 0,
           }}
         >
-          <Typography gutterBottom align="center" variant="h3" component="h4">
+          <Typography
+            align="center"
+            variant="h3"
+            component="h4"
+            sx={{
+              '&::first-letter': {
+                textTransform: 'uppercase',
+              },
+            }}
+          >
             {title}
           </Typography>
           <Box
@@ -151,7 +159,15 @@ export const TourCard: React.FC<TourCardType> = ({
                 }}
               >
                 <CalendarIcon fontSize="medium" color="inherit" />
-                <Typography variant="bodyDefault">{date}</Typography>
+                <Typography
+                  variant="bodyDefault"
+                  sx={{
+                    lineHeight: '1',
+                    transform: 'translateY(1.2px)',
+                  }}
+                >
+                  {date}
+                </Typography>
               </Box>
               <Box
                 sx={{
@@ -161,7 +177,18 @@ export const TourCard: React.FC<TourCardType> = ({
                 }}
               >
                 <MapPinIcon fontSize="medium" color="inherit" />
-                <Typography variant="bodyDefault">{country}</Typography>
+                <Typography
+                  variant="bodyDefault"
+                  sx={{
+                    fontFamily: 'Inter',
+                    lineHeight: '1',
+                    transform: 'translateY(1px)',
+                    letterSpacing: '0.04em',
+                  }}
+                  component="p"
+                >
+                  {country.translations[0].name}
+                </Typography>
               </Box>
             </Box>
             <Divider
@@ -181,31 +208,14 @@ export const TourCard: React.FC<TourCardType> = ({
               }}
             >
               <Image
-                src={operator.photo}
+                src={operator.photo ?? '/images/tourCard/operator.png'}
                 width={32}
                 height={32}
                 alt="avatar for operator"
               />
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: 1,
-                }}
-              >
-                <Typography variant="bodyDefault" component="p">
-                  Туроператор:
-                </Typography>
-                <Typography
-                  variant="bodySmall"
-                  component="p"
-                  sx={{
-                    pt: '3px',
-                  }}
-                >
-                  {operator.name}
-                </Typography>
-              </Box>
+              <TourOperatorDisplay
+                operator={`${operator.firstName} ${operator.lastName}`}
+              />
             </Box>
           </Box>
           <Box

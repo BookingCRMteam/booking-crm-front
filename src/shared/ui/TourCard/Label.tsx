@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material';
 interface LabelProps {
   count: number;
 }
+
 const Label: FC<LabelProps> = ({ count }) => {
   const availabilityLabel =
     count === 0
