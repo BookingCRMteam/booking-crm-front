@@ -11,6 +11,8 @@ import {
   Typography,
 } from '@mui/material';
 
+import { CalendarIcon, LoginIcon, MapPinIcon } from '@/shared/icons';
+
 export default function UIKitPage() {
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   return (
@@ -76,6 +78,15 @@ export default function UIKitPage() {
           }}
         >
           <Typography variant="h3">Icons</Typography>
+          <CalendarIcon color="success" fontSize="large" />
+          <CalendarIcon color="error" fontSize="medium" />
+          <CalendarIcon color="info" fontSize="small" />
+          <MapPinIcon color="success" fontSize="large" />
+          <MapPinIcon color="error" fontSize="medium" />
+          <MapPinIcon color="info" fontSize="small" />
+          <LoginIcon color="success" fontSize="large" />
+          <LoginIcon color="error" fontSize="medium" />
+          <LoginIcon color="info" fontSize="small" />
         </Box>
         <Box
           sx={{
@@ -198,6 +209,23 @@ export default function UIKitPage() {
           >
             label
           </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+          >
+            Вхід
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            disabled
+            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+          >
+            Вхід
+          </Button>
         </Box>
         <Typography variant="h2" align="center">
           Buttons Secondary
@@ -247,6 +275,23 @@ export default function UIKitPage() {
             endIcon={<ChevronRightIcon />}
           >
             label
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="large"
+            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+          >
+            Вхід
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="large"
+            disabled
+            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+          >
+            Вхід
           </Button>
         </Box>
         <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
