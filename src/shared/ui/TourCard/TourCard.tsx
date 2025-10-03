@@ -23,7 +23,11 @@ import { CalendarIcon, MapPinIcon } from '@/shared/icons';
 import { formattedDate } from '@/shared/utils';
 
 import Label from './Label';
+import { TourCardImage } from './TourCardImage';
 import { TourOperatorDisplay } from './TourOperatorDisplay';
+
+// const DEFAULT_IMAGE_URL = '/images/tourCard/tour.png';
+const DEFAULT_OPERATOR_IMAGE_URL = '/images/tourCard/operator.png';
 
 interface TourCardType {
   tour: Tour;
@@ -44,8 +48,8 @@ export const TourCard: FC<TourCardType> = ({
 }) => {
   const isAvailable = availableSpots !== 0;
   const date = `${formattedDate(startDate)} - ${formattedDate(endDate)}`;
-
   const mainPhoto = photos.find((photo) => photo.isMain === true) ?? photos[0];
+
   const dynamicStyles = (theme: Theme) => ({
     width: 331,
     minHeight: 600,
@@ -78,6 +82,7 @@ export const TourCard: FC<TourCardType> = ({
       },
     }),
   });
+
   return (
     <Card sx={dynamicStyles}>
       <Box
@@ -93,15 +98,7 @@ export const TourCard: FC<TourCardType> = ({
           transition: 'transform 0.3s ease-in-out',
         }}
       >
-        <Image
-          src={mainPhoto?.url ?? '/images/tourCard/tour.png'}
-          alt={mainPhoto?.description ?? title}
-          fill
-          sizes="(max-width: 768px) 100vw, 331px"
-          style={{
-            objectFit: 'cover',
-          }}
-        />
+        <TourCardImage mainPhoto={mainPhoto} title={title} />
       </Box>
       <Label count={availableSpots} />
       <Box
@@ -123,7 +120,7 @@ export const TourCard: FC<TourCardType> = ({
             flexDirection: 'column',
             alignItems: 'center',
             gap: '12px',
-            color: '#fff',
+            color: (theme) => theme.palette.common.white,
             p: 0,
           }}
         >
@@ -211,7 +208,7 @@ export const TourCard: FC<TourCardType> = ({
               }}
             >
               <Image
-                src={operator.photo ?? '/images/tourCard/operator.png'}
+                src={operator.photo ?? DEFAULT_OPERATOR_IMAGE_URL}
                 width={32}
                 height={32}
                 alt="avatar for operator"

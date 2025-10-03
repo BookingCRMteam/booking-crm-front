@@ -1,16 +1,12 @@
 'use client';
 
-import React, { useEffect } from 'react';
-
 import { Box, CircularProgress, Grid } from '@mui/material';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useInView } from 'react-intersection-observer';
 
-import { fetchTours } from '@/entities/tour/api/toursApi';
 import type { Tours } from '@/entities/tour/model/types';
 
 import { TourCard } from '@/shared/ui';
 
+import { useInfiniteCatalogTours } from '../model/useInfiniteCatalogTours';
 import { CatalogEmpty } from './CatalogEmpty';
 
 interface CatalogPageProps {
@@ -18,41 +14,13 @@ interface CatalogPageProps {
 }
 
 export const CatalogPage: React.FC<CatalogPageProps> = ({ initialData }) => {
-  const limit = initialData?.meta?.limit ?? 6;
-
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery<Tours, Error>({
-      queryKey: ['tours', limit],
-      queryFn: ({ pageParam = 0 }) =>
-        fetchTours({ limit, offset: pageParam as number }),
-      getNextPageParam: (lastPage) => {
-        const nextOffset = lastPage.meta.offset + lastPage.meta.limit;
-        const total = Number(lastPage.meta.total);
-        return nextOffset < total ? nextOffset : undefined;
-      },
-      initialPageParam: 0,
-      staleTime: Infinity,
-      initialData: {
-        pages: [initialData],
-        pageParams: [0],
-      },
-    });
-
-  const { ref, inView } = useInView({
-    threshold: 0,
-    rootMargin: '200px',
+  const { data, isFetchingNextPage, ref, error } = useInfiniteCatalogTours({
+    initialData,
   });
 
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  if (!initialData || !initialData.data?.length) {
+  if (!data?.pages?.[0]?.data?.length || error) {
     return <CatalogEmpty />;
   }
-
   return (
     <>
       <Grid container spacing={3} sx={{ pt: '36px', pb: 5 }}>
