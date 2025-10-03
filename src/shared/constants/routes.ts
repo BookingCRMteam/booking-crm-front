@@ -17,6 +17,7 @@ export enum APP_ROUTE {
   AUTH_REDIRECT_OPERATOR = '/auth-redirect/?authFlow=onboarding',
   OPERATOR_ONBOARDING = '/operator-onboarding',
   OPERATOR_PROFILE = '/operator/profile',
+  UI_KIT = '/ui-kit',
 }
 
 export const DYNAMIC_ROUTE = {
@@ -31,4 +32,5 @@ export const PUBLIC_PATHS = {
   TOURS: APP_ROUTE.TOURS,
   CONTACT: APP_ROUTE.CONTACT,
   FAQ: APP_ROUTE.FAQ,
+  UI_KIT: APP_ROUTE.UI_KIT,
 } as const;

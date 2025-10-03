@@ -17,8 +17,6 @@ import {
 import { useOperatorQuery } from '@/entities/operator';
 import { useUserQuery } from '@/entities/user';
 
-import { ModeSwitch } from '@/shared/ui';
-
 import { NAVIGATION_LINKS } from '../navigation-links';
 import { UserMenu } from './UserMenu';
 
@@ -83,7 +81,6 @@ export const Header = () => {
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <ModeSwitch />
             <UserMenu user={user ?? null} operatorStatus={operator?.status} />
           </Box>
         </Toolbar>
