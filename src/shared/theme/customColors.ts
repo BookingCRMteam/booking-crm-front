@@ -47,7 +47,6 @@ export const customPalette = {
     800: '#254a49',
     900: '#233e3e',
     950: '#0f2424',
-    2: '#edf6f9', // special case ???
   },
   background: {
     mint: '#4ad996', // --
@@ -68,11 +67,5 @@ export const customPalette = {
   base: {
     black: '#000500',
     white: '#fff',
-  },
-  common: {
-    error: '#dc3545',
-    success: '#28a745',
-    warning: '#ffc107',
-    info: '#17a2b8',
   },
 };

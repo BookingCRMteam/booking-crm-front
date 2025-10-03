@@ -6,5 +6,9 @@ export const formattedDate = (rawDate: string) => {
     year: '2-digit',
   } as const;
 
+  if (Number.isNaN(dateObject.getTime())) {
+    return rawDate;
+  }
+
   return dateObject.toLocaleDateString('uk-UA', options);
 };

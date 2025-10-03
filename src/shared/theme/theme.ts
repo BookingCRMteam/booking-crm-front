@@ -15,7 +15,7 @@ const iconSizes = {
 const iconMargin = {
   small: 2,
   medium: 2,
-  large: '9.5',
+  large: 9.5,
 };
 
 const roboto = Roboto({
@@ -54,14 +54,28 @@ export const theme = createTheme({
     neutral: customPalette.neutral,
     gray: customPalette.gray,
     light: customPalette.light,
-    status: customPalette.status,
     accent: customPalette.accent,
     text: {
-      primary: '#000500',
+      primary: customPalette.base.black,
     },
     common: {
       black: customPalette.base.black,
       white: customPalette.base.white,
+    },
+    success: {
+      main: customPalette.status.success,
+    },
+    error: {
+      main: customPalette.status.error,
+    },
+    warning: {
+      main: customPalette.status.warning,
+    },
+    info: {
+      main: customPalette.status.info,
+    },
+    positive: {
+      main: customPalette.status.positive,
     },
   },
   typography: {
@@ -204,7 +218,7 @@ export const theme = createTheme({
             color: palette.gray[900],
           },
         }),
-        sizeLarge: () => ({
+        sizeLarge: ({ theme }) => ({
           ...theme.typography.buttonPrimary,
           textTransform: 'none',
         }),
@@ -337,7 +351,7 @@ export const theme = createTheme({
           style: ({ theme }) => {
             return {
               ...theme.typography.bodySmall,
-              color: theme.palette.status.info,
+              color: theme.palette.info.main,
               textDecoration: 'none',
               cursor: 'pointer',
               '&:hover': {

@@ -48,6 +48,7 @@ declare module '@mui/material/styles' {
   }
 
   interface Palette {
+    positive: Palette['primary'];
     neutral: {
       black: string;
       darkGray: string;
@@ -56,17 +57,11 @@ declare module '@mui/material/styles' {
     };
     gray: Record<number, string>;
     light: Record<number | string, string>;
-    status: {
-      success: string;
-      positive: string;
-      warning: string;
-      error: string;
-      info: string;
-    };
     accent: Record<number, string>;
   }
 
   interface PaletteOptions {
+    positive?: PaletteOptions['primary'];
     neutral?: {
       black: string;
       darkGray: string;
@@ -75,13 +70,6 @@ declare module '@mui/material/styles' {
     };
     gray?: Record<number, string>;
     light?: Record<number | string, string>;
-    status?: {
-      success: string;
-      positive: string;
-      warning: string;
-      error: string;
-      info: string;
-    };
     accent?: Record<number, string>;
   }
 }

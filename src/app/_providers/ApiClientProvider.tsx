@@ -39,7 +39,6 @@ const redirectToLogin = (clearAuth: () => void): void => {
 };
 
 export const ApiClientProvider: FC<ProviderProps> = ({ children }) => {
-  const ensureAccessToken = useAccessTokenStore((s) => s.ensureAccessToken);
   const refreshAccessToken = useAccessTokenStore((s) => s.refreshAccessToken);
   const clearAuth = useAccessTokenStore((s) => s.clearAuth);
   const tokenInStore = useAccessTokenStore((s) => s.accessToken);
@@ -98,7 +97,7 @@ export const ApiClientProvider: FC<ProviderProps> = ({ children }) => {
       axiosInstance.interceptors.request.eject(reqId);
       axiosInstance.interceptors.response.eject(resId);
     };
-  }, [ensureAccessToken, tokenInStore, handleResponseError]);
+  }, [tokenInStore, handleResponseError]);
 
   return <>{children}</>;
 };

@@ -55,14 +55,12 @@ export type Tour = {
     id: number;
     iso2: string;
     iso3: string;
-    translations: [
-      {
-        id: number;
-        countryIso2: string;
-        languageCode: string;
-        name: string;
-      },
-    ];
+    translations: {
+      id: number;
+      countryIso2: string;
+      languageCode: string;
+      name: string;
+    }[];
   };
   city: {
     id: number;
@@ -90,7 +88,7 @@ type TourOperator = {
   website: string;
   phone: string;
   status: 'approved' | 'pending' | 'rejected';
-  philosophy: null;
+  philosophy: string | null;
   photo: string | null;
 };
 
