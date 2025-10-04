@@ -25,6 +25,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'mock-url.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'mock-url.com',
+      },
     ],
   },
 };

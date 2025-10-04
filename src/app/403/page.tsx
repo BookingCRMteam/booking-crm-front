@@ -19,7 +19,7 @@ export default function ForbiddenPage() {
         403 - Доступ заборонено
       </Typography>
 
-      <Typography variant="body1" sx={{ mb: 4 }}>
+      <Typography variant="bodyLarge" sx={{ mb: 4 }}>
         У вас немає прав доступу до цієї сторінки. Якщо ви вважаєте, що це
         помилка — зверніться до адміністратора.
       </Typography>

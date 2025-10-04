@@ -50,7 +50,7 @@ export const OperatorVerificationRejected = ({
       >
         <CloseIcon />
       </IconButton>
-      <Typography component="h3" variant="h4">
+      <Typography component="h3" variant="h3">
         Вашу заявку відхилено!
       </Typography>
       <Box
@@ -62,7 +62,7 @@ export const OperatorVerificationRejected = ({
           width: '100%',
         }}
       >
-        <Typography component="p" variant="body2">
+        <Typography component="p" variant="bodyLarge">
           Ваш статус “Туроператор” не підтверджено.
         </Typography>
         <Box
@@ -72,12 +72,12 @@ export const OperatorVerificationRejected = ({
             gap: 1,
           }}
         >
-          <Typography component="p" variant="body2">
+          <Typography component="p" variant="bodyLarge">
             Причина:
           </Typography>
           <Typography
             component="p"
-            variant="body2"
+            variant="bodyLarge"
             sx={{
               padding: 2,
               border: '1px solid black',
@@ -100,12 +100,12 @@ export const OperatorVerificationRejected = ({
             gap: 1,
           }}
         >
-          <Typography component="p" variant="body2">
+          <Typography component="p" variant="bodyLarge">
             Є питання?
           </Typography>
           <Typography
             component="p"
-            variant="body2"
+            variant="bodyLarge"
             color="info"
             sx={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}
           >

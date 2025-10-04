@@ -12,7 +12,7 @@ export default function Faq() {
           alignItems: 'center',
         }}
       >
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+        <Typography variant="h3" component="h1" sx={{ mb: 2 }}>
           faq
         </Typography>
       </Box>

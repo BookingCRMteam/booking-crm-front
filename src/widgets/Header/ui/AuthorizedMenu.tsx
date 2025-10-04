@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, useState } from 'react';
+import { type FC, ReactNode, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -13,22 +13,21 @@ import {
   Typography,
 } from '@mui/material';
 
-import { OperatorStatus } from '@/entities/operator';
-import { User } from '@/entities/user';
-
 import { AUTH_URL } from '@/shared/constants';
+import { UserRole } from '@/shared/types';
 
 import { ROLE_MENU_LINKS } from '../navigation-links';
-import { OperatorStatusDisplay } from './OperatorStatusDisplay';
 
 interface AuthorizedMenuProps {
-  user: User;
-  operatorStatus?: OperatorStatus;
+  userRole: UserRole;
+  firstPersonName: string;
+  children?: ReactNode;
 }
 
 export const AuthorizedMenu: FC<AuthorizedMenuProps> = ({
-  user,
-  operatorStatus,
+  userRole,
+  firstPersonName,
+  children,
 }) => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -40,12 +39,12 @@ export const AuthorizedMenu: FC<AuthorizedMenuProps> = ({
     setAnchorElUser(null);
   };
 
-  const userInitial = user.firstPersonName?.charAt(0)?.toUpperCase() || 'U';
+  const userInitial = firstPersonName.trim().charAt(0).toUpperCase() || 'U';
 
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        {operatorStatus && <OperatorStatusDisplay status={operatorStatus} />}
+        {children}
         <Tooltip title="Відкрити меню користувача">
           <IconButton
             onClick={handleOpenUserMenu}
@@ -84,7 +83,7 @@ export const AuthorizedMenu: FC<AuthorizedMenuProps> = ({
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {ROLE_MENU_LINKS[user.role]?.map(({ href, name }) => (
+        {ROLE_MENU_LINKS[userRole]?.map(({ href, name }) => (
           <MenuItem key={name} onClick={handleCloseUserMenu}>
             <Link
               href={href}
