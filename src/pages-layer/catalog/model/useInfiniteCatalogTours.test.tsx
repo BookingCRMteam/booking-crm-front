@@ -79,7 +79,7 @@ describe('useInfiniteCatalogTours Hook', () => {
 
     const finalPageData = {
       ...mockTourData,
-      meta: { offset: 2, limit: 1, total: 3 },
+      meta: { offset: 2, limit: 1, total: '3' },
     };
     const finalOffset = getNextPageParam(finalPageData);
     expect(finalOffset).toBeUndefined();

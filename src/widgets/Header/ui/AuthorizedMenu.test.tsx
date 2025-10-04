@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { AUTH_URL } from '@/shared/constants';
 import type { UserRole } from '@/shared/types';
 
 import { AuthorizedMenu } from './AuthorizedMenu';
@@ -32,8 +33,6 @@ jest.mock('../navigation-links', () => ({
     operator: [{ href: '/operator/dashboard', name: 'Дашборд' }],
   },
 }));
-
-const AUTH_URL = { LOGOUT: '/auth/logout' };
 
 const mockTravelerProps = {
   userRole: 'traveler' as UserRole,

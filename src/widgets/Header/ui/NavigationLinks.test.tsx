@@ -12,6 +12,10 @@ jest.mock('next/navigation', () => ({
 const mockUsePathname = usePathname as jest.Mock;
 
 describe('NavigationLinks', () => {
+  beforeEach(() => {
+    mockUsePathname.mockClear();
+  });
+
   const catalogLink = NAVIGATION_LINKS[0];
 
   it('should apply active variant style when path matches link href', () => {
@@ -28,7 +32,9 @@ describe('NavigationLinks', () => {
 
     render(<NavigationLinks />);
 
-    const activeLink = screen.getByRole('link', { name: catalogLink.name });
-    expect(activeLink).not.toHaveClass('MuiTypography-navLinkActive');
+    const catalogLinkElement = screen.getByRole('link', {
+      name: catalogLink.name,
+    });
+    expect(catalogLinkElement).not.toHaveClass('MuiTypography-navLinkActive');
   });
 });

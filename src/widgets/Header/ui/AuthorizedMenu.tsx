@@ -39,7 +39,7 @@ export const AuthorizedMenu: FC<AuthorizedMenuProps> = ({
     setAnchorElUser(null);
   };
 
-  const userInitial = firstPersonName.charAt(0).toUpperCase() || 'U';
+  const userInitial = firstPersonName.trim().charAt(0).toUpperCase() || 'U';
 
   return (
     <>
