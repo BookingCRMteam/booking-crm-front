@@ -59,7 +59,7 @@ const HeaderPure: FC<HeaderPureProps> = ({
           />
         </MuiLink>
         <NavigationLinks />
-        {userRole && firstPersonName ? (
+        {userRole !== undefined && firstPersonName !== undefined ? (
           <AuthorizedMenu userRole={userRole} firstPersonName={firstPersonName}>
             {operatorStatus && (
               <OperatorStatusDisplay status={operatorStatus} />
