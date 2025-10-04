@@ -14,8 +14,13 @@ import {
 
 import { CalendarIcon, LoginIcon, MapPinIcon } from '@/shared/icons';
 import { TourCard } from '@/shared/ui/TourCard/TourCard';
+import { mockCardProps } from '@/shared/ui/TourCard/data';
 
-import { TOUR_CARDS } from './data';
+const TOUR_CARDS = [
+  { ...mockCardProps, id: 101, title: 'Романтична Флоренція' },
+  { ...mockCardProps, id: 102, availableSpots: 0, title: 'Все заброньовано' },
+  { ...mockCardProps, id: 103, availableSpots: 6, title: 'Тур на вихідні' },
+];
 
 export default function UIKitPage() {
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -323,7 +328,7 @@ export default function UIKitPage() {
           </Grid>
           {TOUR_CARDS.map((tour) => (
             <Grid key={tour.id} size={{ xs: 12, md: 6, lg: 4 }}>
-              <TourCard tour={tour} />
+              <TourCard {...tour} />
             </Grid>
           ))}
         </Grid>

@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import type { Tour } from '@/entities/tour/model/types';
+import type { TourPhoto } from '@/entities/tour/model/types';
 
 import { APP_ROUTE } from '@/shared/constants';
 import { CalendarIcon, MapPinIcon } from '@/shared/icons';
@@ -29,22 +29,32 @@ import { TourOperatorDisplay } from './TourOperatorDisplay';
 // const DEFAULT_IMAGE_URL = '/images/tourCard/tour.png';
 const DEFAULT_OPERATOR_IMAGE_URL = '/images/tourCard/operator.png';
 
-interface TourCardType {
-  tour: Tour;
+interface TourCardProps {
+  id: number;
+  title: string;
+  availableSpots: number;
+  price: string;
+  photos: TourPhoto[];
+  startDate: string;
+  endDate: string;
+  countryName: string; // Будемо передавати вже витягнуту назву країни
+  operator: {
+    firstName: string;
+    lastName: string;
+    photo: string | null;
+  };
 }
 
-export const TourCard: FC<TourCardType> = ({
-  tour: {
-    id,
-    title,
-    availableSpots,
-    operator,
-    price,
-    photos,
-    startDate,
-    endDate,
-    country,
-  },
+export const TourCard: FC<TourCardProps> = ({
+  id,
+  title,
+  availableSpots,
+  operator,
+  price,
+  photos,
+  startDate,
+  endDate,
+  countryName,
 }) => {
   const isAvailable = availableSpots !== 0;
   const date = `${formattedDate(startDate)} - ${formattedDate(endDate)}`;
@@ -187,7 +197,7 @@ export const TourCard: FC<TourCardType> = ({
                   }}
                   component="p"
                 >
-                  {country.translations[0].name}
+                  {countryName}
                 </Typography>
               </Box>
             </Box>

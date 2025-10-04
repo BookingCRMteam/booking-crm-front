@@ -57,7 +57,7 @@
     "@storybook/addon-docs": "^9.0.14",
     "@storybook/addon-onboarding": "^9.0.14",
     "@storybook/addon-themes": "^9.0.14",
-    "@storybook/nextjs-vite": "^9.0.14",
+    "@storybook/nextjs": "^9.1.10",
     "@tanstack/eslint-plugin-query": "^5.83.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

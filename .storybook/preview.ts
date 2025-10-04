@@ -1,13 +1,9 @@
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { withThemeFromJSXProvider } from '@storybook/addon-themes';
-import type { Preview } from '@storybook/nextjs-vite';
+import type { Preview } from '@storybook/nextjs';
 
-import { darkTheme } from '../src/shared/theme/dark';
-import { lightTheme } from '../src/shared/theme/light';
+import { theme } from '../src/shared/theme';
+import './storybook-styles.css';
 
 const preview: Preview = {
   parameters: {
@@ -32,8 +28,7 @@ const preview: Preview = {
       GlobalStyles: CssBaseline,
       Provider: ThemeProvider,
       themes: {
-        light: lightTheme,
-        dark: darkTheme,
+        light: theme,
       },
       defaultTheme: 'light',
     }),
