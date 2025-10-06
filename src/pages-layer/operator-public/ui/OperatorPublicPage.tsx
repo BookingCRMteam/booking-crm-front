@@ -12,7 +12,9 @@ import { VerifiedBadge } from '@/pages-layer/operator-public/ui/VerifiedBadge';
 import { useOperatorWithTours } from '@/entities/operator/model/useOperatorWithTours';
 
 export const OperatorPublicPage = ({ id }: { id: string }) => {
-  const { operator, isLoading } = useOperatorWithTours(id);
+  const { operator, isLoading, isError } = useOperatorWithTours(id);
+
+  const secureUrl = operator?.photo?.replace(/^http:\/\//, 'https://');
 
   const formatPhone = (phone?: string) => {
     if (!phone) return '';
@@ -36,12 +38,28 @@ export const OperatorPublicPage = ({ id }: { id: string }) => {
       </Box>
     );
 
+  if (isError)
+    return (
+      <Box
+        sx={{
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant="h5">
+          Не вдалося завантажити дані оператора
+        </Typography>
+      </Box>
+    );
+
   return (
     <>
       <Box component="section" sx={{ display: 'flex', gap: '111px' }}>
         <Box sx={{ py: 5 }}>
           <Image
-            src={operator?.photo || '/images/placeholder_img.png'}
+            src={secureUrl || '/images/placeholder_img.png'}
             alt={operator?.firstName || 'Placeholder image'}
             width={331}
             height={331}
