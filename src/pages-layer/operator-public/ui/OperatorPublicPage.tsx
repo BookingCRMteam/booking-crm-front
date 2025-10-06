@@ -90,26 +90,28 @@ export const OperatorPublicPage = ({ id }: { id: string }) => {
               }}
             >
               <VerifiedBadge />
-              <Link
-                href={`tel:${operator?.phone}`}
-                underline="none"
-                color="inherit"
-                display="flex"
-                alignItems="center"
-                gap={1}
-                sx={{
-                  whiteSpace: 'nowrap',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    textDecoration: 'underline',
-                  },
-                }}
-              >
-                <PhoneIcon size={24} />
-                <Typography variant="bodyLarge" sx={{ whiteSpace: 'nowrap' }}>
-                  {formatPhone(operator?.phone)}
-                </Typography>
-              </Link>
+              {operator?.phone && (
+                <Link
+                  href={`tel:${operator.phone}`}
+                  underline="none"
+                  color="inherit"
+                  display="flex"
+                  alignItems="center"
+                  gap={1}
+                  sx={{
+                    whiteSpace: 'nowrap',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      textDecoration: 'underline',
+                    },
+                  }}
+                >
+                  <PhoneIcon size={24} />
+                  <Typography variant="bodyLarge" sx={{ whiteSpace: 'nowrap' }}>
+                    {formatPhone(operator.phone)}
+                  </Typography>
+                </Link>
+              )}
             </Box>
           </Box>
           <Box>

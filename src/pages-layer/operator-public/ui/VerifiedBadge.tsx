@@ -16,7 +16,7 @@ export const VerifiedBadge = () => {
         justifyContent: 'center',
         gap: 0.5,
         borderRadius: 1,
-        border: `2px solid ${theme.palette.primaryExtended[700]}`,
+        border: `0.5px solid ${theme.palette.primaryExtended[700]}`,
         backgroundColor: theme.palette.accent[3],
       }}
     >
