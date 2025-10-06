@@ -51,6 +51,7 @@ export const theme = createTheme({
       main: customPalette.primary.light2,
     },
     primary: customPalette.primary,
+    primaryExtended: customPalette.primary, // для числових значень
     neutral: customPalette.neutral,
     gray: customPalette.gray,
     light: customPalette.light,
