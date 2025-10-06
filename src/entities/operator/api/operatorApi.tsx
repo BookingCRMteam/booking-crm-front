@@ -46,7 +46,7 @@ export const operatorApi = {
       const res = await axiosInstance.get<OperatorById>(`/operator/${id}`);
       return res.data;
     } catch (e: unknown) {
-      handleApiError(e);
+      throw handleApiError(e);
     }
   },
 };

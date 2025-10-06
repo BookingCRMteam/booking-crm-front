@@ -23,9 +23,9 @@ export const VerifiedBadge = () => {
       <CertificateIcon size={24} />
       <Typography
         component="span"
-        sx={(theme) => ({
+        sx={{
           ...theme.typography.bodyDefault,
-        })}
+        }}
       >
         Верифіковано
       </Typography>

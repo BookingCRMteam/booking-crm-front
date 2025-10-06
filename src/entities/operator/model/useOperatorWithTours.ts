@@ -15,5 +15,6 @@ export const useOperatorWithTours = (id?: string) => {
     operator: operatorQuery.data,
     isLoading: operatorQuery.isLoading,
     isError: operatorQuery.isError,
+    error: operatorQuery.error,
   };
 };

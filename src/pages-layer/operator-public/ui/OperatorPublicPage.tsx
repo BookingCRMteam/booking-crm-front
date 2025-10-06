@@ -75,10 +75,11 @@ export const OperatorPublicPage = ({ id }: { id: string }) => {
           }}
         >
           <Box>
-            <Typography
-              variant="h2"
-              sx={{ mb: 0.5 }}
-            >{`${operator?.firstName} ${operator?.lastName}`}</Typography>
+            <Typography variant="h2" sx={{ mb: 0.5 }}>
+              {operator?.firstName || operator?.lastName
+                ? `${operator.firstName || ''} ${operator.lastName || ''}`.trim()
+                : 'Оператор'}
+            </Typography>
             <Box
               sx={{
                 display: 'flex',
