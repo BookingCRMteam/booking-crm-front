@@ -11,6 +11,8 @@ import { VerifiedBadge } from '@/pages-layer/operator-public/ui/VerifiedBadge';
 
 import { OperatorById } from '@/entities/operator/api/types';
 
+import { formattedPhone } from '@/shared/utils';
+
 export const OperatorPublicPage = ({
   operator,
 }: {
@@ -18,13 +20,7 @@ export const OperatorPublicPage = ({
 }) => {
   const secureUrl = operator.photo?.replace(/^http:\/\//, 'https://');
 
-  const formatPhone = (phone?: string) => {
-    if (!phone) return '';
-    const cleanPhone = phone.startsWith('+38') ? phone.slice(3) : phone;
-    const digits = cleanPhone.replace(/\D/g, '');
-    if (digits.length !== 10) return cleanPhone;
-    return digits.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4');
-  };
+  const phoneDisplay = formattedPhone(operator.phone);
 
   return (
     <>
@@ -80,7 +76,7 @@ export const OperatorPublicPage = ({
                 >
                   <PhoneIcon size={24} />
                   <Typography variant="bodyLarge" sx={{ whiteSpace: 'nowrap' }}>
-                    {formatPhone(operator.phone)}
+                    {phoneDisplay}
                   </Typography>
                 </Link>
               )}
@@ -98,7 +94,9 @@ export const OperatorPublicPage = ({
             <Typography variant="h3" sx={{ mb: '20px' }}>
               Моя філософія
             </Typography>
-            <Typography variant="bodyDefault">{operator.philosophy}</Typography>
+            <Typography variant="bodyDefault">
+              {operator.philosophy || '—'}
+            </Typography>
           </Box>
         </Box>
       </Box>
