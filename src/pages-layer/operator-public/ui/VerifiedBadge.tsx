@@ -1,14 +1,12 @@
 import React from 'react';
 
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { CertificateIcon } from '@phosphor-icons/react';
 
 export const VerifiedBadge = () => {
-  const theme = useTheme();
-
   return (
     <Box
-      sx={{
+      sx={(theme) => ({
         width: '153px',
         height: '28px',
         display: 'inline-flex',
@@ -18,15 +16,10 @@ export const VerifiedBadge = () => {
         borderRadius: 1,
         border: `0.5px solid ${theme.palette.primaryExtended[700]}`,
         backgroundColor: theme.palette.accent[3],
-      }}
+      })}
     >
       <CertificateIcon size={24} />
-      <Typography
-        component="span"
-        sx={{
-          ...theme.typography.bodyDefault,
-        }}
-      >
+      <Typography component="span" variant="bodyDefault">
         Верифіковано
       </Typography>
     </Box>

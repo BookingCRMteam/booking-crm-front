@@ -4,17 +4,19 @@ import React from 'react';
 
 import Image from 'next/image';
 
-import { Box, CircularProgress, Link, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import { PhoneIcon } from '@phosphor-icons/react';
 
 import { VerifiedBadge } from '@/pages-layer/operator-public/ui/VerifiedBadge';
 
-import { useOperatorWithTours } from '@/entities/operator/model/useOperatorWithTours';
+import { OperatorById } from '@/entities/operator/api/types';
 
-export const OperatorPublicPage = ({ id }: { id: string }) => {
-  const { operator, isLoading, isError } = useOperatorWithTours(id);
-
-  const secureUrl = operator?.photo?.replace(/^http:\/\//, 'https://');
+export const OperatorPublicPage = ({
+  operator,
+}: {
+  operator: OperatorById;
+}) => {
+  const secureUrl = operator.photo?.replace(/^http:\/\//, 'https://');
 
   const formatPhone = (phone?: string) => {
     if (!phone) return '';
@@ -24,43 +26,13 @@ export const OperatorPublicPage = ({ id }: { id: string }) => {
     return digits.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4');
   };
 
-  if (isLoading)
-    return (
-      <Box
-        sx={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <CircularProgress size={48} />
-      </Box>
-    );
-
-  if (isError)
-    return (
-      <Box
-        sx={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Typography variant="h5">
-          Не вдалося завантажити дані оператора
-        </Typography>
-      </Box>
-    );
-
   return (
     <>
       <Box component="section" sx={{ display: 'flex', gap: '111px' }}>
         <Box sx={{ py: 5 }}>
           <Image
             src={secureUrl || '/images/placeholder_img.png'}
-            alt={operator?.firstName || 'Placeholder image'}
+            alt={operator.firstName || 'Placeholder image'}
             width={331}
             height={331}
           />
@@ -76,7 +48,7 @@ export const OperatorPublicPage = ({ id }: { id: string }) => {
         >
           <Box>
             <Typography variant="h2" sx={{ mb: 0.5 }}>
-              {operator?.firstName || operator?.lastName
+              {operator.firstName || operator.lastName
                 ? `${operator.firstName || ''} ${operator.lastName || ''}`.trim()
                 : 'Оператор'}
             </Typography>
@@ -90,7 +62,7 @@ export const OperatorPublicPage = ({ id }: { id: string }) => {
               }}
             >
               <VerifiedBadge />
-              {operator?.phone && (
+              {operator.phone && (
                 <Link
                   href={`tel:${operator.phone}`}
                   underline="none"
@@ -119,16 +91,14 @@ export const OperatorPublicPage = ({ id }: { id: string }) => {
               Про себе
             </Typography>
             <Typography variant="bodyDefault">
-              {operator?.description}
+              {operator.description}
             </Typography>
           </Box>
           <Box>
             <Typography variant="h3" sx={{ mb: '20px' }}>
               Моя філософія
             </Typography>
-            <Typography variant="bodyDefault">
-              {operator?.philosophy}
-            </Typography>
+            <Typography variant="bodyDefault">{operator.philosophy}</Typography>
           </Box>
         </Box>
       </Box>
