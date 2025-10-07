@@ -8,11 +8,13 @@ import { OperatorPublicPage } from '@/pages-layer/operator-public';
 
 import { operatorApi } from '@/entities/operator/api/operatorApi';
 
-export default async function OperatorPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+interface OperatorPageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default async function OperatorPage({ params }: OperatorPageProps) {
   let operator = null;
 
   try {
