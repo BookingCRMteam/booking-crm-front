@@ -1,10 +1,8 @@
-import { BackendTour, TourPhotoFront } from '@/entities/tour/model/types';
+import { Tour, TourPhotoFront } from '@/entities/tour/model/types';
 
 import { TourFormValues } from '../model/schema';
 
-export function transformBackendToFormValues(
-  data: BackendTour,
-): TourFormValues {
+export function transformBackendToFormValues(data: Tour): TourFormValues {
   const allowedCurrencies: TourFormValues['currency'][] = ['USD', 'EUR', 'UAH'];
 
   const currency: TourFormValues['currency'] = allowedCurrencies.includes(

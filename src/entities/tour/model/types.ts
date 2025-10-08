@@ -109,3 +109,8 @@ export type Tours = {
   data: Tour[];
   message: string;
 };
+
+export type TourDetail = {
+  message: string;
+  data: Tour;
+};
