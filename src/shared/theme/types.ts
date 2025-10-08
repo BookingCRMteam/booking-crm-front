@@ -1,6 +1,14 @@
 import '@mui/material/Typography';
 import '@mui/material/styles';
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    primaryExtended: Record<number, string>;
+  }
+  interface PaletteOptions {
+    primaryExtended?: Record<number, string>;
+  }
+}
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     bodySmall: true;

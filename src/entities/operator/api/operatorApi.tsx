@@ -1,9 +1,13 @@
 import { isAxiosError } from 'axios';
 
-import { axiosInstance } from '@/shared/api';
-import { handleApiError } from '@/shared/api';
+import { axiosInstance, handleApiError } from '@/shared/api';
 
-import { Operator, OperatorMe, OperatorOnboarding } from './types';
+import {
+  Operator,
+  OperatorById,
+  OperatorMe,
+  OperatorOnboarding,
+} from './types';
 
 export const operatorApi = {
   setNewOperator: async (body: OperatorOnboarding): Promise<Operator> => {
@@ -34,6 +38,14 @@ export const operatorApi = {
       if (isAxiosError(e) && e.response?.status === 401) {
         return null;
       }
+      handleApiError(e);
+    }
+  },
+  getOperatorById: async (id: string): Promise<OperatorById> => {
+    try {
+      const res = await axiosInstance.get<OperatorById>(`/operator/${id}`);
+      return res.data;
+    } catch (e: unknown) {
       handleApiError(e);
     }
   },
