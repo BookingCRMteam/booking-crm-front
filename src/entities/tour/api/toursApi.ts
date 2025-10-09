@@ -1,7 +1,7 @@
 import { axiosInstance, handleApiError } from '@/shared/api';
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants/routes';
 
-import { BackendTour, Tours } from '../model/types';
+import { BackendTour, Tour, TourDetail, Tours } from '../model/types';
 
 export const createTour = async (data: FormData): Promise<BackendTour> => {
   try {
@@ -30,9 +30,11 @@ export const editTour = async (
   }
 };
 
-export const fetchTour = async (id: number) => {
+export const fetchTour = async (id: number): Promise<Tour> => {
   try {
-    const response = await axiosInstance.get(DYNAMIC_ROUTE.TOUR(id));
+    const response = await axiosInstance.get<TourDetail>(
+      DYNAMIC_ROUTE.TOUR(id),
+    );
 
     return response.data.data;
   } catch (error: unknown) {
