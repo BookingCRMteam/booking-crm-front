@@ -7,17 +7,13 @@ import Image from 'next/image';
 import { Box, Link, Typography } from '@mui/material';
 import { PhoneIcon } from '@phosphor-icons/react';
 
-import { VerifiedBadge } from '@/pages-layer/operator-public/ui/VerifiedBadge';
+import { VerifiedBadge } from '@/pages-layer/operator-public/ui/VerifiedBadge/VerifiedBadge';
 
 import { OperatorById } from '@/entities/operator/api/types';
 
 import { formattedPhone } from '@/shared/utils';
 
-export const OperatorPublicPage = ({
-  operator,
-}: {
-  operator: OperatorById;
-}) => {
+export const OperatorHeader = ({ operator }: { operator: OperatorById }) => {
   const secureUrl = operator.photo?.replace(/^http:\/\//, 'https://');
 
   const phoneDisplay = formattedPhone(operator.phone);
@@ -87,7 +83,7 @@ export const OperatorPublicPage = ({
               Про себе
             </Typography>
             <Typography variant="bodyDefault">
-              {operator.description}
+              {operator.description || '—'}
             </Typography>
           </Box>
           <Box>
