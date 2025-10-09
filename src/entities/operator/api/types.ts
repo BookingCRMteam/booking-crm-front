@@ -28,3 +28,20 @@ export interface OperatorMe {
   philosophy: string;
   photo: null | string;
 }
+
+export interface OperatorById {
+  id: number;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: number;
+  companyName: string;
+  description: string;
+  firstName: string;
+  lastName: string;
+  website: string;
+  phone: string;
+  status: OperatorStatus;
+  philosophy: string | null;
+  photo: string | null;
+}
