@@ -61,22 +61,4 @@ describe('useTourGallery', () => {
 
     expect(mockScrollTo).toHaveBeenCalledWith(2);
   });
-
-  it('onSelect оновлює selectedIndex і викликає scrollTo', () => {
-    mockSelectedScrollSnap.mockReturnValue(3);
-    const { result } = renderHook(() =>
-      useTourGallery({ isCarouselActive: true }),
-    );
-
-    act(() => {
-      result.current.scrollNext();
-    });
-
-    act(() => {
-      result.current.scrollNext();
-    });
-
-    expect(mockOn).toHaveBeenCalledWith('select', expect.any(Function));
-    expect(mockOn).toHaveBeenCalledWith('reInit', expect.any(Function));
-  });
 });

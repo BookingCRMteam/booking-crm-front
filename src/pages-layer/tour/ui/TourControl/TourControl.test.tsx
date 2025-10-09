@@ -33,21 +33,13 @@ jest.mock('@/shared/icons', () => ({
   MapPinIcon: () => <svg data-testid="map-icon" />,
 }));
 
-jest.mock('../AvailabilityBadge/AvailabilityBadge', () => ({
-  AvailabilityBadge: ({ isAvailable }: { isAvailable: boolean }) => (
-    <div data-testid="availability-badge">
-      {isAvailable ? 'Доступно' : 'Немає місць'}
-    </div>
-  ),
-}));
-
 describe('TourControl', () => {
   const baseProps = {
     title: 'Неймовірний тур у Карпати',
     price: '10000',
     countryAndCity: 'Україна, Львів',
     date: '12.12.2025',
-    availableSpots: 3,
+    availableSpots: 2,
     operator: {
       id: 1,
       name: 'TravelPro',
@@ -64,7 +56,7 @@ describe('TourControl', () => {
     });
   });
 
-  it('рендерить основну інформацію', () => {
+  it('should render main tour information correctly', () => {
     const { getByRole, getByText } = renderWithProviders(
       <TourControl {...baseProps} />,
     );
@@ -83,11 +75,11 @@ describe('TourControl', () => {
     expect(getByRole('img')).toHaveAttribute('src', baseProps.operator.photo);
   });
 
-  it('показує резервне фото туроператора, якщо він його немає', () => {
+  it('should display fallback operator photo when photo is missing', () => {
     const { getByRole } = renderWithProviders(
       <TourControl
         {...baseProps}
-        operator={{ id: 1, name: 'оператор без фото', photo: null }}
+        operator={{ id: 1, name: 'Operator without photo', photo: null }}
       />,
     );
 
@@ -97,25 +89,29 @@ describe('TourControl', () => {
     );
   });
 
-  it('показує бейдж доступності, якщо є місця', () => {
-    const { getByRole, getByTestId } = renderWithProviders(
+  it('should show availability badge and enable booking button when spots are available', () => {
+    const { getByRole, getByText } = renderWithProviders(
       <TourControl {...baseProps} />,
     );
+    const expectedText = `Залишилось\n${baseProps.availableSpots} вільних місця`;
+    const badge = getByText(expectedText.split('\n').join(' '));
 
-    expect(getByTestId('availability-badge')).toHaveTextContent('Доступно');
+    expect(badge).toBeInTheDocument();
     expect(getByRole('button', { name: 'Забронювати' })).toBeEnabled();
   });
 
-  it('показує "Немає місць", якщо тур недоступний', () => {
-    const { getByRole, getByTestId } = renderWithProviders(
+  it('should show "all spots booked" message and disable booking button when tour is full', () => {
+    const { getByRole, getByText } = renderWithProviders(
       <TourControl {...baseProps} availableSpots={0} />,
     );
+    const expectedText = 'Всі місця\nзаброньовано';
+    const badge = getByText(expectedText.split('\n').join(' '));
 
-    expect(getByTestId('availability-badge')).toHaveTextContent('Немає місць');
+    expect(badge).toBeInTheDocument();
     expect(getByRole('button', { name: 'Забронювати' })).toBeDisabled();
   });
 
-  it('натискання кнопки викликає handleOpen з useBookingAuthModal', async () => {
+  it('should call handleOpen from useBookingAuthModal when booking button is clicked', async () => {
     const handleOpenMock = jest.fn();
     (useBookingAuthModal as jest.Mock).mockReturnValue({
       isModalOpen: false,
@@ -123,6 +119,7 @@ describe('TourControl', () => {
       handleAuth: jest.fn(),
       handleClose: jest.fn(),
     });
+
     const { getByText, user } = renderWithProviders(
       <TourControl {...baseProps} />,
     );

@@ -53,7 +53,7 @@ export interface OperatorLinkProps {
 }
 
 export const OperatorLink: FC<OperatorLinkProps> = ({ id, name, photo }) => {
-  const operatorHref = `/catalog/operator/${id}`;
+  const operatorHref = `/catalog/operator/${id ?? 17}`;
   const operatorPhotoSrc = photo || '/images/tourCard/operator.png';
 
   return (

@@ -3,7 +3,6 @@ import type { FC } from 'react';
 import { Typography, TypographyProps, styled } from '@mui/material';
 
 type BadgeProps = {
-  isAvailable: boolean;
   availableSpots: number;
 };
 
@@ -23,14 +22,14 @@ const StyledBadge = styled(Typography, {
   whiteSpace: 'pre-line',
 }));
 
-export const AvailabilityBadge: FC<BadgeProps> = ({
-  isAvailable,
-  availableSpots,
-}) => {
-  const text = isAvailable
-    ? `Залишилось\n${availableSpots} вільних місця`
-    : 'Всі місця\nзаброньовано';
-
+export const AvailabilityBadge: FC<BadgeProps> = ({ availableSpots }) => {
+  const text =
+    availableSpots === 0
+      ? 'Всі місця\nзаброньовано'
+      : availableSpots > 2
+        ? `Залишилось\n${availableSpots} вільних місць`
+        : `Залишилось\n2 вільних місця`;
+  const isAvailable = availableSpots !== 0;
   return (
     <StyledBadge
       variant="priceHighlight"

@@ -12,12 +12,19 @@ interface TourPageProps {
 
 export default async function Tour({ params }: TourPageProps) {
   const { tourId } = await params;
+  const tourIdNum = Number(tourId);
 
-  const tour = await fetchTour(Number(tourId));
-
-  if (!tour) {
+  if (isNaN(tourIdNum)) {
     return notFound();
   }
 
-  return <TourPage tour={tour} />;
+  try {
+    const tour = await fetchTour(tourIdNum);
+    if (!tour) {
+      return notFound();
+    }
+    return <TourPage tour={tour} />;
+  } catch {
+    return notFound();
+  }
 }

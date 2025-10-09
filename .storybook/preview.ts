@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { withThemeFromJSXProvider } from '@storybook/addon-themes';
 import type { Preview } from '@storybook/nextjs';
@@ -43,14 +41,9 @@ const preview: Preview = {
       );
       usePathname.mockImplementation(() => mockRouter.pathname);
       useSearchParams.mockImplementation(() => {
-        const searchParams = useMemo(
-          () =>
-            new ReadonlyURLSearchParams(
-              new URLSearchParams(mockRouter.query as Record<string, string>),
-            ),
-          [],
+        return new ReadonlyURLSearchParams(
+          new URLSearchParams(mockRouter.query as Record<string, string>),
         );
-        return searchParams;
       });
     },
   },

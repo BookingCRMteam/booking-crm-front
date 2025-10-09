@@ -30,6 +30,7 @@ export const StorybookProviderWrapper: FC<StorybookProviderWrapperProps> = ({
   const storybookQueryClient = getStorybookQueryClient();
 
   if (setQueryMocks) {
+    storybookQueryClient.clear();
     setQueryMocks(storybookQueryClient);
   }
 

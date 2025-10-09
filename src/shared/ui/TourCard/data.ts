@@ -40,8 +40,8 @@ export const mockTour: Tour = {
       id: 3,
       tourId: 74,
       url: '/images/tourCard/tour.png',
-      isMain: true,
-      description: 'Main photo',
+      isMain: false,
+      description: 'secondary photo',
     },
     {
       id: 4,
@@ -54,8 +54,8 @@ export const mockTour: Tour = {
       id: 5,
       tourId: 74,
       url: '/images/tourCard/tour.png',
-      isMain: true,
-      description: 'Main photo',
+      isMain: false,
+      description: 'secondary photo',
     },
     {
       id: 6,
@@ -143,8 +143,8 @@ export const mockCardProps = {
     },
   ],
   operator: {
-    firstName: 'Volodymyr',
-    lastName: 'Basok',
+    firstName: 'Олена',
+    lastName: 'Петренко',
     photo: null,
   },
 };

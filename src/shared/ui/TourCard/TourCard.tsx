@@ -254,7 +254,7 @@ export const TourCard: FC<TourCardProps> = ({
             size="large"
             fullWidth
             component={Link}
-            href={`${APP_ROUTE.CATALOG}/${APP_ROUTE.TOUR}/${id}`}
+            href={`${APP_ROUTE.CATALOG}${APP_ROUTE.TOUR}/${id}`}
             disabled={!isAvailable}
           >
             Детальніше

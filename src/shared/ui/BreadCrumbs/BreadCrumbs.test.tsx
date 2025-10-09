@@ -65,4 +65,12 @@ describe('BreadCrumbs', () => {
 
     expect(screen.queryAllByTestId('separator-icon')).toHaveLength(0);
   });
+  test('should return null when items is empty or undefined', () => {
+    const { container, rerender } = render(<BreadCrumbs items={[]} />);
+
+    expect(container.firstChild).toBeNull();
+
+    rerender(<BreadCrumbs items={undefined as unknown as BreadCrumbsItem[]} />);
+    expect(container.firstChild).toBeNull();
+  });
 });

@@ -15,6 +15,9 @@ export type BreadCrumbsProps = {
 };
 
 export const BreadCrumbs: FC<BreadCrumbsProps> = ({ items }) => {
+  if (!items || items.length === 0) {
+    return null;
+  }
   const lastItem = items[items.length - 1];
   const crumbs = items.slice(0, -1);
   return (

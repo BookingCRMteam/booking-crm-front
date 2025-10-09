@@ -55,4 +55,25 @@ describe('mapTourToViewModel', () => {
 
     expect(viewModel.operatorInfo.name).toBe('Іван Коваль');
   });
+
+  test('should fallback to "Unknown, Unknown" when no country or city names provided', () => {
+    const customTour: Tour = {
+      ...tour,
+      country: {
+        id: 1,
+        iso2: '',
+        iso3: '',
+        translations: [],
+      },
+      city: {
+        id: 1,
+        countryIso2: '',
+        translations: [],
+      },
+    };
+
+    const viewModel = mapTourToViewModel(customTour);
+
+    expect(viewModel.countryAndCity).toBe('Unknown, Unknown');
+  });
 });

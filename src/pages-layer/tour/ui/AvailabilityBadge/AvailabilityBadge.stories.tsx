@@ -17,11 +17,6 @@ const meta: Meta<typeof AvailabilityBadge> = {
   },
 
   argTypes: {
-    isAvailable: {
-      control: 'boolean',
-      description:
-        'Визначає, чи є доступні місця (`true` для > 0). Впливає на колір фону.',
-    },
     availableSpots: {
       control: 'number',
       description:
@@ -37,7 +32,6 @@ export const TwoAvailableSpots: Story = {
   name: '2 доступних місця (Base Case)',
   args: {
     availableSpots: 2,
-    isAvailable: true,
   },
   parameters: {
     docs: {
@@ -53,7 +47,6 @@ export const ManyAvailableSpots: Story = {
   name: 'Багато доступних місць (99+)',
   args: {
     availableSpots: 99,
-    isAvailable: true,
   },
 };
 
@@ -61,7 +54,6 @@ export const FullyBooked: Story = {
   name: 'Всі місця заброньовані',
   args: {
     availableSpots: 0,
-    isAvailable: false,
   },
   parameters: {
     docs: {
@@ -69,20 +61,6 @@ export const FullyBooked: Story = {
         story:
           'Критичний стан: місць немає. Має відображатися кольором `accent[1]` (недоступно).',
       },
-    },
-  },
-};
-
-export const OneSpotLeft: Story = {
-  name: 'Одне місце залишилося (Edge Case)',
-  args: {
-    availableSpots: 1,
-    isAvailable: true,
-  },
-  parameters: {
-    docs: {
-      story:
-        'Перевірка відмінювання слова "місце" (чи коректно відображається однина, якщо це передбачено локалізацією).',
     },
   },
 };

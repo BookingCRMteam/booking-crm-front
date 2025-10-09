@@ -102,10 +102,7 @@ const TourControl: FC<TourControlProps> = ({
             </MetaItem>
           </MetaGroup>
 
-          <AvailabilityBadge
-            isAvailable={isAvailable}
-            availableSpots={availableSpots}
-          />
+          <AvailabilityBadge availableSpots={availableSpots} />
         </InfoRow>
         <PriceDisplay price={price} />
       </InfoSection>
