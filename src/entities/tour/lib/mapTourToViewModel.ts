@@ -27,7 +27,9 @@ export const mapTourToViewModel = (tour: Tour): TourViewModel => ({
   price: tour.price,
   operatorInfo: {
     id: tour.operator.id,
-    name: `${tour.operator.firstName} ${tour.operator.lastName}`,
+    name:
+      `${tour.operator.firstName || ''} ${tour.operator.lastName || ''}`.trim() ||
+      'Unknown Operator',
     photo: tour.operator.photo,
   },
   countryAndCity: `${tour.country.translations[0]?.name || 'Unknown'}, ${tour.city.translations[0]?.name || 'Unknown'}`,

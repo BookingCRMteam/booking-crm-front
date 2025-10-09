@@ -76,4 +76,18 @@ describe('mapTourToViewModel', () => {
 
     expect(viewModel.countryAndCity).toBe('Unknown, Unknown');
   });
+  test('should fallback to "Unknown Operator" when no operator name provided', () => {
+    const customTour: Tour = {
+      ...tour,
+      operator: {
+        ...tour.operator,
+        firstName: '',
+        lastName: '',
+      },
+    };
+
+    const viewModel = mapTourToViewModel(customTour);
+
+    expect(viewModel.operatorInfo.name).toBe('Unknown Operator');
+  });
 });
