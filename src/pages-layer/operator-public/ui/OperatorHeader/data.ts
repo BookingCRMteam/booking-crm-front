@@ -17,5 +17,5 @@ export const mockOperator: OperatorById = {
   philosophy:
     'Я вірю, що подорож — це про емоції та відчуття. Тому створюю маршрути так, щоб вони залишали не тільки спогади про місця, а й тепло в серці — від келиха вина серед тосканських пагорбів до вечері під звуки фаду в Лісабоні.',
 
-  photo: '/images/public-operator.jpg',
+  photo: '/images/public_operator.jpg',
 };
