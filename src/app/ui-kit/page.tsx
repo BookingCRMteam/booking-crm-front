@@ -9,6 +9,7 @@ import {
   Container,
   Grid,
   Link,
+  TextField,
   Typography,
 } from '@mui/material';
 
@@ -332,6 +333,71 @@ export default function UIKitPage() {
             </Grid>
           ))}
         </Grid>
+        <Typography>Inputs</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '32px',
+          }}
+        >
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            value="Input with text"
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            helperText="Here helper text"
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            helperText="Here error text"
+            error={true}
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            disabled
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            value="input disabled with value"
+            disabled
+          />
+        </Box>
       </Box>
     </Container>
   );
