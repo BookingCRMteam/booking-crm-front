@@ -36,7 +36,7 @@ export interface OperatorById {
   updatedAt: string;
   userId: number;
   companyName: string;
-  description: string;
+  description: string | null;
   firstName: string;
   lastName: string;
   website: string;
