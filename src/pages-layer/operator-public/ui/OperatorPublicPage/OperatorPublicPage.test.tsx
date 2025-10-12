@@ -20,9 +20,9 @@ describe('OperatorPublicPage', () => {
 
     expect(OperatorHeader).toHaveBeenCalledTimes(1);
 
-    expect(OperatorHeader).toHaveBeenCalledWith(
-      expect.objectContaining({ operator: mockOperator }),
-    );
+    expect((OperatorHeader as jest.Mock).mock.calls[0][0]).toEqual({
+      operator: mockOperator,
+    });
 
     expect(screen.getByTestId('operator-header')).toBeInTheDocument();
   });
