@@ -24,7 +24,11 @@ export const OperatorHeader = ({ operator }: { operator: OperatorById }) => {
         <Box sx={{ py: 5 }}>
           <Image
             src={secureUrl || '/images/placeholder_img.png'}
-            alt={secureUrl ? operator.firstName : 'Placeholder image'}
+            alt={
+              secureUrl
+                ? `${operator.firstName} ${operator.lastName}`
+                : 'Placeholder image'
+            }
             width={331}
             height={331}
           />

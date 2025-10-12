@@ -25,7 +25,9 @@ describe('OperatorHeader', () => {
   test('renders full operator info', () => {
     renderWithTheme(<OperatorHeader operator={mockOperator} />);
 
-    const image = screen.getByAltText(mockOperator.firstName!);
+    const image = screen.getByAltText(
+      `${mockOperator.firstName} ${mockOperator.lastName}`,
+    );
     expect(image).toHaveAttribute('src', mockOperator.photo);
 
     expect(
@@ -53,10 +55,9 @@ describe('OperatorHeader', () => {
   test('replaces http with https', () => {
     const operator = { ...mockOperator, photo: 'http://example.com/photo.jpg' };
     renderWithTheme(<OperatorHeader operator={operator} />);
-    expect(screen.getByAltText(operator.firstName!)).toHaveAttribute(
-      'src',
-      'https://example.com/photo.jpg',
-    );
+    expect(
+      screen.getByAltText(`${mockOperator.firstName} ${mockOperator.lastName}`),
+    ).toHaveAttribute('src', 'https://example.com/photo.jpg');
   });
 
   test('renders fallbacks when description and philosophy are missing', () => {
