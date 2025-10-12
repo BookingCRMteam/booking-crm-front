@@ -11,8 +11,6 @@ import { OperatorById } from '@/entities/operator/api/types';
 
 import { logger } from '@/shared/lib/logger';
 
-export const dynamic = 'force-dynamic';
-
 export default async function OperatorPage({
   params,
 }: {

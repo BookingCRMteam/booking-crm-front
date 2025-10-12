@@ -22,7 +22,6 @@ describe('OperatorPublicPage', () => {
 
     expect(OperatorHeader).toHaveBeenCalledWith(
       expect.objectContaining({ operator: mockOperator }),
-      {},
     );
 
     expect(screen.getByTestId('operator-header')).toBeInTheDocument();
