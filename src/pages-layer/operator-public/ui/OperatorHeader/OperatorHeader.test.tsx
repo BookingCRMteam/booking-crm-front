@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { render, screen } from '@testing-library/react';
 
 import { theme } from '@/shared/theme';
+import { formattedPhone } from '@/shared/utils';
 
 import { mockOperator } from '../../mocks/data';
 import { OperatorHeader } from './OperatorHeader';
@@ -31,7 +32,9 @@ describe('OperatorHeader', () => {
       screen.getByText(`${mockOperator.firstName} ${mockOperator.lastName}`),
     ).toBeInTheDocument();
 
-    const phoneLink = screen.getByRole('link', { name: '097 123 45 67' });
+    const phoneLink = screen.getByRole('link', {
+      name: formattedPhone(mockOperator.phone),
+    });
     expect(phoneLink).toHaveAttribute('href', `tel:${mockOperator.phone}`);
 
     expect(screen.getByText(mockOperator.description!)).toBeInTheDocument();
