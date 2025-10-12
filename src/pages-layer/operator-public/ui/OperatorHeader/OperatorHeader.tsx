@@ -24,7 +24,7 @@ export const OperatorHeader = ({ operator }: { operator: OperatorById }) => {
         <Box sx={{ py: 5 }}>
           <Image
             src={secureUrl || '/images/placeholder_img.png'}
-            alt={operator.firstName || 'Placeholder image'}
+            alt={secureUrl ? operator.firstName : 'Placeholder image'}
             width={331}
             height={331}
           />
@@ -40,9 +40,7 @@ export const OperatorHeader = ({ operator }: { operator: OperatorById }) => {
         >
           <Box>
             <Typography variant="h2" sx={{ mb: 0.5 }}>
-              {operator.firstName || operator.lastName
-                ? `${operator.firstName || ''} ${operator.lastName || ''}`.trim()
-                : 'Оператор'}
+              {`${operator.firstName} ${operator.lastName}`}
             </Typography>
             <Box
               sx={{
@@ -54,28 +52,26 @@ export const OperatorHeader = ({ operator }: { operator: OperatorById }) => {
               }}
             >
               <VerifiedBadge />
-              {operator.phone && (
-                <Link
-                  href={`tel:${operator.phone}`}
-                  underline="none"
-                  color="inherit"
-                  display="flex"
-                  alignItems="center"
-                  gap={1}
-                  sx={{
-                    whiteSpace: 'nowrap',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      textDecoration: 'underline',
-                    },
-                  }}
-                >
-                  <PhoneIcon size={24} />
-                  <Typography variant="bodyLarge" sx={{ whiteSpace: 'nowrap' }}>
-                    {phoneDisplay}
-                  </Typography>
-                </Link>
-              )}
+              <Link
+                href={`tel:${operator.phone}`}
+                underline="none"
+                color="inherit"
+                display="flex"
+                alignItems="center"
+                gap={1}
+                sx={{
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                <PhoneIcon size={24} />
+                <Typography variant="bodyLarge" sx={{ whiteSpace: 'nowrap' }}>
+                  {phoneDisplay}
+                </Typography>
+              </Link>
             </Box>
           </Box>
           <Box>
