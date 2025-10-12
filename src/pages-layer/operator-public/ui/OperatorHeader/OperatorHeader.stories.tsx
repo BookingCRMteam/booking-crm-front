@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import { mockOperator } from '../OperatorPublicPage/data';
+import { mockOperator } from '../../mocks/data';
 import { OperatorHeader } from './OperatorHeader';
 
 const meta: Meta<typeof OperatorHeader> = {

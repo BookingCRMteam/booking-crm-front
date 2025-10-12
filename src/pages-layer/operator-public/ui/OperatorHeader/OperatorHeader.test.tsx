@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 
 import { theme } from '@/shared/theme';
 
-import { mockOperator } from '../OperatorPublicPage/data';
+import { mockOperator } from '../../mocks/data';
 import { OperatorHeader } from './OperatorHeader';
 
 jest.mock('next/image', () => {

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { mockOperator } from '../../mocks/data';
 import { OperatorHeader } from '../OperatorHeader/OperatorHeader';
 import { OperatorPublicPage } from './OperatorPublicPage';
-import { mockOperator } from './data';
 
 jest.mock('../OperatorHeader/OperatorHeader', () => ({
   OperatorHeader: jest.fn(() => <div data-testid="operator-header" />),
