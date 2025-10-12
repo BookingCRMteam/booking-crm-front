@@ -7,6 +7,7 @@ import { User, UserUpdate } from '@/entities/user';
 
 import { useNotificationStore } from '@/shared/store';
 
+import { extractChangedValues } from './extractChangedValues';
 import { CoupleProfileSchemaValues, coupleProfileSchema } from './schema';
 
 interface UseCoupleProfileProps {
@@ -45,22 +46,20 @@ export const useCoupleProfileForm = ({ onCancel }: UseCoupleProfileProps) => {
   const {
     formState: { isDirty, dirtyFields },
   } = form;
+
   const onSubmit = async (data: CoupleProfileSchemaValues) => {
     if (!isDirty) {
-      onCancel();
+      return onCancel();
     }
-    const changedValues = Object.keys(dirtyFields).reduce((acc, key) => {
-      acc[key as keyof CoupleProfileSchemaValues] =
-        data[key as keyof CoupleProfileSchemaValues];
-      return acc;
-    }, {} as Partial<CoupleProfileSchemaValues>);
-
-    if (user && isDirty) {
-      try {
-        await mutateAsync(changedValues);
-      } catch (e) {
-        console.error('Mutation failed:', e);
-      }
+    const changedValues = extractChangedValues<CoupleProfileSchemaValues>(
+      dirtyFields,
+      data,
+    );
+    if (!user) return;
+    try {
+      await mutateAsync(changedValues);
+    } catch (e) {
+      console.error('Mutation failed:', e);
     }
   };
   return { form, onSubmit, isPending };

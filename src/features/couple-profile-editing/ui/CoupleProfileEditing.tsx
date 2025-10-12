@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { Box, Typography } from '@mui/material';
 
@@ -8,7 +8,11 @@ import { CoupleProfileForm } from './CoupleProfileForm';
 import { CoupleProfileView } from './CoupleProfileView';
 
 export const CoupleProfileEditing = () => {
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+
+  const handleEdit = useCallback(() => setIsEdit(true), []);
+  const handleCancel = useCallback(() => setIsEdit(false), []);
+
   return (
     <Box
       sx={{
@@ -16,14 +20,16 @@ export const CoupleProfileEditing = () => {
         flexDirection: 'column',
         pt: 10,
       }}
+      data-testid="couple-profile-editing"
     >
-      <Typography align="center" variant="h1" component="h1">
+      <Typography align="center" variant="h1" component="h1" gutterBottom>
         Інформація про нас
       </Typography>
+
       {isEdit ? (
-        <CoupleProfileForm onCancel={() => setIsEdit(false)} />
+        <CoupleProfileForm onCancel={handleCancel} />
       ) : (
-        <CoupleProfileView onEdit={() => setIsEdit(true)} />
+        <CoupleProfileView onEdit={handleEdit} />
       )}
     </Box>
   );

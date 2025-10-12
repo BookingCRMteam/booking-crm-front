@@ -1,46 +1,42 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { Box, Typography } from '@mui/material';
 import { PhoneIcon } from '@phosphor-icons/react/dist/ssr/Phone';
 
-type UserInfoProps = {
+export interface UserInfoProps {
   firstPersonName: string;
   firstPersonSurname: string;
   secondPersonName: string;
   secondPersonSurname: string;
   phone: string;
-};
+}
 
-const UserInfo: FC<UserInfoProps> = ({
+export const UserInfo: FC<UserInfoProps> = ({
   firstPersonName,
   firstPersonSurname,
-  phone,
   secondPersonName,
   secondPersonSurname,
+  phone,
 }) => {
   return (
-    <>
-      <Typography
-        variant="h3"
-        sx={{
-          fontWeight: 500,
-          textAlign: 'center',
-        }}
-      >
+    <Box textAlign="center" data-testid="user-info">
+      <Typography variant="h3" fontWeight={500}>
         {`${firstPersonName} ${firstPersonSurname}`} та{' '}
         {`${secondPersonName} ${secondPersonSurname}`}
       </Typography>
-      <Box sx={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
-        <PhoneIcon
-          size={24}
-          weight="regular"
-          color="#000"
-          style={{ rotate: '0deg' }}
-        />
+
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 1.5,
+          alignItems: 'center',
+          justifyContent: 'center',
+          mt: 1,
+        }}
+      >
+        <PhoneIcon size={24} weight="regular" color="currentColor" />
         <Typography variant="bodyLarge">{phone}</Typography>
       </Box>
-    </>
+    </Box>
   );
 };
-
-export default UserInfo;

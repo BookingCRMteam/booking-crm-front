@@ -16,10 +16,10 @@ export interface User {
 }
 
 export type UserUpdate = {
-  firstPersonName?: string | null;
-  firstPersonSurname?: string | null;
-  secondPersonName?: string | null;
-  secondPersonSurname?: string | null;
-  phone?: string | null;
-  email?: string | null;
+  firstPersonName?: string;
+  firstPersonSurname?: string;
+  secondPersonName?: string;
+  secondPersonSurname?: string;
+  phone?: string;
+  email?: string;
 };

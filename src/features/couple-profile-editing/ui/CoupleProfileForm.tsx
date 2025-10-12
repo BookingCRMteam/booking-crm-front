@@ -17,6 +17,14 @@ const NameWrapper = styled(Box)({
   width: '100%',
 });
 
+const ButtonWrapper = styled(Box)({
+  display: 'flex',
+  gap: '20px',
+  alignSelf: 'center',
+  width: '100%',
+  maxWidth: '420px',
+});
+
 export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
   const { form, onSubmit, isPending } = useCoupleProfileForm({
     onCancel,
@@ -130,15 +138,7 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
         variant="outlined"
       />
 
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '20px',
-          alignSelf: 'center',
-          width: '100%',
-          maxWidth: '420px',
-        }}
-      >
+      <ButtonWrapper>
         <Button
           type="submit"
           variant="contained"
@@ -161,7 +161,7 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
         >
           Скасувати
         </Button>
-      </Box>
+      </ButtonWrapper>
     </Box>
   );
 };

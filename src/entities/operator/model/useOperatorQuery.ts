@@ -13,7 +13,7 @@ export const useOperatorQuery = () => {
       return operatorApi.getOperatorMe();
     },
     staleTime: 1000 * 60 * 5,
-    enabled: !!user && user.role !== 'operator',
+    enabled: !!user && user.role === 'operator',
     retry: 1,
   });
 };
