@@ -79,6 +79,7 @@ describe('CoupleProfileForm', () => {
 
     await waitFor(() => {
       expect(mockHandleSubmit).toHaveBeenCalled();
+      expect(mockOnSubmit).toHaveBeenCalled();
     });
   });
 

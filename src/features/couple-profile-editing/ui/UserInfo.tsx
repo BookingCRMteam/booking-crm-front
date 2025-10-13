@@ -29,8 +29,10 @@ export const UserInfo: FC<UserInfoProps> = ({
       data-testid="user-info"
     >
       <Typography variant="h3" fontWeight={500}>
-        {`${firstPersonName} ${firstPersonSurname}`} та{' '}
-        {`${secondPersonName} ${secondPersonSurname}`}
+        {`${firstPersonName} ${firstPersonSurname}`}
+        {secondPersonName && secondPersonSurname && (
+          <> та {`${secondPersonName} ${secondPersonSurname}`}</>
+        )}
       </Typography>
 
       <Box

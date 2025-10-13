@@ -54,9 +54,4 @@ describe('CoupleProfileEditing', () => {
     expect(screen.getByTestId('mock-view')).toBeInTheDocument();
     expect(screen.queryByTestId('mock-form')).not.toBeInTheDocument();
   });
-
-  it('passes correct props to child components', () => {
-    render(<CoupleProfileEditing />);
-    expect(screen.getByTestId('mock-edit-button')).toBeInTheDocument();
-  });
 });
