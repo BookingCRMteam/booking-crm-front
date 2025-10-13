@@ -3,13 +3,13 @@ import { ImgHTMLAttributes } from 'react';
 import '@testing-library/jest-dom';
 import { waitFor } from '@testing-library/react';
 
-import { useBookingAuthModal } from '@/features/booking/lib/useBookingAuthModal';
+import { useBookingModal } from '@/features/booking/lib/useBookingModal';
 
 import { renderWithProviders } from '@/shared/tests';
 
 import TourControl from './TourControl';
 
-jest.mock('@/features/booking/lib/useBookingAuthModal');
+jest.mock('@/features/booking/lib/useBookinghModal');
 
 jest.mock('next/image', () => ({
   __esModule: true,
@@ -35,6 +35,7 @@ jest.mock('@phosphor-icons/react', () => ({
 
 describe('TourControl', () => {
   const baseProps = {
+    tourId: 11,
     title: 'Неймовірний тур у Карпати',
     price: '10000',
     countryAndCity: 'Україна, Львів',
@@ -48,7 +49,7 @@ describe('TourControl', () => {
   };
 
   beforeEach(() => {
-    (useBookingAuthModal as jest.Mock).mockReturnValue({
+    (useBookingModal as jest.Mock).mockReturnValue({
       isModalOpen: false,
       handleOpen: jest.fn(),
       handleAuth: jest.fn(),
@@ -113,7 +114,7 @@ describe('TourControl', () => {
 
   it('should call handleOpen from useBookingAuthModal when booking button is clicked', async () => {
     const handleOpenMock = jest.fn();
-    (useBookingAuthModal as jest.Mock).mockReturnValue({
+    (useBookingModal as jest.Mock).mockReturnValue({
       isModalOpen: false,
       handleOpen: handleOpenMock,
       handleAuth: jest.fn(),
