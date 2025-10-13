@@ -114,3 +114,11 @@ export type TourDetail = {
   message: string;
   data: Tour;
 };
+
+export type TourBookingInfo = {
+  tourId: number;
+  title: string;
+  countryAndCity: string;
+  date: string;
+  price: string;
+};

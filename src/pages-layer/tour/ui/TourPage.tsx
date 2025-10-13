@@ -55,6 +55,7 @@ export const TourPage: FC<TourPageProps> = ({ tour }) => {
         <Grid size={{ xs: 6 }}>{tourGalleryBlock}</Grid>
         <Grid size={{ xs: 5 }} offset={{ xs: 1 }}>
           <TourControl
+            tourId={id}
             title={title}
             countryAndCity={countryAndCity}
             availableSpots={availableSpots}

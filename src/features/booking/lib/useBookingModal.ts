@@ -5,34 +5,37 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useUserQuery } from '@/entities/user';
 
 import { AUTH_URL } from '@/shared/constants';
-import { useNotificationStore } from '@/shared/store';
 
-export const useBookingAuthModal = () => {
-  const [open, setOpen] = useState(false);
+export const useBookingModal = () => {
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
+
   const { data: user } = useUserQuery();
   const router = useRouter();
   const currentPath = usePathname();
-  const showNotification = useNotificationStore((s) => s.showNotification);
 
   const handleOpen = useCallback(() => {
     if (user) {
-      showNotification('Починається бронювання', 'success');
+      setBookingModalOpen(true);
     } else {
-      setOpen(true);
+      setAuthModalOpen(true);
     }
-  }, [user, showNotification]);
+  }, [user]);
 
   const handleAuth = useCallback(() => {
     router.push(`${AUTH_URL.LOGIN}?returnTo=${currentPath}`);
   }, [router, currentPath]);
 
-  const handleClose = useCallback(() => setOpen(false), []);
+  const handleCloseAuth = useCallback(() => setAuthModalOpen(false), []);
+  const handleCloseBooking = useCallback(() => setBookingModalOpen(false), []);
 
   return {
     isLoggedIn: !!user,
-    isModalOpen: open,
+    isAuthModalOpen: authModalOpen,
+    isBookingModalOpen: bookingModalOpen,
     handleOpen,
     handleAuth,
-    handleClose,
+    handleCloseAuth,
+    handleCloseBooking,
   };
 };

@@ -50,6 +50,7 @@ const CountryAndCity = styled(Typography)<TypographyProps>({
 });
 
 type TourControlProps = {
+  tourId: number;
   title: string;
   price: string;
   countryAndCity: string;
@@ -63,6 +64,7 @@ type TourControlProps = {
 };
 
 const TourControl: FC<TourControlProps> = ({
+  tourId,
   title,
   countryAndCity,
   date,
@@ -106,8 +108,13 @@ const TourControl: FC<TourControlProps> = ({
         </InfoRow>
         <PriceDisplay price={price} />
       </InfoSection>
+
       <OperatorLink {...operator} variant="page" />
-      <BookingButton isAvailable={isAvailable} />
+
+      <BookingButton
+        isAvailable={isAvailable}
+        tourData={{ tourId, title, countryAndCity, date, price }}
+      />
     </ControlWrapper>
   );
 };
