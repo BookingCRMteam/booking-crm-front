@@ -20,7 +20,7 @@ export const useCoupleProfileForm = ({ onCancel }: UseCoupleProfileProps) => {
   const showNotification = useNotificationStore((s) => s.showNotification);
 
   const { mutateAsync, isPending } = useMutation<User, Error, UserUpdate>({
-    mutationFn: (body) => userApi.updateUserData(body),
+    mutationFn: userApi.updateUserData,
     onSuccess: (data) => {
       qc.setQueryData(['user', 'me'], data);
       showNotification('Профіль оновлено', 'success');
@@ -55,7 +55,10 @@ export const useCoupleProfileForm = ({ onCancel }: UseCoupleProfileProps) => {
       dirtyFields,
       data,
     );
-    if (!user) return;
+    if (!user) {
+      showNotification('Користувача не знайдено', 'error');
+      return;
+    }
     try {
       await mutateAsync(changedValues);
     } catch (e) {

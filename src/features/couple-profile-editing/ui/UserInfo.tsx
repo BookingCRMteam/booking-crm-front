@@ -19,7 +19,15 @@ export const UserInfo: FC<UserInfoProps> = ({
   phone,
 }) => {
   return (
-    <Box textAlign="center" data-testid="user-info">
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 3.5,
+      }}
+      data-testid="user-info"
+    >
       <Typography variant="h3" fontWeight={500}>
         {`${firstPersonName} ${firstPersonSurname}`} та{' '}
         {`${secondPersonName} ${secondPersonSurname}`}
@@ -31,7 +39,6 @@ export const UserInfo: FC<UserInfoProps> = ({
           gap: 1.5,
           alignItems: 'center',
           justifyContent: 'center',
-          mt: 1,
         }}
       >
         <PhoneIcon size={24} weight="regular" color="currentColor" />
