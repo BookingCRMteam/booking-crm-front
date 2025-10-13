@@ -16,7 +16,7 @@ import {
   CalendarDotsIcon,
   MapPinLineIcon,
   UsersIcon,
-} from '@phosphor-icons/react';
+} from '@phosphor-icons/react/ssr';
 
 import { TourCard } from '@/shared/ui/TourCard/TourCard';
 import { mockCardProps } from '@/shared/ui/TourCard/data';
