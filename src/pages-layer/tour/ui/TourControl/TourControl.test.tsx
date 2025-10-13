@@ -7,7 +7,7 @@ import { renderWithProviders } from '@/shared/tests';
 
 import TourControl from './TourControl';
 
-jest.mock('@/features/booking/lib/useBookinghModal');
+jest.mock('@/features/booking/lib/useBookingModal');
 
 jest.mock('@/entities/user', () => ({
   useUserQuery: () => ({ data: null }),
