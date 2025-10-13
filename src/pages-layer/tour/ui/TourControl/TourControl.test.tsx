@@ -9,7 +9,7 @@ import { renderWithProviders } from '@/shared/tests';
 
 import TourControl from './TourControl';
 
-jest.mock('@/features/booking/lib/useBookinghModal');
+jest.mock('@/features/booking/lib/useBookingModal');
 
 jest.mock('next/image', () => ({
   __esModule: true,
