@@ -3,10 +3,9 @@
 import type { FC } from 'react';
 
 import { Box, Typography, TypographyProps, styled } from '@mui/material';
+import { CalendarDotsIcon, MapPinLineIcon } from '@phosphor-icons/react';
 
 import { BookingButton } from '@/features/booking';
-
-import { CalendarIcon, MapPinIcon } from '@/shared/icons';
 
 import { AvailabilityBadge } from '../AvailabilityBadge/AvailabilityBadge';
 import { OperatorLink } from '../OperatorLink/OperatorLink';
@@ -85,13 +84,13 @@ const TourControl: FC<TourControlProps> = ({
         <InfoRow>
           <MetaGroup>
             <MetaItem>
-              <MapPinIcon fontSize="medium" color="primary" />
+              <MapPinLineIcon size={24} color="#007A78" />
               <CountryAndCity variant="bodyDefault" component="p">
                 {countryAndCity}
               </CountryAndCity>
             </MetaItem>
             <MetaItem gap={1}>
-              <CalendarIcon fontSize="medium" color="primary" />
+              <CalendarDotsIcon size={24} color="#007A78" />
               <Typography
                 variant="bodyLarge"
                 component="p"

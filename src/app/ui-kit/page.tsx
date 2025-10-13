@@ -12,8 +12,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import {
+  CalendarDotsIcon,
+  MapPinLineIcon,
+  UsersIcon,
+} from '@phosphor-icons/react';
 
-import { CalendarIcon, LoginIcon, MapPinIcon } from '@/shared/icons';
 import { TourCard } from '@/shared/ui/TourCard/TourCard';
 import { mockCardProps } from '@/shared/ui/TourCard/data';
 
@@ -88,12 +92,12 @@ export default function UIKitPage() {
           }}
         >
           <Typography variant="h3">Icons</Typography>
-          <CalendarIcon color="success" fontSize="large" />
-          <CalendarIcon color="error" fontSize="medium" />
-          <CalendarIcon color="info" fontSize="small" />
-          <MapPinIcon color="success" fontSize="large" />
-          <MapPinIcon color="error" fontSize="medium" />
-          <MapPinIcon color="info" fontSize="small" />
+          <CalendarDotsIcon color="success" fontSize="large" />
+          <CalendarDotsIcon color="error" fontSize="medium" />
+          <CalendarDotsIcon color="info" fontSize="small" />
+          <MapPinLineIcon color="success" fontSize="large" />
+          <MapPinLineIcon color="error" fontSize="medium" />
+          <MapPinLineIcon color="info" fontSize="small" />
         </Box>
         <Box
           sx={{
@@ -220,7 +224,7 @@ export default function UIKitPage() {
             variant="outlined"
             color="primary"
             size="large"
-            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+            startIcon={<UsersIcon size={24} />}
           >
             Вхід
           </Button>
@@ -229,7 +233,7 @@ export default function UIKitPage() {
             color="primary"
             size="large"
             disabled
-            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+            startIcon={<UsersIcon size={24} />}
           >
             Вхід
           </Button>
@@ -287,7 +291,7 @@ export default function UIKitPage() {
             variant="outlined"
             color="secondary"
             size="large"
-            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+            startIcon={<UsersIcon size={24} />}
           >
             Вхід
           </Button>
@@ -296,7 +300,7 @@ export default function UIKitPage() {
             color="secondary"
             size="large"
             disabled
-            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+            startIcon={<UsersIcon size={24} />}
           >
             Вхід
           </Button>

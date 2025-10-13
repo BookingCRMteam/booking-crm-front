@@ -15,11 +15,11 @@ import {
   type Theme,
   Typography,
 } from '@mui/material';
+import { CalendarDotsIcon, MapPinLineIcon } from '@phosphor-icons/react';
 
 import type { TourPhoto } from '@/entities/tour/model/types';
 
 import { APP_ROUTE } from '@/shared/constants';
-import { CalendarIcon, MapPinIcon } from '@/shared/icons';
 import { formattedDate } from '@/shared/utils';
 
 import Label from './Label';
@@ -168,7 +168,7 @@ export const TourCard: FC<TourCardProps> = ({
                   gap: '8px',
                 }}
               >
-                <CalendarIcon fontSize="medium" color="inherit" />
+                <CalendarDotsIcon size={24} />
                 <Typography
                   variant="bodyDefault"
                   sx={{
@@ -186,7 +186,7 @@ export const TourCard: FC<TourCardProps> = ({
                   gap: '4px',
                 }}
               >
-                <MapPinIcon fontSize="medium" color="inherit" />
+                <MapPinLineIcon size={24} />
                 <Typography
                   variant="bodyDefault"
                   sx={{
