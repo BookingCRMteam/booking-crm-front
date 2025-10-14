@@ -14,7 +14,7 @@ export const useUserQuery = () => {
     queryFn: async () => {
       return userApi.getCurrentUser();
     },
-    staleTime: 1000 * 60 * 1,
+    staleTime: 1000 * 60 * 10,
     refetchOnMount: isAccessToken,
     refetchOnWindowFocus: isAccessToken,
     retry: 1,

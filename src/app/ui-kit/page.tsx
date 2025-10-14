@@ -9,10 +9,15 @@ import {
   Container,
   Grid,
   Link,
+  TextField,
   Typography,
 } from '@mui/material';
+import {
+  CalendarDotsIcon,
+  MapPinLineIcon,
+  UsersIcon,
+} from '@phosphor-icons/react/ssr';
 
-import { CalendarIcon, LoginIcon, MapPinIcon } from '@/shared/icons';
 import { TourCard } from '@/shared/ui/TourCard/TourCard';
 import { mockCardProps } from '@/shared/ui/TourCard/data';
 
@@ -87,12 +92,12 @@ export default function UIKitPage() {
           }}
         >
           <Typography variant="h3">Icons</Typography>
-          <CalendarIcon color="success" fontSize="large" />
-          <CalendarIcon color="error" fontSize="medium" />
-          <CalendarIcon color="info" fontSize="small" />
-          <MapPinIcon color="success" fontSize="large" />
-          <MapPinIcon color="error" fontSize="medium" />
-          <MapPinIcon color="info" fontSize="small" />
+          <CalendarDotsIcon color="success" fontSize="large" />
+          <CalendarDotsIcon color="error" fontSize="medium" />
+          <CalendarDotsIcon color="info" fontSize="small" />
+          <MapPinLineIcon color="success" fontSize="large" />
+          <MapPinLineIcon color="error" fontSize="medium" />
+          <MapPinLineIcon color="info" fontSize="small" />
         </Box>
         <Box
           sx={{
@@ -219,7 +224,7 @@ export default function UIKitPage() {
             variant="outlined"
             color="primary"
             size="large"
-            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+            startIcon={<UsersIcon size={24} />}
           >
             Вхід
           </Button>
@@ -228,7 +233,7 @@ export default function UIKitPage() {
             color="primary"
             size="large"
             disabled
-            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+            startIcon={<UsersIcon size={24} />}
           >
             Вхід
           </Button>
@@ -286,7 +291,7 @@ export default function UIKitPage() {
             variant="outlined"
             color="secondary"
             size="large"
-            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+            startIcon={<UsersIcon size={24} />}
           >
             Вхід
           </Button>
@@ -295,7 +300,7 @@ export default function UIKitPage() {
             color="secondary"
             size="large"
             disabled
-            startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+            startIcon={<UsersIcon size={24} />}
           >
             Вхід
           </Button>
@@ -332,6 +337,71 @@ export default function UIKitPage() {
             </Grid>
           ))}
         </Grid>
+        <Typography>Inputs</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '32px',
+          }}
+        >
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            value="Input with text"
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            helperText="Here helper text"
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            helperText="Here error text"
+            error={true}
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            disabled
+          />
+          <TextField
+            label="Ім’я партнера 1"
+            placeholder="Ім’я партнера 1"
+            fullWidth
+            variant="outlined"
+            name="firstName"
+            value="input disabled with value"
+            disabled
+          />
+        </Box>
       </Box>
     </Container>
   );

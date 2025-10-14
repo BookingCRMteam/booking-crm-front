@@ -31,7 +31,7 @@ export const Tabs: FC<OperatorTabsProps> = ({ tabs, initialIndex = 0 }) => {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', minHeight: '100vh' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <TabsMUI value={value} onChange={handleChange} variant="fullWidth">
           {tabs.map((tab, index) => (

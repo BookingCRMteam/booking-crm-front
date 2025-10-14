@@ -2,7 +2,7 @@
 
 import { Inter, Nunito_Sans, Roboto, Unbounded } from 'next/font/google';
 
-import { createTheme } from '@mui/material';
+import { createTheme, outlinedInputClasses } from '@mui/material';
 
 import { customPalette } from './customColors';
 
@@ -90,7 +90,7 @@ export const theme = createTheme({
       fontSize: 32,
       fontFamily: unbounded.style.fontFamily,
       fontWeight: 700,
-      lineHeight: '120%',
+      lineHeight: '119%',
     },
     h2: {
       fontSize: 24,
@@ -194,7 +194,7 @@ export const theme = createTheme({
         }),
         outlinedSecondary: ({ theme: { palette } }) => ({
           borderRadius: '4px',
-          padding: '7px 20px',
+          padding: '7.35px 20px',
           background: 'transparent',
           boxShadow: 'none',
           color: palette.primary.main,
@@ -424,6 +424,122 @@ export const theme = createTheme({
           },
           '&.Mui-disabled': {
             color: theme.palette.grey[500],
+          },
+        }),
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '& label.Mui-focused': {
+            color: theme.palette.common.black,
+          },
+          '& label.Mui-disabled': {
+            color: theme.palette.gray[600],
+          },
+          '& label.Mui-error': {
+            color: theme.palette.error.main,
+          },
+        }),
+      },
+      defaultProps: {
+        slotProps: {
+          htmlInput: {
+            sx: {
+              '&:-webkit-autofill': {
+                WebkitBoxShadow: '0 0 0px 100px #fff inset',
+                WebkitTextFillColor: '#000500',
+                // caretColor: '#000500',
+              },
+
+              '.dark &:-webkit-autofill': {
+                WebkitBoxShadow: '0 0 0px 100px #fff inset', // Білий фон
+                WebkitTextFillColor: '#000500', // Темний текст
+                // caretColor: '#000500',
+              },
+            },
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          ...theme.typography.inputPlaceholder,
+          fontSize: '16px',
+          color: theme.palette.common.black,
+        }),
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          ...theme.typography.inputPlaceholder,
+          fontSize: '16px',
+          color: theme.palette.common.black,
+          '&:placeholder': {
+            ...theme.typography.inputPlaceholder,
+          },
+          '&.Mui-error .MuiInputBase-input::placeholder': {
+            color: theme.palette.error.main,
+          },
+          '&.Mui-error .MuiInputBase-input': {
+            color: theme.palette.error.main,
+          },
+        }),
+      },
+    },
+    MuiFormControl: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          ...theme.typography.inputPlaceholder,
+        }),
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: ({ theme }) => ({
+          borderColor: theme.palette.common.black,
+        }),
+        root: ({ theme }) => ({
+          '&:placeholder': {
+            color: theme.palette.error.main,
+          },
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: '#1d1b20',
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: '#212121',
+            borderWidth: '1px',
+          },
+          [`&.Mui-disabled .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: theme.palette.gray[500],
+          },
+          '&.Mui-error': {
+            color: theme.palette.error.main,
+            borderColor: theme.palette.error.main,
+            [`& .${outlinedInputClasses.notchedOutline}`]: {
+              borderColor: theme.palette.error.main,
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.error.main,
+            },
+          },
+          '&.Mui-focused': {
+            color: theme.palette.common.black,
+          },
+        }),
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          ...theme.typography.inputPlaceholder,
+          fontSize: 12,
+          color: '#49454f',
+          marginLeft: '16px',
+          '&.Mui-error': {
+            color: theme.palette.error.main,
           },
         }),
       },

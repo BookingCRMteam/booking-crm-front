@@ -28,9 +28,9 @@ jest.mock('@/entities/user', () => ({
   useUserQuery: () => ({ data: null }),
 }));
 
-jest.mock('@/shared/icons', () => ({
-  CalendarIcon: () => <svg data-testid="calendar-icon" />,
-  MapPinIcon: () => <svg data-testid="map-icon" />,
+jest.mock('@phosphor-icons/react', () => ({
+  CalendarDotsIcon: () => <svg data-testid="calendar-icon" />,
+  MapPinLineIcon: () => <svg data-testid="map-icon" />,
 }));
 
 describe('TourControl', () => {

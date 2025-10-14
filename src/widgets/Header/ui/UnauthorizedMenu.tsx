@@ -1,7 +1,7 @@
 import { Box, Button } from '@mui/material';
+import { UsersIcon } from '@phosphor-icons/react';
 
 import { APP_ROUTE, AUTH_URL } from '@/shared/constants';
-import { LoginIcon } from '@/shared/icons';
 
 export const UnauthorizedMenu = () => (
   <Box sx={{ display: 'flex', gap: 2 }}>
@@ -10,7 +10,7 @@ export const UnauthorizedMenu = () => (
       color="primary"
       size="large"
       component="a"
-      startIcon={<LoginIcon color="inherit" fontSize="medium" />}
+      startIcon={<UsersIcon size={24} />}
       href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.AUTH_REDIRECT}`}
     >
       Вхід
