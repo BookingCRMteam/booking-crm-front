@@ -449,13 +449,13 @@ export const theme = createTheme({
               '&:-webkit-autofill': {
                 WebkitBoxShadow: '0 0 0px 100px #fff inset',
                 WebkitTextFillColor: '#000500',
-                // caretColor: '#000500',
+                caretColor: '#000500',
               },
 
               '.dark &:-webkit-autofill': {
-                WebkitBoxShadow: '0 0 0px 100px #fff inset', // Білий фон
-                WebkitTextFillColor: '#000500', // Темний текст
-                // caretColor: '#000500',
+                WebkitBoxShadow: '0 0 0px 100px #fff inset',
+                WebkitTextFillColor: '#000500',
+                caretColor: '#000500',
               },
             },
           },
