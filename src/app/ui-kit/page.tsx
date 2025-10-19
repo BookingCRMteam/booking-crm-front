@@ -18,6 +18,7 @@ import {
   UsersIcon,
 } from '@phosphor-icons/react/ssr';
 
+import { OperatorStatusBadge } from '@/shared/ui';
 import { TourCard } from '@/shared/ui/TourCard/TourCard';
 import { mockCardProps } from '@/shared/ui/TourCard/data';
 
@@ -337,6 +338,7 @@ export default function UIKitPage() {
             </Grid>
           ))}
         </Grid>
+
         <Typography>Inputs</Typography>
         <Box
           sx={{
@@ -401,6 +403,21 @@ export default function UIKitPage() {
             value="input disabled with value"
             disabled
           />
+        </Box>
+        <Typography variant="h2" align="center">
+          OperatorStatusBadge
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            gap: 4,
+          }}
+        >
+          <OperatorStatusBadge status="approved" />
+          <OperatorStatusBadge status="pending" />
+          <OperatorStatusBadge status="rejected" />
         </Box>
       </Box>
     </Container>
