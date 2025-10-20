@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { ThemeProvider } from '@mui/material';
 import { render, screen } from '@testing-library/react';
 
 import { theme } from '@/shared/theme';
 
-import { FieldWithAsideHint } from './FielWithAsideHint';
+import { FieldWithAsideHint } from './FieldWithAsideHint';
 
 jest.mock('@phosphor-icons/react', () => ({
   WarningCircleIcon: () => <svg data-testid="warning-icon" />,

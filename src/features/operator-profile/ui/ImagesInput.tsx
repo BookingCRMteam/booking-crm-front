@@ -92,6 +92,7 @@ export const ImagesInput = ({
                 type="file"
                 accept=".jpg, .png"
                 hidden
+                data-testid="file-input"
                 onChange={(e) => {
                   if (!e.target.files?.[0]) return;
                   const file = e.target.files[0];

@@ -7,7 +7,7 @@ import { type OperatorMe, useOperatorQuery } from '@/entities/operator';
 
 import { OperatorProfile } from './OperatorProfile';
 
-const mockOperator: OperatorMe = {
+export const mockOperator: OperatorMe = {
   id: 1,
   firstName: 'Oleh',
   lastName: 'Shevchenko',
@@ -41,7 +41,6 @@ jest.mock('next/image', () => ({
   },
 }));
 
-// 3. Мокаємо дочірні компоненти
 jest.mock('./OperatorPhilosophy', () => ({
   OperatorPhilosophy: () => <div data-testid="philosophy-component"></div>,
 }));
@@ -51,7 +50,9 @@ jest.mock('./OperatorProfileHeader', () => ({
   ),
 }));
 jest.mock('./OperatorTitle', () => ({
-  OperatorTitle: () => <div data-testid="title-component"></div>,
+  OperatorTitle: ({ firstName }: { firstName: string }) => (
+    <p data-testid="title-component">{firstName}</p>
+  ),
 }));
 
 const mockOnEdit = jest.fn();
