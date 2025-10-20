@@ -7,7 +7,7 @@ const IMAGE_UPLOAD = {
 };
 
 const hasHtmlTags = (text: string) => {
-  const htmlTagRegex = /<\/?[\w\s\/]+>/i;
+  const htmlTagRegex = /<\/?[a-z][\w:-]*(?:\s+[^<>]*)?>/i;
   return htmlTagRegex.test(text);
 };
 
@@ -28,7 +28,7 @@ const imageFileSchema = z
   .instanceof(File)
   .refine(
     (file) => file.size <= IMAGE_UPLOAD.MAX_SIZE_BYTES,
-    `Файл не має перевищувати ${IMAGE_UPLOAD.MAX_SIZE_MB} МБ`,
+    `Файл має бути менше ${IMAGE_UPLOAD.MAX_SIZE_MB} МБ`,
   )
   .refine(
     (file) => IMAGE_UPLOAD.ACCEPTED_TYPES.includes(file.type),

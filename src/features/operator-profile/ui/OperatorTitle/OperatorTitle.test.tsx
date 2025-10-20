@@ -67,18 +67,4 @@ describe('OperatorTitle Component', () => {
     const badgeComponent = screen.getByTestId('mock-status-badge');
     expect(badgeComponent).toHaveTextContent(`Status: ${defaultProps.status}`);
   });
-
-  test('should apply edit-specific class to OperatorStatusBadge when isEdit is true', () => {
-    renderWithTheme(<OperatorTitle {...defaultProps} isEdit={true} />);
-
-    const badgeComponent = screen.getByTestId('mock-status-badge');
-    expect(badgeComponent).toHaveClass('edit-status-badge');
-  });
-
-  test('should NOT apply edit-specific class to OperatorStatusBadge when isEdit is false', () => {
-    renderWithTheme(<OperatorTitle {...defaultProps} isEdit={false} />);
-
-    const badgeComponent = screen.getByTestId('mock-status-badge');
-    expect(badgeComponent).not.toHaveClass('edit-status-badge');
-  });
 });

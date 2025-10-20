@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react';
 import { operatorApi } from '@/entities/operator';
 import { useOperatorQuery } from '@/entities/operator';
 
-import { mockOperator } from '../ui/OperatorProfile.test';
+import { mockOperator } from '../ui/OperatorProfile/OperatorProfile.test';
 import { useOperatorUpdateProfile } from './useOperatorProfile';
 
 const mockNewOperator = {

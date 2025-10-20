@@ -26,38 +26,25 @@ export const useOperatorVerificationModal = () => {
   // TODO: Оновити після отримання реальної причини відмови з бекенду
   const rejectedReason = 'Причина відмови';
 
-  const store = useOperatorVerificationStore(operatorId);
-  const { markShown, shownStatuses, isHydrated } = store();
+  const useStore = useOperatorVerificationStore(operatorId);
+  const store = useStore?.();
 
   useEffect(() => {
-    if (!isHydrated || !operatorStatus || !operatorId) {
-      console.log('Waiting for hydration, user ID or operator status');
-      return;
-    }
+    if (!store) return;
+    const { shownStatuses, markShown, isHydrated } = store;
+    if (!isHydrated || !operatorStatus || !operatorId) return;
 
     const modalConfig = statusToModal[operatorStatus];
     if (!modalConfig) return;
 
-    if (operatorStatus === 'rejected') {
-      console.log('rejected - showing modal');
-      openModal({
-        type: modalConfig.type,
-        payload: { message: rejectedReason },
-      });
-      return;
-    }
+    if (shownStatuses[operatorStatus]) return;
 
-    if (!shownStatuses[operatorStatus]) {
-      openModal({ type: modalConfig.type });
-      markShown(operatorStatus);
-    }
-  }, [
-    operatorStatus,
-    rejectedReason,
-    openModal,
-    shownStatuses,
-    markShown,
-    isHydrated,
-    operatorId,
-  ]);
+    openModal({
+      type: modalConfig.type,
+      ...(modalConfig.needsPayload
+        ? { payload: { message: rejectedReason } }
+        : {}),
+    });
+    markShown(operatorStatus);
+  }, [operatorStatus, rejectedReason, openModal, operatorId, store]);
 };

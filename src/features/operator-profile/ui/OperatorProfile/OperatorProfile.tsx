@@ -8,11 +8,11 @@ import { Box, Typography, styled } from '@mui/material';
 
 import { useOperatorQuery } from '@/entities/operator';
 
-import { OperatorPhilosophy } from './OperatorPhilosophy';
-import { OperatorProfileEdit } from './OperatorProfileEdit';
-import { OperatorProfileHeader } from './OperatorProfileHeader';
-import { OperatorProfileInfo } from './OperatorProfileInfo';
-import { OperatorTitle } from './OperatorTitle';
+import { OperatorPhilosophy } from '../OperatorPhilosophy/OperatorPhilosophy';
+import { OperatorProfileEdit } from '../OperatorProfileEdit/OperatorProfileEdit';
+import { OperatorProfileHeader } from '../OperatorProfileHeader/OperatorProfileHeader';
+import { OperatorProfileInfo } from '../OperatorProfileInfo/OperatorProfileInfo';
+import { OperatorTitle } from '../OperatorTitle/OperatorTitle';
 
 const OperatorWrapper = styled(Box)({
   display: 'flex',
@@ -35,8 +35,12 @@ export const OperatorProfile = () => {
       <Typography component="h1" variant="h1" align="center">
         Інформація про мене
       </Typography>
-      {operator &&
-        (isEdit ? (
+      {isLoading ? (
+        <Box>Loading...</Box>
+      ) : isError ? (
+        <Box>Error loading operator data</Box>
+      ) : operator ? (
+        isEdit ? (
           <OperatorProfileEdit onCancel={() => setIsEdit(false)} />
         ) : (
           <OperatorProfileInfo onEdit={() => setIsEdit(true)}>
@@ -54,9 +58,8 @@ export const OperatorProfile = () => {
               philosophy={operator.philosophy}
             />
           </OperatorProfileInfo>
-        ))}
-      {isLoading && <Box>Loading...</Box>}
-      {isError && <Box>Error loading operator data</Box>}
+        )
+      ) : null}
     </OperatorWrapper>
   );
 };

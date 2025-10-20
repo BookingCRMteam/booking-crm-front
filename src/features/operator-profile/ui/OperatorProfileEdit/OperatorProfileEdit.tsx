@@ -4,11 +4,11 @@ import { type FC, useId } from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
 
-import { useOperatorUpdateProfile } from '../model/useOperatorProfile';
-import { FieldWithAsideHint } from './FieldWithAsideHint';
-import { ImagesInput } from './ImagesInput';
-import { OperatorProfileHeader } from './OperatorProfileHeader';
-import { OperatorTitle } from './OperatorTitle';
+import { useOperatorUpdateProfile } from '../../model/useOperatorProfile';
+import { FieldWithAsideHint } from '../FieldWithAsideHint/FieldWithAsideHint';
+import { ImagesInput } from '../ImagesInput/ImagesInput';
+import { OperatorProfileHeader } from '../OperatorProfileHeader/OperatorProfileHeader';
+import { OperatorTitle } from '../OperatorTitle/OperatorTitle';
 
 interface OperatorProfileEditProps {
   onCancel: () => void;
@@ -66,22 +66,15 @@ export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
         hintText={HINT_TEXT_DESCRIPTION}
       >
         <TextField
-          placeholder="Опис"
+          placeholder="Про себе"
+          label="Про себе"
           {...register('description')}
           error={!!errors.description}
           helperText={errors.description?.message as string}
           fullWidth
           multiline
           rows={3.4}
-          variant="outlined"
           aria-describedby={descriptionHintId}
-          slotProps={{
-            input: {
-              sx: {
-                padding: '18px 14px',
-              },
-            },
-          }}
         />
       </FieldWithAsideHint>
 
@@ -90,22 +83,16 @@ export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
         hintText={HINT_TEXT_PHILOSOPHY}
       >
         <TextField
-          placeholder="Філософія"
+          placeholder="Моя філософія"
+          label="Моя філософія"
           {...register('philosophy')}
           error={!!errors.philosophy}
           helperText={errors.philosophy?.message as string}
           fullWidth
           multiline
-          rows={6}
+          rows={3.4}
           variant="outlined"
           aria-describedby={philosophyHintId}
-          slotProps={{
-            input: {
-              sx: {
-                padding: '18px 14px',
-              },
-            },
-          }}
         />
       </FieldWithAsideHint>
       <Box

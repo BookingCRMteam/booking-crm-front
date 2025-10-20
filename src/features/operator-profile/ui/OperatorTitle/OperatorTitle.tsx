@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 
 import { Box, BoxProps, Typography, styled } from '@mui/material';
-import clsx from 'clsx';
 
 import type { OperatorMe } from '@/entities/operator';
 
@@ -25,10 +24,6 @@ const PersonalInfo = styled(Box, {
   flexDirection: 'column',
   gap: '16px',
   color: isEdit ? theme.palette.gray[700] : theme.palette.text.primary,
-  '& .edit-status-badge': {
-    backgroundColor: theme.palette.gray[200],
-    borderColor: theme.palette.gray[200],
-  },
 }));
 
 const NameWrapper = styled(Box)({
@@ -46,15 +41,13 @@ export const OperatorTitle: FC<OperatorTitleProps> = ({
   status,
   isEdit = false,
 }) => {
-  const statusClassName = clsx({ 'edit-status-badge': isEdit });
-
   return (
     <PersonalInfo isEdit={isEdit}>
       <NameWrapper>
         <Typography variant="h2" component="h2">
           {firstName} {lastName}
         </Typography>
-        <OperatorStatusBadge status={status} className={statusClassName} />
+        <OperatorStatusBadge status={status} />
       </NameWrapper>
       <Phone phone={phone} />
       <Typography variant="bodyLarge" component="p">

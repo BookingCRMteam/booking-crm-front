@@ -41,24 +41,21 @@ jest.mock('next/image', () => ({
   },
 }));
 
-jest.mock('./OperatorPhilosophy', () => ({
+jest.mock('../OperatorPhilosophy/OperatorPhilosophy', () => ({
   OperatorPhilosophy: () => <div data-testid="philosophy-component"></div>,
 }));
-jest.mock('./OperatorProfileHeader', () => ({
+jest.mock('../OperatorProfileHeader/OperatorProfileHeader', () => ({
   OperatorProfileHeader: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="header-component">{children}</div>
   ),
 }));
-jest.mock('./OperatorTitle', () => ({
+jest.mock('../OperatorTitle/OperatorTitle', () => ({
   OperatorTitle: ({ firstName }: { firstName: string }) => (
     <p data-testid="title-component">{firstName}</p>
   ),
 }));
 
-const mockOnEdit = jest.fn();
-const mockOnCancel = jest.fn();
-
-jest.mock('./OperatorProfileInfo', () => ({
+jest.mock('../OperatorProfileInfo/OperatorProfileInfo', () => ({
   OperatorProfileInfo: ({
     onEdit,
     children,
@@ -75,7 +72,7 @@ jest.mock('./OperatorProfileInfo', () => ({
   ),
 }));
 
-jest.mock('./OperatorProfileEdit', () => ({
+jest.mock('../OperatorProfileEdit/OperatorProfileEdit', () => ({
   OperatorProfileEdit: ({ onCancel }: { onCancel: () => void }) => (
     <div data-testid="profile-edit">
       Режим редагування
@@ -92,8 +89,6 @@ describe('OperatorProfile', () => {
       data: mockOperator,
       isLoading: false,
     });
-    mockOnEdit.mockClear();
-    mockOnCancel.mockClear();
   });
 
   test('should render View Mode by default when operator data is present', () => {

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { createJSONStorage } from 'zustand/middleware';
 
 import type { OperatorStatus } from '@/entities/operator';
 
@@ -14,20 +15,18 @@ interface OperatorVerificationState {
   setHydrated: (isHydrated: boolean) => void;
 }
 
-const userStores = new Map();
+const userStores = new Map<number, ReturnType<typeof createTemporaryStore>>();
+
+const initialState = {
+  shownStatuses: { rejected: false, pending: false, approved: false },
+  isHydrated: false,
+} as const;
 
 const createTemporaryStore = () =>
   create<OperatorVerificationState>()((set) => ({
-    shownStatuses: {
-      rejected: false,
-      pending: false,
-      approved: false,
-    },
+    ...initialState,
     markShown: (status) =>
-      set((s) => ({
-        shownStatuses: { ...s.shownStatuses, [status]: true },
-      })),
-    isHydrated: false,
+      set((s) => ({ shownStatuses: { ...s.shownStatuses, [status]: true } })),
     setHydrated: (isHydrated) => set({ isHydrated }),
   }));
 
@@ -43,20 +42,20 @@ export const useOperatorVerificationStore = (operatorId?: number) => {
   const newStore = create<OperatorVerificationState>()(
     persist(
       (set) => ({
-        shownStatuses: {
-          rejected: false,
-          pending: false,
-          approved: false,
-        },
+        ...initialState,
         markShown: (status) =>
           set((s) => ({
             shownStatuses: { ...s.shownStatuses, [status]: true },
           })),
-        isHydrated: false,
         setHydrated: (isHydrated) => set({ isHydrated }),
       }),
       {
         name: `operator-verification-${operatorId}`,
+        storage:
+          typeof window !== 'undefined'
+            ? createJSONStorage(() => localStorage)
+            : undefined,
+        partialize: (s) => ({ shownStatuses: s.shownStatuses }),
         onRehydrateStorage: () => (state) => {
           if (state) state.setHydrated(true);
         },

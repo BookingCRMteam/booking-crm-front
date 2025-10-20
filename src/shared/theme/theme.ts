@@ -78,6 +78,12 @@ export const theme = createTheme({
     positive: {
       main: customPalette.status.positive,
     },
+    focused: {
+      main: '#34C8DC',
+    },
+    pressed: {
+      main: '#1789A3',
+    },
   },
   typography: {
     fontFamily: [

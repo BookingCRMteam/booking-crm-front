@@ -52,13 +52,18 @@ describe('OperatorStatusBadge Component', () => {
 
   test.each(testCases)(
     'should render correctly for status: $status with correct text and icon',
-    ({ status, expectedText, expectedIconTestId }) => {
+    ({ status, expectedText, expectedIconTestId, expectedRotation }) => {
       const { getByText, getByTestId, queryByTestId } = renderWithProviders(
         <OperatorStatusBadge status={status} />,
       );
 
       expect(getByText(expectedText)).toBeInTheDocument();
-      expect(getByTestId(expectedIconTestId)).toBeInTheDocument();
+      const icon = getByTestId(expectedIconTestId);
+      expect(icon).toBeInTheDocument();
+      expect(icon).toHaveAttribute(
+        'style',
+        expect.stringContaining(`rotate: ${expectedRotation}`),
+      );
 
       testCases.forEach((tc) => {
         if (tc.expectedIconTestId !== expectedIconTestId) {

@@ -31,7 +31,7 @@ export const OperatorPhilosophy: FC<OperatorPhilosophyProps> = ({
           Про себе
         </Typography>
         <Typography variant="bodyDefault" component="p">
-          {description || TEXT_PLACEHOLDER}
+          {(description && description.trim()) || TEXT_PLACEHOLDER}
         </Typography>
       </ArticleWrapper>
       <ArticleWrapper>
@@ -39,7 +39,7 @@ export const OperatorPhilosophy: FC<OperatorPhilosophyProps> = ({
           Моя філософія
         </Typography>
         <Typography variant="bodyDefault" component="p">
-          {philosophy || TEXT_PLACEHOLDER}
+          {(philosophy && philosophy.trim()) || TEXT_PLACEHOLDER}
         </Typography>
       </ArticleWrapper>
     </PhilosophyWrapper>

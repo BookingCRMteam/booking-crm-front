@@ -20,6 +20,7 @@ const HintWrapper = styled(Box)(({ theme }) => ({
   width: 200,
   display: 'flex',
   gap: '5px',
+  color: '#000',
 }));
 
 export const FieldWithAsideHint: FC<FieldWithAsideHintProps> = ({
@@ -32,7 +33,7 @@ export const FieldWithAsideHint: FC<FieldWithAsideHintProps> = ({
       <Box id={describedById} sx={visuallyHidden}>
         {hintText}
       </Box>
-      {children}
+      <Box aria-describedby={describedById}>{children}</Box>
       <HintWrapper aria-hidden>
         <Box>
           <WarningCircleIcon size="16px" color="#888888" />

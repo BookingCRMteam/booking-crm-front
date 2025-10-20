@@ -52,6 +52,7 @@ const BadgeWrapper = styled(Box, {
   width: '153px',
   gap: '4px',
   userSelect: 'none',
+  color: theme.palette.common.black,
   backgroundColor: theme.palette.accent[accentColor],
   border: `1px solid ${theme.palette.primary.light}`,
 }));

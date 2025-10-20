@@ -1,1 +1,1 @@
-export { OperatorProfile } from './ui/OperatorProfile';
+export { OperatorProfile } from './ui/OperatorProfile/OperatorProfile';
