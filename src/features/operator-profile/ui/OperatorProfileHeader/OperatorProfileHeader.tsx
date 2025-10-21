@@ -6,7 +6,6 @@ const HeaderWrapper = styled(Box)({
   display: 'flex',
   gap: '32px',
   margin: '0 auto',
-  // paddingBottom: '13px',
 });
 
 type OperatorProfileHeaderProps = {

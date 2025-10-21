@@ -58,6 +58,8 @@ export const customPalette = {
     warning: '#ffc107',
     error: '#dc3545',
     info: '#17a2b8',
+    focused: '#34c8dc',
+    pressed: '#1789A3',
   },
   accent: {
     1: '#e29578',

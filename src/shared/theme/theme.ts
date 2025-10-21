@@ -79,10 +79,10 @@ export const theme = createTheme({
       main: customPalette.status.positive,
     },
     focused: {
-      main: '#34C8DC',
+      main: customPalette.status.focused,
     },
     pressed: {
-      main: '#1789A3',
+      main: customPalette.status.pressed,
     },
   },
   typography: {
@@ -438,7 +438,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           '& label.Mui-focused': {
-            color: theme.palette.common.black,
+            color: theme.palette.gray[700],
           },
           '& label.Mui-disabled': {
             color: theme.palette.gray[600],
@@ -450,21 +450,7 @@ export const theme = createTheme({
       },
       defaultProps: {
         slotProps: {
-          htmlInput: {
-            sx: {
-              '&:-webkit-autofill': {
-                WebkitBoxShadow: '0 0 0px 100px #fff inset',
-                WebkitTextFillColor: '#000500',
-                caretColor: '#000500',
-              },
-
-              '.dark &:-webkit-autofill': {
-                WebkitBoxShadow: '0 0 0px 100px #fff inset',
-                WebkitTextFillColor: '#000500',
-                caretColor: '#000500',
-              },
-            },
-          },
+          htmlInput: {},
         },
       },
     },
@@ -473,7 +459,7 @@ export const theme = createTheme({
         root: ({ theme }) => ({
           ...theme.typography.inputPlaceholder,
           fontSize: '16px',
-          color: theme.palette.common.black,
+          color: theme.palette.gray[700],
         }),
       },
     },
@@ -483,6 +469,17 @@ export const theme = createTheme({
           ...theme.typography.inputPlaceholder,
           fontSize: '16px',
           color: theme.palette.common.black,
+          '& input:-webkit-autofill': {
+            WebkitBoxShadow: `0 0 0px 100px ${theme.palette.common.white} inset`,
+            WebkitTextFillColor: theme.palette.text.primary,
+            caretColor: theme.palette.text.primary,
+            transition: 'background-color 5000s ease-in-out 0s',
+          },
+          '.dark & input:-webkit-autofill': {
+            WebkitBoxShadow: `0 0 0px 100px ${theme.palette.common.white} inset`,
+            WebkitTextFillColor: theme.palette.text.primary,
+            caretColor: theme.palette.text.primary,
+          },
           '&:placeholder': {
             ...theme.typography.inputPlaceholder,
           },
