@@ -43,13 +43,9 @@ const meta: Meta<typeof OperatorProfileInfo> = {
     },
   },
 
-  args: {
-    onEdit: () => console.log('Edit button clicked'),
-  },
-
   decorators: [
     (Story) => (
-      <Box sx={{ width: 684 }}>
+      <Box sx={{ width: 686 }}>
         <Story />
       </Box>
     ),

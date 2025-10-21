@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import type { OperatorStatus } from '@/entities/operator';
-
 import { mockOperator } from '@/jest/fixtures/operatorMocks';
 
 import { OperatorTitle } from './OperatorTitle';
@@ -12,7 +10,7 @@ const BASE_MOCK_PROPS = {
   email: mockOperator.email,
   phone: mockOperator.phone,
   website: mockOperator.website,
-  status: mockOperator.status as OperatorStatus,
+  status: mockOperator.status,
   isEdit: false,
 };
 
