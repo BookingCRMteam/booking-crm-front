@@ -24,28 +24,24 @@ describe('OperatorStatusBadge Component', () => {
     status: OperatorStatus;
     expectedText: string;
     expectedIconTestId: string;
-    expectedAccentColor: number;
     expectedRotation: string;
   }[] = [
     {
       status: 'approved',
       expectedText: 'Верифіковано',
       expectedIconTestId: 'certificate-icon',
-      expectedAccentColor: 3,
       expectedRotation: '0',
     },
     {
       status: 'pending',
       expectedText: 'На перевірці',
       expectedIconTestId: 'clock-icon',
-      expectedAccentColor: 2,
       expectedRotation: '0',
     },
     {
       status: 'rejected',
       expectedText: 'Відхилено',
       expectedIconTestId: 'prohibit-icon',
-      expectedAccentColor: 1,
       expectedRotation: '-45deg',
     },
   ];
@@ -62,7 +58,7 @@ describe('OperatorStatusBadge Component', () => {
       expect(icon).toBeInTheDocument();
       expect(icon).toHaveAttribute(
         'style',
-        expect.stringContaining(`rotate: ${expectedRotation}`),
+        expect.stringContaining(`transform: rotate(${expectedRotation})`),
       );
 
       testCases.forEach((tc) => {

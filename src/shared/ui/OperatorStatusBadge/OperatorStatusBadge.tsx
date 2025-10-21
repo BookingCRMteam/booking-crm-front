@@ -65,7 +65,7 @@ export const OperatorStatusBadge: React.FC<OperatorStatusBadgeProps> = ({
 
   return (
     <BadgeWrapper accentColor={accentColor} className={className}>
-      <Icon style={{ rotate }} size={24} />
+      <Icon style={{ transform: `rotate(${rotate})` }} size={24} />
       <Typography variant="bodyDefault">{text}</Typography>
     </BadgeWrapper>
   );

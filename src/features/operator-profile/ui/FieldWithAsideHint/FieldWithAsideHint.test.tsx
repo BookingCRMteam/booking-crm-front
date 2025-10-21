@@ -1,18 +1,12 @@
-import type { ReactNode } from 'react';
+import { screen } from '@testing-library/react';
 
-import { ThemeProvider } from '@mui/material';
-import { render, screen } from '@testing-library/react';
-
-import { theme } from '@/shared/theme';
+import { renderWithTheme } from '@/shared/tests';
 
 import { FieldWithAsideHint } from './FieldWithAsideHint';
 
 jest.mock('@phosphor-icons/react', () => ({
   WarningCircleIcon: () => <svg data-testid="warning-icon" />,
 }));
-
-const renderWithTheme = (ui: ReactNode) =>
-  render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
 
 describe('FieldWithAsideHint Component', () => {
   const mockHintText = 'This is a helpful instruction for the field.';

@@ -1,5 +1,3 @@
-import { ImgHTMLAttributes } from 'react';
-
 import '@testing-library/jest-dom';
 import { waitFor } from '@testing-library/react';
 
@@ -10,19 +8,6 @@ import { renderWithProviders } from '@/shared/tests';
 import TourControl from './TourControl';
 
 jest.mock('@/features/booking/lib/useBookingAuthModal');
-
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: (
-    props: ImgHTMLAttributes<HTMLImageElement> & {
-      src: string | { src: string };
-    },
-  ) => {
-    const src = typeof props.src === 'object' ? props.src.src : props.src;
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    return <img {...props} src={src} />;
-  },
-}));
 
 jest.mock('@/entities/user', () => ({
   useUserQuery: () => ({ data: null }),

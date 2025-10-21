@@ -1,16 +1,10 @@
-import type { ReactNode } from 'react';
-
-import { ThemeProvider } from '@mui/material';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import type { OperatorStatus } from '@/entities/operator';
 
-import { theme } from '@/shared/theme';
+import { renderWithTheme } from '@/shared/tests';
 
 import { OperatorTitle } from './OperatorTitle';
-
-const renderWithTheme = (ui: ReactNode) =>
-  render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
 
 jest.mock('@/shared/ui', () => ({
   OperatorStatusBadge: ({

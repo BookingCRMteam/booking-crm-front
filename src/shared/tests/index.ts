@@ -1,1 +1,1 @@
-export { renderWithProviders } from './renderWithProviders';
+export { renderWithProviders, renderWithTheme } from './renderWithProviders';

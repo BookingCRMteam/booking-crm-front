@@ -21,6 +21,9 @@ const HintWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: '5px',
   color: '#000',
+  [theme.breakpoints.down('md')]: {
+    display: 'none',
+  },
 }));
 
 export const FieldWithAsideHint: FC<FieldWithAsideHintProps> = ({

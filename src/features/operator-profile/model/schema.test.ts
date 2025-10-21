@@ -1,7 +1,13 @@
 import { operatorProfileSchema } from './schema';
 
-const createMockFile = (name: string, type: string) =>
-  new File(['.'], name, { type: type, lastModified: Date.now() });
+const createMockFile = (
+  name: string,
+  type: string,
+  sizeInBytes: number = 100,
+) => {
+  const buffer = new Uint8Array(sizeInBytes);
+  return new File([buffer], name, { type: type, lastModified: Date.now() });
+};
 
 describe('operatorProfileSchema', () => {
   it('should validate successfully with valid minimal data', () => {
@@ -70,6 +76,28 @@ describe('operatorProfileSchema', () => {
     const data = { photo: validFile };
 
     expect(() => operatorProfileSchema.parse(data)).not.toThrow();
+  });
+
+  it('should validate successfully with a file exactly at max size (5 MB)', () => {
+    const maxSize = 5 * 1024 * 1024;
+    const maxFile = createMockFile('max.png', 'image/png', maxSize);
+    const data = { photo: maxFile };
+
+    expect(() => operatorProfileSchema.parse(data)).not.toThrow();
+  });
+
+  it('should fail if photo file size exceeds 5 MB', () => {
+    const oversized = 5 * 1024 * 1024 + 1;
+    const oversizedFile = createMockFile(
+      'oversized.jpeg',
+      'image/jpeg',
+      oversized,
+    );
+    const data = { photo: oversizedFile };
+
+    expect(() => operatorProfileSchema.parse(data)).toThrow(
+      'Файл має бути менше 5 МБ',
+    );
   });
 
   it('should fail if photo file type is not accepted (e.g., GIF)', () => {

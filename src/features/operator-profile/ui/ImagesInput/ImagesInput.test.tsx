@@ -1,25 +1,9 @@
-import { ImgHTMLAttributes, ReactNode } from 'react';
-
-import { ThemeProvider } from '@mui/material';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { theme } from '@/shared/theme';
+import { renderWithTheme } from '@/shared/tests';
 
 import { ImagesInput } from './ImagesInput';
-
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: (
-    props: ImgHTMLAttributes<HTMLImageElement> & {
-      src: string | { src: string };
-    },
-  ) => {
-    const src = typeof props.src === 'object' ? props.src.src : props.src;
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    return <img src={src} data-testid="image-preview" />;
-  },
-}));
 
 const mockOnChange = jest.fn();
 const mockOnDeleteFlagChange = jest.fn();
@@ -51,9 +35,6 @@ Object.defineProperty(global.URL, 'revokeObjectURL', {
   value: mockRevokeObjectURL,
 });
 
-const renderWithTheme = (ui: ReactNode) =>
-  render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockControl = {} as any;
 
@@ -72,7 +53,7 @@ describe('ImagesInput', () => {
       />,
     );
     expect(screen.getByText('Завантажити фото')).toBeInTheDocument();
-    expect(screen.queryByTestId('image-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('mock-next-image')).not.toBeInTheDocument();
   });
 
   it('renders image preview and delete button when initialPreviewUrl is provided', () => {
@@ -85,7 +66,7 @@ describe('ImagesInput', () => {
       />,
     );
 
-    const image = screen.getByTestId('image-preview');
+    const image = screen.getByTestId('mock-next-image');
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute('src', initialUrl);
 
@@ -113,7 +94,7 @@ describe('ImagesInput', () => {
       expect(mockOnDeleteFlagChange).toHaveBeenCalledWith(false);
       expect(mockCreateObjectURL).toHaveBeenCalledWith(mockFile);
 
-      const image = screen.getByTestId('image-preview');
+      const image = screen.getByTestId('mock-next-image');
       expect(image).toBeInTheDocument();
       expect(image).toHaveAttribute('src', 'mock-object-url');
     });
@@ -141,7 +122,7 @@ describe('ImagesInput', () => {
       expect(mockOnDeleteFlagChange).toHaveBeenCalledWith(true);
 
       expect(screen.getByText('Завантажити фото')).toBeInTheDocument();
-      expect(screen.queryByTestId('image-preview')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('mock-next-image')).not.toBeInTheDocument();
     });
   });
 });

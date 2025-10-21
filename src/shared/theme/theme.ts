@@ -364,16 +364,16 @@ export const theme = createTheme({
               '&:hover': {
                 textDecoration: 'underline',
                 textDecorationSkipInk: 'none',
-                color: '#34c8dc',
+                color: theme.palette.focused.main,
               },
               '&:active': {
-                color: '#1789A3',
+                color: theme.palette.pressed.main,
                 textDecoration: 'none',
               },
               '&:focus-visible': {
                 textDecoration: 'underline',
                 textDecorationSkipInk: 'none',
-                color: '#34c8dc',
+                color: theme.palette.focused.main,
                 outline: 'none',
               },
             };
