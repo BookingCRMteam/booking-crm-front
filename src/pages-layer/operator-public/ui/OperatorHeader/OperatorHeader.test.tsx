@@ -1,5 +1,3 @@
-import { ImgHTMLAttributes } from 'react';
-
 import { ThemeProvider } from '@mui/material/styles';
 import { render, screen } from '@testing-library/react';
 
@@ -8,15 +6,6 @@ import { formattedPhone } from '@/shared/utils';
 
 import { mockOperator } from '../../mocks/data';
 import { OperatorHeader } from './OperatorHeader';
-
-jest.mock('next/image', () => {
-  const MockImage = (props: ImgHTMLAttributes<HTMLImageElement>) => (
-    /* eslint-disable-next-line @next/next/no-img-element */
-    <img {...props} alt={props.alt || 'mocked image'} />
-  );
-  MockImage.displayName = 'NextImage';
-  return MockImage;
-});
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);

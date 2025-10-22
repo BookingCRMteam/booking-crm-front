@@ -35,3 +35,19 @@ export const renderWithProviders = (ui: ReactNode) => {
     user,
   };
 };
+
+export const renderWithTheme = (ui: ReactNode) => {
+  const user = userEvent.setup();
+
+  const result = render(
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {ui}
+    </ThemeProvider>,
+  );
+
+  return {
+    ...result,
+    user,
+  };
+};

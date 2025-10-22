@@ -57,6 +57,8 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     positive: Palette['primary'];
+    focused: Palette['primary'];
+    pressed: Palette['primary'];
     neutral: {
       black: string;
       darkGray: string;
@@ -70,6 +72,8 @@ declare module '@mui/material/styles' {
 
   interface PaletteOptions {
     positive?: PaletteOptions['primary'];
+    focused?: PaletteOptions['primary'];
+    pressed?: PaletteOptions['primary'];
     neutral?: {
       black: string;
       darkGray: string;

@@ -14,19 +14,19 @@ export type OperatorOnboarding = {
 
 export interface OperatorMe {
   id: number;
-  email: string | null;
+  email: string;
   createdAt: string;
   updatedAt: string;
   userId: number;
   companyName: string;
   description: string;
-  firstName: string | null;
-  lastName: string | null;
+  firstName: string;
+  lastName: string;
   website: string;
   phone: string;
   status: OperatorStatus;
   philosophy: string;
-  photo: null | string;
+  photo: string;
 }
 
 export interface OperatorById {

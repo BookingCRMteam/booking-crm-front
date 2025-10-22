@@ -78,6 +78,12 @@ export const theme = createTheme({
     positive: {
       main: customPalette.status.positive,
     },
+    focused: {
+      main: customPalette.status.focused,
+    },
+    pressed: {
+      main: customPalette.status.pressed,
+    },
   },
   typography: {
     fontFamily: [
@@ -358,16 +364,16 @@ export const theme = createTheme({
               '&:hover': {
                 textDecoration: 'underline',
                 textDecorationSkipInk: 'none',
-                color: '#34c8dc',
+                color: theme.palette.focused.main,
               },
               '&:active': {
-                color: '#1789A3',
+                color: theme.palette.pressed.main,
                 textDecoration: 'none',
               },
               '&:focus-visible': {
                 textDecoration: 'underline',
                 textDecorationSkipInk: 'none',
-                color: '#34c8dc',
+                color: theme.palette.focused.main,
                 outline: 'none',
               },
             };
@@ -432,7 +438,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           '& label.Mui-focused': {
-            color: theme.palette.common.black,
+            color: theme.palette.gray[700],
           },
           '& label.Mui-disabled': {
             color: theme.palette.gray[600],
@@ -444,21 +450,7 @@ export const theme = createTheme({
       },
       defaultProps: {
         slotProps: {
-          htmlInput: {
-            sx: {
-              '&:-webkit-autofill': {
-                WebkitBoxShadow: '0 0 0px 100px #fff inset',
-                WebkitTextFillColor: '#000500',
-                // caretColor: '#000500',
-              },
-
-              '.dark &:-webkit-autofill': {
-                WebkitBoxShadow: '0 0 0px 100px #fff inset', // Білий фон
-                WebkitTextFillColor: '#000500', // Темний текст
-                // caretColor: '#000500',
-              },
-            },
-          },
+          htmlInput: {},
         },
       },
     },
@@ -467,7 +459,7 @@ export const theme = createTheme({
         root: ({ theme }) => ({
           ...theme.typography.inputPlaceholder,
           fontSize: '16px',
-          color: theme.palette.common.black,
+          color: theme.palette.gray[700],
         }),
       },
     },
@@ -477,6 +469,17 @@ export const theme = createTheme({
           ...theme.typography.inputPlaceholder,
           fontSize: '16px',
           color: theme.palette.common.black,
+          '& input:-webkit-autofill': {
+            WebkitBoxShadow: `0 0 0px 100px ${theme.palette.common.white} inset`,
+            WebkitTextFillColor: theme.palette.text.primary,
+            caretColor: theme.palette.text.primary,
+            transition: 'background-color 5000s ease-in-out 0s',
+          },
+          '.dark & input:-webkit-autofill': {
+            WebkitBoxShadow: `0 0 0px 100px ${theme.palette.common.white} inset`,
+            WebkitTextFillColor: theme.palette.text.primary,
+            caretColor: theme.palette.text.primary,
+          },
           '&:placeholder': {
             ...theme.typography.inputPlaceholder,
           },
