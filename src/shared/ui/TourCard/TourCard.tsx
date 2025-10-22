@@ -2,7 +2,6 @@
 
 import type { FC } from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import {
@@ -11,24 +10,96 @@ import {
   Card,
   CardActions,
   CardContent,
-  Divider,
-  type Theme,
+  CardProps,
   Typography,
+  styled,
 } from '@mui/material';
 import { CalendarDotsIcon, MapPinLineIcon } from '@phosphor-icons/react';
 
 import type { TourPhoto } from '@/entities/tour/model/types';
 
 import { APP_ROUTE } from '@/shared/constants';
+import { OperatorLink } from '@/shared/ui';
 import { formattedDate } from '@/shared/utils';
 
 import Label from './Label';
 import { TourCardImage } from './TourCardImage';
-import { TourOperatorDisplay } from './TourOperatorDisplay';
 
-// const DEFAULT_IMAGE_URL = '/images/tourCard/tour.png';
-const DEFAULT_OPERATOR_IMAGE_URL = '/images/tourCard/operator.png';
+interface CardWrapperProps extends CardProps {
+  isAvailable: boolean;
+}
 
+const CardWrapper = styled(Card, {
+  shouldForwardProp: (prop) => prop !== 'isAvailable',
+})<CardWrapperProps>(({ theme, isAvailable }) => ({
+  width: 331,
+  minHeight: 600,
+  position: 'relative',
+  borderRadius: '4px',
+  overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-end',
+  transition: 'all 0.3s ease-in-out',
+  boxShadow: 'none',
+
+  ...(isAvailable && {
+    '&:has(.MuiButton-root:focus)': {
+      outline: `3px solid ${theme.palette.primary.dark}`,
+    },
+
+    '&:has(.MuiButton-root:active)': {
+      outline: `3px solid ${theme.palette.primary.light}`,
+    },
+
+    '&:hover': {
+      '& .tour-card-content-wrapper': {
+        backgroundColor: 'rgba(54, 54, 54, 0.5)',
+      },
+
+      '& .tour-card-image-wrapper': {
+        transform: 'scale(1.2) translate(25px, 38px)',
+      },
+    },
+  }),
+}));
+
+const ImageWrapper = styled(Box)({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  zIndex: 0,
+  overflow: 'hidden',
+  transition: 'transform 0.3s ease-in-out',
+});
+
+const PriceWrapper = styled(Box)({
+  display: 'flex',
+  gap: '8px',
+  alignItems: 'center',
+});
+
+const ContentWrapper = styled(Box)({
+  zIndex: 1,
+  backgroundColor: 'rgba(54, 54, 54, 0.4)',
+  padding: '12px 8px 28px',
+  borderRadius: '4px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+  backdropFilter: 'blur(10px)',
+});
+
+const CardContentStyle = styled(CardContent)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '12px',
+  color: theme.palette.common.white,
+  padding: 0,
+}));
 interface TourCardProps {
   id: number;
   title: string;
@@ -37,11 +108,11 @@ interface TourCardProps {
   photos: TourPhoto[];
   startDate: string;
   endDate: string;
-  countryName: string; // Будемо передавати вже витягнуту назву країни
+  countryName: string;
   operator: {
-    firstName: string;
-    lastName: string;
+    name: string;
     photo: string | null;
+    id: number;
   };
 }
 
@@ -57,83 +128,17 @@ export const TourCard: FC<TourCardProps> = ({
   countryName,
 }) => {
   const isAvailable = availableSpots !== 0;
-  const date = `${formattedDate(startDate)} - ${formattedDate(endDate)}`;
+  const date = `${formattedDate(startDate)} — ${formattedDate(endDate)}`;
   const mainPhoto = photos.find((photo) => photo.isMain === true) ?? photos[0];
 
-  const dynamicStyles = (theme: Theme) => ({
-    width: 331,
-    minHeight: 600,
-    position: 'relative',
-    borderRadius: '4px',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    transition: 'all 0.3s ease-in-out',
-    boxShadow: 'none',
-
-    ...(isAvailable && {
-      '&:has(.MuiButton-root:focus)': {
-        outline: `3px solid ${theme.palette.primary.dark}`,
-      },
-
-      '&:has(.MuiButton-root:active)': {
-        outline: `3px solid ${theme.palette.primary.light}`,
-      },
-
-      '&:hover': {
-        '& .tour-card-content-wrapper': {
-          backgroundColor: 'rgba(54, 54, 54, 0.5)',
-        },
-
-        '& .tour-card-image-wrapper': {
-          transform: 'scale(1.2) translate(25px, 38px)',
-        },
-      },
-    }),
-  });
-
   return (
-    <Card sx={dynamicStyles}>
-      <Box
-        className="tour-card-image-wrapper"
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 0,
-          overflow: 'hidden',
-          transition: 'transform 0.3s ease-in-out',
-        }}
-      >
+    <CardWrapper isAvailable={isAvailable}>
+      <ImageWrapper className="tour-card-image-wrapper">
         <TourCardImage mainPhoto={mainPhoto} title={title} />
-      </Box>
+      </ImageWrapper>
       <Label count={availableSpots} />
-      <Box
-        className="tour-card-content-wrapper"
-        sx={{
-          zIndex: 1,
-          backgroundColor: 'rgba(54, 54, 54, 0.4)',
-          padding: '12px 8px 28px',
-          borderRadius: '4px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-          backdropFilter: 'blur(10px)',
-        }}
-      >
-        <CardContent
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '12px',
-            color: (theme) => theme.palette.common.white,
-            p: 0,
-          }}
-        >
+      <ContentWrapper className="tour-card-content-wrapper">
+        <CardContentStyle>
           <Typography
             align="center"
             variant="h3"
@@ -150,6 +155,9 @@ export const TourCard: FC<TourCardProps> = ({
             sx={{
               p: '0 8px',
               width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px',
             }}
           >
             <Box
@@ -201,40 +209,14 @@ export const TourCard: FC<TourCardProps> = ({
                 </Typography>
               </Box>
             </Box>
-            <Divider
-              component="hr"
-              variant="fullWidth"
-              sx={{
-                width: '100%',
-                m: '12px 0 7.3px',
-              }}
+            <OperatorLink
+              variant="card"
+              id={operator.id}
+              name={operator.name}
+              photo={operator.photo}
             />
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                paddingLeft: 1,
-                gap: 1,
-              }}
-            >
-              <Image
-                src={operator.photo ?? DEFAULT_OPERATOR_IMAGE_URL}
-                width={32}
-                height={32}
-                alt="avatar for operator"
-              />
-              <TourOperatorDisplay
-                operator={`${operator.firstName} ${operator.lastName}`}
-              />
-            </Box>
           </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 1,
-              alignItems: 'center',
-            }}
-          >
+          <PriceWrapper>
             <Typography variant="priceHighlight" component="p">
               &#x20B4;
             </Typography>
@@ -244,8 +226,8 @@ export const TourCard: FC<TourCardProps> = ({
             <Typography variant="priceHighlight" component="p">
               (за двох)
             </Typography>
-          </Box>
-        </CardContent>
+          </PriceWrapper>
+        </CardContentStyle>
 
         <CardActions sx={{ p: 0 }}>
           <Button
@@ -260,7 +242,7 @@ export const TourCard: FC<TourCardProps> = ({
             Детальніше
           </Button>
         </CardActions>
-      </Box>
-    </Card>
+      </ContentWrapper>
+    </CardWrapper>
   );
 };

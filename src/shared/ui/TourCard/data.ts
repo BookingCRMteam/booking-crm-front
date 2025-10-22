@@ -1,4 +1,4 @@
-import { Tour } from '@/entities/tour';
+import type { Tour } from '@/entities/tour';
 
 export const mockTour: Tour = {
   id: 1,
@@ -121,10 +121,10 @@ export const mockTour: Tour = {
 export const mockCardProps = {
   id: 1,
   title: 'Романтична Флоренція',
-  availableSpots: 12,
+  availableSpots: 2,
   price: '78 567',
-  startDate: '2025-10-02',
-  endDate: '2025-10-03',
+  startDate: '2025-10-01',
+  endDate: '2025-10-07',
   countryName: 'Італія',
   photos: [
     {
@@ -143,8 +143,8 @@ export const mockCardProps = {
     },
   ],
   operator: {
-    firstName: 'Олена',
-    lastName: 'Петренко',
+    name: 'Олена Петренко',
     photo: null,
+    id: 15,
   },
 };

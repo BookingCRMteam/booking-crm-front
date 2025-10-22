@@ -70,7 +70,7 @@ describe('TourControl', () => {
 
     expect(getByRole('img')).toHaveAttribute(
       'src',
-      '/images/tourCard/operator.png',
+      '/images/operator_placeholder.png',
     );
   });
 
