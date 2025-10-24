@@ -2,14 +2,17 @@
 
 import type { FC } from 'react';
 
-import { Box, Typography, TypographyProps, styled } from '@mui/material';
-import { CalendarDotsIcon, MapPinLineIcon } from '@phosphor-icons/react';
+import { Box, Typography, styled } from '@mui/material';
 
 import { BookingButton } from '@/features/booking';
 
+import { useUserQuery } from '@/entities/user';
+
+import { useBookingStore } from '@/shared/store';
+import { DateDisplay, LocationDisplay, PriceDisplay } from '@/shared/ui';
+
 import { AvailabilityBadge } from '../AvailabilityBadge/AvailabilityBadge';
 import { OperatorLink } from '../OperatorLink/OperatorLink';
-import { PriceDisplay } from '../PriceDisplay/PriceDisplay';
 
 const ControlWrapper = styled(Box)({
   display: 'flex',
@@ -35,19 +38,6 @@ const MetaGroup = styled(Box)({
   gap: '16px',
 });
 
-const MetaItem = styled(Box)({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '4px',
-});
-
-const CountryAndCity = styled(Typography)<TypographyProps>({
-  fontFamily: 'Inter',
-  lineHeight: '1',
-  transform: 'translateY(1px)',
-  letterSpacing: '0.04em',
-});
-
 type TourControlProps = {
   tourId: number;
   title: string;
@@ -71,7 +61,24 @@ const TourControl: FC<TourControlProps> = ({
   availableSpots,
   operator,
 }) => {
-  const isAvailable = availableSpots !== 0;
+  const isAvailable = availableSpots > 0;
+  const { data: user } = useUserQuery();
+  const { openAuthPopover, openOperatorPopover, openBookingModal } =
+    useBookingStore();
+
+  const handleBookingClick = () => {
+    const tourData = { tourId, title, price, countryAndCity, date };
+
+    if (!user) {
+      openAuthPopover();
+      return;
+    }
+    if (user.role === 'operator') {
+      openOperatorPopover();
+      return;
+    }
+    openBookingModal(tourData);
+  };
 
   return (
     <ControlWrapper>
@@ -85,33 +92,15 @@ const TourControl: FC<TourControlProps> = ({
       <InfoSection>
         <InfoRow>
           <MetaGroup>
-            <MetaItem>
-              <MapPinLineIcon size={24} color="#007A78" />
-              <CountryAndCity variant="bodyDefault" component="p">
-                {countryAndCity}
-              </CountryAndCity>
-            </MetaItem>
-            <MetaItem gap={1}>
-              <CalendarDotsIcon size={24} color="#007A78" />
-              <Typography
-                variant="bodyLarge"
-                component="p"
-                sx={{ fontFamily: 'Inter', letterSpacing: '0.035em' }}
-              >
-                {date}
-              </Typography>
-            </MetaItem>
+            <LocationDisplay location={countryAndCity} />
+            <DateDisplay date={date} />
           </MetaGroup>
-
           <AvailabilityBadge availableSpots={availableSpots} />
         </InfoRow>
         <PriceDisplay price={price} />
       </InfoSection>
       <OperatorLink {...operator} />
-      <BookingButton
-        isAvailable={isAvailable}
-        tourData={{ tourId, title, countryAndCity, date, price }}
-      />
+      <BookingButton isAvailable={isAvailable} onClick={handleBookingClick} />
     </ControlWrapper>
   );
 };

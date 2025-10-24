@@ -20,8 +20,8 @@ export const CloseButton = ({
       onClick={onClick}
       sx={{
         position: 'absolute',
-        top: top,
-        right: right,
+        top,
+        right,
       }}
     >
       <CloseIcon />

@@ -1,22 +1,39 @@
-import React from 'react';
+'use client';
 
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 
-import { TourBookingInfo } from '@/entities/tour/model/types';
+import { useBookingStore } from '@/shared/store';
+import { DateDisplay, LocationDisplay, PriceDisplay } from '@/shared/ui';
 
-interface TourInfoBlockProps {
-  tourData: TourBookingInfo;
-}
+const TourContainer = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+  alignItems: 'center',
+});
 
-export const TourInfoBlock = ({ tourData }: TourInfoBlockProps) => {
+const InfoContainer = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  alignItems: 'center',
+});
+
+export const TourInfoBlock = () => {
+  const { tourData } = useBookingStore();
+
+  if (!tourData) return null;
+
   const { title, price, countryAndCity, date } = tourData;
 
   return (
-    <Box>
-      <Typography>{title}</Typography>
-      <Typography>{countryAndCity}</Typography>
-      <Typography>{date}</Typography>
-      <Typography>{`$${price}`}</Typography>
-    </Box>
+    <TourContainer>
+      <Typography variant="h3">{title}</Typography>
+      <InfoContainer>
+        <LocationDisplay location={countryAndCity} />
+        <DateDisplay date={date} />
+        <PriceDisplay price={price} />
+      </InfoContainer>
+    </TourContainer>
   );
 };

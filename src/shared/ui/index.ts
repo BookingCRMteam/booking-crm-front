@@ -2,3 +2,7 @@ export { Tabs } from './Tabs/Tabs';
 export { Notification } from './Notification/Notification';
 export { TourCard } from './TourCard/TourCard';
 export { BreadCrumbs } from './BreadCrumbs/BreadCrumbs';
+export { CloseButton } from './CloseButton/CloseButton';
+export { LocationDisplay } from './LocationDisplay/LocationDisplay';
+export { DateDisplay } from './DateDisplay/DateDisplay';
+export { PriceDisplay } from './PriceDisplay/PriceDisplay';

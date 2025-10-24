@@ -1,33 +1,19 @@
 'use client';
 
-import { type FC, useRef } from 'react';
+import { useRef } from 'react';
 
 import { Button } from '@mui/material';
 
-import { TourBookingInfo } from '@/entities/tour/model/types';
-
-import { useBookingModal } from '../../lib/useBookingModal';
 import { BookingAuthPopover } from '../BookingAuthPopover/BookingAuthPopover';
-import { BookingFormModal } from '../BookingFormModal/BookingFormModal';
+import { BookingModal } from '../BookingModal/BookingModal';
+import { BookingOperatorPopover } from '../BookingOperatorPopover/BookingOperatorPopover';
 
 type BookingButtonProps = {
-  isAvailable?: boolean;
-  tourData: TourBookingInfo;
+  isAvailable: boolean;
+  onClick: () => void;
 };
 
-export const BookingButton: FC<BookingButtonProps> = ({
-  isAvailable = false,
-  tourData,
-}) => {
-  const {
-    isAuthModalOpen,
-    isBookingModalOpen,
-    handleOpen,
-    handleAuth,
-    handleCloseAuth,
-    handleCloseBooking,
-  } = useBookingModal();
-
+export const BookingButton = ({ isAvailable, onClick }: BookingButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -39,24 +25,16 @@ export const BookingButton: FC<BookingButtonProps> = ({
         size="large"
         fullWidth
         disabled={!isAvailable}
-        onClick={handleOpen}
+        onClick={onClick}
+        aria-label="Забронювати"
         sx={{ '&.Mui-disabled': { color: 'common.white' } }}
       >
         Забронювати
       </Button>
 
-      <BookingAuthPopover
-        open={isAuthModalOpen}
-        anchorEl={buttonRef.current}
-        onClose={handleCloseAuth}
-        onAuth={handleAuth}
-      />
-
-      <BookingFormModal
-        open={isBookingModalOpen}
-        onClose={handleCloseBooking}
-        tourData={tourData}
-      />
+      <BookingAuthPopover anchorEl={buttonRef.current} />
+      <BookingOperatorPopover anchorEl={buttonRef.current} />
+      <BookingModal />
     </>
   );
 };

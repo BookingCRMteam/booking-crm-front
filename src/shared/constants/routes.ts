@@ -9,7 +9,6 @@ export enum APP_ROUTE {
   COUNTRIES = '/countries',
   ABOUT = '/about',
   CONTACT = '/contact',
-  BOOKING = '/booking',
   BOOKINGS = '/bookings',
   CATALOG = '/catalog',
   FAQ = '/faq',

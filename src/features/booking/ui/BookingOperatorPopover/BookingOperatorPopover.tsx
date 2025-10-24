@@ -1,14 +1,12 @@
-import { useCallback } from 'react';
-
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { Box, Button, Popover, Typography, styled } from '@mui/material';
 
-import { AUTH_URL } from '@/shared/constants';
+import { APP_ROUTE } from '@/shared/constants';
 import { useBookingStore } from '@/shared/store';
 import { CloseButton } from '@/shared/ui';
 
-type BookingAuthPopoverProps = {
+type BookingOperatorPopoverProps = {
   forceOpen?: boolean;
   anchorEl: HTMLElement | null;
 };
@@ -27,32 +25,28 @@ const ActionButtons = styled(Box)({
   gap: '15px',
 });
 
-export const BookingAuthPopover = ({
+export const BookingOperatorPopover = ({
   forceOpen = false,
   anchorEl,
-}: BookingAuthPopoverProps) => {
-  const { isAuthPopoverOpen, closeAuthPopover } = useBookingStore();
+}: BookingOperatorPopoverProps) => {
+  const { isOperatorPopoverOpen, closeOperatorPopover } = useBookingStore();
 
-  const open = forceOpen || isAuthPopoverOpen;
+  const open = forceOpen || isOperatorPopoverOpen;
 
   const router = useRouter();
-  const currentPath = usePathname();
 
-  const handleAuth = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (forceOpen) return e.preventDefault();
+  const handleCreateTour = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (forceOpen) return e.preventDefault();
 
-      closeAuthPopover();
-      router.push(`${AUTH_URL.LOGIN}?returnTo=${currentPath}`);
-    },
-    [router, currentPath, forceOpen, closeAuthPopover],
-  );
+    closeOperatorPopover();
+    router.push(APP_ROUTE.OPERATOR);
+  };
 
   return (
     <Popover
       role="dialog"
       open={open}
-      onClose={closeAuthPopover}
+      onClose={closeOperatorPopover}
       elevation={0}
       anchorEl={anchorEl}
       anchorOrigin={{
@@ -72,32 +66,33 @@ export const BookingAuthPopover = ({
       }}
     >
       <PopoverContent>
-        <CloseButton onClick={closeAuthPopover} />
+        <CloseButton onClick={closeOperatorPopover} />
         <Typography
           align="center"
           variant="bodyLarge"
           component="p"
           maxWidth={339}
+          color="error"
         >
-          Щоб забронювати цей тур, будь ласка, увійдіть в свій акаунт/
-          зареєструйтесь
+          Ви, як авторизований туроператор, можете лише переглядати існуючі тури
         </Typography>
         <ActionButtons>
           <Button
             variant="outlined"
             size="large"
             color="secondary"
-            onClick={closeAuthPopover}
+            onClick={closeOperatorPopover}
           >
             Відмінити
           </Button>
           <Button
             variant="contained"
-            size="large"
             color="primary"
-            onClick={handleAuth}
+            size="large"
+            fullWidth
+            onClick={handleCreateTour}
           >
-            Вхід/Реєстрація
+            Створити власний тур
           </Button>
         </ActionButtons>
       </PopoverContent>
