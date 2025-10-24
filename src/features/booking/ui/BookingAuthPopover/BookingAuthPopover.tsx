@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import type { MouseEvent } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -39,17 +40,20 @@ export const BookingAuthPopover = ({
   const currentPath = usePathname();
 
   const handleAuth = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    (e: MouseEvent<HTMLButtonElement>) => {
       if (forceOpen) return e.preventDefault();
 
       closeAuthPopover();
-      router.push(`${AUTH_URL.LOGIN}?returnTo=${currentPath}`);
+      router.push(
+        `${AUTH_URL.LOGIN}?returnTo=${encodeURIComponent(currentPath)}`,
+      );
     },
     [router, currentPath, forceOpen, closeAuthPopover],
   );
 
   return (
     <Popover
+      aria-labelledby="auth-popover-desc"
       role="dialog"
       open={open}
       onClose={closeAuthPopover}
@@ -64,16 +68,21 @@ export const BookingAuthPopover = ({
         horizontal: 'center',
       }}
       slotProps={{
-        backdrop: {
-          sx: (theme) => ({
-            backgroundColor: `${theme.palette.neutral.darkGray}80`,
-          }),
+        root: {
+          slotProps: {
+            backdrop: {
+              sx: (theme) => ({
+                backgroundColor: `${theme.palette.neutral.darkGray}80`,
+              }),
+            },
+          },
         },
       }}
     >
       <PopoverContent>
         <CloseButton onClick={closeAuthPopover} />
         <Typography
+          id="auth-popover-desc"
           align="center"
           variant="bodyLarge"
           component="p"

@@ -58,10 +58,14 @@ export const DefaultView: Story = {
 
     useEffect(() => {
       openBookingModal({
-        ...mockTourData,
-        ...typedArgs,
+        tourId: mockTourData.tourId,
+        title: typedArgs.title,
+        price: typedArgs.price,
+        countryAndCity: typedArgs.countryAndCity,
+        date: typedArgs.date,
       });
-    }, [openBookingModal, typedArgs]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openBookingModal]);
 
     return (
       <Box sx={{ maxWidth: 400 }}>

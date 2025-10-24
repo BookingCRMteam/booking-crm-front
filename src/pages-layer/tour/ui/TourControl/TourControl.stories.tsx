@@ -17,6 +17,7 @@ const mockOperator = {
 };
 
 const baseArgs = {
+  tourId: 10,
   title: 'Романтична Флоренція',
   price: '78 567',
   countryAndCity: 'Флоренція, Італія',

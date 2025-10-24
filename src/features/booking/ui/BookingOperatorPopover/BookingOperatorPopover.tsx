@@ -1,3 +1,5 @@
+import type { MouseEvent } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import { Box, Button, Popover, Typography, styled } from '@mui/material';
@@ -35,7 +37,7 @@ export const BookingOperatorPopover = ({
 
   const router = useRouter();
 
-  const handleCreateTour = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCreateTour = (e: MouseEvent<HTMLButtonElement>) => {
     if (forceOpen) return e.preventDefault();
 
     closeOperatorPopover();
@@ -44,6 +46,7 @@ export const BookingOperatorPopover = ({
 
   return (
     <Popover
+      aria-labelledby="operator-popover-desc"
       role="dialog"
       open={open}
       onClose={closeOperatorPopover}
@@ -58,16 +61,21 @@ export const BookingOperatorPopover = ({
         horizontal: 'center',
       }}
       slotProps={{
-        backdrop: {
-          sx: (theme) => ({
-            backgroundColor: `${theme.palette.neutral.darkGray}80`,
-          }),
+        root: {
+          slotProps: {
+            backdrop: {
+              sx: (theme) => ({
+                backgroundColor: `${theme.palette.neutral.darkGray}80`,
+              }),
+            },
+          },
         },
       }}
     >
       <PopoverContent>
         <CloseButton onClick={closeOperatorPopover} />
         <Typography
+          id="operator-popover-desc"
           align="center"
           variant="bodyLarge"
           component="p"

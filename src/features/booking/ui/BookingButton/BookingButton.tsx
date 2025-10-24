@@ -10,10 +10,15 @@ import { BookingOperatorPopover } from '../BookingOperatorPopover/BookingOperato
 
 type BookingButtonProps = {
   isAvailable: boolean;
+  isLoading: boolean;
   onClick: () => void;
 };
 
-export const BookingButton = ({ isAvailable, onClick }: BookingButtonProps) => {
+export const BookingButton = ({
+  isAvailable,
+  isLoading,
+  onClick,
+}: BookingButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -24,7 +29,7 @@ export const BookingButton = ({ isAvailable, onClick }: BookingButtonProps) => {
         color="primary"
         size="large"
         fullWidth
-        disabled={!isAvailable}
+        disabled={!isAvailable || isLoading}
         onClick={onClick}
         aria-label="Забронювати"
         sx={{ '&.Mui-disabled': { color: 'common.white' } }}

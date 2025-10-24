@@ -62,18 +62,20 @@ const TourControl: FC<TourControlProps> = ({
   operator,
 }) => {
   const isAvailable = availableSpots > 0;
-  const { data: user } = useUserQuery();
+  const { data: user, isLoading } = useUserQuery();
   const { openAuthPopover, openOperatorPopover, openBookingModal } =
     useBookingStore();
 
   const handleBookingClick = () => {
+    if (isLoading) return;
+
     const tourData = { tourId, title, price, countryAndCity, date };
 
-    if (!user) {
+    if (user === null) {
       openAuthPopover();
       return;
     }
-    if (user.role === 'operator') {
+    if (user?.role === 'operator') {
       openOperatorPopover();
       return;
     }
@@ -102,7 +104,11 @@ const TourControl: FC<TourControlProps> = ({
 
       <OperatorLink {...operator} variant="page" />
 
-      <BookingButton isAvailable={isAvailable} onClick={handleBookingClick} />
+      <BookingButton
+        isAvailable={isAvailable}
+        onClick={handleBookingClick}
+        isLoading={isLoading}
+      />
     </ControlWrapper>
   );
 };
