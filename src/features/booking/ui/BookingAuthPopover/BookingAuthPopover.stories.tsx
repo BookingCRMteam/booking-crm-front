@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Box, styled } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
@@ -36,16 +38,27 @@ const StyledContainer = styled(Box)({
   position: 'relative',
 });
 
-export const DefaultView: Story = {
-  render: () => {
-    const anchorRef = document.createElement('div');
-    Object.assign(anchorRef.style, anchorStyles);
-    document.body.appendChild(anchorRef);
+const AnchorHost = () => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-    return (
-      <StyledContainer>
-        <BookingAuthPopover anchorEl={anchorRef} forceOpen />
-      </StyledContainer>
-    );
-  },
+  useEffect(() => {
+    const el = document.createElement('div');
+    Object.assign(el.style, anchorStyles);
+    document.body.appendChild(el);
+    setAnchorEl(el);
+
+    return () => {
+      el.remove();
+    };
+  }, []);
+
+  return (
+    <StyledContainer>
+      <BookingAuthPopover anchorEl={anchorEl} forceOpen />
+    </StyledContainer>
+  );
+};
+
+export const DefaultView: Story = {
+  render: () => <AnchorHost />,
 };

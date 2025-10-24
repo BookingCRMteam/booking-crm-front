@@ -78,8 +78,10 @@ export const Interactive: StoryObj<typeof BookingButton> = {
     return (
       <StorybookProviderWrapper
         token={token}
-        setQueryMocks={(qc) =>
-          userMock && qc.setQueryData(['user', 'me'], userMock)
+        setQueryMocks={
+          userMock
+            ? (qc) => qc.setQueryData(['user', 'me'], userMock)
+            : undefined
         }
       >
         <StyledContainer>

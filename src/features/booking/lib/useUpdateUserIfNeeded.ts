@@ -7,7 +7,7 @@ import { logger } from '@/shared/lib/logger';
 export const useUpdateUserIfNeeded = () => {
   const qc = useQueryClient();
 
-  const { mutateAsync } = useMutation<User, Error, UserUpdate>({
+  const { mutateAsync } = useMutation<User, Error, Partial<UserUpdate>>({
     mutationFn: userApi.updateUserData,
     onSuccess: (data) => {
       qc.setQueryData(['user', 'me'], data);
@@ -20,11 +20,13 @@ export const useUpdateUserIfNeeded = () => {
 
   const updateIfMissing = async (user: User, data: Partial<UserUpdate>) => {
     const valuesToUpdate = Object.keys(data).reduce((acc, key) => {
-      if (!user[key as keyof User] && data[key as keyof UserUpdate]) {
-        acc[key as keyof UserUpdate] = data[key as keyof UserUpdate];
+      const k = key as keyof UserUpdate;
+
+      if (user[k] == null && data[k] !== undefined) {
+        acc[k] = data[k];
       }
       return acc;
-    }, {} as UserUpdate);
+    }, {} as Partial<UserUpdate>);
 
     if (Object.keys(valuesToUpdate).length > 0) {
       await mutateAsync(valuesToUpdate);

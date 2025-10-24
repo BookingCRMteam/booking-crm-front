@@ -41,11 +41,11 @@ export const EmptyForm: Story = {
   ],
   render: () => (
     <StorybookProviderWrapper
-      token="mock-token"
+      token={null}
       setQueryMocks={(qc) => qc.setQueryData(['user', 'me'], null)}
     >
       <StyledContainer>
-        <BookingForm />
+        <BookingForm disableSubmit />
       </StyledContainer>
     </StorybookProviderWrapper>
   ),

@@ -30,7 +30,9 @@ export const PhoneInputField = <TFormValues extends FieldValues>({
           helperText={fieldState.error?.message}
           variant="outlined"
           MenuProps={{
-            PaperProps: { style: { maxHeight: 250, width: 493 } },
+            PaperProps: {
+              style: { maxHeight: 250, width: '100%', maxWidth: 493 },
+            },
             disablePortal: true,
             anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
           }}
