@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { Box, styled } from '@mui/material';
 
-import { TourPhoto } from '@/entities/tour/model/types';
+import type { TourPhoto } from '@/entities/tour/model/types';
 
 import { GalleryNavButton } from './GalleryNavButton';
 import { Thumb } from './Thumb';
@@ -16,44 +16,47 @@ type TourGalleryProps = {
   photos: TourPhoto[];
 };
 
-const GalleryWrapper = styled(Box)(() => ({
+const GalleryWrapper = styled(Box)({
   paddingTop: '20px',
   display: 'flex',
   gap: '24px',
   maxWidth: '508px',
   width: '100%',
   position: 'relative',
-}));
+});
 
-const ThumbViewport = styled(Box)(() => ({
+const ThumbViewport = styled(Box)({
   overflow: 'hidden',
   height: '100%',
   maxHeight: '440px',
-}));
+});
 
-const ThumbContainer = styled(Box)(() => ({
+const ThumbContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
   height: '100%',
   marginTop: '0',
-}));
-const MainViewport = styled(Box)(() => ({
-  overflow: 'hidden',
-}));
+});
 
-const MainContainer = styled(Box)(() => ({
+const MainViewport = styled(Box)({
+  overflow: 'hidden',
+});
+
+const MainContainer = styled(Box)({
   display: 'flex',
   gap: '20px',
-}));
-const MainSlide = styled(Box)(() => ({
+});
+
+const MainSlide = styled(Box)({
   borderRadius: '4px',
   flex: '0 0 100%',
   cursor: 'grab',
-}));
+});
 
 export const TourGallery: FC<TourGalleryProps> = ({ photos }) => {
   const isCarouselActive = photos.length > 1;
+  const isButtonShow = photos.length > 5;
   const {
     emblaMainRef,
     emblaThumbsRef,
@@ -77,7 +80,7 @@ export const TourGallery: FC<TourGalleryProps> = ({ photos }) => {
   );
   return (
     <GalleryWrapper className="embla">
-      {isCarouselActive && (
+      {isButtonShow && (
         <>
           <GalleryNavButton
             direction="prev"

@@ -25,6 +25,15 @@ const StyledIconButton = styled(IconButton, {
   '&:hover': {
     backgroundColor: theme.palette.light[200],
   },
+  '&:focus-visible': {
+    backgroundColor: theme.palette.light[300],
+  },
+  '&:active': {
+    backgroundColor: theme.palette.light[400],
+  },
+  '&:disabled': {
+    backgroundColor: theme.palette.gray[300],
+  },
 }));
 
 const StyledIcon = styled(ArrowBackIosRoundedIcon, {
