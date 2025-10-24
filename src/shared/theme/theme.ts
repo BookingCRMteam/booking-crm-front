@@ -74,6 +74,8 @@ export const theme = createTheme({
     },
     info: {
       main: customPalette.status.info,
+      light: customPalette.status.focused,
+      dark: customPalette.status.pressed,
     },
     positive: {
       main: customPalette.status.positive,

@@ -7,8 +7,9 @@ import { CalendarDotsIcon, MapPinLineIcon } from '@phosphor-icons/react';
 
 import { BookingButton } from '@/features/booking';
 
+import { OperatorLink } from '@/shared/ui';
+
 import { AvailabilityBadge } from '../AvailabilityBadge/AvailabilityBadge';
-import { OperatorLink } from '../OperatorLink/OperatorLink';
 import { PriceDisplay } from '../PriceDisplay/PriceDisplay';
 
 const ControlWrapper = styled(Box)({
@@ -105,7 +106,7 @@ const TourControl: FC<TourControlProps> = ({
         </InfoRow>
         <PriceDisplay price={price} />
       </InfoSection>
-      <OperatorLink {...operator} />
+      <OperatorLink {...operator} variant="page" />
       <BookingButton isAvailable={isAvailable} />
     </ControlWrapper>
   );

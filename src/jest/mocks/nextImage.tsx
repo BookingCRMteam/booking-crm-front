@@ -11,7 +11,7 @@ interface NextImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 
 const MockNextImage = (props: NextImageProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { priority, fill, width, height, ...rest } = props;
+  const { priority, fill, ...rest } = props;
 
   // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
   return <img {...rest} data-testid="mock-next-image" />;
