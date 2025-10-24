@@ -54,9 +54,12 @@ const MainSlide = styled(Box)({
   cursor: 'grab',
 });
 
+const MIN_COUNT_FOR_NAV = 6;
+const MIN_SLIDES_FOR_ACTIVE_CAROUSEL = 1;
+
 export const TourGallery: FC<TourGalleryProps> = ({ photos }) => {
-  const isCarouselActive = photos.length > 1;
-  const isButtonShow = photos.length > 5;
+  const isCarouselActive = photos.length > MIN_SLIDES_FOR_ACTIVE_CAROUSEL;
+  const isButtonShow = photos.length >= MIN_COUNT_FOR_NAV;
   const {
     emblaMainRef,
     emblaThumbsRef,

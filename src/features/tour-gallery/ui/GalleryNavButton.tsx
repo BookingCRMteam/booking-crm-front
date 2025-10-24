@@ -41,7 +41,7 @@ const StyledIcon = styled(ArrowBackIosRoundedIcon, {
 })<{
   direction: 'prev' | 'next';
 }>(({ direction }) => ({
-  rotate: direction === 'prev' ? '90deg' : '-90deg',
+  transform: `rotate(${direction === 'prev' ? '90deg' : '-90deg'})`,
 }));
 
 export const GalleryNavButton: FC<GalleryNavButtonProps> = ({

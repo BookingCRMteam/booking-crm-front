@@ -17,7 +17,7 @@ const THUMB_SIZE = 65;
 const StyledButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== 'selected',
 })<{ selected: boolean }>(({ theme, selected }) => ({
-  p: 0,
+  padding: 0,
   borderRadius: '4px',
   width: THUMB_SIZE,
   height: THUMB_SIZE,

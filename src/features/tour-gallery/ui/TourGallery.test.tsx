@@ -1,7 +1,5 @@
 import { createRef } from 'react';
 
-import userEvent from '@testing-library/user-event';
-
 import { TourPhoto } from '@/entities/tour/model/types';
 
 import { renderWithTheme } from '@/shared/tests';
@@ -53,8 +51,10 @@ describe('TourGallery', () => {
     const images = getAllByTestId('mock-next-image');
     expect(images.length).toBe(MOCK_PHOTOS.length * 2);
 
-    expect(images[3]).toHaveAttribute('src', '/img1.jpg');
-    expect(images[3]).toHaveAttribute('alt', 'Photo 1');
+    const photo1Instances = images.filter(
+      (el) => el.getAttribute('alt') === 'Photo 1',
+    );
+    expect(photo1Instances[0]).toHaveAttribute('src', '/img1.jpg');
   });
 
   it('should render all preview buttons correctly', () => {
@@ -93,8 +93,12 @@ describe('TourGallery', () => {
 
   it('should correctly mark the selected thumbnail based on selectedIndex', () => {
     mockUseTourGallery.mockReturnValue({
-      ...mockUseTourGallery.mock,
+      emblaMainRef: createRef(),
+      emblaThumbsRef: createRef(),
       selectedIndex: 1,
+      scrollPrev: mockScrollPrev,
+      scrollNext: mockScrollNext,
+      onThumbClick: mockOnThumbClick,
     });
 
     const { getByRole } = renderWithTheme(<TourGallery photos={MOCK_PHOTOS} />);
@@ -119,8 +123,7 @@ describe('TourGallery', () => {
   });
 
   it('should call the correct scroll handler when navigation buttons are clicked', async () => {
-    const user = userEvent.setup();
-    const { getByRole } = renderWithTheme(
+    const { getByRole, user } = renderWithTheme(
       <TourGallery photos={MOCK_PHOTOS_SIX} />,
     );
 
@@ -132,8 +135,9 @@ describe('TourGallery', () => {
   });
 
   it('should call onThumbClick when a thumbnail is clicked', async () => {
-    const user = userEvent.setup();
-    const { getByRole } = renderWithTheme(<TourGallery photos={MOCK_PHOTOS} />);
+    const { getByRole, user } = renderWithTheme(
+      <TourGallery photos={MOCK_PHOTOS} />,
+    );
 
     const secondThumb = getByRole('button', {
       name: `Preview image: ${MOCK_PHOTOS[1].description}`,
