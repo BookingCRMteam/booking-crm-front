@@ -5,3 +5,7 @@ export { BreadCrumbs } from './BreadCrumbs/BreadCrumbs';
 export { OperatorStatusBadge } from './OperatorStatusBadge/OperatorStatusBadge';
 export { Phone } from './Phone/Phone';
 export { OperatorLink } from './OperatorLink/OperatorLink';
+export { CloseButton } from './CloseButton/CloseButton';
+export { LocationDisplay } from './LocationDisplay/LocationDisplay';
+export { DateDisplay } from './DateDisplay/DateDisplay';
+export { PriceDisplay } from './PriceDisplay/PriceDisplay';

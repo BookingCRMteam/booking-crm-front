@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { PriceDisplay } from './PriceDisplay';
 
 const meta: Meta<typeof PriceDisplay> = {
-  title: 'Pages/TourPage/PriceDisplay',
+  title: 'UI/PriceDisplay',
   component: PriceDisplay,
   tags: ['autodocs'],
 
