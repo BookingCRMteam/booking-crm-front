@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Modal, styled } from '@mui/material';
 
 import { useBookingStore } from '@/shared/store';

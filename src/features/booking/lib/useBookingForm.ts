@@ -6,7 +6,7 @@ import { coupleProfileSchema } from '@/features/couple-profile-editing/model/sch
 
 import { useUserQuery } from '@/entities/user';
 
-import { useBookingStore } from '@/shared/store';
+import { useBookingStore, useNotificationStore } from '@/shared/store';
 
 import { useCreateBooking } from './useCreateBooking';
 import { useUpdateUserIfNeeded } from './useUpdateUserIfNeeded';
@@ -17,6 +17,7 @@ type BookingFormSchemaValues = z.infer<typeof bookingFormSchema>;
 export const useBookingForm = () => {
   const { data: user } = useUserQuery();
   const { tourData } = useBookingStore();
+  const { showNotification } = useNotificationStore();
   const { updateIfMissing } = useUpdateUserIfNeeded();
   const { createAndRedirect } = useCreateBooking();
 
@@ -33,7 +34,10 @@ export const useBookingForm = () => {
   });
 
   const onSubmit = async (data: BookingFormSchemaValues) => {
-    if (!user || !tourData) return;
+    if (!user || !tourData) {
+      showNotification('Не вдалося знайти дані користувача або туру', 'error');
+      return;
+    }
 
     await updateIfMissing(user, data);
     await createAndRedirect({
