@@ -4,6 +4,8 @@ import { User, UserUpdate, userApi } from '@/entities/user';
 
 import { logger } from '@/shared/lib/logger';
 
+type UpdatableKey = keyof UserUpdate & keyof User;
+
 export const useUpdateUserIfNeeded = () => {
   const qc = useQueryClient();
 
@@ -19,14 +21,16 @@ export const useUpdateUserIfNeeded = () => {
   });
 
   const updateIfMissing = async (user: User, data: Partial<UserUpdate>) => {
-    const valuesToUpdate = Object.keys(data).reduce((acc, key) => {
-      const k = key as keyof UserUpdate;
+    const valuesToUpdate: Partial<UserUpdate> = {};
 
-      if (user[k] == null && data[k] !== undefined) {
-        acc[k] = data[k];
+    for (const k of Object.keys(data) as UpdatableKey[]) {
+      const next = data[k];
+      const current = user[k];
+
+      if (current == null && next !== undefined) {
+        valuesToUpdate[k] = next;
       }
-      return acc;
-    }, {} as Partial<UserUpdate>);
+    }
 
     if (Object.keys(valuesToUpdate).length > 0) {
       await mutateAsync(valuesToUpdate);

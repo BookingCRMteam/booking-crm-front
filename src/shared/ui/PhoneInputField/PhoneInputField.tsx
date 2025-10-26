@@ -14,11 +14,17 @@ export const PhoneInputField = <TFormValues extends FieldValues>({
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState }) => (
+      render={({
+        field: { onChange, onBlur, value, ref, name },
+        fieldState,
+      }) => (
         <MuiTelInput
           label="Номер телефону"
-          {...field}
-          value={field.value ?? ''}
+          inputRef={ref}
+          value={value ?? ''}
+          onChange={(val) => onChange(val)}
+          onBlur={onBlur}
+          name={name}
           defaultCountry="UA"
           forceCallingCode
           preferredCountries={['UA', 'US']}

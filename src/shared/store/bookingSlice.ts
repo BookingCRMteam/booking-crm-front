@@ -7,12 +7,15 @@ type BookingState = {
   isAuthPopoverOpen: boolean;
   isOperatorPopoverOpen: boolean;
   isBookingModalOpen: boolean;
+  isRedirecting: boolean;
   openAuthPopover: () => void;
   closeAuthPopover: () => void;
   openOperatorPopover: () => void;
   closeOperatorPopover: () => void;
   openBookingModal: (data: TourBookingInfo) => void;
   closeBookingModal: () => void;
+  startRedirect: () => void;
+  stopRedirect: () => void;
   reset: () => void;
 };
 
@@ -21,6 +24,7 @@ export const useBookingStore = create<BookingState>((set) => ({
   isAuthPopoverOpen: false,
   isOperatorPopoverOpen: false,
   isBookingModalOpen: false,
+  isRedirecting: false,
 
   openAuthPopover: () => set({ isAuthPopoverOpen: true }),
   closeAuthPopover: () => set({ isAuthPopoverOpen: false }),
@@ -40,11 +44,15 @@ export const useBookingStore = create<BookingState>((set) => ({
       isBookingModalOpen: false,
     }),
 
+  startRedirect: () => set({ isRedirecting: true }),
+  stopRedirect: () => set({ isRedirecting: false }),
+
   reset: () =>
     set({
       tourData: null,
       isAuthPopoverOpen: false,
       isOperatorPopoverOpen: false,
       isBookingModalOpen: false,
+      isRedirecting: false,
     }),
 }));
