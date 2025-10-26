@@ -7,3 +7,6 @@ export { LocationDisplay } from './LocationDisplay/LocationDisplay';
 export { DateDisplay } from './DateDisplay/DateDisplay';
 export { PriceDisplay } from './PriceDisplay/PriceDisplay';
 export { PageOverlay } from './PageOverlay/PageOverlay';
+export { OperatorStatusBadge } from './OperatorStatusBadge/OperatorStatusBadge';
+export { Phone } from './Phone/Phone';
+export { OperatorLink } from './OperatorLink/OperatorLink';

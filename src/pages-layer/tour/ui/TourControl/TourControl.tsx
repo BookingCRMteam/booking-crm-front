@@ -9,10 +9,14 @@ import { BookingButton } from '@/features/booking';
 import { useUserQuery } from '@/entities/user';
 
 import { useBookingStore } from '@/shared/store';
-import { DateDisplay, LocationDisplay, PriceDisplay } from '@/shared/ui';
+import {
+  DateDisplay,
+  LocationDisplay,
+  OperatorLink,
+  PriceDisplay,
+} from '@/shared/ui';
 
 import { AvailabilityBadge } from '../AvailabilityBadge/AvailabilityBadge';
-import { OperatorLink } from '../OperatorLink/OperatorLink';
 
 const ControlWrapper = styled(Box)({
   display: 'flex',
@@ -111,7 +115,7 @@ const TourControl: FC<TourControlProps> = ({
         </InfoRow>
         <PriceDisplay price={price} />
       </InfoSection>
-      <OperatorLink {...operator} />
+      <OperatorLink {...operator} variant="page" />
       <BookingButton
         isAvailable={isAvailable}
         onClick={handleBookingClick}

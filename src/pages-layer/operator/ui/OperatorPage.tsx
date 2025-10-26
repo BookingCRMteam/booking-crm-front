@@ -2,21 +2,28 @@
 
 import { useEffect } from 'react';
 
+import { OperatorProfile } from '@/features/operator-profile';
+
 import { useOperatorQuery } from '@/entities/operator/model/useOperatorQuery';
 
 import { useBookingStore } from '@/shared/store';
 import { Tabs } from '@/shared/ui';
 
+import { useOperatorVerificationModal } from '../model/useOperatorVerificationModal';
 import { TourFormButtons } from './TourFormButtons';
 
 export const OperatorPage = () => {
+  useOperatorVerificationModal();
   const { data: operator } = useOperatorQuery();
+
   const { stopRedirect } = useBookingStore();
 
   useEffect(() => {
     stopRedirect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const isVerified = operator?.status === 'approved';
 
   const tabs = [
     {
@@ -26,14 +33,14 @@ export const OperatorPage = () => {
           <TourFormButtons />
         </>
       ),
-      disabled: operator?.status !== 'approved',
+      disabled: !isVerified,
     },
     {
       label: 'Бронювання',
       content: <>Бронювання</>,
-      disabled: operator?.status !== 'approved',
+      disabled: !isVerified,
     },
-    { label: 'Мій публічний профіль', content: <>Мій публічний профіль</> },
+    { label: 'Мій публічний профіль', content: <OperatorProfile /> },
   ];
   return <Tabs tabs={tabs} initialIndex={2} />;
 };
