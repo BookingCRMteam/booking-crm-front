@@ -26,6 +26,14 @@ export const operatorApi = {
       handleApiError(e);
     }
   },
+  deleteMyPhoto: async (): Promise<OperatorMe> => {
+    try {
+      const res = await axiosInstance.delete<OperatorMe>('/operator/me/photo');
+      return res.data;
+    } catch (e: unknown) {
+      handleApiError(e);
+    }
+  },
   getOperatorMe: async (accessToken?: string): Promise<OperatorMe | null> => {
     try {
       const res = await axiosInstance.get<OperatorMe>('/operator/me', {

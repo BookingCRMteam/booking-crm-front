@@ -54,8 +54,7 @@ export const Operator_Name_Overflow: Story = {
     ...BASE_PROPS,
     operator: {
       ...BASE_PROPS.operator,
-      firstName: 'Костянтин',
-      lastName: 'Войцехович',
+      name: 'Костянтин Войцехович',
     },
   },
 };
@@ -74,8 +73,7 @@ export const AllContent_Overflow: Story = {
     title: 'Романтична Флоренція + Ранок у Тоскані',
     operator: {
       ...BASE_PROPS.operator,
-      firstName: 'Костянтин',
-      lastName: 'Войцехович',
+      name: 'Костянтин Войцехович',
     },
     countryName: 'Велика Британія',
   },

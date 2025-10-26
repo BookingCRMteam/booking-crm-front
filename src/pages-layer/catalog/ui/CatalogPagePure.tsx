@@ -32,8 +32,8 @@ export const CatalogPagePure: React.FC<CatalogPageProps> = ({
                 endDate={tour.endDate}
                 countryName={tour.country.translations[0].name}
                 operator={{
-                  firstName: tour.operator.firstName,
-                  lastName: tour.operator.lastName,
+                  id: tour.operator.id,
+                  name: `${tour.operator.firstName} ${tour.operator.lastName}`,
                   photo: tour.operator.photo,
                 }}
               />
