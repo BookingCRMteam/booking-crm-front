@@ -1,6 +1,6 @@
 import { Box, BoxProps, Button, TextField, styled } from '@mui/material';
 
-import { PhoneInputField } from '@/shared/ui/PhoneInputField/PhoneInputField';
+import { PhoneInputField } from '@/shared/ui';
 
 import { useBookingForm } from '../../lib/useBookingForm';
 

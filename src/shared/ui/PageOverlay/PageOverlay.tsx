@@ -19,11 +19,13 @@ export const PageOverlay = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 9999,
-        pointerEvents: 'all',
+        zIndex: (theme) => theme.zIndex.modal + 1,
       }}
     >
-      <CircularProgress color="primary" />
+      <CircularProgress
+        color="primary"
+        aria-label="Виконується перенаправлення, зачекайте..."
+      />
     </Box>
   );
 };

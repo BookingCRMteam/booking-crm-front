@@ -19,40 +19,58 @@ type BookingState = {
   reset: () => void;
 };
 
-export const useBookingStore = create<BookingState>((set) => ({
+const initialState = {
   tourData: null,
   isAuthPopoverOpen: false,
   isOperatorPopoverOpen: false,
   isBookingModalOpen: false,
   isRedirecting: false,
+} as const;
 
-  openAuthPopover: () => set({ isAuthPopoverOpen: true }),
-  closeAuthPopover: () => set({ isAuthPopoverOpen: false }),
+export const useBookingStore = create<BookingState>((set) => ({
+  ...initialState,
 
-  openOperatorPopover: () => set({ isOperatorPopoverOpen: true }),
-  closeOperatorPopover: () => set({ isOperatorPopoverOpen: false }),
+  openAuthPopover: () =>
+    set((s) =>
+      s.isAuthPopoverOpen && !s.isOperatorPopoverOpen
+        ? s
+        : { isAuthPopoverOpen: true, isOperatorPopoverOpen: false },
+    ),
+  closeAuthPopover: () =>
+    set((s) => (s.isAuthPopoverOpen ? { isAuthPopoverOpen: false } : s)),
+
+  openOperatorPopover: () =>
+    set((s) =>
+      s.isOperatorPopoverOpen && !s.isAuthPopoverOpen
+        ? s
+        : { isOperatorPopoverOpen: true, isAuthPopoverOpen: false },
+    ),
+  closeOperatorPopover: () =>
+    set((s) =>
+      s.isOperatorPopoverOpen ? { isOperatorPopoverOpen: false } : s,
+    ),
 
   openBookingModal: (data) =>
-    set({
-      tourData: data,
-      isBookingModalOpen: true,
+    set((s) => {
+      if (s.tourData === data && s.isBookingModalOpen) return s;
+
+      return {
+        tourData: data,
+        isBookingModalOpen: true,
+        isAuthPopoverOpen: false,
+        isOperatorPopoverOpen: false,
+      };
     }),
 
   closeBookingModal: () =>
-    set({
-      tourData: null,
-      isBookingModalOpen: false,
-    }),
+    set((s) =>
+      s.isBookingModalOpen ? { tourData: null, isBookingModalOpen: false } : s,
+    ),
 
-  startRedirect: () => set({ isRedirecting: true }),
-  stopRedirect: () => set({ isRedirecting: false }),
+  startRedirect: () =>
+    set((s) => (s.isRedirecting ? s : { isRedirecting: true })),
+  stopRedirect: () =>
+    set((s) => (s.isRedirecting ? { isRedirecting: false } : s)),
 
-  reset: () =>
-    set({
-      tourData: null,
-      isAuthPopoverOpen: false,
-      isOperatorPopoverOpen: false,
-      isBookingModalOpen: false,
-      isRedirecting: false,
-    }),
+  reset: () => set(initialState),
 }));

@@ -1,9 +1,14 @@
-import { Box, CircularProgress, SxProps, Theme } from '@mui/material';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import { useEffect } from 'react';
 
-const meta: Meta = {
+import { Meta, StoryObj } from '@storybook/nextjs';
+
+import { useBookingStore } from '@/shared/store';
+
+import { PageOverlay } from './PageOverlay';
+
+const meta: Meta<typeof PageOverlay> = {
   title: 'UI/PageOverlay',
-  component: CircularProgress,
+  component: PageOverlay,
   tags: ['autodocs'],
 
   parameters: {
@@ -18,24 +23,24 @@ const meta: Meta = {
 
 export default meta;
 
-const overlayStyles: SxProps<Theme> = {
-  position: 'fixed',
-  inset: 0,
-  zIndex: 9999,
-  backgroundColor: 'rgba(0, 0, 0, 0.4)',
-  backdropFilter: 'blur(2px)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  pointerEvents: 'all',
-};
+export const Default: StoryObj<typeof PageOverlay> = {
+  render: () => {
+    const MockOverlay = () => {
+      const { startRedirect, stopRedirect } = useBookingStore();
 
-export const Default: StoryObj = {
-  render: () => (
-    <div style={{ position: 'relative', height: '100vh' }}>
-      <Box sx={overlayStyles}>
-        <CircularProgress color="primary" />
-      </Box>
-    </div>
-  ),
+      useEffect(() => {
+        startRedirect();
+
+        return () => stopRedirect();
+      }, [startRedirect, stopRedirect]);
+
+      return (
+        <div style={{ position: 'relative', height: '100vh' }}>
+          <PageOverlay />
+        </div>
+      );
+    };
+
+    return <MockOverlay />;
+  },
 };
