@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Box, Button, Stack, Typography, styled } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/nextjs';
@@ -18,6 +18,7 @@ const meta: Meta<typeof BookingButton> = {
   title: 'Features/Booking/BookingButton',
   component: BookingButton,
   tags: ['autodocs'],
+
   parameters: {
     docs: {
       description: {
@@ -28,6 +29,7 @@ const meta: Meta<typeof BookingButton> = {
   },
   argTypes: {
     isAvailable: { control: 'boolean', description: 'Доступність кнопки' },
+    isLoading: { control: 'boolean', description: 'Стан завантаження' },
     onClick: { action: 'clicked' },
   },
 };
@@ -48,10 +50,14 @@ type UserType = 'guest' | 'operator' | 'traveler';
 export const Interactive: StoryObj<typeof BookingButton> = {
   args: {
     isAvailable: true,
+    isLoading: false,
   },
   decorators: [
     (Story) => {
-      resetAllStores();
+      useEffect(() => {
+        resetAllStores();
+      }, []);
+
       return <Story />;
     },
   ],
@@ -93,18 +99,21 @@ export const Interactive: StoryObj<typeof BookingButton> = {
             <Button
               variant={userType === 'guest' ? 'contained' : 'outlined'}
               onClick={() => setUserType('guest')}
+              aria-label="Переключити на роль неавторизованого користувача"
             >
               Гість
             </Button>
             <Button
               variant={userType === 'operator' ? 'contained' : 'outlined'}
               onClick={() => setUserType('operator')}
+              aria-label="Переключити на роль авторизованого користувача зі статусом оператор"
             >
               Оператор
             </Button>
             <Button
               variant={userType === 'traveler' ? 'contained' : 'outlined'}
               onClick={() => setUserType('traveler')}
+              aria-label="Переключити на роль авторизованого користувача зі статусом пара"
             >
               Пара
             </Button>

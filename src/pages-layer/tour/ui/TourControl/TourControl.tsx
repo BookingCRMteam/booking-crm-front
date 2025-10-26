@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC } from 'react';
+import { type FC, useCallback, useMemo } from 'react';
 
 import { Box, Typography, styled } from '@mui/material';
 
@@ -66,10 +66,13 @@ const TourControl: FC<TourControlProps> = ({
   const { openAuthPopover, openOperatorPopover, openBookingModal } =
     useBookingStore();
 
-  const handleBookingClick = () => {
-    if (isLoading) return;
+  const tourData = useMemo(
+    () => ({ tourId, title, price, countryAndCity, date }),
+    [tourId, title, price, countryAndCity, date],
+  );
 
-    const tourData = { tourId, title, price, countryAndCity, date };
+  const handleBookingClick = useCallback(() => {
+    if (isLoading) return;
 
     if (user === null) {
       openAuthPopover();
@@ -80,7 +83,14 @@ const TourControl: FC<TourControlProps> = ({
       return;
     }
     openBookingModal(tourData);
-  };
+  }, [
+    isLoading,
+    user,
+    tourData,
+    openAuthPopover,
+    openOperatorPopover,
+    openBookingModal,
+  ]);
 
   return (
     <ControlWrapper>

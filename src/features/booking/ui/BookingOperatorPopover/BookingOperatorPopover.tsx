@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -31,17 +31,25 @@ export const BookingOperatorPopover = ({
   forceOpen = false,
   anchorEl,
 }: BookingOperatorPopoverProps) => {
-  const { isOperatorPopoverOpen, closeOperatorPopover } = useBookingStore();
-
-  const open = forceOpen || isOperatorPopoverOpen;
+  const { isOperatorPopoverOpen, closeOperatorPopover, startRedirect } =
+    useBookingStore();
 
   const router = useRouter();
+
+  const open = forceOpen || isOperatorPopoverOpen;
 
   const handleCreateTour = (e: MouseEvent<HTMLButtonElement>) => {
     if (forceOpen) return e.preventDefault();
 
     closeOperatorPopover();
+    startRedirect();
     router.push(APP_ROUTE.OPERATOR);
+  };
+
+  const handleClose = () => {
+    if (!forceOpen) {
+      closeOperatorPopover();
+    }
   };
 
   return (
@@ -49,7 +57,7 @@ export const BookingOperatorPopover = ({
       aria-labelledby="operator-popover-desc"
       role="dialog"
       open={open}
-      onClose={closeOperatorPopover}
+      onClose={handleClose}
       elevation={0}
       anchorEl={anchorEl}
       anchorOrigin={{
@@ -73,7 +81,7 @@ export const BookingOperatorPopover = ({
       }}
     >
       <PopoverContent>
-        <CloseButton onClick={closeOperatorPopover} />
+        <CloseButton onClick={handleClose} />
         <Typography
           id="operator-popover-desc"
           align="center"
@@ -89,7 +97,7 @@ export const BookingOperatorPopover = ({
             variant="outlined"
             size="large"
             color="secondary"
-            onClick={closeOperatorPopover}
+            onClick={handleClose}
           >
             Відмінити
           </Button>

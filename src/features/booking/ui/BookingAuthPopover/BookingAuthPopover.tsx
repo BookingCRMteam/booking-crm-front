@@ -51,12 +51,18 @@ export const BookingAuthPopover = ({
     [router, currentPath, forceOpen, closeAuthPopover],
   );
 
+  const handleClose = () => {
+    if (!forceOpen) {
+      closeAuthPopover();
+    }
+  };
+
   return (
     <Popover
       aria-labelledby="auth-popover-desc"
       role="dialog"
       open={open}
-      onClose={closeAuthPopover}
+      onClose={handleClose}
       elevation={0}
       anchorEl={anchorEl}
       anchorOrigin={{
@@ -80,7 +86,7 @@ export const BookingAuthPopover = ({
       }}
     >
       <PopoverContent>
-        <CloseButton onClick={closeAuthPopover} />
+        <CloseButton onClick={handleClose} />
         <Typography
           id="auth-popover-desc"
           align="center"
@@ -96,7 +102,7 @@ export const BookingAuthPopover = ({
             variant="outlined"
             size="large"
             color="secondary"
-            onClick={closeAuthPopover}
+            onClick={handleClose}
           >
             Відмінити
           </Button>
