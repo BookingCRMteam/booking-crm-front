@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 
 import { Box, Typography, type TypographyProps, styled } from '@mui/material';

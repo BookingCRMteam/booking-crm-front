@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
+import { resetAllStores } from '@/shared/tests';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 
 import TourControl from './TourControl';
@@ -16,6 +17,7 @@ const mockOperator = {
 };
 
 const baseArgs = {
+  tourId: 10,
   title: 'Романтична Флоренція',
   price: '78 567',
   countryAndCity: 'Флоренція, Італія',
@@ -60,6 +62,8 @@ const meta: Meta<typeof TourControl> = {
   },
   decorators: [
     (Story) => {
+      resetAllStores();
+
       return (
         <StorybookProviderWrapper
           token={null}
