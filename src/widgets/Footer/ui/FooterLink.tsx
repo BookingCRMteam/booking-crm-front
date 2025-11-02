@@ -43,7 +43,6 @@ export const FooterLink: FC<FooterLinkProps> = ({
 }) => (
   <StyledFooterLink
     component={Link}
-    key={href}
     isSeparator={isSeparator}
     underline="none"
     href={href}

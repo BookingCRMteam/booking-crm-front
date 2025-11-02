@@ -17,9 +17,6 @@ const ContentWrapper = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   gap: '32px',
-  '& > .MuiTypography-h3': {
-    maxWidth: '685px',
-  },
 });
 
 export const StepsSection = () => {
@@ -50,7 +47,11 @@ export const StepsSection = () => {
         </Grid>
         <Grid size={{ md: 8 }}>
           <ContentWrapper>
-            <AccentHeading variant={'h3'} parts={STEPS_TITLE_PARTS} />
+            <AccentHeading
+              variant={'h3'}
+              parts={STEPS_TITLE_PARTS}
+              maxWidth="685px"
+            />
             <Steps />
           </ContentWrapper>
         </Grid>

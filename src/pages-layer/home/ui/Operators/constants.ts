@@ -2,6 +2,6 @@ export const OPERATOR_DESCRIPTION = `Подорож — це не лише мі�
 це митці, закохані у свою справу, які створюють кожну мандрівку як витвір мистецтва.`;
 
 export const OPERATOR_TITLE_PARTS = [
-  { text: 'Творці ', accent: true },
-  { text: 'ваших вражень' },
+  { id: 1, text: 'Творці ', accent: true },
+  { id: 2, text: 'ваших вражень' },
 ];

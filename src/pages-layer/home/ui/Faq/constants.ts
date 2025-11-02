@@ -3,9 +3,9 @@ export const FAQ_SECTION_ID = 'faq_section_id';
 export const FAQ_DESCRIPTION = `Ми зібрали відповіді на найпоширеніші питання, щоб ви почувалися впевнено на кожному кроці.`;
 
 export const FAQ_TITLE_PARTS = [
-  { text: 'Ваш ' },
-  { text: 'спокій ', accent: true },
-  { text: '— наш пріоритет' },
+  { id: 1, text: 'Ваш ' },
+  { id: 2, text: 'спокій ', accent: true },
+  { id: 3, text: '— наш пріоритет' },
 ];
 
 export const ACCORDION_ITEMS = [

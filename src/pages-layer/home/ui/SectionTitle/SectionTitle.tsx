@@ -20,12 +20,7 @@ export const SectionTitle: FC<SectionTitleProps> = ({
   return (
     <TitleWrapper>
       {children}
-      <Typography
-        variant="bodyLarge"
-        component="p"
-        maxWidth={689}
-        sx={{ letterSpacing: '0.0em' }}
-      >
+      <Typography variant="bodyLarge" component="p" maxWidth={689}>
         {description}
       </Typography>
     </TitleWrapper>

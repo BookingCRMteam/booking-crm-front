@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
 export const STEPS_TITLE_PARTS = [
-  { text: 'Ваша ' },
-  { text: 'подорож мрії ', accent: true },
-  { text: '— всього за три кроки' },
+  { id: 1, text: 'Ваша ' },
+  { id: 2, text: 'подорож мрії ', accent: true },
+  { id: 3, text: '— всього за три кроки' },
 ];
 
 export type StepCardType = {

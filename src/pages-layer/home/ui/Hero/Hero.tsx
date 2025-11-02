@@ -9,6 +9,7 @@ import { STEPS_SECTION_ID } from '../StepsSection/constants';
 import { AdvantagesItem } from './AdvantagesItem';
 import {
   ADVANTAGES_ITEMS,
+  HERO_BUTTON_TEXT,
   HERO_DESCRIPTION,
   HERO_TITLE_PARTS,
 } from './constants';
@@ -34,9 +35,6 @@ const ContentWrapper = styled(Container)({
   gap: '48px',
   width: '100%',
   maxWidth: '595px',
-  '& > .MuiTypography-h1': {
-    maxWidth: '595px',
-  },
 });
 const DescriptionTypography = styled(Typography)(({ theme }) => ({
   color: theme.palette.common.white,
@@ -60,7 +58,7 @@ export const Hero = () => {
   return (
     <HeroWrapper>
       <ContentWrapper>
-        <AccentHeading variant="h1" parts={HERO_TITLE_PARTS} />
+        <AccentHeading variant="h1" parts={HERO_TITLE_PARTS} maxWidth="595px" />
         <DescriptionTypography variant="priceHighlight">
           {HERO_DESCRIPTION}
         </DescriptionTypography>
@@ -72,7 +70,7 @@ export const Hero = () => {
           href={`#${STEPS_SECTION_ID}`}
           sx={{ maxWidth: '331px' }}
         >
-          Знайти свою пригоду
+          {HERO_BUTTON_TEXT}
         </Button>
       </ContentWrapper>
       <AdvantagesWrapper>
