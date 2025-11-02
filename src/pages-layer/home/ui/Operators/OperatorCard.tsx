@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Box, Button, Card, Typography, styled } from '@mui/material';
 
@@ -62,12 +63,19 @@ export const OperatorCard: FC<OperatorCardProps> = ({
   firstName,
   lastName,
   status,
+  id,
 }) => {
   const photoSrc = photo || '/images/operator_placeholder.png';
+  const operatorHref = `/catalog/operator/${id}`;
   return (
     <CardWrapper>
       <CardTitle>
-        <Image width={65} height={65} alt="avatar" src={photoSrc} />
+        <Image
+          width={65}
+          height={65}
+          alt={`${firstName} ${lastName}`}
+          src={photoSrc}
+        />
         <InfoWrapper>
           <Typography variant="h3">
             {firstName}
@@ -87,7 +95,13 @@ export const OperatorCard: FC<OperatorCardProps> = ({
       <Typography variant="bodyDefault" align="center">
         {`Актуальні подорожі (${toursCount})`}
       </Typography>
-      <Button variant="outlined" color="secondary" size="large">
+      <Button
+        component={Link}
+        href={operatorHref}
+        variant="outlined"
+        color="secondary"
+        size="large"
+      >
         Переглянути
       </Button>
     </CardWrapper>

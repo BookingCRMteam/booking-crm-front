@@ -21,13 +21,13 @@ export const Footer = () => {
     <StyledFooterWrapper component="footer">
       <StyledFooterContainer maxWidth="lg">
         <Grid container spacing={{ xs: 4, md: 3 }}>
-          <Grid size={{ md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <FooterBrandingColumn />
           </Grid>
-          <Grid size={{ md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <FooterNavigationColumn />
           </Grid>
-          <Grid size={{ md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <FooterOperatorColumn />
           </Grid>
         </Grid>

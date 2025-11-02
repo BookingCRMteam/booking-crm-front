@@ -1,8 +1,11 @@
 'use client';
 
+import Link from 'next/link';
+
 import { Box, Button, Container, Typography, styled } from '@mui/material';
 
 import { AccentHeading } from '../AccentHeading/AccentHeading';
+import { STEPS_SECTION_ID } from '../StepsSection/constants';
 import { AdvantagesItem } from './AdvantagesItem';
 import {
   ADVANTAGES_ITEMS,
@@ -17,7 +20,7 @@ const HeroWrapper = styled(Box)({
   margin: '0 auto',
   width: '100%',
   maxWidth: 1440,
-  height: 663,
+  minHeight: '663px',
   backgroundImage: 'url("/images/hero-bg.png")',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
@@ -65,6 +68,8 @@ export const Hero = () => {
           variant="contained"
           color="primary"
           size="large"
+          LinkComponent={Link}
+          href={`#${STEPS_SECTION_ID}`}
           sx={{ maxWidth: '331px' }}
         >
           Знайти свою пригоду

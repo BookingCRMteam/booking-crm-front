@@ -39,7 +39,13 @@ const TitleWrapper = styled(Box)({
 });
 
 export const SelectionTours = () => {
-  const { data: tours, isLoading, isSuccess } = useFetchTours({ limit: 3 });
+  const {
+    data: tours,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useFetchTours({ limit: 3 });
   return (
     <SelectionWrapper>
       <ToursWrapper maxWidth="lg" component="section">
@@ -50,7 +56,16 @@ export const SelectionTours = () => {
           </Typography>
         </TitleWrapper>
         <Grid container spacing={3}>
-          {isLoading && <Box>Loading...</Box>}
+          {isLoading && (
+            <Grid size={12}>
+              <Box>Loading...</Box>
+            </Grid>
+          )}
+          {isError && (
+            <Grid size={12}>
+              <Box>Error loading tours: {error?.message}</Box>
+            </Grid>
+          )}
           {isSuccess &&
             tours.data.map((tour) => (
               <Grid key={tour.id} size={{ md: 4 }}>
@@ -62,7 +77,9 @@ export const SelectionTours = () => {
                   photos={tour.photos}
                   startDate={tour.startDate}
                   endDate={tour.endDate}
-                  countryName={tour.country.translations[0].name}
+                  countryName={
+                    tour.country.translations?.[0]?.name ?? 'Unknown'
+                  }
                   operator={{
                     id: tour.operator.id,
                     name: `${tour.operator.firstName} ${tour.operator.lastName}`,

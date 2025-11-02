@@ -6,7 +6,7 @@ import type { OperatorPopular } from '../api/types';
 export const useGetOperatorPopularQuery = ({
   limit = 4,
 }: {
-  limit: number;
+  limit?: number;
 }) => {
   return useQuery<OperatorPopular[]>({
     queryKey: ['operator', 'popular', limit],

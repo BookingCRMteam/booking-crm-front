@@ -11,7 +11,7 @@ import {
 
 import { AccentHeading } from '../AccentHeading/AccentHeading';
 import { Steps } from './Steps';
-import { STEPS_TITLE_PARTS } from './constants';
+import { STEPS_SECTION_ID, STEPS_TITLE_PARTS } from './constants';
 
 const ContentWrapper = styled(Box)({
   display: 'flex',
@@ -24,7 +24,7 @@ const ContentWrapper = styled(Box)({
 
 export const StepsSection = () => {
   return (
-    <Container component="section" maxWidth="lg">
+    <Container component="section" maxWidth="lg" id={STEPS_SECTION_ID}>
       <Grid
         container
         spacing={3}

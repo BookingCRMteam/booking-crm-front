@@ -13,6 +13,8 @@ export type StepCardType = {
   description: string;
 };
 
+export const STEPS_SECTION_ID = 'step_section_id';
+
 export const STEPS: StepCardType[] = [
   {
     id: 1,

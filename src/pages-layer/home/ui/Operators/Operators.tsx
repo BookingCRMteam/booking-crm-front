@@ -17,16 +17,26 @@ const OperatorWrapper = styled(Container)({
 });
 
 export const Operators = () => {
-  const { data, isLoading, isSuccess } = useGetOperatorPopularQuery({
-    limit: 3,
-  });
+  const { data, isLoading, isSuccess, isError, error } =
+    useGetOperatorPopularQuery({
+      limit: 3,
+    });
   return (
     <OperatorWrapper maxWidth="lg">
       <SectionTitle description={OPERATOR_DESCRIPTION}>
         <AccentHeading variant="h3" parts={OPERATOR_TITLE_PARTS} />
       </SectionTitle>
       <Grid container spacing={2.5}>
-        {isLoading && <Box>Loading...</Box>}
+        {isLoading && (
+          <Grid size={12}>
+            <Box>Loading...</Box>
+          </Grid>
+        )}
+        {isError && (
+          <Grid size={12}>
+            <Box>Error loading operators: {error?.message}</Box>
+          </Grid>
+        )}
         {isSuccess &&
           data.map((operator) => (
             <Grid key={operator.id} size={{ md: 4 }}>

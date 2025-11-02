@@ -1,3 +1,5 @@
+export const FAQ_SECTION_ID = 'faq_section_id';
+
 export const FAQ_DESCRIPTION = `Ми зібрали відповіді на найпоширеніші питання, щоб ви почувалися впевнено на кожному кроці.`;
 
 export const FAQ_TITLE_PARTS = [
