@@ -100,7 +100,7 @@ const CardContentStyle = styled(CardContent)(({ theme }) => ({
   color: theme.palette.common.white,
   padding: 0,
 }));
-interface TourCardProps {
+export interface TourCardProps {
   id: number;
   title: string;
   availableSpots: number;

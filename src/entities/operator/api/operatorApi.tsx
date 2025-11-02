@@ -7,6 +7,7 @@ import {
   OperatorById,
   OperatorMe,
   OperatorOnboarding,
+  OperatorPopular,
 } from './types';
 
 export const operatorApi = {
@@ -52,6 +53,17 @@ export const operatorApi = {
   getOperatorById: async (id: string): Promise<OperatorById> => {
     try {
       const res = await axiosInstance.get<OperatorById>(`/operator/${id}`);
+      return res.data;
+    } catch (e: unknown) {
+      handleApiError(e);
+    }
+  },
+  getOperatorsPopular: async (limit: number): Promise<OperatorPopular[]> => {
+    try {
+      const res = await axiosInstance.get<OperatorPopular[]>(
+        `/operator/popular`,
+        { params: { limit } },
+      );
       return res.data;
     } catch (e: unknown) {
       handleApiError(e);

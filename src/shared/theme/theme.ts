@@ -104,7 +104,7 @@ export const theme = createTheme({
       fontSize: 24,
       fontFamily: unbounded.style.fontFamily,
       fontWeight: 600,
-      lineHeight: '130%',
+      lineHeight: '129%',
     },
     h3: {
       fontSize: 20,

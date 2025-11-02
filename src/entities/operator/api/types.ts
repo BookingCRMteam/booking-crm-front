@@ -45,3 +45,8 @@ export interface OperatorById {
   philosophy: string | null;
   photo: string | null;
 }
+
+export interface OperatorPopular extends OperatorById {
+  bookingsCount: number;
+  toursCount: number;
+}
