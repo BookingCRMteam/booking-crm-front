@@ -7,8 +7,15 @@ import { TourBookingInfo } from '@/entities/tour/model/types';
 
 import { useBookingStore } from '@/shared/store';
 
-import { mockTourData } from '../../mocks/data';
 import { TourInfoBlock } from './TourInfoBlock';
+
+const mockTourData = {
+  tourId: 10,
+  title: 'Романтична Флоренція',
+  price: '78 567',
+  countryAndCity: 'Флоренція, Італія',
+  date: '01.10.25 — 07.10.25',
+};
 
 const meta: Meta<typeof TourInfoBlock> = {
   title: 'Features/Booking/TourInfoBlock',
