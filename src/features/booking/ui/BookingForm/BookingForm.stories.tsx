@@ -4,8 +4,16 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { resetAllStores } from '@/shared/tests';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 
-import { mockUserTraveler } from '../../mocks/data';
 import { BookingForm } from './BookingForm';
+
+const mockUserTraveler = {
+  firstPersonName: 'Олена',
+  firstPersonSurname: 'Петренко',
+  secondPersonName: 'Тимофій',
+  secondPersonSurname: 'Петренко',
+  phone: '+380971234567',
+  role: 'traveler',
+};
 
 const StyledContainer = styled(Box)({
   maxWidth: 800,

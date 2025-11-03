@@ -21,7 +21,7 @@ const DateText = styled(Typography)<TypographyProps>({
 export const DateDisplay = ({ date }: DateDisplayProps) => {
   return (
     <DateContainer>
-      <CalendarDotsIcon size={24} color="#007A78" />
+      <CalendarDotsIcon size={24} color="#007A78" data-testid="calendar-icon" />
       <DateText variant="bodyLarge" component="p">
         {date}
       </DateText>

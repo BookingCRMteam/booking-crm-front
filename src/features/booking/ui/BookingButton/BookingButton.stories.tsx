@@ -7,12 +7,33 @@ import { useBookingStore } from '@/shared/store';
 import { resetAllStores } from '@/shared/tests';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 
-import {
-  mockTourData,
-  mockUserOperator,
-  mockUserTraveler,
-} from '../../mocks/data';
 import { BookingButton } from './BookingButton';
+
+const mockTourData = {
+  tourId: 10,
+  title: 'Романтична Флоренція',
+  price: '78 567',
+  countryAndCity: 'Флоренція, Італія',
+  date: '01.10.25 — 07.10.25',
+};
+
+const mockUserOperator = {
+  firstPersonName: 'Олена',
+  firstPersonSurname: 'Петренко',
+  secondPersonName: 'Тимофій',
+  secondPersonSurname: 'Петренко',
+  phone: '+380971234567',
+  role: 'operator',
+};
+
+const mockUserTraveler = {
+  firstPersonName: 'Олена',
+  firstPersonSurname: 'Петренко',
+  secondPersonName: 'Тимофій',
+  secondPersonSurname: 'Петренко',
+  phone: '+380971234567',
+  role: 'traveler',
+};
 
 const meta: Meta<typeof BookingButton> = {
   title: 'Features/Booking/BookingButton',
