@@ -8,7 +8,7 @@ import { getUser } from '@/features/auth';
 import { ModalHost } from '@/features/modal';
 
 import type { ProviderProps } from '@/shared/types';
-import { Notification, PageOverlay } from '@/shared/ui';
+import { Notification } from '@/shared/ui';
 
 import { AppProviders } from './_providers';
 import './globals.css';
@@ -29,7 +29,6 @@ export default async function RootLayout({
         <AppProviders userWithToken={userWithToken}>
           <Header />
           {children}
-          <PageOverlay />
           <Footer />
           <Notification />
           <ModalHost />

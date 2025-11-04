@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
 import { Box, Typography, styled } from '@mui/material';
 
 import { useOperatorQuery } from '@/entities/operator';
+
+import { useBookingStore } from '@/shared/store';
 
 import { OperatorPhilosophy } from '../OperatorPhilosophy/OperatorPhilosophy';
 import { OperatorProfileEdit } from '../OperatorProfileEdit/OperatorProfileEdit';
@@ -26,8 +28,13 @@ const OperatorWrapper = styled(Box)({
 
 export const OperatorProfile = () => {
   const { data: operator, isLoading, isError } = useOperatorQuery();
+  const { stopRedirect } = useBookingStore();
 
   const [isEdit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    stopRedirect();
+  }, [stopRedirect]);
 
   const photoSrc = operator?.photo || '/images/operator_placeholder.png';
   return (

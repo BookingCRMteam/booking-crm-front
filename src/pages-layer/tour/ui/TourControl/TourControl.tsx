@@ -63,34 +63,26 @@ const TourControl: FC<TourControlProps> = ({
 }) => {
   const isAvailable = availableSpots > 0;
   const { data: user, isLoading } = useUserQuery();
-  const { openAuthPopover, openOperatorPopover, openBookingModal } =
-    useBookingStore();
+  const { openAuthPopover, openBookingModal } = useBookingStore();
+
+  const isOperator = user?.role === 'operator';
 
   const tourData = useMemo(
     () => ({ tourId, title, price, countryAndCity, date }),
     [tourId, title, price, countryAndCity, date],
   );
 
-  const handleBookingClick = useCallback(() => {
+  const handleBookingUserClick = useCallback(() => {
     if (isLoading) return;
 
     if (user === null) {
       openAuthPopover();
       return;
     }
-    if (user?.role === 'operator') {
-      openOperatorPopover();
-      return;
+    if (user?.role === 'traveler') {
+      openBookingModal(tourData);
     }
-    openBookingModal(tourData);
-  }, [
-    isLoading,
-    user,
-    tourData,
-    openAuthPopover,
-    openOperatorPopover,
-    openBookingModal,
-  ]);
+  }, [isLoading, user, tourData, openAuthPopover, openBookingModal]);
 
   return (
     <ControlWrapper>
@@ -111,12 +103,19 @@ const TourControl: FC<TourControlProps> = ({
         </InfoRow>
         <PriceDisplay price={price} />
       </InfoSection>
-
       <OperatorLink {...operator} variant="page" />
 
+      {isOperator && (
+        <Typography variant="bodyLarge" component="p" color="error" mb={1}>
+          Ви як авторизований туроператор можете тільки переглядати вже створені
+          тури
+        </Typography>
+      )}
+
       <BookingButton
+        userData={user}
         isAvailable={isAvailable}
-        onClick={handleBookingClick}
+        onUserClick={handleBookingUserClick}
         isLoading={isLoading}
       />
     </ControlWrapper>
