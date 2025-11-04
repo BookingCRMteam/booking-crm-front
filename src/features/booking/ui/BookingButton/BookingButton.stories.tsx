@@ -6,6 +6,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { useBookingStore } from '@/shared/store';
 import { resetAllStores } from '@/shared/tests';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
+import { UserRole } from '@/shared/types';
 
 import { BookingButton } from './BookingButton';
 
@@ -18,21 +19,33 @@ const mockTourData = {
 };
 
 const mockUserOperator = {
+  id: 10,
+  email: 'existing@example.com',
+  sub: 'sub123',
+  createdAt: '2025-01-01',
+  updatedAt: '2025-01-01',
+  operatorId: 1,
   firstPersonName: 'Олена',
   firstPersonSurname: 'Петренко',
   secondPersonName: 'Тимофій',
   secondPersonSurname: 'Петренко',
   phone: '+380971234567',
-  role: 'operator',
+  role: 'operator' as UserRole,
 };
 
 const mockUserTraveler = {
+  id: 12,
+  email: 'existing@example.com',
+  sub: 'sub123',
+  createdAt: '2025-01-01',
+  updatedAt: '2025-01-01',
+  operatorId: null,
   firstPersonName: 'Олена',
   firstPersonSurname: 'Петренко',
   secondPersonName: 'Тимофій',
   secondPersonSurname: 'Петренко',
   phone: '+380971234567',
-  role: 'traveler',
+  role: 'traveler' as UserRole,
 };
 
 const meta: Meta<typeof BookingButton> = {
@@ -51,7 +64,11 @@ const meta: Meta<typeof BookingButton> = {
   argTypes: {
     isAvailable: { control: 'boolean', description: 'Доступність кнопки' },
     isLoading: { control: 'boolean', description: 'Стан завантаження' },
-    onClick: { action: 'clicked' },
+    userData: {
+      control: 'object',
+      description: 'Дані користувача (object)',
+    },
+    onUserClick: { action: 'clicked' },
   },
 };
 
@@ -84,13 +101,12 @@ export const Interactive: StoryObj<typeof BookingButton> = {
   ],
   render: (args) => {
     const [userType, setUserType] = useState<UserType>('guest');
-    const { openBookingModal, openAuthPopover, openOperatorPopover } =
-      useBookingStore();
+    const { openBookingModal, openAuthPopover } = useBookingStore();
 
     const handleClick = () => {
+      if (userType === 'operator') return;
       if (userType === 'guest') openAuthPopover();
-      else if (userType === 'operator') openOperatorPopover();
-      else openBookingModal(mockTourData);
+      else if (userType === 'traveler') openBookingModal(mockTourData);
     };
 
     const getUserMock = () => {
@@ -140,7 +156,11 @@ export const Interactive: StoryObj<typeof BookingButton> = {
             </Button>
           </Stack>
 
-          <BookingButton {...args} onClick={handleClick} />
+          <BookingButton
+            {...args}
+            userData={userMock}
+            onUserClick={handleClick}
+          />
         </StyledContainer>
       </StorybookProviderWrapper>
     );

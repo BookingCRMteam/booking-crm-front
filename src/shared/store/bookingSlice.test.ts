@@ -41,35 +41,6 @@ describe('useBookingStore full coverage', () => {
     expect(result.current.isAuthPopoverOpen).toBe(false);
   });
 
-  it('opens and closes operator popover correctly', () => {
-    const { result } = renderHook(() => useBookingStore());
-
-    act(() => result.current.openOperatorPopover());
-    expect(result.current.isOperatorPopoverOpen).toBe(true);
-
-    act(() => result.current.openOperatorPopover());
-    expect(result.current.isOperatorPopoverOpen).toBe(true);
-
-    act(() => result.current.closeOperatorPopover());
-    expect(result.current.isOperatorPopoverOpen).toBe(false);
-
-    act(() => result.current.closeOperatorPopover());
-    expect(result.current.isOperatorPopoverOpen).toBe(false);
-  });
-
-  it('switches popovers correctly', () => {
-    const { result } = renderHook(() => useBookingStore());
-
-    act(() => result.current.openAuthPopover());
-    act(() => result.current.openOperatorPopover());
-    expect(result.current.isAuthPopoverOpen).toBe(false);
-    expect(result.current.isOperatorPopoverOpen).toBe(true);
-
-    act(() => result.current.openAuthPopover());
-    expect(result.current.isAuthPopoverOpen).toBe(true);
-    expect(result.current.isOperatorPopoverOpen).toBe(false);
-  });
-
   it('opens booking modal correctly', () => {
     const { result } = renderHook(() => useBookingStore());
 
@@ -125,7 +96,6 @@ describe('useBookingStore full coverage', () => {
 
     expect(result.current.tourData).toBeNull();
     expect(result.current.isAuthPopoverOpen).toBe(false);
-    expect(result.current.isOperatorPopoverOpen).toBe(false);
     expect(result.current.isBookingModalOpen).toBe(false);
     expect(result.current.isRedirecting).toBe(false);
   });

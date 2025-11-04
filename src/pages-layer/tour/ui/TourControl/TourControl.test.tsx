@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { useUserQuery } from '@/entities/user';
+import { User, useUserQuery } from '@/entities/user';
 
 import { useBookingStore } from '@/shared/store';
 import { renderWithProviders } from '@/shared/tests';
@@ -23,33 +23,37 @@ jest.mock('@/entities/user', () => ({
 
 jest.mock('@/features/booking', () => ({
   BookingButton: ({
+    userData,
     isAvailable,
     isLoading,
-    onClick,
+    onUserClick,
   }: {
+    userData: User | null | undefined;
     isAvailable: boolean;
     isLoading: boolean;
-    onClick: () => void;
+    onUserClick: () => void;
   }) => (
-    <button disabled={!isAvailable || isLoading} onClick={onClick}>
-      Забронювати
+    <button disabled={isLoading || !isAvailable} onClick={onUserClick}>
+      {userData?.role === 'operator' ? 'Створити власний тур' : 'Забронювати'}
     </button>
   ),
 }));
 
-describe('TourControl', () => {
-  const baseProps = {
-    tourId: 11,
-    title: 'Неймовірний тур у Карпати',
-    price: '10000',
-    countryAndCity: 'Україна, Львів',
-    date: '12.12.2025',
-    availableSpots: 2,
-    operator: { id: 1, name: 'TravelPro', photo: '/photo.png' },
-  };
+const baseProps = {
+  tourId: 11,
+  title: 'Неймовірний тур у Карпати',
+  price: '10000',
+  countryAndCity: 'Україна, Львів',
+  date: '12.12.2025',
+  availableSpots: 2,
+  operator: { id: 1, name: 'TravelPro', photo: '/photo.png' },
+};
 
+const travelerUser = { role: 'traveler' } as User;
+const operatorUser = { role: 'operator' } as User;
+
+describe('TourControl', () => {
   const mockOpenAuthPopover = jest.fn();
-  const mockOpenOperatorPopover = jest.fn();
   const mockOpenBookingModal = jest.fn();
 
   beforeEach(() => {
@@ -57,12 +61,11 @@ describe('TourControl', () => {
 
     (useBookingStore as unknown as jest.Mock).mockReturnValue({
       openAuthPopover: mockOpenAuthPopover,
-      openOperatorPopover: mockOpenOperatorPopover,
       openBookingModal: mockOpenBookingModal,
     });
 
     (useUserQuery as jest.Mock).mockReturnValue({
-      data: { role: 'user' },
+      data: travelerUser,
       isLoading: false,
     });
   });
@@ -105,7 +108,7 @@ describe('TourControl', () => {
     expect(screen.getByRole('button', { name: /Забронювати/i })).toBeDisabled();
   });
 
-  it('calls openAuthPopover when user is null', async () => {
+  it('calls openAuthPopover when user is guest', async () => {
     (useUserQuery as jest.Mock).mockReturnValue({
       data: null,
       isLoading: false,
@@ -115,17 +118,20 @@ describe('TourControl', () => {
     expect(mockOpenAuthPopover).toHaveBeenCalled();
   });
 
-  it('calls openOperatorPopover when user is operator', async () => {
+  it('disables booking button when user data is loading', () => {
     (useUserQuery as jest.Mock).mockReturnValue({
-      data: { role: 'operator' },
-      isLoading: false,
+      data: undefined,
+      isLoading: true,
     });
     renderWithProviders(<TourControl {...baseProps} />);
-    await userEvent.click(screen.getByRole('button', { name: /Забронювати/i }));
-    expect(mockOpenOperatorPopover).toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: /Забронювати/i })).toBeDisabled();
   });
 
-  it('calls openBookingModal when user is regular', async () => {
+  it('calls openBookingModal when user is traveler', async () => {
+    (useUserQuery as jest.Mock).mockReturnValue({
+      data: travelerUser,
+      isLoading: false,
+    });
     renderWithProviders(<TourControl {...baseProps} />);
     await userEvent.click(screen.getByRole('button', { name: /Забронювати/i }));
     expect(mockOpenBookingModal).toHaveBeenCalledWith({
@@ -137,12 +143,20 @@ describe('TourControl', () => {
     });
   });
 
-  it('disables booking button when user data is loading', () => {
+  it('renders booking button and message for operator', () => {
     (useUserQuery as jest.Mock).mockReturnValue({
-      data: null,
-      isLoading: true,
+      data: operatorUser,
+      isLoading: false,
     });
+
     renderWithProviders(<TourControl {...baseProps} />);
-    expect(screen.getByRole('button', { name: /Забронювати/i })).toBeDisabled();
+
+    expect(
+      screen.getByRole('button', { name: /Створити власний тур/i }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText(/Ви як авторизований туроператор/i),
+    ).toBeInTheDocument();
   });
 });
