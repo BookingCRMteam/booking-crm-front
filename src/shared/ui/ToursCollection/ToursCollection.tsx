@@ -2,23 +2,18 @@
 
 import { Box, CircularProgress, Grid } from '@mui/material';
 
+import { ToursCollectionProps } from '@/entities/tour';
+
 import { TourCard } from '@/shared/ui';
 
-import { CatalogPageProps } from '../model/types';
-import { CatalogEmpty } from './CatalogEmpty';
-
-export const CatalogPagePure: React.FC<CatalogPageProps> = ({
+export const ToursCollection: React.FC<ToursCollectionProps> = ({
   data,
-  error,
   isFetchingNextPage,
   ref,
 }) => {
-  if (!data?.pages?.[0]?.data?.length || error) {
-    return <CatalogEmpty />;
-  }
   return (
     <>
-      <Grid container spacing={3} sx={{ pt: '36px', pb: 5 }}>
+      <Grid container spacing={3}>
         {data?.pages.map((page) =>
           page.data.map((tour) => (
             <Grid key={tour.id} size={{ md: 4 }}>

@@ -17,17 +17,15 @@ describe('OperatorHeader', () => {
     const image = screen.getByAltText(
       `${mockOperator.firstName} ${mockOperator.lastName}`,
     );
-    expect(image).toHaveAttribute('src', mockOperator.photo);
+    expect(image).toHaveAttribute('src', mockOperator.photo!);
 
     expect(
       screen.getByText(`${mockOperator.firstName} ${mockOperator.lastName}`),
     ).toBeInTheDocument();
 
-    const phoneLink = screen.getByRole('link', {
-      name: formattedPhone(mockOperator.phone),
-    });
-    expect(phoneLink).toHaveAttribute('href', `tel:${mockOperator.phone}`);
-
+    expect(
+      screen.getByText(formattedPhone(mockOperator.phone)),
+    ).toBeInTheDocument();
     expect(screen.getByText(mockOperator.description!)).toBeInTheDocument();
     expect(screen.getByText(mockOperator.philosophy!)).toBeInTheDocument();
   });
@@ -37,7 +35,7 @@ describe('OperatorHeader', () => {
     renderWithTheme(<OperatorHeader operator={operator} />);
     expect(screen.getByAltText('Placeholder image')).toHaveAttribute(
       'src',
-      '/images/placeholder_img.png',
+      '/images/operator_public_placeholder.png',
     );
   });
 
@@ -52,7 +50,7 @@ describe('OperatorHeader', () => {
   test('renders fallbacks when description and philosophy are missing', () => {
     const operator = { ...mockOperator, description: null, philosophy: null };
     renderWithTheme(<OperatorHeader operator={operator} />);
-    const fallbacks = screen.getAllByText('—');
+    const fallbacks = screen.getAllByText('Не заповнено');
     expect(fallbacks).toHaveLength(2);
   });
 });

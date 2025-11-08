@@ -1,3 +1,5 @@
+import { useInfiniteToursCollection } from './useInfiniteToursCollection';
+
 export type TourPhotoBack = {
   id: number;
   url: string;
@@ -122,3 +124,7 @@ export type TourBookingInfo = {
   date: string;
   price: string;
 };
+
+export type ToursCollectionProps = ReturnType<
+  typeof useInfiniteToursCollection
+>;

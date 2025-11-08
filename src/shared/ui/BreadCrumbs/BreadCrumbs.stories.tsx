@@ -8,7 +8,7 @@ const mockItemsBase = [
 ];
 
 const meta: Meta<typeof BreadCrumbs> = {
-  title: 'UI/BreadCrumbs',
+  title: 'Shared/UI/BreadCrumbs',
   component: BreadCrumbs,
   tags: ['autodocs'],
 

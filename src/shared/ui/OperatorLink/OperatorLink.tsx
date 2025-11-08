@@ -13,6 +13,8 @@ import {
   styled,
 } from '@mui/material';
 
+import { DYNAMIC_ROUTE } from '@/shared/constants';
+
 interface OperatorLinkWrapperProps extends LinkProps {
   isCardVariant: boolean;
 }
@@ -61,7 +63,7 @@ export const OperatorLink: FC<OperatorLinkProps> = ({
   photo,
   variant,
 }) => {
-  const operatorHref = `/catalog/operator/${id}`;
+  const operatorHref = DYNAMIC_ROUTE.OPERATOR_PUBLIC(id);
   const operatorPhotoSrc = photo || '/images/operator_placeholder.png';
   const isCardVariant = variant === 'card';
   const imageSize = isCardVariant ? 32 : 36;

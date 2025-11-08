@@ -1,23 +1,26 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
-import { fetchTours } from '@/entities/tour/api/toursApi';
-import { Tours } from '@/entities/tour/model/types';
+import { Tours } from '@/entities/tour';
 
-interface UseCatalogPageDataProps {
+interface UseInfiniteToursCollectionProps {
   initialData: Tours;
+  queryKey: (string | number)[];
+  queryFn: (params: { limit: number; offset: number }) => Promise<Tours>;
 }
 
-export const useInfiniteCatalogTours = ({
+export const useInfiniteToursCollection = ({
   initialData,
-}: UseCatalogPageDataProps) => {
+  queryKey,
+  queryFn,
+}: UseInfiniteToursCollectionProps) => {
   const limit = initialData?.meta?.limit ?? 6;
 
   const { data, fetchNextPage, error, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery<Tours, Error>({
-      queryKey: ['tours', limit],
+      queryKey: [...queryKey, limit],
       queryFn: ({ pageParam = 0 }) =>
-        fetchTours({ limit, offset: pageParam as number }),
+        queryFn({ limit, offset: pageParam as number }),
 
       getNextPageParam: (lastPage) => {
         const nextOffset = lastPage.meta.offset + lastPage.meta.limit;

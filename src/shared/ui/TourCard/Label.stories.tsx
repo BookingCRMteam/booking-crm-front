@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import Label from './Label';
 
 const meta: Meta<typeof Label> = {
-  title: 'TourCard/Label',
+  title: 'Shared/UI/TourCard/Label',
   component: Label,
   tags: ['autodocs'],
 };
