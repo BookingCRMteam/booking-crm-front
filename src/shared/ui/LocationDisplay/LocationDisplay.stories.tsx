@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/nextjs';
 import { LocationDisplay } from './LocationDisplay';
 
 const meta: Meta<typeof LocationDisplay> = {
-  title: 'UI/LocationDisplay',
+  title: 'Shared/UI/LocationDisplay',
   component: LocationDisplay,
   tags: ['autodocs'],
 

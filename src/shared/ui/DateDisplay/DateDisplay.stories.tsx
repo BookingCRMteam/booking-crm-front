@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/nextjs';
 import { DateDisplay } from './DateDisplay';
 
 const meta: Meta<typeof DateDisplay> = {
-  title: 'UI/DateDisplay',
+  title: 'Shared/UI/DateDisplay',
   component: DateDisplay,
   tags: ['autodocs'],
 

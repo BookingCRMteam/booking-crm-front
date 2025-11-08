@@ -12,7 +12,7 @@ export const Phone: FC<PhoneProps> = ({ phone }) => {
     <Box
       sx={{
         display: 'flex',
-        gap: 1.5,
+        gap: 1,
         alignItems: 'center',
       }}
     >

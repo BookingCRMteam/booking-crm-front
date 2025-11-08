@@ -8,7 +8,7 @@ import type { Tours } from '@/entities/tour/model/types';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 import { mockTour } from '@/shared/ui/TourCard/data';
 
-import { CatalogPage } from './CatalogPage';
+import { OperatorTours } from './OperatorTours';
 
 const MOCK_PAGE_DATA: Tours = {
   data: Array(6).fill(mockTour),
@@ -22,9 +22,14 @@ const MOCK_EMPTY_PAGE: Tours = {
   meta: { limit: 6, offset: 0, total: '0' },
 };
 
-const meta: Meta<typeof CatalogPage> = {
-  title: 'Pages/CatalogPage/CatalogPage',
-  component: CatalogPage,
+const OPERATOR_ID = 123;
+
+const meta: Meta<typeof OperatorTours> = {
+  title: 'Pages/PublicOperator/OperatorTours',
+  component: OperatorTours,
+  parameters: {
+    layout: 'fullscreen',
+  },
   decorators: [
     (Story) => (
       <Box sx={{ maxWidth: '1040px', margin: '0 auto', padding: 3 }}>
@@ -35,16 +40,20 @@ const meta: Meta<typeof CatalogPage> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof CatalogPage>;
+type Story = StoryObj<typeof OperatorTours>;
 
 export const Loaded: Story = {
-  args: { initialData: MOCK_PAGE_DATA },
+  name: 'LoadedTours',
+  args: {
+    operatorId: OPERATOR_ID,
+    initialData: MOCK_PAGE_DATA,
+  },
   decorators: [
     (Story) => (
       <StorybookProviderWrapper
         token={null}
         setQueryMocks={(client) => {
-          client.setQueryData(['tours', 'catalog'], {
+          client.setQueryData(['tours', 'operator', OPERATOR_ID], {
             pages: [
               {
                 data: MOCK_PAGE_DATA.data,
@@ -63,13 +72,17 @@ export const Loaded: Story = {
 };
 
 export const EmptyOrError: Story = {
-  args: { initialData: MOCK_EMPTY_PAGE },
+  name: 'EmptyOrErrorTours',
+  args: {
+    operatorId: OPERATOR_ID,
+    initialData: MOCK_EMPTY_PAGE,
+  },
   decorators: [
     (Story) => (
       <StorybookProviderWrapper
         token={null}
         setQueryMocks={(client) => {
-          client.setQueryData(['tours', 'catalog'], {
+          client.setQueryData(['tours', 'operator', OPERATOR_ID], {
             pages: [{ data: [], message: '', meta: MOCK_EMPTY_PAGE.meta }],
             pageParams: [0],
           });

@@ -23,6 +23,7 @@ export enum APP_ROUTE {
 export const DYNAMIC_ROUTE = {
   CITIES: (iso2: string) => `/countries/${iso2}/cities`,
   TOUR: (tourId: number) => `/tours/${tourId}`,
+  OPERATOR_PUBLIC: (operatorId: number) => `/catalog/operator/${operatorId}`,
 };
 
 export const PUBLIC_PATHS = {

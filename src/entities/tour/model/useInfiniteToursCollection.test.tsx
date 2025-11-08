@@ -7,7 +7,7 @@ import { Tours } from '@/entities/tour/model/types';
 
 import { mockTour } from '@/shared/ui/TourCard/data';
 
-import { useInfiniteCatalogTours } from './useInfiniteCatalogTours';
+import { useInfiniteToursCollection } from './useInfiniteToursCollection';
 
 jest.mock('@tanstack/react-query', () => ({
   ...jest.requireActual('@tanstack/react-query'),
@@ -67,9 +67,17 @@ describe('useInfiniteCatalogTours Hook', () => {
       };
     });
 
-    renderHook(() => useInfiniteCatalogTours({ initialData: mockTourData }), {
-      wrapper,
-    });
+    renderHook(
+      () =>
+        useInfiniteToursCollection({
+          initialData: mockTourData,
+          queryKey: ['tours', 'catalog'],
+          queryFn: jest.fn().mockResolvedValue(mockTourData),
+        }),
+      {
+        wrapper,
+      },
+    );
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const getNextPageParam = (queryOptions as any).getNextPageParam;
@@ -94,9 +102,17 @@ describe('useInfiniteCatalogTours Hook', () => {
       onChange: mockOnChange,
     });
 
-    renderHook(() => useInfiniteCatalogTours({ initialData: mockTourData }), {
-      wrapper,
-    });
+    renderHook(
+      () =>
+        useInfiniteToursCollection({
+          initialData: mockTourData,
+          queryKey: ['tours', 'catalog'],
+          queryFn: jest.fn().mockResolvedValue(mockTourData),
+        }),
+      {
+        wrapper,
+      },
+    );
 
     const passedOnChange = (useInView as jest.Mock).mock.calls[0][0].onChange;
 
