@@ -17,6 +17,8 @@ describe('OperatorHeader', () => {
     const image = screen.getByAltText(
       `${mockOperator.firstName} ${mockOperator.lastName}`,
     );
+
+    expect(mockOperator.photo).toBeTruthy();
     expect(image).toHaveAttribute('src', mockOperator.photo!);
 
     expect(

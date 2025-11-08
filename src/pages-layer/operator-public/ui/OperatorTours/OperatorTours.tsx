@@ -27,8 +27,10 @@ export const OperatorTours = ({
   });
 
   const hasTours =
-    Boolean(props.data?.pages?.some((page) => page.data?.length)) &&
-    !props.error;
+    props.data?.pages?.some((page) => page.data?.length) ?? false;
+  const hasError = Boolean(props.error);
+
+  const showEmptyFallback = !hasTours && hasError;
 
   return (
     <Box>
@@ -38,12 +40,14 @@ export const OperatorTours = ({
           : 'Актуальні подорожі'}
       </Typography>
 
-      {hasTours ? (
+      {showEmptyFallback ? (
+        <OperatorToursEmpty />
+      ) : hasTours ? (
         <Box sx={{ paddingTop: 5, paddingBottom: '20px' }}>
           <ToursCollection {...props} />
         </Box>
       ) : (
-        <OperatorToursEmpty />
+        !props.isFetchingNextPage && <OperatorToursEmpty />
       )}
     </Box>
   );

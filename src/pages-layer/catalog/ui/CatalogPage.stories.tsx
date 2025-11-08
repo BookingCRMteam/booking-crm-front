@@ -44,7 +44,7 @@ export const Loaded: Story = {
       <StorybookProviderWrapper
         token={null}
         setQueryMocks={(client) => {
-          client.setQueryData(['tours', 'catalog', MOCK_PAGE_DATA.meta.limit], {
+          client.setQueryData(['tours', 'catalog'], {
             pages: [
               {
                 data: MOCK_PAGE_DATA.data,
@@ -69,13 +69,10 @@ export const EmptyOrError: Story = {
       <StorybookProviderWrapper
         token={null}
         setQueryMocks={(client) => {
-          client.setQueryData(
-            ['tours', 'catalog', MOCK_EMPTY_PAGE.meta.limit],
-            {
-              pages: [{ data: [], message: '', meta: MOCK_EMPTY_PAGE.meta }],
-              pageParams: [0],
-            },
-          );
+          client.setQueryData(['tours', 'catalog'], {
+            pages: [{ data: [], message: '', meta: MOCK_EMPTY_PAGE.meta }],
+            pageParams: [0],
+          });
         }}
       >
         <Story />
