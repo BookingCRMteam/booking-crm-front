@@ -12,7 +12,6 @@ import type { StepCardType } from './constants';
 
 type StepCardProps = StepCardType & {
   selected: boolean;
-  onClick: (step: number) => void;
 };
 
 type CardWrapperProps = BoxProps & {
@@ -87,21 +86,10 @@ export const StepCard: FC<StepCardProps> = ({
   number,
   description,
   title,
-  onClick,
-  id,
 }) => {
-  const handleOnClick = () => onClick(id);
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      onClick(id);
-    }
-  };
   return (
     <CardWrapper
       selected={selected}
-      onClick={handleOnClick}
-      onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
       aria-pressed={selected}

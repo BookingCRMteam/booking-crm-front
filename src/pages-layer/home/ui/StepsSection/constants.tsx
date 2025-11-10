@@ -15,6 +15,10 @@ export type StepCardType = {
 
 export const STEPS_SECTION_ID = 'step_section_id';
 
+export const STEPS_SECTION_BUTTON_TEXT = 'Знайти свою пригоду';
+export const STEPS_SECTION_TITLE =
+  'Ми створили простий та надійний процес, щоб ви могли зосередитись на найважливішому — ваших спільних враженнях.';
+
 export const STEPS: StepCardType[] = [
   {
     id: 1,
