@@ -11,8 +11,9 @@ import {
 
 import { useFetchTours } from '@/entities/tour';
 
-import { TourCard } from '@/shared/ui';
+import { TourCard, TourCardSkeleton } from '@/shared/ui';
 
+import { SKELETON_ARRAY } from '../constants';
 import {
   SELECTION_TOURS_DESCRIPTION,
   SELECTION_TOURS_TITLE,
@@ -20,6 +21,7 @@ import {
 
 const SelectionWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.accent[2],
+  minHeight: '852px',
 }));
 
 const ToursWrapper = styled(Container)<ContainerProps>({
@@ -44,7 +46,6 @@ export const SelectionTours = () => {
     isLoading,
     isSuccess,
     isError,
-    error,
   } = useFetchTours({ limit: 3 });
   return (
     <SelectionWrapper>
@@ -56,16 +57,12 @@ export const SelectionTours = () => {
           </Typography>
         </TitleWrapper>
         <Grid container spacing={3}>
-          {isLoading && (
-            <Grid size={12}>
-              <Box>Loading...</Box>
-            </Grid>
-          )}
-          {isError && (
-            <Grid size={12}>
-              <Box>Error loading tours: {error?.message}</Box>
-            </Grid>
-          )}
+          {(isLoading || isError) &&
+            SKELETON_ARRAY.map((skeleton) => (
+              <Grid key={skeleton.id} size={{ md: 4 }}>
+                <TourCardSkeleton />
+              </Grid>
+            ))}
           {isSuccess &&
             tours.data.map((tour) => (
               <Grid key={tour.id} size={{ md: 4 }}>
