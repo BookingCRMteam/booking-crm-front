@@ -15,5 +15,6 @@ export const useFetchTours = ({
       return fetchTours({ limit, offset });
     },
     staleTime: Infinity,
+    retry: 1,
   });
 };

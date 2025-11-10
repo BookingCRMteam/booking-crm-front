@@ -11,6 +11,8 @@ import {
   styled,
 } from '@mui/material';
 
+import { APP_ROUTE } from '@/shared/constants';
+
 import { AccentHeading } from '../AccentHeading/AccentHeading';
 import { Steps } from './Steps';
 import {
@@ -51,7 +53,7 @@ export const StepsSection = () => {
                 color="primary"
                 size="large"
                 LinkComponent={Link}
-                href={`#${STEPS_SECTION_ID}`}
+                href={APP_ROUTE.CATALOG}
                 sx={{ maxWidth: '331px' }}
               >
                 {STEPS_SECTION_BUTTON_TEXT}

@@ -22,19 +22,19 @@ export const OverlapStack: FC<{
       if (!rootRef.current) return;
 
       ScrollTrigger.getAll().forEach((t) => {
-        if (t.vars.id?.startsWith('section_stack')) t.kill();
+        if (t.vars.id?.startsWith('section')) t.kill();
       });
 
-      const panels = gsap.utils.toArray<HTMLElement>('.panel');
-      const lastIndex = panels.length - 1;
+      const sections = gsap.utils.toArray<HTMLElement>('.section');
+      const lastIndex = sections.length - 1;
 
-      panels.forEach((panel, i) => {
+      sections.forEach((section, i) => {
         const isLast = i === lastIndex;
         const isFirst = i === 0;
         ScrollTrigger.create({
-          trigger: panel,
+          trigger: section,
           start: () =>
-            panel.offsetHeight > window.innerHeight
+            section.offsetHeight > window.innerHeight
               ? 'bottom bottom'
               : 'top top',
           end: isFirst ? '+=750px' : isLast ? 'bottom bottom' : undefined,
@@ -46,12 +46,13 @@ export const OverlapStack: FC<{
         });
       });
 
-      const lastPanel = panels[lastIndex];
-      if (!lastPanel) return;
+      const lastSection = sections[lastIndex];
+      const faqSection = lastSection.children[0] as HTMLElement;
+      if (!faqSection) return;
 
-      lastHeight.current = lastPanel.offsetHeight;
+      lastHeight.current = faqSection.offsetHeight;
       const observer = new ResizeObserver(() => {
-        const currentHeight = lastPanel.offsetHeight;
+        const currentHeight = faqSection.offsetHeight;
         if (Math.abs(currentHeight - lastHeight.current) > 10) {
           lastHeight.current = currentHeight;
 
@@ -60,14 +61,11 @@ export const OverlapStack: FC<{
           }
 
           refreshTimeout.current = window.setTimeout(() => {
-            console.log(
-              '[OverlapStack] Panel height changed, refreshing ScrollTrigger',
-            );
             ScrollTrigger.refresh();
-          }, 50);
+          }, 10);
         }
       });
-      observer.observe(lastPanel);
+      observer.observe(faqSection);
 
       return () => {
         observer.disconnect();

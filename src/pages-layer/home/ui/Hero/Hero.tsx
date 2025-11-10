@@ -4,8 +4,9 @@ import Link from 'next/link';
 
 import { Box, Button, Container, Typography, styled } from '@mui/material';
 
+import { APP_ROUTE } from '@/shared/constants';
+
 import { AccentHeading } from '../AccentHeading/AccentHeading';
-import { STEPS_SECTION_ID } from '../StepsSection/constants';
 import { AdvantagesItem } from './AdvantagesItem';
 import {
   ADVANTAGES_ITEMS,
@@ -67,7 +68,7 @@ export const Hero = () => {
           color="primary"
           size="large"
           LinkComponent={Link}
-          href={`#${STEPS_SECTION_ID}`}
+          href={APP_ROUTE.CATALOG}
           sx={{ maxWidth: '331px' }}
         >
           {HERO_BUTTON_TEXT}

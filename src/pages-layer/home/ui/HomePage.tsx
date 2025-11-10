@@ -12,18 +12,18 @@ export const HomePage = () => {
   return (
     <>
       <OverlapStack debug={false}>
-        <Box className="panel">
+        <Box className="section">
           <Hero />
           <StepsSection />
         </Box>
-        <Box className="panel">
+        <Box className="section">
           <SelectionTours />
           <Operators />
         </Box>
-        <Box className="panel">
+        <Box className="section">
           <SectionDetail />
         </Box>
-        <Box className="panel">
+        <Box className="section">
           <Faq />
         </Box>
       </OverlapStack>
