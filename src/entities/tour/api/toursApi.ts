@@ -65,3 +65,33 @@ export const fetchTours = async ({
     };
   }
 };
+
+interface FetchToursByOperatorArgs {
+  operatorId: number;
+  limit: number;
+  offset: number;
+}
+
+export const fetchToursByOperator = async ({
+  operatorId,
+  limit,
+  offset,
+}: FetchToursByOperatorArgs): Promise<Tours> => {
+  try {
+    const { data } = await axiosInstance.get<Tours>(APP_ROUTE.TOURS, {
+      params: {
+        operatorId,
+        limit,
+        offset,
+      },
+    });
+    return data;
+  } catch (error: unknown) {
+    console.error('[fetchToursByOperator] Failed:', error);
+    return {
+      data: [],
+      meta: { total: '0', limit, offset },
+      message: 'Failed to fetch tours',
+    };
+  }
+};

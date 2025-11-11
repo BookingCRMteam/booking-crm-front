@@ -6,7 +6,7 @@ import { TourCard } from './TourCard';
 import { mockCardProps } from './data';
 
 const meta: Meta<typeof TourCard> = {
-  title: 'TourCard/TourCard',
+  title: 'Shared/UI/TourCard/TourCard',
   component: TourCard,
   tags: ['autodocs'],
 };

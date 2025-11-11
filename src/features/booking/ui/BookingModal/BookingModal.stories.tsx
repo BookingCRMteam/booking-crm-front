@@ -5,8 +5,24 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { useBookingStore } from '@/shared/store';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 
-import { mockTourData, mockUserTraveler } from '../../mocks/data';
 import { BookingModal } from './BookingModal';
+
+const mockTourData = {
+  tourId: 10,
+  title: 'Романтична Флоренція',
+  price: '78 567',
+  countryAndCity: 'Флоренція, Італія',
+  date: '01.10.25 — 07.10.25',
+};
+
+const mockUserTraveler = {
+  firstPersonName: 'Олена',
+  firstPersonSurname: 'Петренко',
+  secondPersonName: 'Тимофій',
+  secondPersonSurname: 'Петренко',
+  phone: '+380971234567',
+  role: 'traveler',
+};
 
 const meta: Meta<typeof BookingModal> = {
   title: 'Features/Booking/BookingModal',

@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { CloseButton } from './CloseButton';
 
 const meta: Meta<typeof CloseButton> = {
-  title: 'UI/CloseButton',
+  title: 'Shared/UI/CloseButton',
   component: CloseButton,
   tags: ['autodocs'],
 

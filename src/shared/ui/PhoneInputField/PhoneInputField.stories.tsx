@@ -9,7 +9,7 @@ type FormValues = {
 };
 
 const meta: Meta<typeof PhoneInputField> = {
-  title: 'UI/PhoneInputField',
+  title: 'Shared/UI/PhoneInputField',
   component: PhoneInputField,
   tags: ['autodocs'],
 

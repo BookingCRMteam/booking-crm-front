@@ -1,6 +1,7 @@
 export { Tabs } from './Tabs/Tabs';
 export { Notification } from './Notification/Notification';
 export { TourCard } from './TourCard/TourCard';
+export { ToursCollection } from './ToursCollection/ToursCollection';
 export { BreadCrumbs } from './BreadCrumbs/BreadCrumbs';
 export { OperatorStatusBadge } from './OperatorStatusBadge/OperatorStatusBadge';
 export { Phone } from './Phone/Phone';
@@ -9,7 +10,6 @@ export { CloseButton } from './CloseButton/CloseButton';
 export { LocationDisplay } from './LocationDisplay/LocationDisplay';
 export { DateDisplay } from './DateDisplay/DateDisplay';
 export { PriceDisplay } from './PriceDisplay/PriceDisplay';
-export { PageOverlay } from './PageOverlay/PageOverlay';
 export { PhoneInputField } from './PhoneInputField/PhoneInputField';
 export { OperatorCardSkeleton } from './Skeleton/OperatorCardSkeleton';
 export { TourCardSkeleton } from './Skeleton/TourCardSkeleton';

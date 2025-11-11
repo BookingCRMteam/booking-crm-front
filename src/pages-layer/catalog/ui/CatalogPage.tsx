@@ -1,18 +1,31 @@
 'use client';
 
-import type { Tours } from '@/entities/tour/model/types';
+import { Box } from '@mui/material';
 
-import { useInfiniteCatalogTours } from '../model/useInfiniteCatalogTours';
-import { CatalogPagePure } from './CatalogPagePure';
+import { Tours, fetchTours, useInfiniteToursCollection } from '@/entities/tour';
+
+import { ToursCollection } from '@/shared/ui';
+
+import { CatalogEmpty } from './CatalogEmpty';
 
 interface CatalogPageProps {
   initialData: Tours;
 }
 
 export const CatalogPage: React.FC<CatalogPageProps> = ({ initialData }) => {
-  const props = useInfiniteCatalogTours({
+  const props = useInfiniteToursCollection({
     initialData,
+    queryKey: ['tours', 'catalog'],
+    queryFn: fetchTours,
   });
 
-  return <CatalogPagePure {...props} />;
+  if (!props.data?.pages?.[0]?.data?.length || props.error) {
+    return <CatalogEmpty />;
+  }
+
+  return (
+    <Box sx={{ pt: '36px', pb: 5 }}>
+      <ToursCollection {...props} />
+    </Box>
+  );
 };

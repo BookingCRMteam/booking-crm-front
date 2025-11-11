@@ -4,14 +4,44 @@ import React from 'react';
 
 import Image from 'next/image';
 
-import { Box, Link, Typography } from '@mui/material';
-import { PhoneIcon } from '@phosphor-icons/react';
-
-import { VerifiedBadge } from '@/pages-layer/operator-public/ui/VerifiedBadge/VerifiedBadge';
+import { Box, Typography } from '@mui/material';
 
 import { OperatorById } from '@/entities/operator/api/types';
 
+import { OperatorStatusBadge, Phone } from '@/shared/ui';
 import { formattedPhone } from '@/shared/utils';
+
+const sectionStyles = {
+  display: 'flex',
+  gap: '111px',
+  py: 5,
+};
+
+const imageWrapper = {
+  borderRadius: '4px',
+  overflow: 'hidden',
+  width: 331,
+  height: 331,
+};
+
+const columnStyles = {
+  maxWidth: '508px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 3,
+};
+
+const badgePhoneContainerStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '164px',
+  flexWrap: 'nowrap',
+  whiteSpace: 'nowrap',
+};
+
+const textBlockStyles = {
+  wordBreak: 'break-word',
+};
 
 export const OperatorHeader = ({ operator }: { operator: OperatorById }) => {
   const secureUrl = operator.photo?.replace(/^http:\/\//, 'https://');
@@ -19,88 +49,52 @@ export const OperatorHeader = ({ operator }: { operator: OperatorById }) => {
   const phoneDisplay = formattedPhone(operator.phone);
 
   return (
-    <>
-      <Box component="section" sx={{ display: 'flex', gap: '111px' }}>
-        <Box sx={{ py: 5 }}>
-          <Image
-            src={secureUrl || '/images/placeholder_img.png'}
-            alt={
-              secureUrl
-                ? `${operator.firstName} ${operator.lastName}`
-                : 'Placeholder image'
-            }
-            width={331}
-            height={331}
-          />
-        </Box>
-        <Box
-          sx={{
-            maxWidth: '508px',
-            pt: 5,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 3,
+    <Box component="section" sx={sectionStyles}>
+      <Box sx={imageWrapper}>
+        <Image
+          src={secureUrl || '/images/operator_public_placeholder.png'}
+          alt={
+            secureUrl
+              ? `${operator.firstName} ${operator.lastName}`
+              : 'Placeholder image'
+          }
+          width={331}
+          height={331}
+          style={{
+            objectFit: 'cover',
+            width: '100%',
+            height: '100%',
           }}
-        >
-          <Box>
-            <Typography variant="h2" sx={{ mb: 0.5 }}>
-              {`${operator.firstName} ${operator.lastName}`}
-            </Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '201px',
-                flexWrap: 'nowrap',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              <VerifiedBadge />
-              <Link
-                href={`tel:${operator.phone}`}
-                underline="none"
-                color="inherit"
-                display="flex"
-                alignItems="center"
-                gap={1}
-                sx={{
-                  whiteSpace: 'nowrap',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    textDecoration: 'underline',
-                  },
-                }}
-              >
-                <PhoneIcon size={24} />
-                <Typography variant="bodyLarge" sx={{ whiteSpace: 'nowrap' }}>
-                  {phoneDisplay}
-                </Typography>
-              </Link>
-            </Box>
-          </Box>
-          <Box>
-            <Typography variant="h3" sx={{ mb: '20px' }}>
-              Про себе
-            </Typography>
-            <Typography variant="bodyDefault">
-              {operator.description || '—'}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography variant="h3" sx={{ mb: '20px' }}>
-              Моя філософія
-            </Typography>
-            <Typography variant="bodyDefault">
-              {operator.philosophy || '—'}
-            </Typography>
+        />
+      </Box>
+
+      <Box sx={columnStyles}>
+        <Box sx={textBlockStyles}>
+          <Typography variant="h2" sx={{ mb: 0.5 }}>
+            {`${operator.firstName} ${operator.lastName}`}
+          </Typography>
+          <Box sx={badgePhoneContainerStyles}>
+            <OperatorStatusBadge status={operator.status} />
+            {phoneDisplay.length > 0 && <Phone phone={phoneDisplay} />}
           </Box>
         </Box>
+        <Box sx={textBlockStyles}>
+          <Typography variant="h3" sx={{ mb: '20px' }}>
+            Про себе
+          </Typography>
+          <Typography variant="bodyDefault">
+            {operator.description || 'Не заповнено'}
+          </Typography>
+        </Box>
+        <Box sx={textBlockStyles}>
+          <Typography variant="h3" sx={{ mb: '20px' }}>
+            Моя філософія
+          </Typography>
+          <Typography variant="bodyDefault">
+            {operator.philosophy || 'Не заповнено'}
+          </Typography>
+        </Box>
       </Box>
-      <Box sx={{ pt: 5, pb: '20px' }}>
-        <Typography variant="h3" sx={{ textAlign: 'center' }}>
-          Актуальні подорожі ()
-        </Typography>
-      </Box>
-    </>
+    </Box>
   );
 };

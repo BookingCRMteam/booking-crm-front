@@ -50,7 +50,7 @@ export const operatorApi = {
       handleApiError(e);
     }
   },
-  getOperatorById: async (id: string): Promise<OperatorById> => {
+  getOperatorById: async (id: number): Promise<OperatorById> => {
     try {
       const res = await axiosInstance.get<OperatorById>(`/operator/${id}`);
       return res.data;

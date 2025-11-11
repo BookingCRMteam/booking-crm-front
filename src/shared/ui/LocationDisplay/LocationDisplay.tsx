@@ -23,7 +23,7 @@ const LocationText = styled(Typography)<TypographyProps>({
 export const LocationDisplay = ({ location }: LocationDisplayProps) => {
   return (
     <LocationContainer>
-      <MapPinLineIcon size={24} color="#007A78" />
+      <MapPinLineIcon size={24} color="#007A78" data-testid="location-icon" />
       <LocationText variant="bodyDefault" component="p">
         {location}
       </LocationText>
