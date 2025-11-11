@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { Faq } from './Faq';
-import { ACCORDION_ITEMS, FAQ_DESCRIPTION } from './constants';
+import { ACCORDION_ITEMS, FAQ_DESCRIPTION, FAQ_TITLE_PARTS } from './constants';
 
 type AccentPart = { text: string; accent?: boolean; id: number };
 jest.mock('../AccentHeading/AccentHeading', () => ({
@@ -60,7 +60,7 @@ describe('Faq', () => {
   it('renders accent heading', () => {
     render(<Faq />);
     expect(screen.getByTestId('accent-heading')).toHaveTextContent(
-      'Ваш спокій — наш пріоритет',
+      FAQ_TITLE_PARTS.map((p) => p.text).join(''),
     );
   });
 

@@ -31,7 +31,7 @@ describe('Footer Component', () => {
 
   test.each(NAVIGATION_LINKS)(
     'should link to correct internal page for $name',
-    async ({ name, href }) => {
+    ({ name, href }) => {
       render(<Footer />);
       const navLink = screen.getByRole('link', { name });
 

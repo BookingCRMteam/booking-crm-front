@@ -10,23 +10,21 @@ import { StepsSection } from './StepsSection/StepsSection';
 
 export const HomePage = () => {
   return (
-    <>
-      <OverlapStack debug={false}>
-        <Box className="section">
-          <Hero />
-          <StepsSection />
-        </Box>
-        <Box className="section">
-          <SelectionTours />
-          <Operators />
-        </Box>
-        <Box className="section">
-          <SectionDetail />
-        </Box>
-        <Box className="section">
-          <Faq />
-        </Box>
-      </OverlapStack>
-    </>
+    <OverlapStack>
+      <Box className="section">
+        <Hero />
+        <StepsSection />
+      </Box>
+      <Box className="section">
+        <SelectionTours />
+        <Operators />
+      </Box>
+      <Box className="section">
+        <SectionDetail />
+      </Box>
+      <Box className="section">
+        <Faq />
+      </Box>
+    </OverlapStack>
   );
 };

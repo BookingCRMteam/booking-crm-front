@@ -50,10 +50,19 @@ describe('FaqAccordionList', () => {
     const secondAccordion = getByText('Question Two');
 
     await user.click(firstAccordion);
-    expect(getByText('Answer One')).toBeVisible();
+
+    const answerOne = queryByText('Answer One');
+    const answerTwo = queryByText('Answer Two');
+
+    expect(answerOne).toBeInTheDocument();
+    expect(answerOne).toBeVisible();
+
+    expect(answerTwo).toBeInTheDocument();
+    expect(answerTwo).not.toBeVisible();
 
     await user.click(secondAccordion);
-    expect(queryByText('Answer One')).not.toBeVisible();
+
     expect(getByText('Answer Two')).toBeVisible();
+    expect(getByText('Answer One')).not.toBeVisible();
   });
 });

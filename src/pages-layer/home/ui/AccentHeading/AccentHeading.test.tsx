@@ -26,7 +26,7 @@ describe('AccentHeading', () => {
     });
   });
 
-  it('applies accent color to accent parts for h2', () => {
+  it('applies accent color to accent parts for h3', () => {
     const { getByText } = renderWithTheme(
       <AccentHeading variant="h3" parts={parts} />,
     );

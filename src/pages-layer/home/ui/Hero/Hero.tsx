@@ -29,12 +29,14 @@ const HeroWrapper = styled(Box)({
   margin: '0 auto',
   width: '100%',
   maxWidth: 1440,
-  minHeight: '663px',
+  height: 'calc(100dvh - 60px)',
+  // minHeight: '663px',
   backgroundImage: 'url("/images/hero-bg.png")',
   backgroundSize: 'cover',
-  backgroundPosition: 'center',
+  backgroundPosition: 'center top',
   backgroundRepeat: 'no-repeat',
-  paddingTop: 91,
+  // paddingTop: 91,
+  paddingTop: '12vh',
 });
 
 const ContentWrapper = styled(Container)({

@@ -2,10 +2,6 @@ import { render, screen } from '@testing-library/react';
 
 import { DetailCard } from './DetailCard';
 
-jest.mock('@phosphor-icons/react', () => ({
-  SketchLogoIcon: () => <div data-testid="mock-icon"></div>,
-}));
-
 describe('DetailCard', () => {
   const mockProps = {
     title: (

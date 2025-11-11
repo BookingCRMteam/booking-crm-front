@@ -1,3 +1,4 @@
+import { APP_ROUTE } from '@/shared/constants';
 import { renderWithTheme } from '@/shared/tests';
 
 import { StepsSection } from './StepsSection';
@@ -21,9 +22,11 @@ describe('StepsSection', () => {
     );
 
     expect(getByText(STEPS_SECTION_TITLE)).toBeInTheDocument();
-    expect(
-      getByRole('link', { name: STEPS_SECTION_BUTTON_TEXT }),
-    ).toBeInTheDocument();
+    const button = getByRole('link', { name: STEPS_SECTION_BUTTON_TEXT });
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute('href', APP_ROUTE.CATALOG);
+
     expect(getByTestId('accent-heading')).toBeInTheDocument();
     expect(getByTestId('steps')).toBeInTheDocument();
   });

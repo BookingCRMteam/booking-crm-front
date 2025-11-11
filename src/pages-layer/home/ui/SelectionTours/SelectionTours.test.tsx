@@ -24,7 +24,7 @@ describe('SelectionTours', () => {
     jest.clearAllMocks();
   });
 
-  it('renders title and description', () => {
+  it('renders title and description when loading', () => {
     mockUseFetchTours.mockReturnValue({
       data: null,
       isLoading: true,

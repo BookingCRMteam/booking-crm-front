@@ -44,4 +44,12 @@ describe('OperatorCard', () => {
     const link = getByRole('link', { name: /Переглянути/i });
     expect(link).toHaveAttribute('href', '/catalog/operator/5');
   });
+
+  it('handles null description gracefully', () => {
+    const { container } = renderWithTheme(
+      <OperatorCard {...baseProps} description={null} />,
+    );
+    const descElement = container.querySelector('[variant="bodySmall"]');
+    expect(descElement?.textContent).not.toBe('null');
+  });
 });

@@ -6,7 +6,7 @@ const meta: Meta<typeof Faq> = {
   title: 'Pages/Home/Faq',
   component: Faq,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
     docs: {
       description: {
         component: `
@@ -29,4 +29,13 @@ const meta: Meta<typeof Faq> = {
 export default meta;
 type Story = StoryObj<typeof Faq>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Базовий приклад секції FAQ з усіма запитаннями та відповідями. Дані завантажуються з констант компонента.',
+      },
+    },
+  },
+};
