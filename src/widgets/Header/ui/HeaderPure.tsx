@@ -1,9 +1,17 @@
+'use client';
+
 import type { FC } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { AppBar, Container, Link as MuiLink } from '@mui/material';
+import {
+  AppBar,
+  Container,
+  Link as MuiLink,
+  Toolbar,
+  styled,
+} from '@mui/material';
 
 import type { OperatorStatus } from '@/entities/operator';
 
@@ -21,55 +29,64 @@ interface HeaderPureProps {
   operatorStatus?: OperatorStatus;
 }
 
+const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+
 const HeaderPure: FC<HeaderPureProps> = ({
   operatorStatus,
   userRole,
   firstPersonName,
 }) => {
   return (
-    <AppBar
-      position="static"
-      component="header"
-      sx={{ bgcolor: 'secondary.main', boxShadow: 'none' }}
-    >
-      <Container
-        maxWidth="lg"
-        sx={{
-          padding: '8px 0',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
+    <>
+      <AppBar
+        component="header"
+        sx={{ bgcolor: 'secondary.main', boxShadow: 'none' }}
       >
-        <MuiLink
-          component={Link}
-          href={APP_ROUTE.HOME}
-          sx={{
-            p: 0,
-            fontSize: 0,
-            lineHeight: 0,
-          }}
-        >
-          <Image
-            src="/images/logo.png"
-            width={127}
-            height={44}
-            alt="Booking CRM logo"
-            priority
-          />
-        </MuiLink>
-        <NavigationLinks />
-        {userRole !== undefined && firstPersonName !== undefined ? (
-          <AuthorizedMenu userRole={userRole} firstPersonName={firstPersonName}>
-            {operatorStatus && (
-              <OperatorStatusDisplay status={operatorStatus} />
+        <Toolbar>
+          <Container
+            maxWidth="lg"
+            sx={{
+              padding: '8px 0',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <MuiLink
+              component={Link}
+              href={APP_ROUTE.HOME}
+              sx={{
+                p: 0,
+                fontSize: 0,
+                lineHeight: 0,
+              }}
+            >
+              <Image
+                src="/images/logo.png"
+                width={127}
+                height={44}
+                alt="Booking CRM logo"
+                priority
+              />
+            </MuiLink>
+            <NavigationLinks />
+            {userRole !== undefined && firstPersonName !== undefined ? (
+              <AuthorizedMenu
+                userRole={userRole}
+                firstPersonName={firstPersonName}
+              >
+                {operatorStatus && (
+                  <OperatorStatusDisplay status={operatorStatus} />
+                )}
+              </AuthorizedMenu>
+            ) : (
+              <UnauthorizedMenu />
             )}
-          </AuthorizedMenu>
-        ) : (
-          <UnauthorizedMenu />
-        )}
-      </Container>
-    </AppBar>
+          </Container>
+        </Toolbar>
+      </AppBar>
+      <Offset />
+    </>
   );
 };
 

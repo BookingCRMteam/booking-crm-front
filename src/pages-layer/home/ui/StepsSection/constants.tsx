@@ -1,0 +1,55 @@
+import type { ReactNode } from 'react';
+
+export const STEPS_TITLE_PARTS = [
+  { id: 1, text: 'Ваша ' },
+  { id: 2, text: 'подорож мрії ', accent: true },
+  { id: 3, text: '— всього за три кроки' },
+];
+
+export const STEPS_CARD_CONTENT_WRAPPER_TEST_ID =
+  'steps_card_content_wrapper_id';
+
+export type StepCardType = {
+  id: number;
+  number: number;
+  title: ReactNode;
+  description: string;
+};
+
+export const STEPS_SECTION_ID = 'step_section_id';
+
+export const STEPS_SECTION_BUTTON_TEXT = 'Знайти свою пригоду';
+export const STEPS_SECTION_TITLE =
+  'Ми створили простий та надійний процес, щоб ви могли зосередитись на найважливішому — ваших спільних враженнях.';
+
+export const STEPS: StepCardType[] = [
+  {
+    id: 1,
+    number: 1,
+    title: (
+      <>
+        Оберіть тур <br /> від перевіреного автора
+      </>
+    ),
+    description:
+      'Ми особисто перевіряємо кожного туроператора. Лише ті, хто довів свою надійність та унікальність підходу, потрапляють на нашу платформу.',
+  },
+  {
+    id: 2,
+    number: 2,
+    title: (
+      <>
+        Бронюйте <br /> безпечно та миттєво
+      </>
+    ),
+    description:
+      'Ваша оплата захищена. Після бронювання ви одразу отримуєте підтвердження на пошту та прямі контакти вашого туроператора для обговорення деталей.',
+  },
+  {
+    id: 3,
+    number: 3,
+    title: <>Отримайте повну підтримку до та під час подорожі</>,
+    description:
+      "Ми завжди на зв'язку поштою, щоб допомогти вирішити будь-які питання. Ваша єдина задача — насолоджуватись ідеальною романтичною пригодою.",
+  },
+];

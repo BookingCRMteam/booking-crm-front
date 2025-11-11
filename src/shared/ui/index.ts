@@ -11,3 +11,5 @@ export { LocationDisplay } from './LocationDisplay/LocationDisplay';
 export { DateDisplay } from './DateDisplay/DateDisplay';
 export { PriceDisplay } from './PriceDisplay/PriceDisplay';
 export { PhoneInputField } from './PhoneInputField/PhoneInputField';
+export { OperatorCardSkeleton } from './Skeleton/OperatorCardSkeleton';
+export { TourCardSkeleton } from './Skeleton/TourCardSkeleton';

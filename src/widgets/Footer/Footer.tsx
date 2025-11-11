@@ -1,41 +1,37 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+'use client';
 
-import { AUTH_URL } from '@/shared/constants/auth';
-import { APP_ROUTE } from '@/shared/constants/routes';
+import { Box, type BoxProps, Container, Grid, styled } from '@mui/material';
+
+import { FooterBrandingColumn } from './ui/FooterBrandingColumn';
+import { FooterNavigationColumn } from './ui/FooterNavigationColumn';
+import { FooterOperatorColumn } from './ui/FooterOperatorColumn';
+
+const StyledFooterWrapper = styled(Box)<BoxProps>(({ theme }) => ({
+  backgroundColor: theme.palette.secondary.main,
+}));
+
+const StyledFooterContainer = styled(Container)({
+  padding: '40px 0',
+  display: 'flex',
+  justifyContent: 'center',
+});
 
 export const Footer = () => {
   return (
-    <Box component="footer" sx={{ bgcolor: 'secondary.main' }}>
-      <Container
-        maxWidth="lg"
-        sx={{
-          padding: 5,
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 4.5,
-            width: '30%',
-          }}
-        >
-          <Typography component="p" variant="bodyLarge">
-            Ви створюєте унікальні подорожі? Ми візьмемо на себе всю вашу
-            операційну рутину
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            component="a"
-            href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.AUTH_REDIRECT_OPERATOR}`}
-          >
-            Стати партнером
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+    <StyledFooterWrapper component="footer">
+      <StyledFooterContainer maxWidth="lg">
+        <Grid container spacing={{ xs: 4, md: 3 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
+            <FooterBrandingColumn />
+          </Grid>
+          <Grid size={{ xs: 12, md: 4 }}>
+            <FooterNavigationColumn />
+          </Grid>
+          <Grid size={{ xs: 12, md: 4 }}>
+            <FooterOperatorColumn />
+          </Grid>
+        </Grid>
+      </StyledFooterContainer>
+    </StyledFooterWrapper>
   );
 };
