@@ -29,6 +29,9 @@ describe('OperatorCard', () => {
     expect(getByText(/Актуальні подорожі/)).toHaveTextContent('7');
     expect(getByTestId('status-badge')).toBeInTheDocument();
     expect(getByRole('link', { name: /Переглянути/i })).toBeInTheDocument();
+    expect(getByText(baseProps.description!)).toBeInTheDocument();
+    const img = getByRole('img') as HTMLImageElement;
+    expect(img.src).toContain(baseProps.photo!);
   });
 
   it('uses placeholder image when no photo provided', () => {
@@ -39,17 +42,16 @@ describe('OperatorCard', () => {
     expect(img.src).toContain('operator_placeholder.png');
   });
 
-  it('links to correct operator page', async () => {
+  it('links to correct operator page', () => {
     const { getByRole } = renderWithTheme(<OperatorCard {...baseProps} />);
     const link = getByRole('link', { name: /Переглянути/i });
     expect(link).toHaveAttribute('href', '/catalog/operator/5');
   });
 
   it('handles null description gracefully', () => {
-    const { container } = renderWithTheme(
+    const { getByText } = renderWithTheme(
       <OperatorCard {...baseProps} description={null} />,
     );
-    const descElement = container.querySelector('[variant="bodySmall"]');
-    expect(descElement?.textContent).not.toBe('null');
+    expect(() => getByText('null')).toThrow();
   });
 });
