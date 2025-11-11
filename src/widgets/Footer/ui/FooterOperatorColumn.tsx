@@ -12,7 +12,7 @@ export const FooterOperatorColumn = () => {
         gap: '24px',
       }}
     >
-      <Typography variant="priceHighlight" component="p">
+      <Typography variant="priceHighlight" component="h3">
         Організаторам подорожей
       </Typography>
 

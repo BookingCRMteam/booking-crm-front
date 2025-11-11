@@ -8,7 +8,10 @@ import {
   styled,
 } from '@mui/material';
 
-import type { StepCardType } from './constants';
+import {
+  STEPS_CARD_CONTENT_WRAPPER_TEST_ID,
+  type StepCardType,
+} from './constants';
 
 type StepCardProps = StepCardType & {
   selected: boolean;
@@ -97,7 +100,10 @@ export const StepCard: FC<StepCardProps> = ({
       <CardNumber selected={selected} align="center">
         {number}
       </CardNumber>
-      <ContentWrapper selected={selected}>
+      <ContentWrapper
+        selected={selected}
+        data-testid={STEPS_CARD_CONTENT_WRAPPER_TEST_ID}
+      >
         <CardTitle variant="h3" color="primary">
           {title}
         </CardTitle>

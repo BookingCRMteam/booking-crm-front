@@ -5,19 +5,9 @@ import Link from 'next/link';
 
 import { Box, Button, Card, Typography, styled } from '@mui/material';
 
-import type { OperatorStatus } from '@/entities/operator';
-
 import { OperatorStatusBadge } from '@/shared/ui';
 
-type OperatorCardProps = {
-  photo: string | null;
-  firstName: string;
-  lastName: string;
-  status: OperatorStatus;
-  description: string | null;
-  toursCount: number;
-  id: number;
-};
+import { OperatorCardProps } from './types';
 
 const CardWrapper = styled(Card)(({ theme }) => ({
   padding: '12px 16px 40px',

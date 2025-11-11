@@ -6,9 +6,7 @@ export const HERO_TITLE_PARTS = [
 
 export const HERO_BUTTON_TEXT = 'Знайти свою пригоду';
 
-export const HERO_DESCRIPTION = `Відкрийте для себе авторські тури, відібрані вручну,
-щоб ви могли просто насолоджуватись моментами, 
-а не плануванням`;
+export const HERO_DESCRIPTION = `Відкрийте для себе авторські тури, відібрані вручну, щоб ви могли просто насолоджуватись моментами, а не плануванням`;
 
 export type AdvantagesType =
   | {

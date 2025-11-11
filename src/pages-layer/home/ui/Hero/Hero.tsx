@@ -2,7 +2,14 @@
 
 import Link from 'next/link';
 
-import { Box, Button, Container, Typography, styled } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Typography,
+  TypographyProps,
+  styled,
+} from '@mui/material';
 
 import { APP_ROUTE } from '@/shared/constants';
 
@@ -37,10 +44,12 @@ const ContentWrapper = styled(Container)({
   width: '100%',
   maxWidth: '595px',
 });
-const DescriptionTypography = styled(Typography)(({ theme }) => ({
-  color: theme.palette.common.white,
-  maxWidth: '520px',
-}));
+const DescriptionTypography = styled(Typography)<TypographyProps>(
+  ({ theme }) => ({
+    color: theme.palette.common.white,
+    maxWidth: '520px',
+  }),
+);
 const AdvantagesWrapper = styled(Box)({
   background: 'rgba(54, 54, 54, 0.4)',
   backdropFilter: 'blur(5px)',
@@ -60,7 +69,7 @@ export const Hero = () => {
     <HeroWrapper>
       <ContentWrapper>
         <AccentHeading variant="h1" parts={HERO_TITLE_PARTS} maxWidth="595px" />
-        <DescriptionTypography variant="priceHighlight">
+        <DescriptionTypography component="p" variant="priceHighlight">
           {HERO_DESCRIPTION}
         </DescriptionTypography>
         <Button

@@ -6,6 +6,9 @@ export const STEPS_TITLE_PARTS = [
   { id: 3, text: '— всього за три кроки' },
 ];
 
+export const STEPS_CARD_CONTENT_WRAPPER_TEST_ID =
+  'steps_card_content_wrapper_id';
+
 export type StepCardType = {
   id: number;
   number: number;
