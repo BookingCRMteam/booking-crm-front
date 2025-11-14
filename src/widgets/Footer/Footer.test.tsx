@@ -1,9 +1,13 @@
 import { render, screen } from '@testing-library/react';
 
-import { APP_ROUTE, AUTH_URL } from '@/shared/constants';
+import { APP_ROUTE } from '@/shared/constants';
 
 import { Footer } from './Footer';
 import { LINKS, NAVIGATION_LINKS } from './constants';
+
+jest.mock('./ui/FooterOperatorColumn', () => ({
+  FooterOperatorColumn: () => <div data-testid="footer-operator-column"></div>,
+}));
 
 describe('Footer Component', () => {
   test('should render all three main columns and essential links', () => {
@@ -20,13 +24,7 @@ describe('Footer Component', () => {
     expect(
       screen.getByRole('link', { name: /Політика конфіденційності/i }),
     ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole('heading', { name: /Організаторам подорожей/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', { name: /Стати партнером/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('footer-operator-column')).toBeInTheDocument();
   });
 
   test.each(NAVIGATION_LINKS)(
@@ -50,17 +48,6 @@ describe('Footer Component', () => {
       expect(termsLink).toHaveAttribute('href', href);
     },
   );
-
-  test('should link to the correct partner login URL', () => {
-    render(<Footer />);
-    const ctaButton = screen.getByRole('link', { name: /Стати партнером/i });
-
-    const expectedHref = `${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.AUTH_REDIRECT_OPERATOR}`;
-
-    expect(ctaButton).toBeInTheDocument();
-    expect(ctaButton).toHaveAttribute('href', expectedHref);
-    expect(ctaButton.tagName).toBe('A');
-  });
 
   test('should render the logo link and copyright text', () => {
     render(<Footer />);

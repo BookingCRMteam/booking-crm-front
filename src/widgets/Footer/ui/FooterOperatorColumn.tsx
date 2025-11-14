@@ -1,9 +1,26 @@
+'use client';
+
 import { Box, Button, Typography } from '@mui/material';
+
+import { useUserQuery } from '@/entities/user';
 
 import { AUTH_URL } from '@/shared/constants/auth';
 import { APP_ROUTE } from '@/shared/constants/routes';
 
+import {
+  FOOTER_OPERATOR_BUTTON,
+  FOOTER_OPERATOR_DESCRIPTION,
+  FOOTER_OPERATOR_TITLE,
+} from './constants';
+
 export const FooterOperatorColumn = () => {
+  const { data: user } = useUserQuery();
+  const isOperator = user?.role === 'operator';
+  const operatorLink = !user
+    ? `${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.AUTH_REDIRECT_OPERATOR}`
+    : isOperator
+      ? APP_ROUTE.OPERATOR
+      : APP_ROUTE.OPERATOR_ONBOARDING;
   return (
     <Box
       sx={{
@@ -13,12 +30,11 @@ export const FooterOperatorColumn = () => {
       }}
     >
       <Typography variant="priceHighlight" component="h3">
-        Організаторам подорожей
+        {FOOTER_OPERATOR_TITLE}
       </Typography>
 
       <Typography component="p" variant="bodyDefault">
-        Втомилися від хаосу в Діректі та ручних оплат? Наша платформа візьме на
-        себе рутину, щоб ви могли сфокусуватись на створенні вражень.
+        {FOOTER_OPERATOR_DESCRIPTION}
       </Typography>
 
       <Button
@@ -26,9 +42,9 @@ export const FooterOperatorColumn = () => {
         color="primary"
         component="a"
         size="large"
-        href={`${AUTH_URL.LOGIN}?returnTo=${APP_ROUTE.AUTH_REDIRECT_OPERATOR}`}
+        href={operatorLink}
       >
-        Стати партнером
+        {FOOTER_OPERATOR_BUTTON}
       </Button>
     </Box>
   );
