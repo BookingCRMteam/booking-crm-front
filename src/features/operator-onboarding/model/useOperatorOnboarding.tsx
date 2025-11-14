@@ -14,7 +14,7 @@ import { APP_ROUTE } from '@/shared/constants';
 import { useNotificationStore } from '@/shared/store';
 
 import {
-  OperatorOnboardingSchemaValues,
+  type OperatorOnboardingSchemaValues,
   operatorOnboardingSchema,
 } from './schema';
 

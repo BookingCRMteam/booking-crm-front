@@ -6,7 +6,11 @@ import { renderWithTheme } from '@/shared/tests/renderWithProviders';
 import { BookingForm } from './BookingForm';
 
 const mockOnSubmit = jest.fn();
-const mockHandleSubmit = jest.fn((fn) => fn);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mockHandleSubmit = jest.fn((fn) => (e: any) => {
+  fn(e);
+  e.preventDefault();
+});
 
 const mockUseBookingForm = {
   form: {

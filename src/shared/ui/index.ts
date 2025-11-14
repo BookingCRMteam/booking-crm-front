@@ -13,3 +13,4 @@ export { PriceDisplay } from './PriceDisplay/PriceDisplay';
 export { PhoneInputField } from './PhoneInputField/PhoneInputField';
 export { OperatorCardSkeleton } from './Skeleton/OperatorCardSkeleton';
 export { TourCardSkeleton } from './Skeleton/TourCardSkeleton';
+export { CheckboxSmall } from './Checkbox/Checkbox';

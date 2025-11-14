@@ -1,9 +1,8 @@
 import { redirect } from 'next/navigation';
 
-import { Container } from '@mui/material';
+import { OperatorOnboardingPage } from '@/pages-layer/operator-onboarding';
 
 import { authGuard } from '@/features/auth';
-import { OperatorOnboardingForm } from '@/features/operator-onboarding';
 
 import { APP_ROUTE } from '@/shared/constants';
 
@@ -15,9 +14,5 @@ export default async function OperatorOnboarding() {
   if (operator && operator.status && operator.status !== 'rejected') {
     redirect(APP_ROUTE.OPERATOR);
   }
-  return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
-      <OperatorOnboardingForm />
-    </Container>
-  );
+  return <OperatorOnboardingPage />;
 }

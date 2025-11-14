@@ -1,13 +1,61 @@
 'use client';
 
-import { Checkbox, FormControlLabel, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { MuiTelInput } from 'mui-tel-input';
-import { Controller } from 'react-hook-form';
+import {
+  Box,
+  type BoxProps,
+  Button,
+  FormControlLabel,
+  TextField,
+  Typography,
+  styled,
+} from '@mui/material';
+
+import { CheckboxSmall, PhoneInputField } from '@/shared/ui';
 
 import { useOperatorOnboarding } from '../model/useOperatorOnboarding';
+import {
+  FORM_CHECKBOX_LABEL,
+  FORM_DESCRIPTION,
+  FORM_FIRST_NAME_LABEL,
+  FORM_LAST_NAME_LABEL,
+  FORM_PHONE_PLACEHOLDER,
+  FORM_SUBMIT_BUTTON,
+  FORM_TITLE,
+  FORM_WEBSITE_LABEL,
+} from './constants';
+
+const Form = styled(Box)<BoxProps>(({ theme }) => ({
+  backgroundColor: theme.palette.common.white,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '24px',
+  maxWidth: '814px',
+  width: '100%',
+  margin: '0 auto',
+  padding: '63.2px 64px',
+  border: `1px solid ${theme.palette.gray[500]}`,
+  borderRadius: 2,
+  '& > *': {
+    width: '100%',
+  },
+}));
+
+const SubmitButton = styled(Button)({
+  maxWidth: '331px',
+  '&:disabled': {
+    backgroundColor: 'rgba(0, 0, 0, 0.12)',
+    color: 'rgba(0, 0, 0, 0.38)',
+  },
+});
+
+const CheckboxLabel = styled(FormControlLabel)(({ theme }) => ({
+  alignSelf: 'flex-start',
+  margin: 0,
+  gap: '4px',
+  color: theme.palette.gray[900],
+  letterSpacing: '-0.01em',
+}));
 
 export const OperatorOnboardingForm = () => {
   const { form, onSubmit, isPending } = useOperatorOnboarding();
@@ -19,46 +67,31 @@ export const OperatorOnboardingForm = () => {
   } = form;
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 3,
-        maxWidth: 622,
-        width: '100%',
-        margin: '0 auto',
-        padding: 8,
-        border: '1px solid #ccc',
-        borderRadius: 2,
-      }}
-    >
-      <Typography component="h1" variant="h3" sx={{ fontSize: '32px' }}>
-        Вітаємо зі створенням акаунту!
+    <Form component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Typography component="h1" variant="h2" align="center">
+        {FORM_TITLE}
       </Typography>
       <Typography
         component="p"
+        align="center"
         variant="bodyLarge"
-        sx={{ textAlign: 'center' }}
+        maxWidth={440}
       >
-        Для верифікації вашого статусу “Туроператор”, будь ласка внесіть
-        наступні дані:
+        {FORM_DESCRIPTION}
       </Typography>
       <TextField
-        label="Ім'я"
-        placeholder="Ім'я"
+        label={FORM_FIRST_NAME_LABEL}
+        placeholder={FORM_FIRST_NAME_LABEL}
         {...register('firstName')}
         error={!!errors.firstName}
         helperText={errors.firstName?.message}
         fullWidth
-        required
         variant="outlined"
       />
 
       <TextField
-        label="Прізвище"
-        required
+        label={FORM_LAST_NAME_LABEL}
+        placeholder={FORM_LAST_NAME_LABEL}
         {...register('lastName')}
         error={!!errors.lastName}
         helperText={errors.lastName?.message}
@@ -66,63 +99,36 @@ export const OperatorOnboardingForm = () => {
         variant="outlined"
       />
 
-      <Controller
-        name="phone"
+      <PhoneInputField
         control={control}
-        render={({ field, fieldState }) => (
-          <MuiTelInput
-            label="Телефон"
-            required
-            {...field}
-            value={field.value ?? ''}
-            defaultCountry="UA"
-            forceCallingCode
-            preferredCountries={['UA', 'US']}
-            continents={['EU', 'NA']}
-            disableFormatting
-            focusOnSelectCountry
-            error={!!fieldState.error}
-            helperText={fieldState.error?.message}
-            variant="outlined"
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                  width: 493,
-                },
-              },
-              disablePortal: true,
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
-              },
-            }}
-          />
-        )}
+        name="phone"
+        placeholder={FORM_PHONE_PLACEHOLDER}
+        label={null}
       />
-
       <TextField
-        label="Посилання на ваш Instagram"
+        label={FORM_WEBSITE_LABEL}
+        placeholder={FORM_WEBSITE_LABEL}
         {...register('website')}
         error={!!errors.website}
         helperText={errors.website?.message}
         fullWidth
-        required
         variant="outlined"
       />
-      <FormControlLabel
-        control={<Checkbox {...register('accept')} defaultChecked />}
-        label="Я погоджуюсь на обробку персональних даних"
+      <CheckboxLabel
+        control={<CheckboxSmall {...register('accept')} defaultChecked />}
+        label={
+          <Typography variant="tagBadge">{FORM_CHECKBOX_LABEL}</Typography>
+        }
       />
-      <Button
+      <SubmitButton
         type="submit"
         variant="contained"
         size="large"
         disabled={!isValid || isPending}
         loading={isPending}
       >
-        Надіслати на верифікацію
-      </Button>
-    </Box>
+        {FORM_SUBMIT_BUTTON}
+      </SubmitButton>
+    </Form>
   );
 };
