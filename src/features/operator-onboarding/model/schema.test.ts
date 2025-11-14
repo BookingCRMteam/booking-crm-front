@@ -116,7 +116,7 @@ describe('operatorOnboardingSchema', () => {
     });
 
     expect(result.success).toBe(false);
-    expect(result.error?.issues[0].message).toBe('Value must be true');
+    expect(result.error?.issues[0].message).toBe('Необхідно прийняти умови');
   });
 
   it('fails when website is not URL', () => {

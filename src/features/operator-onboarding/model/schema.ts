@@ -2,7 +2,7 @@ import { matchIsValidTel } from 'mui-tel-input';
 import { z } from 'zod';
 
 const trueBooleanSchema = z.boolean().refine((val) => val === true, {
-  message: 'Value must be true',
+  message: 'Необхідно прийняти умови',
 });
 
 // лише літери, апострофи і дефіси
