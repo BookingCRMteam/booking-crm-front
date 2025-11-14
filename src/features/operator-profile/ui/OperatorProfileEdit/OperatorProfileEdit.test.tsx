@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { renderWithTheme } from '@/shared/tests';
+import { createMockHandleSubmit, renderWithTheme } from '@/shared/tests';
 
 import { mockOperator } from '@/jest/fixtures/operatorMocks';
 
@@ -53,10 +53,8 @@ jest.mock('@/entities/user', () => ({
   useUserQuery: jest.fn(),
 }));
 
-const mockHandleSubmit = jest.fn((fn) => (e: any) => {
-  fn(e);
-  e.preventDefault();
-});
+const mockHandleSubmit = createMockHandleSubmit();
+
 const mockRegister = jest.fn();
 const mockSetValue = jest.fn();
 const mockControl = {};

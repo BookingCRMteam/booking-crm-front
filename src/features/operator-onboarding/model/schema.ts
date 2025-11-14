@@ -2,7 +2,7 @@ import { matchIsValidTel } from 'mui-tel-input';
 import { z } from 'zod';
 
 const trueBooleanSchema = z.boolean().refine((val) => val === true, {
-  message: 'Value must be true',
+  message: 'Необхідно прийняти умови',
 });
 
 // лише літери, апострофи і дефіси
@@ -16,8 +16,8 @@ const noEdgeHyphenRegex = /^(?!-)(?!.*-$).*$/;
 
 export const stringWithValidNameChars = z
   .string()
-  .min(2, { message: 'Введіть від 2 до 100 символів' })
-  .max(100, { message: 'Введіть від 2 до 100 символів' })
+  .min(2, { message: 'Введіть від 2 до 50 символів' })
+  .max(50, { message: 'Введіть від 2 до 50 символів' })
   .regex(onlyValidCharsRegex, {
     message: 'Дозволено лише літери, дефіси (-) та апострофи (’).',
   })

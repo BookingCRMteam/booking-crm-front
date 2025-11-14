@@ -2,6 +2,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { createMockHandleSubmit } from '@/shared/tests';
+
 import { useCoupleProfileForm } from '../model/useCoupleProfileForm';
 import { CoupleProfileForm } from './CoupleProfileForm';
 
@@ -10,10 +12,7 @@ jest.mock('../model/useCoupleProfileForm');
 jest.mock('@/entities/user', () => ({
   useUserQuery: jest.fn(),
 }));
-const mockHandleSubmit = jest.fn((fn) => (e: any) => {
-  fn(e);
-  e.preventDefault();
-});
+const mockHandleSubmit = createMockHandleSubmit();
 
 const mockRegister = jest.fn();
 const mockControl = {};

@@ -1,9 +1,12 @@
 'use client';
 
-import { MuiTelInput } from 'mui-tel-input';
-import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+import { MuiTelInput, type MuiTelInputProps } from 'mui-tel-input';
+import { Control, Controller, type FieldValues, Path } from 'react-hook-form';
 
-type PhoneInputFieldProps<TFormValues extends FieldValues> = {
+type PhoneInputFieldProps<TFormValues extends FieldValues> = Pick<
+  MuiTelInputProps,
+  'label' | 'placeholder'
+> & {
   name: Path<TFormValues>;
   control: Control<TFormValues>;
 };
@@ -11,6 +14,8 @@ type PhoneInputFieldProps<TFormValues extends FieldValues> = {
 export const PhoneInputField = <TFormValues extends FieldValues>({
   name,
   control,
+  label = 'Номер телефону',
+  placeholder,
 }: PhoneInputFieldProps<TFormValues>) => {
   return (
     <Controller
@@ -21,7 +26,8 @@ export const PhoneInputField = <TFormValues extends FieldValues>({
         fieldState,
       }) => (
         <MuiTelInput
-          label="Номер телефону"
+          label={label}
+          placeholder={placeholder}
           inputRef={ref}
           value={value ?? ''}
           onChange={(val) => onChange(val)}
@@ -31,13 +37,15 @@ export const PhoneInputField = <TFormValues extends FieldValues>({
           forceCallingCode
           preferredCountries={['UA', 'US']}
           excludedCountries={['RU']}
-          continents={['EU']}
+          continents={['EU', 'NA']}
+          langOfCountryName="UA"
           disableFormatting
           focusOnSelectCountry
           error={!!fieldState.error}
           helperText={fieldState.error?.message}
           variant="outlined"
           MenuProps={{
+            disableScrollLock: true,
             PaperProps: {
               style: { maxHeight: 250, width: '100%', maxWidth: 493 },
             },
