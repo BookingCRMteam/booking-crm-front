@@ -10,10 +10,12 @@ jest.mock('../model/useCoupleProfileForm');
 jest.mock('@/entities/user', () => ({
   useUserQuery: jest.fn(),
 }));
-const mockHandleSubmit = jest.fn((fn) => (e: any) => {
-  fn(e);
-  e.preventDefault();
-});
+const mockHandleSubmit = jest.fn(
+  (fn) => (e: React.FormEvent<HTMLFormElement>) => {
+    fn(e);
+    e.preventDefault();
+  },
+);
 
 const mockRegister = jest.fn();
 const mockControl = {};

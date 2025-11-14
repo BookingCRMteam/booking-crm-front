@@ -17,7 +17,7 @@ const noEdgeHyphenRegex = /^(?!-)(?!.*-$).*$/;
 export const stringWithValidNameChars = z
   .string()
   .min(2, { message: 'Введіть від 2 до 50 символів' })
-  .max(100, { message: 'Введіть від 2 до 50 символів' })
+  .max(50, { message: 'Введіть від 2 до 50 символів' })
   .regex(onlyValidCharsRegex, {
     message: 'Дозволено лише літери, дефіси (-) та апострофи (’).',
   })

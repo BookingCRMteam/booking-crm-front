@@ -13,6 +13,54 @@ describe('operatorOnboardingSchema', () => {
     expect(() => operatorOnboardingSchema.parse(validData)).not.toThrow();
   });
 
+  it('fails when firstName is shorter than 2 characters', () => {
+    const result = operatorOnboardingSchema.safeParse({
+      ...validData,
+      firstName: 'І',
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.error?.issues[0].message).toBe(
+      'Введіть від 2 до 50 символів',
+    );
+  });
+
+  it('fails when lastName is shorter than 2 characters', () => {
+    const result = operatorOnboardingSchema.safeParse({
+      ...validData,
+      lastName: 'П',
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.error?.issues[0].message).toBe(
+      'Введіть від 2 до 50 символів',
+    );
+  });
+
+  it('fails when firstName is longer than 50 characters', () => {
+    const result = operatorOnboardingSchema.safeParse({
+      ...validData,
+      firstName: 'І'.repeat(51),
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.error?.issues[0].message).toBe(
+      'Введіть від 2 до 50 символів',
+    );
+  });
+
+  it('fails when lastName is longer than 50 characters', () => {
+    const result = operatorOnboardingSchema.safeParse({
+      ...validData,
+      lastName: 'П'.repeat(51),
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.error?.issues[0].message).toBe(
+      'Введіть від 2 до 50 символів',
+    );
+  });
+
   it('fails when firstName contains invalid characters', () => {
     const result = operatorOnboardingSchema.safeParse({
       ...validData,

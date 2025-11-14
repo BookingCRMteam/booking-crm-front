@@ -3,11 +3,13 @@
 import { MuiTelInput, type MuiTelInputProps } from 'mui-tel-input';
 import { Control, Controller, type FieldValues, Path } from 'react-hook-form';
 
-type PhoneInputFieldProps<TFormValues extends FieldValues> =
-  MuiTelInputProps & {
-    name: Path<TFormValues>;
-    control: Control<TFormValues>;
-  };
+type PhoneInputFieldProps<TFormValues extends FieldValues> = Pick<
+  MuiTelInputProps,
+  'label' | 'placeholder'
+> & {
+  name: Path<TFormValues>;
+  control: Control<TFormValues>;
+};
 
 export const PhoneInputField = <TFormValues extends FieldValues>({
   name,

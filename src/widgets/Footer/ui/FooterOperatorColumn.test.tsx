@@ -27,7 +27,9 @@ describe('FooterOperatorColumn', () => {
 
     expect(screen.getByText(FOOTER_OPERATOR_TITLE)).toBeInTheDocument();
     expect(screen.getByText(FOOTER_OPERATOR_DESCRIPTION)).toBeInTheDocument();
-    screen.getByRole('link', { name: FOOTER_OPERATOR_BUTTON });
+    expect(
+      screen.getByRole('link', { name: FOOTER_OPERATOR_BUTTON }),
+    ).toBeInTheDocument();
   });
 
   it('redirects unauthenticated user to login with onboarding redirect', () => {

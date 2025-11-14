@@ -11,9 +11,13 @@ describe('CheckboxSmall', () => {
     );
 
     const checkbox = getByRole('checkbox');
+    expect(checkbox).not.toBeChecked();
+
     await user.click(checkbox);
 
+    expect(checkbox).toBeChecked();
     expect(handleChange).toHaveBeenCalled();
+    expect(handleChange).toHaveBeenCalledTimes(1);
   });
 
   it('shows custom checked icon when checked', () => {
