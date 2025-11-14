@@ -1,17 +1,13 @@
 import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { createMockHandleSubmit } from '@/shared/tests';
 import { renderWithTheme } from '@/shared/tests/renderWithProviders';
 
 import { BookingForm } from './BookingForm';
 
 const mockOnSubmit = jest.fn();
-const mockHandleSubmit = jest.fn(
-  (fn) => (e: React.FormEvent<HTMLFormElement>) => {
-    fn(e);
-    e.preventDefault();
-  },
-);
+const mockHandleSubmit = createMockHandleSubmit();
 
 const mockUseBookingForm = {
   form: {
