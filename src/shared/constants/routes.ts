@@ -4,6 +4,8 @@ export enum APP_ROUTE {
   ADMIN = '/admin',
   SUPER_ADMIN = '/super-admin',
   OPERATOR = '/operator',
+  OPERATOR_TOURS = '/operator-tours',
+  OPERATOR_BOOKINGS = '/operator-bookings',
   PROFILE = '/profile',
   TOURS = '/tours',
   COUNTRIES = '/countries',
@@ -15,7 +17,6 @@ export enum APP_ROUTE {
   AUTH_REDIRECT = '/auth-redirect/',
   AUTH_REDIRECT_OPERATOR = '/auth-redirect/?authFlow=onboarding',
   OPERATOR_ONBOARDING = '/operator-onboarding',
-  OPERATOR_PROFILE = '/operator/profile',
   UI_KIT = '/ui-kit',
   TOUR = '/tour',
 }

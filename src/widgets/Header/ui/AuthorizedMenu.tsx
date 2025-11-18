@@ -17,6 +17,7 @@ import { AUTH_URL } from '@/shared/constants';
 import { UserRole } from '@/shared/types';
 
 import { ROLE_MENU_LINKS } from '../navigation-links';
+import { InitialsAvatar } from './InitialsAvatar';
 
 interface AuthorizedMenuProps {
   userRole: UserRole;
@@ -43,7 +44,7 @@ export const AuthorizedMenu: FC<AuthorizedMenuProps> = ({
 
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
         {children}
         <Tooltip title="Відкрити меню користувача">
           <IconButton
@@ -51,23 +52,7 @@ export const AuthorizedMenu: FC<AuthorizedMenuProps> = ({
             sx={{ p: 0 }}
             aria-label="user-menu"
           >
-            <Typography
-              component="span"
-              sx={{
-                width: 35,
-                height: 35,
-                borderRadius: '50%',
-                backgroundColor: 'primary.main',
-                color: 'primary.contrastText',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 'bold',
-                fontSize: '18px',
-              }}
-            >
-              {userInitial}
-            </Typography>
+            <InitialsAvatar initial={userInitial} role={userRole} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -106,7 +91,7 @@ export const AuthorizedMenu: FC<AuthorizedMenuProps> = ({
               color: 'inherit',
             }}
           >
-            Вийти
+            Вихід
           </Typography>
         </MenuItem>
       </Menu>
