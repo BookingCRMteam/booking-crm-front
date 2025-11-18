@@ -36,24 +36,14 @@ export const NavigationLinks: FC<NavigationLinksProps> = ({
 }) => {
   const pathName = usePathname();
   const links = isOperator ? NAVIGATION_OPERATORS_LINKS : NAVIGATION_LINKS;
+  const currentPath = pathName ?? '';
   return (
     <NavigationLinksWrapper isOperator={isOperator}>
       {links.map(({ href, name, id }) => {
-        // 1. Очищуємо поточний шлях від параметрів запиту
-        const cleanPath = pathName.split('?')[0];
-
-        // 2. Визначаємо активність
-
-        // Активність визначається, якщо:
-        // a) Поточний шлях ТОЧНО збігається з посиланням (наприклад, '/catalog' === '/catalog')
-        // АБО
-        // b) Поточний шлях починається з посилання + СЛЕШ (наприклад, '/catalog/tour'.startsWith('/catalog/'))
-
-        const isExactMatch = cleanPath === href;
+        const cleanPath = currentPath.split('?')[0];
+        const isExactMatch = currentPath === href;
         const isSubRouteMatch = cleanPath.startsWith(`${href}/`);
-
         const isActive = isExactMatch || isSubRouteMatch;
-
         return (
           <MuiLink
             component={Link}

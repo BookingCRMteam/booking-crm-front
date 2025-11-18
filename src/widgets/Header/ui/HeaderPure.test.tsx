@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-
+import { renderWithTheme } from '@/shared/tests';
 import { UserRole } from '@/shared/types';
 
 import HeaderPure from './HeaderPure';
@@ -10,7 +9,7 @@ const mockUser = { userRole, firstPersonName: 'Jane' };
 
 describe('HeaderPure UI', () => {
   it('should render UnauthorizedMenu when no user is provided', () => {
-    render(
+    const { getByRole, queryByLabelText } = renderWithTheme(
       <HeaderPure
         userRole={undefined}
         firstPersonName={undefined}
@@ -18,26 +17,26 @@ describe('HeaderPure UI', () => {
       />,
     );
 
-    expect(screen.queryByLabelText('user-menu')).not.toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Вхід/i })).toBeInTheDocument();
+    expect(queryByLabelText('user-menu')).not.toBeInTheDocument();
+    expect(getByRole('link', { name: /Вхід/i })).toBeInTheDocument();
   });
 
   it('should render AuthorizedMenu with correct initial (J)', () => {
-    render(
+    const { getByLabelText, getByText } = renderWithTheme(
       <HeaderPure
         userRole={mockUser.userRole}
         firstPersonName={mockUser.firstPersonName}
       />,
     );
 
-    const userButton = screen.getByLabelText('user-menu');
+    const userButton = getByLabelText('user-menu');
     expect(userButton).toBeInTheDocument();
 
-    expect(screen.getByText('J')).toBeInTheDocument();
+    expect(getByText('J')).toBeInTheDocument();
   });
 
   it('should render OperatorStatusDisplay when operatorStatus is approved', () => {
-    render(
+    const { getByText } = renderWithTheme(
       <HeaderPure
         userRole={'operator'}
         firstPersonName={'Operator'}
@@ -45,11 +44,11 @@ describe('HeaderPure UI', () => {
       />,
     );
 
-    expect(screen.getByText(/Туроператор/i)).toBeInTheDocument();
+    expect(getByText(/Верифіковано/i)).toBeInTheDocument();
   });
 
   it('should render OperatorStatusDisplay when operatorStatus is pending', () => {
-    render(
+    const { getByText } = renderWithTheme(
       <HeaderPure
         userRole={'operator'}
         firstPersonName={'Operator'}
@@ -57,6 +56,17 @@ describe('HeaderPure UI', () => {
       />,
     );
 
-    expect(screen.queryByText(/Ваш статус на перевірці/i)).toBeInTheDocument();
+    expect(getByText(/На перевірці/i)).toBeInTheDocument();
+  });
+  it('should render OperatorStatusDisplay when operatorStatus is rejected', () => {
+    const { getByText } = renderWithTheme(
+      <HeaderPure
+        userRole={'operator'}
+        firstPersonName={'Operator'}
+        operatorStatus={'rejected'}
+      />,
+    );
+
+    expect(getByText(/Відхилено/i)).toBeInTheDocument();
   });
 });
