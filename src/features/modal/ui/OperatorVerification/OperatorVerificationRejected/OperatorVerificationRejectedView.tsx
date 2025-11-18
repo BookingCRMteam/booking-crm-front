@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { FC } from 'react';
 
 import {
   Box,
@@ -10,18 +10,12 @@ import {
   styled,
 } from '@mui/material';
 
-import { useModalStore } from '@/features/modal/model/useModalStore';
-
-import { APP_ROUTE } from '@/shared/constants';
-
-import { ModalWrapper } from '../ModalWrapper';
 import {
   MODAL_VERIFICATION_REJECTED_BUTTON_TEXT,
   MODAL_VERIFICATION_REJECTED_DESCRIPTION,
   MODAL_VERIFICATION_REJECTED_PLACEHOLDER_TEXT,
   MODAL_VERIFICATION_REJECTED_REASON_LABEL,
-  MODAL_VERIFICATION_REJECTED_TITLE,
-} from './constants';
+} from '../constants';
 
 const ErrorMessage = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontSize: '16px',
@@ -33,21 +27,16 @@ const ErrorMessage = styled(Typography)<TypographyProps>(({ theme }) => ({
   color: theme.palette.gray[800],
 }));
 
-export type OperatorVerificationRejectedProps = {
+type OperatorVerificationRejectedViewProps = {
   message: string;
+  onRedirect: () => void;
 };
 
-export const OperatorVerificationRejected = ({
-  message,
-}: OperatorVerificationRejectedProps) => {
-  const close = useModalStore((s) => s.closeModal);
-  const router = useRouter();
-  const handleRedirectToOnboarding = () => {
-    close();
-    router.push(APP_ROUTE.OPERATOR_ONBOARDING);
-  };
+export const OperatorVerificationRejectedView: FC<
+  OperatorVerificationRejectedViewProps
+> = ({ message, onRedirect }) => {
   return (
-    <ModalWrapper title={MODAL_VERIFICATION_REJECTED_TITLE} isSupportFooter>
+    <>
       <Typography
         component="p"
         variant="bodyLarge"
@@ -74,11 +63,11 @@ export const OperatorVerificationRejected = ({
         color="primary"
         variant="contained"
         size="large"
-        onClick={handleRedirectToOnboarding}
+        onClick={onRedirect}
         sx={{ width: 'fit-content', margin: '0 auto' }}
       >
         {MODAL_VERIFICATION_REJECTED_BUTTON_TEXT}
       </Button>
-    </ModalWrapper>
+    </>
   );
 };

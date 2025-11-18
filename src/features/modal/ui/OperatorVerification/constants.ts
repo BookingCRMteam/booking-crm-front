@@ -4,7 +4,7 @@ export const MODAL_VERIFICATION_FOOTER_BUTTON_TEXT =
 
 export const MODAL_VERIFICATION_PENDING_TITLE = 'Дякуємо!';
 export const MODAL_VERIFICATION_PENDING_DESCRIPTION =
-  'Вашу заявку на статус “Туроператор” отримано. Очікуйте, будь ласка, підтвердження вашої веріфікації на протязі доби';
+  'Вашу заявку на статус “Туроператор” отримано. Очікуйте, будь ласка, підтвердження вашої веріфікації протягом доби';
 
 export const MODAL_VERIFICATION_SUCCESS_TITLE = 'Вітаємо!';
 export const MODAL_VERIFICATION_SUCCESS_DESCRIPTION =

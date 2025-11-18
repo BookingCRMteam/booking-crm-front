@@ -4,7 +4,7 @@ import type { ComponentType } from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { type OperatorVerificationRejectedProps } from '../ui/OperatorVerification/OperatorVerificationRejected';
+import { type OperatorVerificationRejectedProps } from '../ui/OperatorVerification/OperatorVerificationRejected/OperatorVerificationRejected';
 
 export type ModalPropsMap = {
   'operator-verification-pending': object;
@@ -36,9 +36,9 @@ export const MODALS: {
 
   'operator-verification-rejected': dynamic(
     () =>
-      import('../ui/OperatorVerification/OperatorVerificationRejected').then(
-        (mod) => mod.OperatorVerificationRejected,
-      ),
+      import(
+        '../ui/OperatorVerification/OperatorVerificationRejected/OperatorVerificationRejected'
+      ).then((mod) => mod.OperatorVerificationRejected),
     { ssr: false },
   ) as ComponentType<ModalPropsMap['operator-verification-rejected']>,
   'support-request-modal': dynamic(

@@ -5,12 +5,11 @@ import type { FC } from 'react';
 import { Box, Typography, styled } from '@mui/material';
 
 import { ModalCloseButton } from './ModalCloseButton';
-import { ModalVerificationFooter } from './OperatorVerification/ModalVerificationFooter';
 
 type ModalWrapperProps = {
   children: React.ReactNode;
   title: string;
-  isSupportFooter?: boolean;
+  footer?: React.ReactNode;
 };
 
 const ModalWrapperBox = styled(Box)({
@@ -27,7 +26,7 @@ const ModalWrapperBox = styled(Box)({
 export const ModalWrapper: FC<ModalWrapperProps> = ({
   children,
   title,
-  isSupportFooter = false,
+  footer,
 }) => {
   return (
     <ModalWrapperBox>
@@ -36,7 +35,7 @@ export const ModalWrapper: FC<ModalWrapperProps> = ({
         {title}
       </Typography>
       {children}
-      {isSupportFooter && <ModalVerificationFooter />}
+      {footer}
     </ModalWrapperBox>
   );
 };

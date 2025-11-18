@@ -5,6 +5,7 @@ import { Button, Typography } from '@mui/material';
 import { APP_ROUTE } from '@/shared/constants';
 
 import { ModalWrapper } from '../ModalWrapper';
+import { ModalVerificationFooter } from './ModalVerificationFooter';
 import {
   MODAL_VERIFICATION_SUCCESS_BUTTON_TEXT,
   MODAL_VERIFICATION_SUCCESS_DESCRIPTION,
@@ -13,7 +14,10 @@ import {
 
 export const OperatorVerificationSuccess = () => {
   return (
-    <ModalWrapper isSupportFooter title={MODAL_VERIFICATION_SUCCESS_TITLE}>
+    <ModalWrapper
+      title={MODAL_VERIFICATION_SUCCESS_TITLE}
+      footer={<ModalVerificationFooter />}
+    >
       <Typography
         component="p"
         variant="bodyLarge"
