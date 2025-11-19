@@ -21,7 +21,7 @@ export const CoupleProfileEditing = () => {
       }}
       data-testid="couple-profile-editing"
     >
-      <Typography align="center" variant="h2" component="h2" gutterBottom>
+      <Typography align="center" variant="h2" component="h1" gutterBottom>
         Інформація про нас
       </Typography>
 

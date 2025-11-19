@@ -66,7 +66,7 @@ export const UserInfo: FC<UserInfoProps> = ({
         }}
       >
         <Typography variant="bodyDefault" width={153}>
-          Електрона пошта:
+          Електронна пошта:
         </Typography>
         <Typography variant="bodyLarge">{email}</Typography>
       </Box>

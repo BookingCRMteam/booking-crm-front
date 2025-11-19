@@ -23,7 +23,7 @@ export const CoupleBooking = () => {
         flexDirection: 'column',
         gap: '24px',
       }}
-      data-testid="couple-profile-editing"
+      data-testid="couple-booking"
     >
       <Typography align="center" variant="h2" component="h2" gutterBottom>
         Наші бронювання

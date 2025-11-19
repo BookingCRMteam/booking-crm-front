@@ -90,7 +90,6 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
                 fullWidth
                 variant="outlined"
               />
-
               <TextField
                 label="Прізвище партнера 1"
                 placeholder="Прізвище партнера 1"
@@ -111,7 +110,6 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
                 fullWidth
                 variant="outlined"
               />
-
               <TextField
                 label="Прізвище партнера 2"
                 placeholder="Прізвище партнера 2"
@@ -139,14 +137,13 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
             variant="bodyDefault"
             sx={{ padding: '17.5px 0', width: '153px' }}
           >
-            Електрона пошта:
+            Електронна пошта:
           </Typography>
           <Typography variant="bodyLarge" sx={{ padding: '16.5px 0' }}>
-            {email}
+            {email ?? '—'}
           </Typography>
         </HintWrapper>
       </InputWrapper>
-
       <ButtonWrapper>
         <Button
           type="submit"

@@ -54,7 +54,7 @@ describe('getCoupleProfileData', () => {
     );
   });
 
-  it('ignores extra fields such as email', () => {
+  it('ignores extra fields not in CoupleProfileData', () => {
     const userWithExtraData = {
       ...completeUser,
       extraField: 'should be ignored',
