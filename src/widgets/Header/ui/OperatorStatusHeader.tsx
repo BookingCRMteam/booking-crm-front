@@ -44,7 +44,7 @@ const STATUS_MAP = {
 } as const;
 
 const getStatusVisuals = (status: OperatorStatus) =>
-  STATUS_MAP[status] ?? STATUS_MAP.approved;
+  STATUS_MAP[status] ?? STATUS_MAP.pending;
 
 interface BadgeWrapperProps extends BoxProps {
   status: OperatorStatus;

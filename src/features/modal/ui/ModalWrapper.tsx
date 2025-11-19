@@ -1,15 +1,15 @@
 'use client';
 
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { Box, Typography, styled } from '@mui/material';
 
 import { ModalCloseButton } from './ModalCloseButton';
 
 type ModalWrapperProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   title: string;
-  footer?: React.ReactNode;
+  footer?: ReactNode;
 };
 
 const ModalWrapperBox = styled(Box)({

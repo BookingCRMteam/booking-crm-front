@@ -41,7 +41,7 @@ export const NavigationLinks: FC<NavigationLinksProps> = ({
     <NavigationLinksWrapper isOperator={isOperator}>
       {links.map(({ href, name, id }) => {
         const cleanPath = currentPath.split('?')[0];
-        const isExactMatch = currentPath === href;
+        const isExactMatch = cleanPath === href;
         const isSubRouteMatch = cleanPath.startsWith(`${href}/`);
         const isActive = isExactMatch || isSubRouteMatch;
         return (

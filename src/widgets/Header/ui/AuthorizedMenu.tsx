@@ -52,7 +52,7 @@ export const AuthorizedMenu: FC<AuthorizedMenuProps> = ({
             sx={{ p: 0 }}
             aria-label="user-menu"
           >
-            <InitialsAvatar initial={userInitial} role={userRole} />
+            <InitialsAvatar initial={userInitial} userRole={userRole} />
           </IconButton>
         </Tooltip>
       </Box>

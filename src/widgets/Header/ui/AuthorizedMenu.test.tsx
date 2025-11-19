@@ -1,26 +1,8 @@
-/* eslint-disable react/display-name */
-import type { ReactNode } from 'react';
-
+import { AUTH_URL } from '@/shared/constants';
 import { renderWithTheme } from '@/shared/tests';
-// import { AUTH_URL } from '@/shared/constants';
 import type { UserRole } from '@/shared/types';
 
 import { AuthorizedMenu } from './AuthorizedMenu';
-
-jest.mock(
-  'next/link',
-  () =>
-    ({ children, href }: { children: ReactNode; href: string }) => (
-      <a
-        href={href}
-        onClick={(e) => {
-          e.preventDefault();
-        }}
-      >
-        {children}
-      </a>
-    ),
-);
 
 jest.mock('../navigation-links', () => ({
   ROLE_MENU_LINKS: {
@@ -70,25 +52,27 @@ describe('AuthorizedMenu', () => {
     expect(getByText('U')).toBeInTheDocument();
   });
 
-  // it('should display correct links for traveler role and the Logout link', async () => {
-  //   const { getByLabelText, getByRole, queryByText, getByText, user } = renderWithTheme(<AuthorizedMenu {...mockTravelerProps} />);
+  it('should display correct links for traveler role and the Logout link', async () => {
+    const { getByLabelText, getByRole, queryByText, getByText, user } =
+      renderWithTheme(<AuthorizedMenu {...mockTravelerProps} />);
 
-  //   await user.click(getByLabelText('user-menu'));
+    await user.click(getByLabelText('user-menu'));
 
-  //   expect(getByRole('link', { name: 'Мій профіль' })).toHaveAttribute(
-  //     'href',
-  //     '/traveler/profile',
-  //   );
-  //   expect(
-  //     getByRole('link', { name: 'Мої бронювання' }),
-  //   ).toHaveAttribute('href', '/traveler/bookings');
+    expect(getByRole('link', { name: 'Мій профіль' })).toHaveAttribute(
+      'href',
+      '/traveler/profile',
+    );
+    expect(getByRole('link', { name: 'Мої бронювання' })).toHaveAttribute(
+      'href',
+      '/traveler/bookings',
+    );
 
-  //   expect(queryByText('Дашборд')).not.toBeInTheDocument();
+    expect(queryByText('Дашборд')).not.toBeInTheDocument();
 
-  //   const logoutLink = getByText('Вийти');
-  //   expect(logoutLink).toBeInTheDocument();
-  //   expect(logoutLink.closest('a')).toHaveAttribute('href', AUTH_URL.LOGOUT);
-  // });
+    const logoutLink = getByText('Вихід');
+    expect(logoutLink).toBeInTheDocument();
+    expect(logoutLink.closest('a')).toHaveAttribute('href', AUTH_URL.LOGOUT);
+  });
 
   it('should display operator-specific links', async () => {
     const { getByLabelText, getByRole, queryByText, user } = renderWithTheme(
