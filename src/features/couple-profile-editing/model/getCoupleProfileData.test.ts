@@ -24,6 +24,7 @@ const expectedData: CoupleProfileData = {
   secondPersonName: 'Марія',
   secondPersonSurname: 'Петренко',
   phone: '+380501234567',
+  email: 'test@example.com',
 };
 
 describe('getCoupleProfileData', () => {
@@ -46,6 +47,13 @@ describe('getCoupleProfileData', () => {
     );
   });
 
+  it('throws an error if email is missing', () => {
+    const incompleteUser = { ...completeUser, email: '' };
+    expect(() => getCoupleProfileData(incompleteUser)).toThrow(
+      'Cannot create CoupleProfileData: required fields are missing',
+    );
+  });
+
   it('throws an error if secondPersonSurname is missing', () => {
     const incompleteUser = { ...completeUser, secondPersonSurname: null };
     expect(() => getCoupleProfileData(incompleteUser)).toThrow(
@@ -53,7 +61,7 @@ describe('getCoupleProfileData', () => {
     );
   });
 
-  it('ignores extra fields such as email', () => {
+  it('ignores extra fields not in CoupleProfileData', () => {
     const userWithExtraData = {
       ...completeUser,
       extraField: 'should be ignored',
@@ -61,6 +69,6 @@ describe('getCoupleProfileData', () => {
     const result = getCoupleProfileData(userWithExtraData);
 
     expect(result).toEqual(expectedData);
-    expect(Object.keys(result).length).toBe(5);
+    expect(Object.keys(result).length).toBe(6);
   });
 });

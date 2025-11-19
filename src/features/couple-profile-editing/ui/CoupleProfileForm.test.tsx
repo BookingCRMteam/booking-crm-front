@@ -64,7 +64,6 @@ describe('CoupleProfileForm', () => {
     expect(screen.getByLabelText('Ім’я партнера 2')).toBeInTheDocument();
     expect(screen.getByLabelText('Прізвище партнера 2')).toBeInTheDocument();
     expect(screen.getByLabelText('Номер телефону')).toBeInTheDocument();
-    expect(screen.getByLabelText('Електронна пошта')).toBeInTheDocument();
 
     expect(
       screen.getByRole('button', { name: 'Зберегти' }),
@@ -127,7 +126,6 @@ describe('CoupleProfileForm', () => {
             firstPersonSurname: { message: 'Прізвище обов’язкове 1' },
             secondPersonName: { message: 'Ім’я обов’язкове 2' },
             secondPersonSurname: { message: 'Прізвище обов’язкове 2' },
-            email: { message: 'Невірний email' },
           },
         },
       },
@@ -141,6 +139,5 @@ describe('CoupleProfileForm', () => {
     expect(screen.getByText('Прізвище обов’язкове 1')).toBeInTheDocument();
     expect(screen.getByText('Ім’я обов’язкове 2')).toBeInTheDocument();
     expect(screen.getByText('Прізвище обов’язкове 2')).toBeInTheDocument();
-    expect(screen.getByText('Невірний email')).toBeInTheDocument();
   });
 });

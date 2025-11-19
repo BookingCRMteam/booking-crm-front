@@ -42,7 +42,6 @@ export const coupleProfileSchema = z.object({
   phone: z.string().refine((value) => matchIsValidTel(value), {
     message: 'Введіть коректний номер телефону',
   }),
-  email: z.email({ message: 'Введіть коректну електронну адресу' }),
 });
 
 export type CoupleProfileSchemaValues = z.infer<typeof coupleProfileSchema>;

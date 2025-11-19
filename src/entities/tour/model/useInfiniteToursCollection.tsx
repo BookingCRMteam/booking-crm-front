@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { Tours } from '@/entities/tour';
 
 interface UseInfiniteToursCollectionProps {
-  initialData: Tours;
+  initialData?: Tours;
   queryKey: (string | number)[];
   queryFn: (params: { limit: number; offset: number }) => Promise<Tours>;
 }
@@ -30,7 +30,7 @@ export const useInfiniteToursCollection = ({
       initialPageParam: 0,
       staleTime: 1000 * 60 * 2,
       refetchOnWindowFocus: true,
-      initialData: {
+      initialData: initialData && {
         pages: [initialData],
         pageParams: [0],
       },

@@ -1,8 +1,15 @@
 import type { FC } from 'react';
 
-import { Box, Button, TextField, styled } from '@mui/material';
-import { MuiTelInput } from 'mui-tel-input';
-import { Controller } from 'react-hook-form';
+import {
+  Box,
+  BoxProps,
+  Button,
+  TextField,
+  Typography,
+  styled,
+} from '@mui/material';
+
+import { PhoneInputField } from '@/shared/ui';
 
 import { useCoupleProfileForm } from '../model/useCoupleProfileForm';
 
@@ -17,6 +24,23 @@ const NameWrapper = styled(Box)({
   width: '100%',
 });
 
+const InputWrapper = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  width: '100%',
+});
+
+const HintWrapper = styled(Box)({
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '24px',
+  '& > *:last-child': {
+    width: '100%',
+    maxWidth: '686px',
+  },
+});
+
 const ButtonWrapper = styled(Box)({
   display: 'flex',
   gap: '20px',
@@ -25,8 +49,18 @@ const ButtonWrapper = styled(Box)({
   maxWidth: '420px',
 });
 
+const FormWrapper = styled(Box)<BoxProps>({
+  display: 'flex',
+  flexDirection: 'column',
+  paddingTop: '20px',
+  gap: '20px',
+  maxWidth: '863px',
+  width: '100%',
+  margin: '0 auto',
+});
+
 export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
-  const { form, onSubmit, isPending } = useCoupleProfileForm({
+  const { form, onSubmit, isPending, email } = useCoupleProfileForm({
     onCancel,
   });
   const {
@@ -36,108 +70,80 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
     formState: { errors },
   } = form;
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        pt: 4,
-        gap: 4,
-        maxWidth: 686,
-        width: '100%',
-        margin: '0 auto',
-      }}
-    >
-      <NameWrapper>
-        <TextField
-          label="Ім’я партнера 1"
-          placeholder="Ім’я партнера 1"
-          {...register('firstPersonName')}
-          error={!!errors.firstPersonName}
-          helperText={errors.firstPersonName?.message}
-          fullWidth
-          variant="outlined"
-        />
+    <FormWrapper component="form" onSubmit={handleSubmit(onSubmit)}>
+      <InputWrapper>
+        <HintWrapper>
+          <Typography
+            variant="bodyDefault"
+            sx={{ padding: '17.5px 0', width: '153px' }}
+          >
+            Ім&apos;я та прізвища:
+          </Typography>
+          <Box sx={{ display: 'flex', gap: '8px', flexDirection: 'column' }}>
+            <NameWrapper>
+              <TextField
+                label="Ім’я партнера 1"
+                placeholder="Ім’я партнера 1"
+                {...register('firstPersonName')}
+                error={!!errors.firstPersonName}
+                helperText={errors.firstPersonName?.message}
+                fullWidth
+                variant="outlined"
+              />
+              <TextField
+                label="Прізвище партнера 1"
+                placeholder="Прізвище партнера 1"
+                {...register('firstPersonSurname')}
+                error={!!errors.firstPersonSurname}
+                helperText={errors.firstPersonSurname?.message}
+                fullWidth
+                variant="outlined"
+              />
+            </NameWrapper>
+            <NameWrapper>
+              <TextField
+                label="Ім’я партнера 2"
+                placeholder="Ім’я партнера 2"
+                {...register('secondPersonName')}
+                error={!!errors.secondPersonName}
+                helperText={errors.secondPersonName?.message}
+                fullWidth
+                variant="outlined"
+              />
+              <TextField
+                label="Прізвище партнера 2"
+                placeholder="Прізвище партнера 2"
+                {...register('secondPersonSurname')}
+                error={!!errors.secondPersonSurname}
+                helperText={errors.secondPersonSurname?.message}
+                fullWidth
+                variant="outlined"
+              />
+            </NameWrapper>
+          </Box>
+        </HintWrapper>
 
-        <TextField
-          label="Прізвище партнера 1"
-          placeholder="Прізвище партнера 1"
-          {...register('firstPersonSurname')}
-          error={!!errors.firstPersonSurname}
-          helperText={errors.firstPersonSurname?.message}
-          fullWidth
-          variant="outlined"
-        />
-      </NameWrapper>
-
-      <NameWrapper>
-        <TextField
-          label="Ім’я партнера 2"
-          placeholder="Ім’я партнера 2"
-          {...register('secondPersonName')}
-          error={!!errors.secondPersonName}
-          helperText={errors.secondPersonName?.message}
-          fullWidth
-          variant="outlined"
-        />
-
-        <TextField
-          label="Прізвище партнера 2"
-          placeholder="Прізвище партнера 2"
-          {...register('secondPersonSurname')}
-          error={!!errors.secondPersonSurname}
-          helperText={errors.secondPersonSurname?.message}
-          fullWidth
-          variant="outlined"
-        />
-      </NameWrapper>
-      <Controller
-        name="phone"
-        control={control}
-        render={({ field, fieldState }) => (
-          <MuiTelInput
-            label="Номер телефону"
-            {...field}
-            value={field.value ?? ''}
-            defaultCountry="UA"
-            forceCallingCode
-            preferredCountries={['UA', 'US']}
-            excludedCountries={['RU']}
-            continents={['EU']}
-            disableFormatting
-            focusOnSelectCountry
-            error={!!fieldState.error}
-            helperText={fieldState.error?.message}
-            variant="outlined"
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                  width: 493,
-                },
-              },
-              disablePortal: true,
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
-              },
-            }}
-          />
-        )}
-      />
-
-      <TextField
-        label="Електронна пошта"
-        placeholder="Електронна пошта"
-        {...register('email')}
-        error={!!errors.email}
-        helperText={errors.email?.message}
-        fullWidth
-        disabled
-        variant="outlined"
-      />
-
+        <HintWrapper>
+          <Typography
+            variant="bodyDefault"
+            sx={{ padding: '17.5px 0', width: '153px' }}
+          >
+            Телефон:
+          </Typography>
+          <PhoneInputField control={control} name="phone" />
+        </HintWrapper>
+        <HintWrapper>
+          <Typography
+            variant="bodyDefault"
+            sx={{ padding: '17.5px 0', width: '153px' }}
+          >
+            Електронна пошта:
+          </Typography>
+          <Typography variant="bodyLarge" sx={{ padding: '16.5px 0' }}>
+            {email ?? '—'}
+          </Typography>
+        </HintWrapper>
+      </InputWrapper>
       <ButtonWrapper>
         <Button
           type="submit"
@@ -162,6 +168,6 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
           Скасувати
         </Button>
       </ButtonWrapper>
-    </Box>
+    </FormWrapper>
   );
 };

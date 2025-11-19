@@ -2,11 +2,8 @@
 
 import type { FC } from 'react';
 
-import Link from 'next/link';
-
 import {
   Box,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -16,14 +13,13 @@ import {
 } from '@mui/material';
 import { CalendarDotsIcon, MapPinLineIcon } from '@phosphor-icons/react';
 
-import type { TourPhoto } from '@/entities/tour/model/types';
-
-import { APP_ROUTE } from '@/shared/constants';
 import { OperatorLink } from '@/shared/ui';
 import { formattedDate } from '@/shared/utils';
 
 import Label from './Label';
+import { TourCardActions } from './TourCardActions';
 import { TourCardImage } from './TourCardImage';
+import type { TourCardProps } from './types';
 
 interface CardWrapperProps extends CardProps {
   isAvailable: boolean;
@@ -44,19 +40,16 @@ const CardWrapper = styled(Card, {
   boxShadow: 'none',
 
   ...(isAvailable && {
-    '&:has(.MuiButton-root:focus)': {
+    '&:has(.MuiButton-root:focus-visible)': {
       outline: `3px solid ${theme.palette.primary.dark}`,
     },
-
     '&:has(.MuiButton-root:active)': {
       outline: `3px solid ${theme.palette.primary.light}`,
     },
-
     '&:hover': {
       '& .tour-card-content-wrapper': {
         backgroundColor: 'rgba(54, 54, 54, 0.5)',
       },
-
       '& .tour-card-image-wrapper': {
         transform: 'scale(1.2) translate(25px, 38px)',
       },
@@ -66,19 +59,10 @@ const CardWrapper = styled(Card, {
 
 const ImageWrapper = styled(Box)({
   position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  zIndex: 0,
+  inset: 0,
   overflow: 'hidden',
   transition: 'transform 0.3s ease-in-out',
-});
-
-const PriceWrapper = styled(Box)({
-  display: 'flex',
-  gap: '8px',
-  alignItems: 'center',
+  zIndex: 0,
 });
 
 const ContentWrapper = styled(Box)({
@@ -100,21 +84,6 @@ const CardContentStyle = styled(CardContent)(({ theme }) => ({
   color: theme.palette.common.white,
   padding: 0,
 }));
-export interface TourCardProps {
-  id: number;
-  title: string;
-  availableSpots: number;
-  price: string;
-  photos: TourPhoto[];
-  startDate: string;
-  endDate: string;
-  countryName: string;
-  operator: {
-    name: string;
-    photo: string | null;
-    id: number;
-  };
-}
 
 export const TourCard: FC<TourCardProps> = ({
   id,
@@ -126,38 +95,42 @@ export const TourCard: FC<TourCardProps> = ({
   startDate,
   endDate,
   countryName,
+  bookingCount = 0,
+  variant = 'catalog',
 }) => {
-  const isAvailable = availableSpots !== 0;
+  const isAvailable = availableSpots > 0;
   const date = `${formattedDate(startDate)} — ${formattedDate(endDate)}`;
-  const mainPhoto = photos.find((photo) => photo.isMain === true) ?? photos[0];
+  const mainPhoto = photos.find((p) => p.isMain) ?? photos[0];
+
+  const handleDeleteTour = () => console.log(`Delete tour ${id}`);
+  const handleEditTour = () => console.log(`Edit tour ${id}`);
 
   return (
     <CardWrapper isAvailable={isAvailable}>
       <ImageWrapper className="tour-card-image-wrapper">
         <TourCardImage mainPhoto={mainPhoto} title={title} />
       </ImageWrapper>
-      <Label count={availableSpots} />
+
+      {variant === 'catalog' && <Label count={availableSpots} />}
+
       <ContentWrapper className="tour-card-content-wrapper">
         <CardContentStyle>
           <Typography
             align="center"
             variant="h3"
             component="h4"
-            sx={{
-              '&::first-letter': {
-                textTransform: 'uppercase',
-              },
-            }}
+            sx={{ '&::first-letter': { textTransform: 'uppercase' } }}
           >
             {title}
           </Typography>
+
           <Box
             sx={{
-              p: '0 8px',
               width: '100%',
               display: 'flex',
               flexDirection: 'column',
               gap: '12px',
+              px: '8px',
             }}
           >
             <Box
@@ -166,81 +139,68 @@ export const TourCard: FC<TourCardProps> = ({
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
                 gap: 1,
-                width: '100%',
               }}
             >
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CalendarDotsIcon size={24} />
-                <Typography
-                  variant="bodyDefault"
-                  sx={{
-                    lineHeight: '1',
-                    transform: 'translateY(1.2px)',
-                  }}
-                >
+                <Typography variant="bodyDefault" sx={{ lineHeight: 1 }}>
                   {date}
                 </Typography>
               </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                }}
-              >
+
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <MapPinLineIcon size={24} />
                 <Typography
                   variant="bodyDefault"
-                  sx={{
-                    fontFamily: 'Inter',
-                    lineHeight: '1',
-                    transform: 'translateY(1px)',
-                    letterSpacing: '0.04em',
-                  }}
-                  component="p"
+                  sx={{ lineHeight: 1, letterSpacing: '0.04em' }}
                 >
                   {countryName}
                 </Typography>
               </Box>
             </Box>
-            <OperatorLink
-              variant="card"
-              id={operator.id}
-              name={operator.name}
-              photo={operator.photo}
-            />
+
+            {variant !== 'operator-tour' && (
+              <OperatorLink
+                variant="card"
+                id={operator.id}
+                name={operator.name}
+                photo={operator.photo}
+              />
+            )}
+
+            {variant === 'operator-tour' && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: '8px',
+                  alignItems: 'center',
+                  pt: '8px',
+                  borderTop: '1px solid white',
+                }}
+              >
+                <Typography variant="bodyDefault" sx={{ pl: '8px' }}>
+                  Заброньовано:
+                </Typography>
+                <Typography variant="bodySmall">{`${bookingCount} місць`}</Typography>
+              </Box>
+            )}
           </Box>
-          <PriceWrapper>
-            <Typography variant="priceHighlight" component="p">
-              &#x20B4;
-            </Typography>
-            <Typography variant="priceHighlight" component="p">
-              {price}
-            </Typography>
-            <Typography variant="priceHighlight" component="p">
-              (за двох)
-            </Typography>
-          </PriceWrapper>
+
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Typography variant="priceHighlight">&#x20B4;</Typography>
+            <Typography variant="priceHighlight">{price}</Typography>
+            <Typography variant="priceHighlight">(за двох)</Typography>
+          </Box>
         </CardContentStyle>
 
         <CardActions sx={{ p: 0 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            fullWidth
-            component={Link}
-            href={`${APP_ROUTE.CATALOG}${APP_ROUTE.TOUR}/${id}`}
-            disabled={!isAvailable}
-          >
-            Детальніше
-          </Button>
+          <TourCardActions
+            variant={variant}
+            id={id}
+            isAvailable={isAvailable}
+            onEdit={handleEditTour}
+            onDelete={handleDeleteTour}
+          />
         </CardActions>
       </ContentWrapper>
     </CardWrapper>

@@ -33,7 +33,6 @@ export const useCoupleProfileForm = ({ onCancel }: UseCoupleProfileProps) => {
 
   const form = useForm<CoupleProfileSchemaValues>({
     defaultValues: {
-      email: user?.email ?? '',
       firstPersonName: user?.firstPersonName ?? '',
       firstPersonSurname: user?.firstPersonSurname ?? '',
       secondPersonName: user?.secondPersonName ?? '',
@@ -65,5 +64,5 @@ export const useCoupleProfileForm = ({ onCancel }: UseCoupleProfileProps) => {
       console.error('Mutation failed:', e);
     }
   };
-  return { form, onSubmit, isPending };
+  return { form, onSubmit, isPending, email: user?.email };
 };

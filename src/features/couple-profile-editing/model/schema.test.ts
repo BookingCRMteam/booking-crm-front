@@ -63,18 +63,6 @@ describe('coupleProfileSchema', () => {
     expect(result.success).toBe(true);
   });
 
-  it('rejects invalid email format', () => {
-    const invalidEmailData = { ...validData, email: 'invalid-email' };
-    const result = coupleProfileSchema.safeParse(invalidEmailData);
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues.some((i) => i.path[0] === 'email')).toBe(true);
-      expect(
-        result.error.issues.find((i) => i.path[0] === 'email')?.message,
-      ).toBe('Введіть коректну електронну адресу');
-    }
-  });
-
   it('rejects invalid phone number', () => {
     const invalidPhoneData = { ...validData, phone: '123' };
     const result = coupleProfileSchema.safeParse(invalidPhoneData);
@@ -103,17 +91,15 @@ describe('coupleProfileSchema', () => {
       ...validData,
       firstPersonName: ' А ',
       phone: '123',
-      email: 'a@b',
     };
     const result = coupleProfileSchema.safeParse(multipleErrorsData);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues.length).toBeGreaterThanOrEqual(3);
+      expect(result.error.issues.length).toBeGreaterThanOrEqual(2);
       expect(
         result.error.issues.some((i) => i.path[0] === 'firstPersonName'),
       ).toBe(true);
       expect(result.error.issues.some((i) => i.path[0] === 'phone')).toBe(true);
-      expect(result.error.issues.some((i) => i.path[0] === 'email')).toBe(true);
     }
   });
 });
