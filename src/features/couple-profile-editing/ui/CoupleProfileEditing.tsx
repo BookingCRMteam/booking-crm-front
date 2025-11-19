@@ -18,11 +18,10 @@ export const CoupleProfileEditing = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        pt: 10,
       }}
       data-testid="couple-profile-editing"
     >
-      <Typography align="center" variant="h1" component="h1" gutterBottom>
+      <Typography align="center" variant="h2" component="h2" gutterBottom>
         Інформація про нас
       </Typography>
 

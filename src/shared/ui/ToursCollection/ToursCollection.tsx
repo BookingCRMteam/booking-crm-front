@@ -10,6 +10,7 @@ export const ToursCollection: React.FC<ToursCollectionProps> = ({
   data,
   isFetchingNextPage,
   ref,
+  variantTourCard,
 }) => {
   return (
     <>
@@ -19,6 +20,7 @@ export const ToursCollection: React.FC<ToursCollectionProps> = ({
             <Grid key={tour.id} size={{ md: 4 }}>
               <TourCard
                 id={tour.id}
+                variant={variantTourCard}
                 title={tour.title}
                 availableSpots={tour.availableSpots}
                 price={tour.price}

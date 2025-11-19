@@ -28,6 +28,9 @@ export const AppProviders: FC<AppProviderProps> = ({
     operator = null,
     user = null,
   } = userWithToken ?? {};
+  console.log(accessToken, 'accessToken in AppProviders');
+  console.log(operator, 'operator in AppProviders');
+  console.log(user, 'user in AppProviders');
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider>

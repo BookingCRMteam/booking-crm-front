@@ -1,3 +1,5 @@
+import type { TourCardVariantType } from '@/shared/ui/TourCard/types';
+
 import { useInfiniteToursCollection } from './useInfiniteToursCollection';
 
 export type TourPhotoBack = {
@@ -127,4 +129,6 @@ export type TourBookingInfo = {
 
 export type ToursCollectionProps = ReturnType<
   typeof useInfiniteToursCollection
->;
+> & {
+  variantTourCard?: TourCardVariantType;
+};

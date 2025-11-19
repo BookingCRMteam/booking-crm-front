@@ -24,6 +24,7 @@ const expectedData: CoupleProfileData = {
   secondPersonName: 'Марія',
   secondPersonSurname: 'Петренко',
   phone: '+380501234567',
+  email: 'test@example.com',
 };
 
 describe('getCoupleProfileData', () => {
@@ -61,6 +62,6 @@ describe('getCoupleProfileData', () => {
     const result = getCoupleProfileData(userWithExtraData);
 
     expect(result).toEqual(expectedData);
-    expect(Object.keys(result).length).toBe(5);
+    expect(Object.keys(result).length).toBe(6);
   });
 });
