@@ -1,12 +1,21 @@
 import { axiosInstance, handleApiError } from '@/shared/api';
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants/routes';
 
-import { BackendTour, Tour, TourDetail, Tours } from '../model/types';
+import { Tour, TourDetail, Tours, UpdatePhotoMeta } from '../model/types';
 
-export const createTour = async (data: FormData): Promise<BackendTour> => {
+export const createTour = async (data: FormData): Promise<Tour> => {
   try {
-    const { data: res } = await axiosInstance.post<BackendTour>(
-      APP_ROUTE.TOURS,
+    const { data: res } = await axiosInstance.post<Tour>(APP_ROUTE.TOURS, data);
+    return res;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
+
+export const editTour = async (id: number, data: FormData): Promise<Tour> => {
+  try {
+    const { data: res } = await axiosInstance.patch<Tour>(
+      DYNAMIC_ROUTE.TOUR(id),
       data,
     );
     return res;
@@ -15,14 +24,27 @@ export const createTour = async (data: FormData): Promise<BackendTour> => {
   }
 };
 
-export const editTour = async (
-  id: number,
-  data: FormData,
-): Promise<BackendTour> => {
+export const updateTourPhotoMeta = async (
+  tourId: number,
+  photoId: number,
+  data: UpdatePhotoMeta,
+) => {
   try {
-    const { data: res } = await axiosInstance.patch<BackendTour>(
-      DYNAMIC_ROUTE.TOUR(id),
+    const { data: res } = await axiosInstance.patch(
+      DYNAMIC_ROUTE.TOUR_PHOTO(tourId, photoId),
       data,
+    );
+
+    return res;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
+
+export const deleteTourPhoto = async (tourId: number, photoId: number) => {
+  try {
+    const { data: res } = await axiosInstance.delete(
+      DYNAMIC_ROUTE.TOUR_PHOTO(tourId, photoId),
     );
     return res;
   } catch (error: unknown) {

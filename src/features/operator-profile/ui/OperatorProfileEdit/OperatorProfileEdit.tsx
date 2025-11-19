@@ -4,8 +4,9 @@ import { type FC, useId } from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
 
+import { FieldWithAsideHint } from '@/shared/ui';
+
 import { useOperatorUpdateProfile } from '../../model/useOperatorProfile';
-import { FieldWithAsideHint } from '../FieldWithAsideHint/FieldWithAsideHint';
 import { ImagesInput } from '../ImagesInput/ImagesInput';
 import { OperatorProfileHeader } from '../OperatorProfileHeader/OperatorProfileHeader';
 import { OperatorTitle } from '../OperatorTitle/OperatorTitle';

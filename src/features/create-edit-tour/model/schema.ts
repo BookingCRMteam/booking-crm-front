@@ -8,7 +8,7 @@ dayjs.extend(customParseFormat);
 
 export const PhotoMetaSchema = z
   .object({
-    id: z.string(),
+    id: z.number(),
     isMain: z.boolean(),
     file: z
       .custom<File>((f) => typeof File === 'undefined' || f instanceof File)
@@ -23,6 +23,7 @@ export const PhotoMetaSchema = z
       )
       .nullable(),
     url: z.url().optional().nullable(),
+    description: z.string().optional().nullable(),
   })
   .refine((photo) => photo.file != null || photo.url != null, {
     message: 'Потрібно завантажити хоча б 1 фото',
@@ -61,7 +62,13 @@ export const TourFormSchema = z
         message: 'Кількість місць має бути парним числом.',
       }),
 
-    price: z.number().positive('Поле обовʼязкове. Ціна має бути більше 0.'),
+    price: z
+      .string()
+      .nonempty('Поле обовʼязкове.')
+      .regex(
+        /^\d+(\.\d{0,2})?$/,
+        'Тільки числа, максимум 2 знаки після крапки',
+      ),
 
     currency: z.enum(['USD', 'EUR', 'UAH']),
 
@@ -98,6 +105,17 @@ export const TourFormSchema = z
 
   // Cross-field validation for currency-dependent price ranges
   .superRefine((data, ctx: RefinementCtx) => {
+    const numericPrice = parseFloat(data.price);
+
+    if (isNaN(numericPrice)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Ціна має бути числом',
+        path: ['price'],
+      });
+      return;
+    }
+
     let min: number;
     let max: number;
 
@@ -115,7 +133,7 @@ export const TourFormSchema = z
         return;
     }
 
-    if (data.price < min || data.price > max) {
+    if (numericPrice < min || numericPrice > max) {
       ctx.addIssue({
         code: 'custom',
         message: `Ціна має бути в діапазоні ${min}–${max} ${data.currency}.`,

@@ -1,34 +1,30 @@
-import React from 'react';
-
 import CloseIcon from '@mui/icons-material/Close';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { Box, Button, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { Controller } from 'react-hook-form';
-import { v4 as uuidv4 } from 'uuid';
 
 import { FieldProps } from '@/features/create-edit-tour/model/types';
 
-import { TourPhotoFront } from '@/entities/tour/model/types';
+import { TourPhotoForm } from '@/entities/tour';
 
 import { PhotoImage } from './PhotoImage';
-import { TooltipForField } from './TooltipForField';
+import { UploadButton } from './UploadButton';
 
 export const Photos = ({ control, errors }: FieldProps) => {
   const handleAddPhoto = (
     files: FileList,
-    value: TourPhotoFront[],
-    onChange: (value: TourPhotoFront[]) => void,
+    value: TourPhotoForm[],
+    onChange: (value: TourPhotoForm[]) => void,
   ) => {
-    const newPhotos: TourPhotoFront[] = Array.from(files).map(
-      (file, index) => ({
-        id: uuidv4(),
-        file,
-        url: undefined,
-        isMain: value.length === 0 && index === 0,
-      }),
-    );
+    const newPhotos = Array.from(files).map((file, index) => ({
+      id: Date.now() + index,
+      file,
+      url: undefined,
+      isMain: value.length === 0 && index === 0,
+      description: '',
+    }));
 
     const updated = [...value, ...newPhotos].slice(0, 10);
     onChange(updated);
@@ -36,8 +32,8 @@ export const Photos = ({ control, errors }: FieldProps) => {
 
   const handleRemovePhoto = (
     index: number,
-    value: TourPhotoFront[],
-    onChange: (val: TourPhotoFront[]) => void,
+    value: TourPhotoForm[],
+    onChange: (val: TourPhotoForm[]) => void,
   ) => {
     const updated = value.filter((_, i) => i !== index);
 
@@ -50,8 +46,8 @@ export const Photos = ({ control, errors }: FieldProps) => {
 
   const handleSetMainPhoto = (
     index: number,
-    value: TourPhotoFront[],
-    onChange: (val: TourPhotoFront[]) => void,
+    value: TourPhotoForm[],
+    onChange: (val: TourPhotoForm[]) => void,
   ) => {
     const updated = value.map((photo, i) => ({
       ...photo,
@@ -61,49 +57,19 @@ export const Photos = ({ control, errors }: FieldProps) => {
   };
 
   return (
-    <Box>
-      <Controller
-        name="photos"
-        control={control}
-        render={({ field: { onChange, value } }) => {
-          const canUpload = value.length < 10;
+    <Controller
+      name="photos"
+      control={control}
+      render={({ field: { onChange, value } }) => {
+        const canUpload = value.length < 10;
 
-          return (
-            <Box>
+        return (
+          <Box sx={{ pt: '5px', pb: 4 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               {canUpload && (
-                <Box
-                  sx={{ display: 'flex', flexDirection: 'row', gap: 2, mb: 2 }}
-                >
-                  <Button
-                    variant="outlined"
-                    component="label"
-                    sx={{
-                      width: 246,
-                      height: 72,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    Завантажити фото
-                    <input
-                      type="file"
-                      accept="image/jpeg,image/png"
-                      hidden
-                      multiple
-                      onChange={(e) => {
-                        if (!e.target.files) return;
-                        handleAddPhoto(e.target.files, value, onChange);
-                        e.target.value = '';
-                      }}
-                    />
-                  </Button>
-
-                  <TooltipForField
-                    text={`Формат фото JPG або PNG.\nМаксимум 10 фото, кожне не більше 5МБ.`}
-                  />
-                </Box>
+                <UploadButton
+                  onAddPhoto={(files) => handleAddPhoto(files, value, onChange)}
+                />
               )}
 
               {value.length > 0 && (
@@ -125,7 +91,7 @@ export const Photos = ({ control, errors }: FieldProps) => {
                         maxWidth: 150,
                         paddingTop: '100%',
                         border: '1px solid #ccc',
-                        borderRadius: 2,
+                        borderRadius: '4px',
                         overflow: 'hidden',
                       }}
                     >
@@ -139,7 +105,7 @@ export const Photos = ({ control, errors }: FieldProps) => {
                           display: 'flex',
                           gap: 1,
                           backgroundColor: 'rgba(255,255,255,0.7)',
-                          borderRadius: 1,
+                          borderRadius: '4px',
                           padding: '2px',
                         }}
                       >
@@ -179,16 +145,20 @@ export const Photos = ({ control, errors }: FieldProps) => {
                   ))}
                 </Box>
               )}
-
-              {errors?.photos && (
-                <Typography variant="caption" color="error">
-                  {errors.photos.message?.toString()}
-                </Typography>
-              )}
             </Box>
-          );
-        }}
-      />
-    </Box>
+
+            {errors?.photos && (
+              <Typography
+                variant="caption"
+                color="error"
+                sx={{ display: 'flex', justifyContent: 'center' }}
+              >
+                {errors.photos.message?.toString()}
+              </Typography>
+            )}
+          </Box>
+        );
+      }}
+    />
   );
 };

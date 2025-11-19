@@ -35,7 +35,7 @@ jest.mock('../OperatorProfileHeader/OperatorProfileHeader', () => ({
   ),
 }));
 
-jest.mock('../FieldWithAsideHint/FieldWithAsideHint', () => ({
+jest.mock('@/shared/ui', () => ({
   FieldWithAsideHint: ({ children }: { children: ReactNode }) => (
     <div data-testid="field-with-aside-hint">{children}</div>
   ),
