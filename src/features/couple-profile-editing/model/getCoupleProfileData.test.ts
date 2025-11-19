@@ -47,6 +47,13 @@ describe('getCoupleProfileData', () => {
     );
   });
 
+  it('throws an error if email is missing', () => {
+    const incompleteUser = { ...completeUser, email: '' };
+    expect(() => getCoupleProfileData(incompleteUser)).toThrow(
+      'Cannot create CoupleProfileData: required fields are missing',
+    );
+  });
+
   it('throws an error if secondPersonSurname is missing', () => {
     const incompleteUser = { ...completeUser, secondPersonSurname: null };
     expect(() => getCoupleProfileData(incompleteUser)).toThrow(
