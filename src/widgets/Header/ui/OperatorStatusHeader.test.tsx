@@ -1,6 +1,8 @@
 import { renderWithTheme } from '@/shared/tests';
+import { theme } from '@/shared/theme';
 
 import { OperatorStatusHeader } from './OperatorStatusHeader';
+import { OPERATOR_STATUS_ID } from './constants';
 
 jest.mock('@phosphor-icons/react', () => ({
   CertificateIcon: () => <svg data-testid="certificate-icon" />,
@@ -34,38 +36,40 @@ describe('OperatorStatusHeader', () => {
   });
 
   test('applies correct colors for "approved"', () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <OperatorStatusHeader status="approved" />,
     );
-    const badge = getByText('Верифіковано').parentElement;
+    const badge = getByTestId(OPERATOR_STATUS_ID);
     expect(badge).toHaveStyle({
-      backgroundColor: '#d89bf2',
-      color: 'rgb(0, 5, 0)',
-      border: '1px solid rgb(0, 141, 136)',
+      backgroundColor: theme.palette.accent[3],
+      color: theme.palette.common.black,
+      border: `1px solid ${theme.palette.primaryExtended[700]}`,
     });
   });
 
   test('applies correct colors for "pending"', () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <OperatorStatusHeader status="pending" />,
     );
-    const badge = getByText('На перевірці').parentElement;
+    const badge = getByTestId(OPERATOR_STATUS_ID);
+
     expect(badge).toHaveStyle({
-      backgroundColor: '#83c5be',
-      color: 'rgb(0, 5, 0)',
-      border: '1px solid rgb(0, 141, 136)',
+      backgroundColor: theme.palette.light[300],
+      color: theme.palette.common.black,
+      border: `1px solid ${theme.palette.primaryExtended[700]}`,
     });
   });
 
   test('applies correct colors for "rejected"', () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <OperatorStatusHeader status="rejected" />,
     );
-    const badge = getByText('Відхилено').parentElement;
+    const badge = getByTestId(OPERATOR_STATUS_ID);
+
     expect(badge).toHaveStyle({
       backgroundColor: 'rgba(255, 221, 210, 0.5)',
-      color: '#dc3545',
-      border: '1px solid #e29578',
+      color: theme.palette.error.main,
+      border: `1px solid ${theme.palette.accent[1]}`,
     });
   });
 });

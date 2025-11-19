@@ -1,4 +1,5 @@
 import { renderWithTheme } from '@/shared/tests';
+import { theme } from '@/shared/theme';
 
 import { InitialsAvatar } from './InitialsAvatar';
 
@@ -19,8 +20,8 @@ describe('InitialsAvatar', () => {
     );
     const element = getByText('U');
     expect(element).toHaveStyle({
-      backgroundColor: '#59a8a2',
-      color: '#000500',
+      backgroundColor: theme.palette.light[400],
+      color: theme.palette.common.black,
     });
   });
 
@@ -28,8 +29,8 @@ describe('InitialsAvatar', () => {
     const { getByText } = renderWithTheme(<InitialsAvatar />);
     const element = getByText('U');
     expect(element).toHaveStyle({
-      backgroundColor: '#ffddd2',
-      color: '#000500',
+      backgroundColor: theme.palette.accent[2],
+      color: theme.palette.common.black,
     });
   });
 });

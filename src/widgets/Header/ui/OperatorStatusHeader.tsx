@@ -15,6 +15,8 @@ import {
 
 import type { OperatorStatus } from '@/entities/operator';
 
+import { OPERATOR_STATUS_ID } from './constants';
+
 interface OperatorStatusHeaderProps {
   status: OperatorStatus;
 }
@@ -73,7 +75,7 @@ export const OperatorStatusHeader = ({ status }: OperatorStatusHeaderProps) => {
   const { text, Icon } = getStatusVisuals(status);
 
   return (
-    <BadgeWrapper status={status}>
+    <BadgeWrapper status={status} data-testid={OPERATOR_STATUS_ID}>
       <Icon size={ICON_SIZE} />
       <Typography variant="bodySmall">{text}</Typography>
     </BadgeWrapper>

@@ -1,8 +1,24 @@
+import { ReactNode } from 'react';
+
 import { AUTH_URL } from '@/shared/constants';
 import { renderWithTheme } from '@/shared/tests';
 import type { UserRole } from '@/shared/types';
 
 import { AuthorizedMenu } from './AuthorizedMenu';
+
+jest.mock('next/link', () =>
+  // eslint-disable-next-line react/display-name
+  ({ children, href }: { children: ReactNode; href: string }) => (
+    <a
+      href={href}
+      onClick={(e) => {
+        e.preventDefault();
+      }}
+    >
+      {children}
+    </a>
+  ),
+);
 
 jest.mock('../navigation-links', () => ({
   ROLE_MENU_LINKS: {
