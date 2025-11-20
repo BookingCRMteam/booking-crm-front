@@ -63,18 +63,21 @@ export const Photos = ({ control, errors }: FieldProps) => {
       name="photos"
       control={control}
       render={({ field: { onChange, value } }) => {
-        const canUpload = value.length < 10;
+        const photos = value ?? [];
+        const canUpload = photos.length < 10;
 
         return (
           <Box sx={{ pt: '5px', pb: 4 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               {canUpload && (
                 <UploadButton
-                  onAddPhoto={(files) => handleAddPhoto(files, value, onChange)}
+                  onAddPhoto={(files) =>
+                    handleAddPhoto(files, photos, onChange)
+                  }
                 />
               )}
 
-              {value.length > 0 && (
+              {photos.length > 0 && (
                 <Box
                   sx={{
                     display: 'grid',
@@ -84,7 +87,7 @@ export const Photos = ({ control, errors }: FieldProps) => {
                     justifyContent: 'start',
                   }}
                 >
-                  {value.map((photo, index) => (
+                  {photos.map((photo, index) => (
                     <Box
                       key={photo.id}
                       sx={{
@@ -113,18 +116,16 @@ export const Photos = ({ control, errors }: FieldProps) => {
                       >
                         <Tooltip
                           title={
-                            value[index].isMain
-                              ? 'Головне фото'
-                              : 'Зробити головним'
+                            photo.isMain ? 'Головне фото' : 'Зробити головним'
                           }
                         >
                           <IconButton
                             size="small"
                             onClick={() =>
-                              handleSetMainPhoto(index, value, onChange)
+                              handleSetMainPhoto(index, photos, onChange)
                             }
                           >
-                            {value[index].isMain ? (
+                            {photo.isMain ? (
                               <StarIcon fontSize="small" />
                             ) : (
                               <StarBorderIcon fontSize="small" />
@@ -136,7 +137,7 @@ export const Photos = ({ control, errors }: FieldProps) => {
                           <IconButton
                             size="small"
                             onClick={() =>
-                              handleRemovePhoto(index, value, onChange)
+                              handleRemovePhoto(index, photos, onChange)
                             }
                           >
                             <CloseIcon fontSize="small" />

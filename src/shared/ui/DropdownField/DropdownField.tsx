@@ -28,7 +28,7 @@ type DropdownFieldProps<T> = {
   renderItem?: (item: T, isActive: boolean) => React.ReactNode;
   inputAdornment?: React.ReactNode;
   error?: boolean;
-  helperText?: string;
+  helperText?: React.ReactNode;
 };
 
 export const DropdownField = <T,>({
@@ -114,7 +114,11 @@ export const DropdownField = <T,>({
     } else if (e.key === 'ArrowUp') {
       setHighlightedIndex((p) => (p > 0 ? p - 1 : filtered.length - 1));
       e.preventDefault();
-    } else if (e.key === 'Enter' && highlightedIndex >= 0) {
+    } else if (
+      e.key === 'Enter' &&
+      highlightedIndex >= 0 &&
+      filtered.length > 0
+    ) {
       handleSelect(filtered[highlightedIndex]);
       e.preventDefault();
     } else if (e.key === 'Escape') {

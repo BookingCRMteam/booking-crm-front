@@ -36,7 +36,7 @@ export const updateTourPhotoMeta = async (
   data: UpdatePhotoMeta,
 ): Promise<TourPhoto> => {
   try {
-    const { data: res } = await axiosInstance.patch(
+    const { data: res } = await axiosInstance.patch<TourPhoto>(
       DYNAMIC_ROUTE.TOUR_PHOTO(tourId, photoId),
       data,
     );
@@ -52,10 +52,7 @@ export const deleteTourPhoto = async (
   photoId: number,
 ): Promise<void> => {
   try {
-    const { data: res } = await axiosInstance.delete(
-      DYNAMIC_ROUTE.TOUR_PHOTO(tourId, photoId),
-    );
-    return res;
+    await axiosInstance.delete(DYNAMIC_ROUTE.TOUR_PHOTO(tourId, photoId));
   } catch (error: unknown) {
     handleApiError(error);
   }

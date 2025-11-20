@@ -47,6 +47,7 @@ export const useTourFormSubmit = (
         if (photo.description !== initialPhoto.description) {
           changes.description = photo.description ?? undefined;
         }
+
         if (photo.isMain && !initialPhoto.isMain) {
           changes.isMain = true;
         }
