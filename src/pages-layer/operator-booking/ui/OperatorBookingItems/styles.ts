@@ -2,6 +2,8 @@
 
 import { Box, Table, TableCell, styled } from '@mui/material';
 
+const HEADER_HEIGHT = 60;
+
 export const TableCellHead = styled(TableCell)(({ theme }) => ({
   color: theme.palette.primaryExtended[950],
   padding: '11px 10px',
@@ -18,7 +20,7 @@ export const OperatorBookingWrapper = styled(Box)({
   flexDirection: 'column',
   alignItems: 'center',
   gap: '40px',
-  minHeight: 'calc(100vh - 60px)',
+  minHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
 });
 
 export const OperatorBookingTable = styled(Table)(({ theme }) => ({

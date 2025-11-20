@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   description: 'Управління профілем турооператора',
 };
 
-export default async function Operator() {
+export default function Operator() {
   return <OperatorProfilePage />;
 }

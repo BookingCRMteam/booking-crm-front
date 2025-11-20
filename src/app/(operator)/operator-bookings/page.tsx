@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   description: 'Управління бронюваннями турооператора',
 };
 
-export default async function OperatorBookings() {
+export default function OperatorBookings() {
   return <OperatorBookingPage />;
 }

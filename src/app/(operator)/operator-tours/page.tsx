@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Управління турами турооператора',
 };
 
-export default async function OperatorTours() {
+export default function OperatorTours() {
   return (
     <Container maxWidth="lg">
       <Typography>Operator tours</Typography>

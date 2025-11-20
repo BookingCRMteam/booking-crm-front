@@ -6,8 +6,7 @@ import type { Booking } from '../../mock/bookings';
 import { OperatorBookingTableBody } from './TableBody';
 import { OperatorBookingTableHead } from './TableHead';
 import { OPERATOR_BOOKING_ITEMS_TITLE } from './constants';
-import { OperatorBookingWrapper } from './styles';
-import { OperatorBookingTable } from './styles';
+import { OperatorBookingTable, OperatorBookingWrapper } from './styles';
 
 type OperatorBookingItemsProps = {
   bookings: Booking[];

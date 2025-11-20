@@ -4,6 +4,8 @@ import { Box, Typography } from '@mui/material';
 
 import { BOOKING_EMPTY_IMAGE_URL, BOOKING_EMPTY_TEXT } from './constants';
 
+const HEADER_HEIGHT = 60;
+
 export const OperatorBookingEmpty = () => {
   return (
     <Box
@@ -13,7 +15,7 @@ export const OperatorBookingEmpty = () => {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '20px',
-        height: 'calc(100vh - 60px)',
+        height: `calc(100vh - ${HEADER_HEIGHT}px)`,
       }}
     >
       <Typography
@@ -29,6 +31,7 @@ export const OperatorBookingEmpty = () => {
         alt="empty"
         width={495}
         height={192}
+        priority
       />
     </Box>
   );

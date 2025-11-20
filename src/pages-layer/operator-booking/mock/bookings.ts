@@ -3,7 +3,7 @@ export type Booking = {
   title: string;
   price: string;
   phone: string;
-  data: string;
+  date: string;
   customer: string;
 };
 
@@ -13,7 +13,7 @@ export const OPERATOR_BOOKINGS: Booking[] = [
     title: 'Романтична Флоренція',
     customer: 'Анна та Марк',
     phone: '+380931234567',
-    data: '01.10.25 — 07.10.25',
+    date: '01.10.25 — 07.10.25',
     price: '78 567',
   },
   {
@@ -21,7 +21,7 @@ export const OPERATOR_BOOKINGS: Booking[] = [
     title: 'Романтична Флоренція',
     customer: 'Анна та Марк',
     phone: '+380931234567',
-    data: '01.10.25 — 07.10.25',
+    date: '01.10.25 — 07.10.25',
     price: '78 567',
   },
   {
@@ -29,7 +29,7 @@ export const OPERATOR_BOOKINGS: Booking[] = [
     title: 'Романтична Флоренція',
     customer: 'Анна та Марк',
     phone: '+380931234567',
-    data: '01.10.25 — 07.10.25',
+    date: '01.10.25 — 07.10.25',
     price: '78 567',
   },
 ];
