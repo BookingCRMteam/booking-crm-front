@@ -20,7 +20,7 @@ const OperatorWrapper = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   gap: '32px',
-  padding: '40px 0',
+  padding: '80px 0',
   maxWidth: '684px',
   margin: '0 auto',
   minHeight: '100vh',
