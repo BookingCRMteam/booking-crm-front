@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import CloseIcon from '@mui/icons-material/Close';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -13,7 +15,7 @@ import { PhotoImage } from './PhotoImage';
 import { UploadButton } from './UploadButton';
 
 export const Photos = ({ control, errors }: FieldProps) => {
-  let baseId = Date.now();
+  const baseId = useRef(Date.now());
 
   const handleAddPhoto = (
     files: FileList,
@@ -21,7 +23,7 @@ export const Photos = ({ control, errors }: FieldProps) => {
     onChange: (value: TourPhotoForm[]) => void,
   ) => {
     const newPhotos = Array.from(files).map((file, index) => ({
-      id: baseId++,
+      id: baseId.current++,
       file,
       url: null,
       isMain: value.length === 0 && index === 0,
