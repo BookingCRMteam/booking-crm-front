@@ -47,13 +47,17 @@ export const ModalHost = () => {
       open={open}
       onClose={handleClose}
       slots={{ transition: Transition }}
-      fullWidth
-      maxWidth="sm"
+      sx={{ width: 'fit-content', margin: '0 auto', borderRadius: 0 }}
+      slotProps={{
+        paper: {
+          sx: { borderRadius: 0 },
+        },
+      }}
       keepMounted
       // disableScrollLock
       aria-labelledby="app-modal-title"
     >
-      <DialogContent sx={{ p: 0 }}>
+      <DialogContent sx={{ p: 0, width: 'fit-content' }}>
         <Suspense
           fallback={
             <Box sx={{ p: 4, display: 'flex', justifyContent: 'center' }}>

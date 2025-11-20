@@ -549,5 +549,12 @@ export const theme = createTheme({
         }),
       },
     },
+    MuiToolbar: {
+      styleOverrides: {
+        dense: {
+          minHeight: 60,
+        },
+      },
+    },
   },
 });

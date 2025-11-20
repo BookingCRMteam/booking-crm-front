@@ -11,7 +11,7 @@ import { useBookingStore, useNotificationStore } from '@/shared/store';
 import { useCreateBooking } from './useCreateBooking';
 import { useUpdateUserIfNeeded } from './useUpdateUserIfNeeded';
 
-const bookingFormSchema = coupleProfileSchema.omit({ email: true });
+const bookingFormSchema = coupleProfileSchema;
 type BookingFormSchemaValues = z.infer<typeof bookingFormSchema>;
 
 export const useBookingForm = () => {

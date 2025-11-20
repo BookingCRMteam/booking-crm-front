@@ -42,7 +42,8 @@ export const CoupleProfileView: FC<CoupleProfileViewProps> = ({ onEdit }) => {
     !!firstPersonSurname &&
     !!secondPersonName &&
     !!secondPersonSurname &&
-    !!phone;
+    !!phone &&
+    !!email;
 
   const userInfoData = isProfileComplete ? getCoupleProfileData(user) : null;
 
@@ -52,8 +53,8 @@ export const CoupleProfileView: FC<CoupleProfileViewProps> = ({ onEdit }) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 3.5,
-        pt: 3.5,
+        gap: '13px',
+        pt: '24px',
       }}
       data-testid="couple-profile-view"
     >
@@ -65,16 +66,12 @@ export const CoupleProfileView: FC<CoupleProfileViewProps> = ({ onEdit }) => {
           component="p"
           textAlign="center"
           data-testid="incomplete-profile-message"
+          maxWidth={510}
+          sx={{ mb: '10px' }}
         >
           У профілі бракує інформації.
           <br />
           Додайте основні дані про себе — це займе лише кілька хвилин.
-        </Typography>
-      )}
-
-      {email && (
-        <Typography variant="bodyLarge" component="p">
-          {email}
         </Typography>
       )}
 

@@ -39,6 +39,7 @@ describe('UserInfo', () => {
     secondPersonName: 'Марія',
     secondPersonSurname: 'Марієнко',
     phone: '+380991234567',
+    email: 'test@couple.ua',
   };
 
   it('renders full names and phone number correctly', () => {
@@ -133,7 +134,6 @@ describe('CoupleProfileView', () => {
     expect(
       screen.getByTestId('incomplete-profile-message'),
     ).toBeInTheDocument();
-    expect(screen.getByText(mockUser.email)).toBeInTheDocument();
     expect(screen.queryByTestId('user-info')).not.toBeInTheDocument();
   });
 

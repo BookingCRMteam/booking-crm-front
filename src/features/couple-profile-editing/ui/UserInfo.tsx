@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 
-import { Box, Typography } from '@mui/material';
-import { PhoneIcon } from '@phosphor-icons/react/dist/ssr/Phone';
+import { Box, Typography, styled } from '@mui/material';
 
 export interface UserInfoProps {
   firstPersonName: string;
@@ -9,7 +8,15 @@ export interface UserInfoProps {
   secondPersonName: string;
   secondPersonSurname: string;
   phone: string;
+  email: string;
 }
+
+const InfoWrapper = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  maxWidth: '510px',
+});
 
 export const UserInfo: FC<UserInfoProps> = ({
   firstPersonName,
@@ -17,35 +24,52 @@ export const UserInfo: FC<UserInfoProps> = ({
   secondPersonName,
   secondPersonSurname,
   phone,
+  email,
 }) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 3.5,
-      }}
-      data-testid="user-info"
-    >
-      <Typography variant="h3" fontWeight={500}>
-        {`${firstPersonName} ${firstPersonSurname}`}
-        {secondPersonName && secondPersonSurname && (
-          <> та {`${secondPersonName} ${secondPersonSurname}`}</>
-        )}
-      </Typography>
-
+    <InfoWrapper data-testid="user-info">
       <Box
         sx={{
           display: 'flex',
-          gap: 1.5,
           alignItems: 'center',
-          justifyContent: 'center',
+          gap: '24px',
+          padding: '13px 0 22px',
         }}
       >
-        <PhoneIcon size={24} weight="regular" color="currentColor" />
+        <Typography variant="bodyDefault" width={153}>
+          Ім’я та прізвища:
+        </Typography>
+        <Typography variant="bodyLarge">
+          {firstPersonName} {firstPersonSurname} та {secondPersonName}{' '}
+          {secondPersonSurname}
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '24px',
+          padding: '13px 0 22px',
+        }}
+      >
+        <Typography variant="bodyDefault" width={153}>
+          Телефон:
+        </Typography>
         <Typography variant="bodyLarge">{phone}</Typography>
       </Box>
-    </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '24px',
+          padding: '13px 0 22px',
+        }}
+      >
+        <Typography variant="bodyDefault" width={153}>
+          Електронна пошта:
+        </Typography>
+        <Typography variant="bodyLarge">{email}</Typography>
+      </Box>
+    </InfoWrapper>
   );
 };

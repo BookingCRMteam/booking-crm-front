@@ -22,7 +22,7 @@ describe('NavigationLinks', () => {
     mockUsePathname.mockReturnValue(catalogLink.href);
 
     render(<NavigationLinks />);
-    const activeLink = screen.getByRole('link', { name: catalogLink.name });
+    const activeLink = screen.getByText(catalogLink.name);
 
     expect(activeLink).toHaveClass('MuiTypography-navLinkActive');
   });
@@ -32,9 +32,7 @@ describe('NavigationLinks', () => {
 
     render(<NavigationLinks />);
 
-    const catalogLinkElement = screen.getByRole('link', {
-      name: catalogLink.name,
-    });
+    const catalogLinkElement = screen.getByText(catalogLink.name);
     expect(catalogLinkElement).not.toHaveClass('MuiTypography-navLinkActive');
   });
 });

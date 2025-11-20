@@ -1,27 +1,23 @@
-/* eslint-disable react/display-name */
-import type { ReactNode } from 'react';
-
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { ReactNode } from 'react';
 
 import { AUTH_URL } from '@/shared/constants';
+import { renderWithTheme } from '@/shared/tests';
 import type { UserRole } from '@/shared/types';
 
 import { AuthorizedMenu } from './AuthorizedMenu';
 
-jest.mock(
-  'next/link',
-  () =>
-    ({ children, href }: { children: ReactNode; href: string }) => (
-      <a
-        href={href}
-        onClick={(e) => {
-          e.preventDefault();
-        }}
-      >
-        {children}
-      </a>
-    ),
+jest.mock('next/link', () =>
+  // eslint-disable-next-line react/display-name
+  ({ children, href }: { children: ReactNode; href: string }) => (
+    <a
+      href={href}
+      onClick={(e) => {
+        e.preventDefault();
+      }}
+    >
+      {children}
+    </a>
+  ),
 );
 
 jest.mock('../navigation-links', () => ({
@@ -46,62 +42,65 @@ const mockOperatorProps = {
 
 describe('AuthorizedMenu', () => {
   it('should display the correct initial (J) and toggle the menu on click', async () => {
-    const user = userEvent.setup();
-    render(<AuthorizedMenu {...mockTravelerProps} />);
+    const { getByText, getByLabelText, user } = renderWithTheme(
+      <AuthorizedMenu {...mockTravelerProps} />,
+    );
 
-    expect(screen.getByText('J')).toBeInTheDocument();
+    expect(getByText('J')).toBeInTheDocument();
 
-    expect(screen.getByText('Мій профіль')).not.toBeVisible();
+    expect(getByText('Мій профіль')).not.toBeVisible();
 
-    const menuButton = screen.getByLabelText('user-menu');
+    const menuButton = getByLabelText('user-menu');
     await user.click(menuButton);
 
-    const profileLink = screen.getByText('Мій профіль');
+    const profileLink = getByText('Мій профіль');
     expect(profileLink).toBeVisible();
 
     await user.click(profileLink);
 
-    expect(screen.getByText('Мій профіль')).not.toBeVisible();
+    expect(getByText('Мій профіль')).not.toBeVisible();
   });
 
   it('should use "U" initial when firstPersonName is empty', async () => {
-    render(<AuthorizedMenu {...mockTravelerProps} firstPersonName="" />);
-
-    expect(screen.getByText('U')).toBeInTheDocument();
+    const { getByText } = renderWithTheme(
+      <AuthorizedMenu {...mockTravelerProps} firstPersonName="" />,
+    );
+    expect(getByText('U')).toBeInTheDocument();
   });
 
   it('should display correct links for traveler role and the Logout link', async () => {
-    const user = userEvent.setup();
-    render(<AuthorizedMenu {...mockTravelerProps} />);
+    const { getByLabelText, getByRole, queryByText, getByText, user } =
+      renderWithTheme(<AuthorizedMenu {...mockTravelerProps} />);
 
-    await user.click(screen.getByLabelText('user-menu'));
+    await user.click(getByLabelText('user-menu'));
 
-    expect(screen.getByRole('link', { name: 'Мій профіль' })).toHaveAttribute(
+    expect(getByRole('link', { name: 'Мій профіль' })).toHaveAttribute(
       'href',
       '/traveler/profile',
     );
-    expect(
-      screen.getByRole('link', { name: 'Мої бронювання' }),
-    ).toHaveAttribute('href', '/traveler/bookings');
+    expect(getByRole('link', { name: 'Мої бронювання' })).toHaveAttribute(
+      'href',
+      '/traveler/bookings',
+    );
 
-    expect(screen.queryByText('Дашборд')).not.toBeInTheDocument();
+    expect(queryByText('Дашборд')).not.toBeInTheDocument();
 
-    const logoutLink = screen.getByText('Вийти');
+    const logoutLink = getByText('Вихід');
     expect(logoutLink).toBeInTheDocument();
     expect(logoutLink.closest('a')).toHaveAttribute('href', AUTH_URL.LOGOUT);
   });
 
   it('should display operator-specific links', async () => {
-    const user = userEvent.setup();
+    const { getByLabelText, getByRole, queryByText, user } = renderWithTheme(
+      <AuthorizedMenu {...mockOperatorProps} />,
+    );
 
-    render(<AuthorizedMenu {...mockOperatorProps} />);
+    await user.click(getByLabelText('user-menu'));
 
-    await user.click(screen.getByLabelText('user-menu'));
-
-    expect(screen.getByRole('link', { name: 'Дашборд' })).toHaveAttribute(
+    expect(getByRole('link', { name: 'Дашборд' })).toHaveAttribute(
       'href',
       '/operator/dashboard',
     );
-    expect(screen.queryByText('Мої бронювання')).not.toBeInTheDocument();
+    expect(queryByText('Мої бронювання')).not.toBeInTheDocument();
   });
 });

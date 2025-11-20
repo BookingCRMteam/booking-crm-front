@@ -6,6 +6,7 @@ export type CoupleProfileData = {
   secondPersonName: string;
   secondPersonSurname: string;
   phone: string;
+  email: string;
 };
 
 export const getCoupleProfileData = (user: User): CoupleProfileData => {
@@ -14,7 +15,8 @@ export const getCoupleProfileData = (user: User): CoupleProfileData => {
     !user.firstPersonSurname ||
     !user.secondPersonName ||
     !user.secondPersonSurname ||
-    !user.phone
+    !user.phone ||
+    !user.email
   ) {
     throw new Error(
       'Cannot create CoupleProfileData: required fields are missing',
@@ -27,5 +29,6 @@ export const getCoupleProfileData = (user: User): CoupleProfileData => {
     secondPersonName: user.secondPersonName,
     secondPersonSurname: user.secondPersonSurname,
     phone: user.phone,
+    email: user.email,
   };
 };
