@@ -1,5 +1,5 @@
 import { Container, Typography } from '@mui/material';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Тури турооператора',

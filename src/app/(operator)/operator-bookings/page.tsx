@@ -1,5 +1,6 @@
-import { Container, Typography } from '@mui/material';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+
+import { OperatorBookingPage } from '@/pages-layer/operator-booking';
 
 export const metadata: Metadata = {
   title: 'Бронювання турооператора',
@@ -7,9 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default async function OperatorBookings() {
-  return (
-    <Container maxWidth="lg">
-      <Typography>Operator bookings</Typography>
-    </Container>
-  );
+  return <OperatorBookingPage />;
 }
