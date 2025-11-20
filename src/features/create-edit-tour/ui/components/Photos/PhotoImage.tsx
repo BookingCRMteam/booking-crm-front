@@ -1,13 +1,11 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
-import { TourPhotoFront } from '@/entities/tour/model/types';
+import { TourPhotoForm } from '@/entities/tour';
 
 type PhotoImageProps = {
-  photo: TourPhotoFront;
+  photo: TourPhotoForm;
   index: number;
 };
 

@@ -24,6 +24,8 @@ export enum APP_ROUTE {
 export const DYNAMIC_ROUTE = {
   CITIES: (iso2: string) => `/countries/${iso2}/cities`,
   TOUR: (tourId: number) => `/tours/${tourId}`,
+  TOUR_PHOTO: (tourId: number, photoId: number) =>
+    `/tours/${tourId}/photos/${photoId}`,
   OPERATOR_PUBLIC: (operatorId: number) => `/catalog/operator/${operatorId}`,
 };
 

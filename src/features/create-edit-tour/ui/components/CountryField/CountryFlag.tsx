@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ReactCountryFlag from 'react-country-flag';
 
 type CountryFlagProps = {

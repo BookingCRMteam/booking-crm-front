@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -14,20 +14,20 @@ import { useForm } from 'react-hook-form';
 
 import { useCities } from '@/entities/city/model/useCities';
 import { useCountries } from '@/entities/country/model/useCountries';
-import { createTour, editTour } from '@/entities/tour/api/toursApi';
-import { useFetchTour } from '@/entities/tour/model/useFetchTour';
+import { TourPhotoForm, useFetchTour } from '@/entities/tour';
 
-import { transformBackendToFormValues } from '../lib/transformBackendToFormValues';
-import { transformFormData } from '../lib/transformFormData';
+import { useTourFormSubmit } from '../lib/useTourFormSubmit';
 import { TourFormSchema, TourFormValues } from '../model/schema';
-import { AvailableSpotsField } from './components/AvailableSpotsField';
-import { CityField } from './components/CityField';
-import { CountryField } from './components/CountryField';
-import { DateRangeField } from './components/DateRangeField';
-import { DescriptionField } from './components/DescriptionField';
-import { Photos } from './components/Photos';
-import { PriceField } from './components/PriceField';
-import { TitleField } from './components/TitleField';
+import {
+  AvailableSpotsField,
+  CityField,
+  CountryField,
+  DateRangeField,
+  DescriptionField,
+  Photos,
+  PriceField,
+  TitleField,
+} from './components';
 
 type TourFormProps = {
   mode: 'create' | 'edit';
@@ -55,7 +55,7 @@ export const TourForm = ({
       countryISO2Code: '',
       cityId: 0,
       availableSpots: 0,
-      price: 0,
+      price: '',
       currency: 'UAH',
       startDate: '',
       endDate: '',
@@ -64,13 +64,13 @@ export const TourForm = ({
   });
 
   const ISO2Code = watch('countryISO2Code');
-  const priceData = watch('price');
   const start = watch('startDate');
   const end = watch('endDate');
 
+  const [initialValues, setInitialValues] = useState<
+    TourFormValues | undefined
+  >(undefined);
   const [prevISO2Code, setPrevISO2Code] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const { data: countries = [], isLoading: countryLoading } =
     useCountries('uk');
@@ -85,10 +85,32 @@ export const TourForm = ({
     mode === 'edit' && !!tourId,
   );
 
+  const { handleSubmitForm, isSubmitting, submitError } = useTourFormSubmit(
+    mode,
+    tourId,
+    initialValues,
+    onClose,
+  );
+
   useEffect(() => {
     if (tourData && mode === 'edit') {
-      console.log(tourData);
-      reset(transformBackendToFormValues(tourData));
+      const allowedCurrencies = ['USD', 'EUR', 'UAH'] as const;
+      const currency = allowedCurrencies.includes(
+        tourData.currency as (typeof allowedCurrencies)[number],
+      )
+        ? (tourData.currency as (typeof allowedCurrencies)[number])
+        : 'UAH';
+
+      const values: TourFormValues = {
+        ...tourData,
+        currency,
+        photos: tourData.photos.map<TourPhotoForm>((p) => ({
+          ...p,
+          file: null,
+        })),
+      };
+      reset(values);
+      setInitialValues(values);
     }
   }, [mode, reset, tourData]);
 
@@ -99,119 +121,95 @@ export const TourForm = ({
     setPrevISO2Code(ISO2Code);
   }, [ISO2Code, setValue, prevISO2Code]);
 
-  const handleFormSubmit = async (data: TourFormValues) => {
-    const initial =
-      mode === 'edit' && tourId && tourData
-        ? transformBackendToFormValues(tourData)
-        : undefined;
-
-    const formData = transformFormData(data, initial);
-
-    setIsSubmitting(true);
-    try {
-      if (mode === 'create') {
-        await createTour(formData);
-      } else if (tourId) {
-        await editTour(tourId, formData);
-      }
-      reset();
-      onClose?.();
-      setSubmitError(null);
-    } catch (error: unknown) {
-      const message =
-        error instanceof Error ? error.message : 'Сталася помилка';
-      setSubmitError(message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  if (tourDataLoading) return <CircularProgress size={48} />;
+  if (tourDataLoading)
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+        }}
+      >
+        <CircularProgress size={48} />
+      </Box>
+    );
 
   return (
-    <Box
-      component="form"
-      sx={{
-        width: '100%',
-        maxWidth: '1040px',
-        margin: '0 auto',
-      }}
-      onSubmit={handleSubmit(handleFormSubmit)}
-    >
-      <Typography variant="h3" textAlign="center" sx={{ mb: 2, p: 1 }}>
+    <Box sx={{ width: '100%', maxWidth: '686px', pt: '40px', pb: '37px' }}>
+      <Typography variant="h1" textAlign="center" sx={{ mb: 4 }}>
         {mode === 'create' && 'Додати тур'}
         {mode === 'edit' && 'Редагувати тур'}
       </Typography>
 
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-        }}
-      >
-        <TitleField
-          control={control}
-          errors={errors}
-          disabled={mode === 'edit'}
-        />
-        <DescriptionField control={control} errors={errors} />
-        <CountryField
-          countries={countries}
-          isLoading={countryLoading}
-          control={control}
-          errors={errors}
-          disabled={mode === 'edit'}
-        />
-        <CityField
-          cities={cities}
-          isLoading={citiesLoading}
-          control={control}
-          errors={errors}
-          disabled={mode === 'edit'}
-        />
-        <AvailableSpotsField control={control} errors={errors} />
-        <PriceField control={control} errors={errors} price={priceData} />
-        <DateRangeField
-          control={control}
-          errors={errors}
-          start={start}
-          end={end}
-          disabled={mode === 'edit'}
-        />
-        <Photos control={control} errors={errors} />
-      </Box>
-
-      {submitError && (
-        <Alert severity="error" sx={{ mt: 2 }}>
-          {'Помилка при збереженні туру, спробуйте, будь ласка, ще раз.'}
-        </Alert>
-      )}
-
-      <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{ width: '238px', mt: 2 }}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? <CircularProgress size={24} /> : 'Зберегти'}
-        </Button>
-        <Button
-          type="button"
-          onClick={() => {
-            reset(
-              mode === 'edit' && tourData
-                ? transformBackendToFormValues(tourData)
-                : undefined,
-            );
-            onClose?.();
+      <Box component="form" onSubmit={handleSubmit(handleSubmitForm)}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 3,
           }}
-          variant="outlined"
-          sx={{ width: '238px', mt: 2 }}
         >
-          Скасувати
-        </Button>
+          <TitleField
+            control={control}
+            errors={errors}
+            disabled={mode === 'edit'} //??
+          />
+          <DescriptionField control={control} errors={errors} />
+          <CountryField
+            countries={countries}
+            isLoading={countryLoading}
+            control={control}
+            errors={errors}
+            disabled={mode === 'edit'} //??
+          />
+          <CityField
+            cities={cities}
+            isLoading={citiesLoading}
+            control={control}
+            errors={errors}
+            disabled={mode === 'edit' || !ISO2Code} //??
+          />
+          <AvailableSpotsField control={control} errors={errors} mode={mode} />
+          <PriceField control={control} errors={errors} />
+          <DateRangeField
+            control={control}
+            errors={errors}
+            start={start}
+            end={end}
+            disabled={mode === 'edit'} //??
+          />
+          <Photos control={control} errors={errors} />
+        </Box>
+
+        {submitError && (
+          <Alert severity="error" sx={{ mb: 4 }}>
+            {submitError}
+          </Alert>
+        )}
+
+        <Box sx={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ width: '200px' }}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? <CircularProgress size={24} /> : 'Зберегти'}
+          </Button>
+          <Button
+            type="button"
+            onClick={() => {
+              reset(mode === 'edit' && tourData ? initialValues : undefined);
+              onClose?.();
+            }}
+            variant="outlined"
+            sx={{ width: '200px' }}
+            disabled={isSubmitting}
+          >
+            Скасувати
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
