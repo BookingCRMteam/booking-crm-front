@@ -9,9 +9,11 @@ import { FieldWithAsideHint } from '@/shared/ui';
 
 import { CurrencyField } from './CurrencyField';
 
+// TODO: update hint dynamically if other currencies are added (USD, EUR)
+const HINT_TEXT_PRICE =
+  'Число від 100 до 100 000, без символів, допускається крапка';
+
 export const PriceField = ({ control, errors }: FieldProps) => {
-  const HINT_TEXT_PRICE =
-    'Число від 100 до 100 000, без символів, допускається крапка';
   const priceHintId = useId();
 
   const sanitize = (value: string) => {

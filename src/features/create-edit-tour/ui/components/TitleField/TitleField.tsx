@@ -7,8 +7,9 @@ import { FieldProps } from '@/features/create-edit-tour/model/types';
 
 import { FieldWithAsideHint } from '@/shared/ui';
 
+const HINT_TEXT_TITLE = 'Максимум 150 символів';
+
 export const TitleField = ({ control, errors, disabled }: FieldProps) => {
-  const HINT_TEXT_TITLE = 'Максимум 150 символів';
   const titleHintId = useId();
 
   return (

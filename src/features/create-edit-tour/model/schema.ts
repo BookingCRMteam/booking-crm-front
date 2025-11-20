@@ -10,18 +10,7 @@ export const PhotoMetaSchema = z
   .object({
     id: z.number(),
     isMain: z.boolean(),
-    file: z
-      .custom<File>((f) => typeof File === 'undefined' || f instanceof File)
-      .optional()
-      .refine(
-        (file) => !file || ['image/jpeg', 'image/png'].includes(file.type),
-        'Тільки JPG або PNG',
-      )
-      .refine(
-        (file) => !file || file.size <= 5 * 1024 * 1024,
-        'Файл не має перевищувати 5МБ',
-      )
-      .nullable(),
+    file: z.instanceof(File).optional().nullable(),
     url: z.url().optional().nullable(),
     description: z.string().optional().nullable(),
   })
@@ -105,14 +94,11 @@ export const TourFormSchema = z
 
   // Cross-field validation for currency-dependent price ranges
   .superRefine((data, ctx: RefinementCtx) => {
+    if (!data.price?.trim()) return;
+
     const numericPrice = parseFloat(data.price);
 
     if (isNaN(numericPrice)) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'Ціна має бути числом',
-        path: ['price'],
-      });
       return;
     }
 

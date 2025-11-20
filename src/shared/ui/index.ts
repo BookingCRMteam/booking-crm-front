@@ -15,3 +15,4 @@ export { OperatorCardSkeleton } from './Skeleton/OperatorCardSkeleton';
 export { TourCardSkeleton } from './Skeleton/TourCardSkeleton';
 export { CheckboxSmall } from './Checkbox/Checkbox';
 export { FieldWithAsideHint } from './FieldWithAsideHint/FieldWithAsideHint';
+export { DropdownField } from './DropdownField/DropdownField';

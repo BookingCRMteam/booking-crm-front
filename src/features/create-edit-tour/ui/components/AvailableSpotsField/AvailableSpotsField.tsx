@@ -11,14 +11,15 @@ type AvailableSpotsFieldProps = FieldProps & {
   mode?: 'create' | 'edit';
 };
 
+const HINT_TEXT_SPOTS = 'Введіть кількість учасників (парне число)';
+const HINT_TEXT_EDIT =
+  'В режимі редагування кількість місць можна лише збільшити (парне число)';
+
 export const AvailableSpotsField = ({
   control,
   errors,
   mode = 'create',
 }: AvailableSpotsFieldProps) => {
-  const HINT_TEXT_SPOTS = 'Введіть кількість учасників (парне число)';
-  const HINT_TEXT_EDIT =
-    'В режимі редагування кількість місць можна лише збільшити (парне число)';
   const spotsHintId = useId();
 
   const initialSpotsRef = useRef(0);
@@ -70,9 +71,7 @@ export const AvailableSpotsField = ({
 
                 if (isNaN(val)) return;
 
-                if (!Number.isNaN(val)) {
-                  field.onChange(val);
-                }
+                field.onChange(val);
               }}
               onBlur={() => {
                 if (mode === 'edit' && field.value < initialSpotsRef.current) {

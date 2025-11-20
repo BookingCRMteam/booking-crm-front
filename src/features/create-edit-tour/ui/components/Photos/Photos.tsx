@@ -13,15 +13,17 @@ import { PhotoImage } from './PhotoImage';
 import { UploadButton } from './UploadButton';
 
 export const Photos = ({ control, errors }: FieldProps) => {
+  let baseId = Date.now();
+
   const handleAddPhoto = (
     files: FileList,
     value: TourPhotoForm[],
     onChange: (value: TourPhotoForm[]) => void,
   ) => {
     const newPhotos = Array.from(files).map((file, index) => ({
-      id: Date.now() + index,
+      id: baseId++,
       file,
-      url: undefined,
+      url: null,
       isMain: value.length === 0 && index === 0,
       description: '',
     }));

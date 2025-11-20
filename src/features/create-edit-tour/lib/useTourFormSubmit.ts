@@ -38,13 +38,15 @@ export const useTourFormSubmit = (
       .map(async (photo) => {
         const initialPhoto = initialValues.photos.find(
           (p) => p.id === photo.id,
-        )!;
+        );
+
+        if (!initialPhoto) return;
+
         const changes: UpdatePhotoMeta = {};
 
         if (photo.description !== initialPhoto.description) {
           changes.description = photo.description ?? undefined;
         }
-
         if (photo.isMain && !initialPhoto.isMain) {
           changes.isMain = true;
         }

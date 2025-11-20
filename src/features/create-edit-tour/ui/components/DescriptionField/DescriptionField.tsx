@@ -7,9 +7,10 @@ import { FieldProps } from '@/features/create-edit-tour/model/types';
 
 import { FieldWithAsideHint } from '@/shared/ui';
 
+const HINT_TEXT_DESCRIPTION =
+  'Коротко опишіть тур: основні локації, формат подорожі, для кого підходить. Максимум 5000 символів';
+
 export const DescriptionField = ({ control, errors }: FieldProps) => {
-  const HINT_TEXT_DESCRIPTION =
-    'Коротко опишіть тур: основні локації, формат подорожі, для кого підходить. Максимум 5000 символів';
   const descriptionHintId = useId();
 
   return (

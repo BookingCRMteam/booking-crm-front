@@ -41,7 +41,6 @@ export const CustomDatePicker = <T extends FieldValues>({
   rangeEnd,
 }: CustomDatePickerProps<T>) => {
   const [open, setOpen] = useState(false);
-
   const anchorRef = useRef<HTMLDivElement | null>(null);
 
   return (
@@ -51,15 +50,11 @@ export const CustomDatePicker = <T extends FieldValues>({
       render={({ field }) => {
         const value = field.value ? dayjs(field.value, 'YYYY-MM-DD') : null;
 
+        const resolvedMinDate = minDate ?? (disablePast ? dayjs() : undefined);
+
         return (
           <Box sx={{ position: 'relative', width: '100%' }}>
-            <Box
-              sx={{
-                position: 'relative',
-                width: '100%',
-              }}
-              ref={anchorRef}
-            >
+            <Box ref={anchorRef} sx={{ position: 'relative', width: '100%' }}>
               <TextField
                 value={
                   value ? `${placeholder} ${value.format('DD.MM.YYYY')}` : ''
@@ -74,11 +69,7 @@ export const CustomDatePicker = <T extends FieldValues>({
                     readOnly: true,
                   },
                 }}
-                sx={{
-                  '& input': {
-                    paddingLeft: '48px',
-                  },
-                }}
+                sx={{ '& input': { paddingLeft: '48px' } }}
                 fullWidth
               />
               <CalendarDotsIcon
@@ -98,9 +89,7 @@ export const CustomDatePicker = <T extends FieldValues>({
               anchorEl={anchorRef.current}
               placement="bottom-start"
               sx={{
-                width: anchorRef.current
-                  ? anchorRef.current.clientWidth
-                  : '100%',
+                width: anchorRef.current?.clientWidth ?? '100%',
                 zIndex: 1400,
               }}
               modifiers={[
@@ -118,11 +107,9 @@ export const CustomDatePicker = <T extends FieldValues>({
                       field.onChange(date?.format('YYYY-MM-DD'));
                       setOpen(false);
                     }}
-                    minDate={disablePast ? dayjs() : minDate}
+                    minDate={resolvedMinDate}
                     maxDate={maxDate}
-                    slots={{
-                      day: PickersDay,
-                    }}
+                    slots={{ day: PickersDay }}
                     slotProps={{
                       day: (ownerState) => {
                         const day: Dayjs = ownerState.day;

@@ -1,7 +1,13 @@
 import { axiosInstance, handleApiError } from '@/shared/api';
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants/routes';
 
-import { Tour, TourDetail, Tours, UpdatePhotoMeta } from '../model/types';
+import {
+  Tour,
+  TourDetail,
+  TourPhoto,
+  Tours,
+  UpdatePhotoMeta,
+} from '../model/types';
 
 export const createTour = async (data: FormData): Promise<Tour> => {
   try {
@@ -28,7 +34,7 @@ export const updateTourPhotoMeta = async (
   tourId: number,
   photoId: number,
   data: UpdatePhotoMeta,
-) => {
+): Promise<TourPhoto> => {
   try {
     const { data: res } = await axiosInstance.patch(
       DYNAMIC_ROUTE.TOUR_PHOTO(tourId, photoId),
@@ -41,7 +47,10 @@ export const updateTourPhotoMeta = async (
   }
 };
 
-export const deleteTourPhoto = async (tourId: number, photoId: number) => {
+export const deleteTourPhoto = async (
+  tourId: number,
+  photoId: number,
+): Promise<void> => {
   try {
     const { data: res } = await axiosInstance.delete(
       DYNAMIC_ROUTE.TOUR_PHOTO(tourId, photoId),

@@ -13,8 +13,12 @@ export const CurrencyField = ({ control, disabled }: FieldProps) => {
           <TextField
             {...field}
             disabled={disabled}
-            aria-readonly="true"
-            sx={{ pointerEvents: 'none', '& input': { textAlign: 'center' } }}
+            slotProps={{
+              input: {
+                readOnly: true,
+              },
+            }}
+            sx={{ '& input': { textAlign: 'center' } }}
           />
         )}
       />
