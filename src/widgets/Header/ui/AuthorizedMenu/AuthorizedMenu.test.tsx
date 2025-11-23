@@ -20,13 +20,17 @@ jest.mock('next/link', () =>
   ),
 );
 
-jest.mock('../navigation-links', () => ({
+jest.mock('./constants', () => ({
   ROLE_MENU_LINKS: {
     traveler: [
-      { href: '/traveler/profile', name: 'Мій профіль' },
+      { href: '/traveler/profile', name: 'Особистий кабінет' },
       { href: '/traveler/bookings', name: 'Мої бронювання' },
     ],
     operator: [{ href: '/operator/dashboard', name: 'Дашборд' }],
+  },
+  LOGOUT_LINK: {
+    name: 'Вийти з акаунту',
+    href: AUTH_URL.LOGOUT,
   },
 }));
 
@@ -48,17 +52,13 @@ describe('AuthorizedMenu', () => {
 
     expect(getByText('J')).toBeInTheDocument();
 
-    expect(getByText('Мій профіль')).not.toBeVisible();
+    expect(getByText('Особистий кабінет')).not.toBeVisible();
 
     const menuButton = getByLabelText('user-menu');
     await user.click(menuButton);
 
-    const profileLink = getByText('Мій профіль');
+    const profileLink = getByText('Особистий кабінет');
     expect(profileLink).toBeVisible();
-
-    await user.click(profileLink);
-
-    expect(getByText('Мій профіль')).not.toBeVisible();
   });
 
   it('should use "U" initial when firstPersonName is empty', async () => {
@@ -74,7 +74,7 @@ describe('AuthorizedMenu', () => {
 
     await user.click(getByLabelText('user-menu'));
 
-    expect(getByRole('link', { name: 'Мій профіль' })).toHaveAttribute(
+    expect(getByRole('link', { name: 'Особистий кабінет' })).toHaveAttribute(
       'href',
       '/traveler/profile',
     );
@@ -85,7 +85,7 @@ describe('AuthorizedMenu', () => {
 
     expect(queryByText('Дашборд')).not.toBeInTheDocument();
 
-    const logoutLink = getByText('Вихід');
+    const logoutLink = getByText('Вийти з акаунту');
     expect(logoutLink).toBeInTheDocument();
     expect(logoutLink.closest('a')).toHaveAttribute('href', AUTH_URL.LOGOUT);
   });

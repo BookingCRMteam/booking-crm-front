@@ -1,10 +1,7 @@
-import Image from 'next/image';
-import Link from 'next/link';
-
-import { Box, Link as MuiLink, Typography, styled } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 import { EnvelopeSimpleOpenIcon } from '@phosphor-icons/react';
 
-import { APP_ROUTE } from '@/shared/constants';
+import { AppLogo } from '@/shared/ui';
 
 const StyledEmailLink = styled('a')(({ theme }) => ({
   ...theme.typography.bodySmall,
@@ -35,23 +32,7 @@ export const FooterBrandingColumn = () => {
         gap: '20px',
       }}
     >
-      <MuiLink
-        component={Link}
-        href={APP_ROUTE.HOME}
-        sx={{
-          p: 0,
-          fontSize: 0,
-          lineHeight: 0,
-        }}
-      >
-        <Image
-          src="/images/logo.png"
-          width={127}
-          height={44}
-          alt="Booking CRM logo"
-          priority
-        />
-      </MuiLink>
+      <AppLogo />
       <Box
         sx={{
           display: 'flex',

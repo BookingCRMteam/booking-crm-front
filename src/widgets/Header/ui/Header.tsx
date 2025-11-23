@@ -3,7 +3,7 @@
 import { useOperatorQuery } from '@/entities/operator';
 import { useUserQuery } from '@/entities/user';
 
-import HeaderPure from './HeaderPure';
+import HeaderPure from './HeaderPure/HeaderPure';
 
 export const Header = () => {
   const { data: user } = useUserQuery();

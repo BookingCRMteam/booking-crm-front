@@ -10,7 +10,7 @@ import { Box, type BoxProps, Link as MuiLink, styled } from '@mui/material';
 import {
   NAVIGATION_LINKS,
   NAVIGATION_OPERATORS_LINKS,
-} from '../navigation-links';
+} from './navigation-links';
 
 type NavigationLinksProps = {
   isOperator?: boolean;
