@@ -3,13 +3,13 @@
 import {
   Box,
   type BoxProps,
-  Button,
   FormControlLabel,
   TextField,
   Typography,
   styled,
 } from '@mui/material';
 
+import { SubmitButton } from '@/shared/ui';
 import { CheckboxSmall, PhoneInputField } from '@/shared/ui';
 
 import { useOperatorOnboarding } from '../model/useOperatorOnboarding';
@@ -41,14 +41,6 @@ const Form = styled(Box)<BoxProps>(({ theme }) => ({
   },
 }));
 
-const SubmitButton = styled(Button)({
-  maxWidth: '331px',
-  '&:disabled': {
-    backgroundColor: 'rgba(0, 0, 0, 0.12)',
-    color: 'rgba(0, 0, 0, 0.38)',
-  },
-});
-
 const CheckboxLabel = styled(FormControlLabel)(({ theme }) => ({
   alignSelf: 'flex-start',
   margin: 0,
@@ -58,7 +50,7 @@ const CheckboxLabel = styled(FormControlLabel)(({ theme }) => ({
 }));
 
 export const OperatorOnboardingForm = () => {
-  const { form, onSubmit, isPending } = useOperatorOnboarding();
+  const { form, onSubmit, isPending, isSuccess } = useOperatorOnboarding();
   const {
     handleSubmit,
     register,
@@ -121,14 +113,13 @@ export const OperatorOnboardingForm = () => {
         }
       />
       <SubmitButton
-        type="submit"
-        variant="contained"
-        size="large"
+        textIdle={FORM_SUBMIT_BUTTON.textIdle}
+        textLoading={FORM_SUBMIT_BUTTON.textLoading}
+        textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
+        isLoading={isPending}
+        isSuccess={isSuccess}
         disabled={!isValid || isPending}
-        loading={isPending}
-      >
-        {FORM_SUBMIT_BUTTON}
-      </SubmitButton>
+      />
     </Form>
   );
 };
