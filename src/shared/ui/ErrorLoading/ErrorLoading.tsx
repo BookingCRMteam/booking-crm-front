@@ -1,6 +1,16 @@
 import { Box, Button, Typography } from '@mui/material';
 
-export const ErrorLoading = () => {
+type ErrorLoadingProps = {
+  message?: string;
+  actionText?: string;
+  onRetry?: () => void;
+};
+
+export const ErrorLoading = ({
+  message = 'Виникла помилка при завантаженні турів',
+  actionText = 'Спробуйте оновити сторінку',
+  onRetry,
+}: ErrorLoadingProps) => {
   return (
     <Box
       sx={{
@@ -14,12 +24,15 @@ export const ErrorLoading = () => {
       }}
     >
       <Typography variant="bodyLarge" color="error" sx={{ mb: 2 }}>
-        Виникла помилка при завантаженні турів
+        {message}
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        {'Спробуйте оновити сторінку'}
+        {actionText}
       </Typography>
-      <Button variant="contained" onClick={() => window.location.reload()}>
+      <Button
+        variant="contained"
+        onClick={onRetry || (() => window.location.reload())}
+      >
         Спробувати ще раз
       </Button>
     </Box>

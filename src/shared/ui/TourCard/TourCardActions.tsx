@@ -76,7 +76,7 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
         width: '100%',
       }}
     >
-      <Link href={DYNAMIC_ROUTE.OPERATOR_TOURS_EDIT(tourId)} passHref>
+      <Link href={DYNAMIC_ROUTE.OPERATOR_TOURS_EDIT(tourId)}>
         <Button variant="contained" color="primary" size="large" fullWidth>
           Редагувати
         </Button>
@@ -88,6 +88,7 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
         size="large"
         fullWidth
         onClick={handleDeleteTour}
+        disabled={deleteTour.isPending}
         sx={(theme) => ({
           color: theme.palette.common.white,
           '&:hover, &:focus-visible, &:active': {
@@ -95,7 +96,7 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
           },
         })}
       >
-        Видалити
+        {deleteTour.isPending ? 'Видалення...' : 'Видалити'}
       </Button>
     </Box>
   );

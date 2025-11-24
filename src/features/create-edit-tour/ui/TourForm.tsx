@@ -36,10 +36,7 @@ import {
 type TourFormProps = {
   operatorId?: number;
   tourId?: number;
-  onClose?: () => void;
 };
-
-type TourFormMode = 'create' | 'edit';
 
 export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
   const {
@@ -65,7 +62,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
     },
   });
 
-  const mode: TourFormMode = tourId ? 'edit' : 'create';
+  const modeEdite = Boolean(tourId);
 
   const router = useRouter();
 
@@ -87,19 +84,17 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
   );
 
   const { data: tourData, isLoading: tourDataLoading } = useFetchTour(
-    tourId ?? 0,
-    mode === 'edit' && !!tourId,
+    tourId ?? undefined,
   );
 
-  const { handleSubmitForm, isSubmitting, submitError } = useTourFormSubmit(
-    mode,
+  const { handleSubmitForm, isSubmitting, submitError } = useTourFormSubmit({
     operatorId,
     tourId,
     initialValues,
-  );
+  });
 
   useEffect(() => {
-    if (tourData && mode === 'edit') {
+    if (tourData && modeEdite) {
       const allowedCurrencies = ['USD', 'EUR', 'UAH'] as const;
       const currency = allowedCurrencies.includes(
         tourData.currency as (typeof allowedCurrencies)[number],
@@ -118,7 +113,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
       reset(values);
       setInitialValues(values);
     }
-  }, [mode, reset, tourData]);
+  }, [modeEdite, reset, tourData]);
 
   useEffect(() => {
     if (prevISO2Code && prevISO2Code !== ISO2Code) {
@@ -160,8 +155,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
         }}
       >
         <Typography variant="h1" textAlign="center" sx={{ mb: 4 }}>
-          {mode === 'create' && 'Додати тур'}
-          {mode === 'edit' && 'Редагувати тур'}
+          {modeEdite ? 'Редагувати тур' : 'Додати тур'}
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit(handleSubmitForm)}>
@@ -175,7 +169,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
             <TitleField
               control={control}
               errors={errors}
-              disabled={mode === 'edit'} //??
+              disabled={modeEdite} //??
             />
             <DescriptionField control={control} errors={errors} />
             <CountryField
@@ -183,19 +177,19 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
               isLoading={countryLoading}
               control={control}
               errors={errors}
-              disabled={mode === 'edit'} //??
+              disabled={modeEdite} //??
             />
             <CityField
               cities={cities}
               isLoading={citiesLoading}
               control={control}
               errors={errors}
-              disabled={mode === 'edit' || !ISO2Code} //??
+              disabled={modeEdite || !ISO2Code} //??
             />
             <AvailableSpotsField
               control={control}
               errors={errors}
-              mode={mode}
+              modeEdit={modeEdite}
             />
             <PriceField control={control} errors={errors} />
             <DateRangeField
@@ -203,7 +197,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
               errors={errors}
               start={start}
               end={end}
-              disabled={mode === 'edit'} //??
+              disabled={modeEdite} //??
             />
             <Photos control={control} errors={errors} />
           </Box>

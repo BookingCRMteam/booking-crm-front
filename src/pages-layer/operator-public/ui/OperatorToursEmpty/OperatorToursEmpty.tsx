@@ -27,7 +27,7 @@ export const OperatorToursEmpty = () => {
         Туроператор зараз працює над новими маршрутами — обіцяємо, воно того
         варте!
       </Typography>
-      <Link href={APP_ROUTE.CATALOG} passHref>
+      <Link href={APP_ROUTE.CATALOG}>
         <Button color="primary" variant="contained">
           До каталогу
         </Button>

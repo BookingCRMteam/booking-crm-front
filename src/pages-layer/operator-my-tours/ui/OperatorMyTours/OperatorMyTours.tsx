@@ -73,7 +73,7 @@ export const OperatorMyTours = ({ operatorId }: OperatorMyToursProps) => {
           right: 0,
         }}
       >
-        <Link href={APP_ROUTE.OPERATOR_TOURS_CREATE} passHref>
+        <Link href={APP_ROUTE.OPERATOR_TOURS_CREATE}>
           <Button color="primary" variant="contained">
             <Image
               src="/icons/plus.svg"

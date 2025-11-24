@@ -17,16 +17,23 @@ import { APP_ROUTE } from '@/shared/constants';
 import { transformFormData } from '../lib/transformFormData';
 import { TourFormValues } from '../model/schema';
 
-export const useTourFormSubmit = (
-  mode: 'create' | 'edit',
-  operatorId?: number,
-  tourId?: number,
-  initialValues?: TourFormValues,
-) => {
+type UseTourFormSubmitProps = {
+  operatorId?: number;
+  tourId?: number;
+  initialValues?: TourFormValues;
+};
+
+export const useTourFormSubmit = ({
+  operatorId,
+  tourId,
+  initialValues,
+}: UseTourFormSubmitProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const router = useRouter();
+
+  const modeEdite = Boolean(tourId);
 
   const toursQueryKey = operatorId
     ? ['tours', 'operator', operatorId]
@@ -97,10 +104,10 @@ export const useTourFormSubmit = (
     try {
       const formData = transformFormData(data, initialValues);
 
-      if (mode === 'create') {
+      if (!modeEdite) {
         await handleCreateTour(formData);
         router.push(APP_ROUTE.OPERATOR_TOURS);
-      } else if (mode === 'edit') {
+      } else if (modeEdite) {
         await handleEditTour(formData, data);
         router.push(APP_ROUTE.OPERATOR_TOURS);
       }
