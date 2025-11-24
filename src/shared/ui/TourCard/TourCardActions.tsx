@@ -6,26 +6,40 @@ import Link from 'next/link';
 
 import { Box, Button } from '@mui/material';
 
-import { APP_ROUTE } from '@/shared/constants';
+import { useDeleteTour } from '@/entities/tour/model/useDeleteTour';
+
+import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants';
+import { logger } from '@/shared/lib/logger';
 
 import { BookingButton } from './BookingButton';
 import type { TourCardVariantType } from './types';
 
 type TourCardActionsProps = {
   variant: TourCardVariantType;
-  id: number;
+  operatorId: number;
+  tourId: number;
   isAvailable: boolean;
-  onEdit: () => void;
-  onDelete: () => void;
 };
 
 export const TourCardActions: FC<TourCardActionsProps> = ({
   variant,
-  id,
+  operatorId,
+  tourId,
   isAvailable,
-  onEdit,
-  onDelete,
 }) => {
+  const deleteTour = useDeleteTour(operatorId);
+
+  const handleDeleteTour = () => {
+    if (!window.confirm('Ви впевнені, що хочете видалити цей тур?')) {
+      return;
+    }
+
+    deleteTour.mutate(tourId, {
+      onSuccess: () => logger.info('Тур видалено!'),
+      onError: (error) => logger.error('Помилка при видаленні туру', error),
+    });
+  };
+
   if (variant === 'catalog') {
     return (
       <Button
@@ -34,7 +48,7 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
         size="large"
         fullWidth
         component={Link}
-        href={`${APP_ROUTE.CATALOG}${APP_ROUTE.TOUR}/${id}`}
+        href={`${APP_ROUTE.CATALOG}${APP_ROUTE.TOUR}/${tourId}`}
         disabled={!isAvailable}
       >
         Детальніше
@@ -50,7 +64,7 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
         size="large"
         fullWidth
         component={Link}
-        href={`${APP_ROUTE.CATALOG}${APP_ROUTE.TOUR}/${id}`}
+        href={`${APP_ROUTE.CATALOG}${APP_ROUTE.TOUR}/${tourId}`}
       >
         Заброньовано
       </BookingButton>
@@ -67,11 +81,12 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
       }}
     >
       <Button
+        component={Link}
+        href={DYNAMIC_ROUTE.OPERATOR_TOURS_EDIT(tourId)}
         variant="contained"
         color="primary"
         size="large"
         fullWidth
-        onClick={onEdit}
       >
         Редагувати
       </Button>
@@ -81,7 +96,10 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
         color="secondary"
         size="large"
         fullWidth
-        onClick={onDelete}
+        aria-busy={deleteTour.isPending}
+        aria-live="polite"
+        onClick={handleDeleteTour}
+        disabled={deleteTour.isPending}
         sx={(theme) => ({
           color: theme.palette.common.white,
           '&:hover, &:focus-visible, &:active': {
@@ -89,7 +107,7 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
           },
         })}
       >
-        Видалити
+        {deleteTour.isPending ? 'Видалення...' : 'Видалити'}
       </Button>
     </Box>
   );

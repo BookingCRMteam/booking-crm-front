@@ -14,7 +14,9 @@ export {
   editTour,
   updateTourPhotoMeta,
   deleteTourPhoto,
+  deleteTour,
 } from './api/toursApi';
 export { useFetchTour } from './model/useFetchTour';
 export { useFetchTours } from './model/useFetchTours';
 export { useInfiniteToursCollection } from './model/useInfiniteToursCollection';
+export { useDeleteTour } from './model/useDeleteTour';

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { useQueryClient } from '@tanstack/react-query';
 
 import {
@@ -10,24 +12,39 @@ import {
   updateTourPhotoMeta,
 } from '@/entities/tour';
 
+import { APP_ROUTE } from '@/shared/constants';
+
 import { transformFormData } from '../lib/transformFormData';
 import { TourFormValues } from '../model/schema';
 
-export const useTourFormSubmit = (
-  mode: 'create' | 'edit',
-  tourId?: number,
-  initialValues?: TourFormValues,
-  onClose?: () => void,
-) => {
+type UseTourFormSubmitProps = {
+  operatorId?: number;
+  tourId?: number;
+  initialValues?: TourFormValues;
+};
+
+export const useTourFormSubmit = ({
+  operatorId,
+  tourId,
+  initialValues,
+}: UseTourFormSubmitProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const isEditMode = Boolean(tourId);
+
+  const toursQueryKey = operatorId
+    ? ['tours', 'operator', operatorId]
+    : ['tours'];
 
   const handleCreateTour = async (formData: FormData) => {
     await createTour(formData);
 
-    queryClient.invalidateQueries({ queryKey: ['tours'] });
-    onClose?.();
+    queryClient.invalidateQueries({
+      queryKey: toursQueryKey,
+    });
   };
 
   const handleUpdatePhotos = async (data: TourFormValues) => {
@@ -76,10 +93,8 @@ export const useTourFormSubmit = (
 
     await Promise.all([handleUpdatePhotos(data), handleDeletePhotos(data)]);
 
-    queryClient.invalidateQueries({ queryKey: ['tours'] });
+    queryClient.invalidateQueries({ queryKey: toursQueryKey });
     queryClient.invalidateQueries({ queryKey: ['tour', tourId] });
-
-    onClose?.();
   };
 
   const handleSubmitForm = async (data: TourFormValues) => {
@@ -89,10 +104,12 @@ export const useTourFormSubmit = (
     try {
       const formData = transformFormData(data, initialValues);
 
-      if (mode === 'create') {
+      if (!isEditMode) {
         await handleCreateTour(formData);
-      } else if (mode === 'edit') {
+        router.push(APP_ROUTE.OPERATOR_TOURS);
+      } else if (isEditMode) {
         await handleEditTour(formData, data);
+        router.push(APP_ROUTE.OPERATOR_TOURS);
       }
     } catch (error: unknown) {
       const message =

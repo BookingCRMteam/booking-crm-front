@@ -8,7 +8,7 @@ import { FieldProps } from '@/features/create-edit-tour/model/types';
 import { FieldWithAsideHint } from '@/shared/ui';
 
 type AvailableSpotsFieldProps = FieldProps & {
-  mode?: 'create' | 'edit';
+  modeEdit: boolean;
 };
 
 const HINT_TEXT_SPOTS = 'Введіть кількість учасників (парне число)';
@@ -18,7 +18,7 @@ const HINT_TEXT_EDIT =
 export const AvailableSpotsField = ({
   control,
   errors,
-  mode = 'create',
+  modeEdit = false,
 }: AvailableSpotsFieldProps) => {
   const spotsHintId = useId();
 
@@ -36,7 +36,7 @@ export const AvailableSpotsField = ({
         return (
           <FieldWithAsideHint
             describedById={spotsHintId}
-            hintText={mode === 'edit' ? HINT_TEXT_EDIT : HINT_TEXT_SPOTS}
+            hintText={modeEdit ? HINT_TEXT_EDIT : HINT_TEXT_SPOTS}
           >
             <TextField
               {...field}
@@ -74,7 +74,7 @@ export const AvailableSpotsField = ({
                 field.onChange(val);
               }}
               onBlur={() => {
-                if (mode === 'edit' && field.value < initialSpotsRef.current) {
+                if (modeEdit && field.value < initialSpotsRef.current) {
                   field.onChange(initialSpotsRef.current);
                 }
               }}
