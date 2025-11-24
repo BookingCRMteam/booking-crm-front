@@ -5,6 +5,7 @@ export enum APP_ROUTE {
   SUPER_ADMIN = '/super-admin',
   OPERATOR = '/operator',
   OPERATOR_TOURS = '/operator-tours',
+  OPERATOR_TOURS_CREATE = '/operator-tours/create',
   OPERATOR_BOOKINGS = '/operator-bookings',
   PROFILE = '/profile',
   TOURS = '/tours',
@@ -26,6 +27,7 @@ export const DYNAMIC_ROUTE = {
   TOUR: (tourId: number) => `/tours/${tourId}`,
   TOUR_PHOTO: (tourId: number, photoId: number) =>
     `/tours/${tourId}/photos/${photoId}`,
+  OPERATOR_TOURS_EDIT: (tourId: number) => `/operator-tours/edit/${tourId}`,
   OPERATOR_PUBLIC: (operatorId: number) => `/catalog/operator/${operatorId}`,
 };
 

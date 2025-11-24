@@ -10,7 +10,6 @@ import { useBookingStore } from '@/shared/store';
 import { Tabs } from '@/shared/ui';
 
 import { useOperatorVerificationModal } from '../model/useOperatorVerificationModal';
-import { TourFormButtons } from './TourFormButtons';
 
 export const OperatorPage = () => {
   useOperatorVerificationModal();
@@ -28,11 +27,7 @@ export const OperatorPage = () => {
   const tabs = [
     {
       label: 'Мої тури',
-      content: (
-        <>
-          <TourFormButtons />
-        </>
-      ),
+      content: <>Мої тури</>,
       disabled: !isVerified,
     },
     {

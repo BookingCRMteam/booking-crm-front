@@ -1,5 +1,7 @@
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import type { Metadata } from 'next';
+
+import { OperatorMyToursPage } from '@/pages-layer/operator-my-tours';
 
 export const metadata: Metadata = {
   title: 'Тури турооператора',
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 export default function OperatorTours() {
   return (
     <Container maxWidth="lg">
-      <Typography>Operator tours</Typography>
+      <OperatorMyToursPage />
     </Container>
   );
 }

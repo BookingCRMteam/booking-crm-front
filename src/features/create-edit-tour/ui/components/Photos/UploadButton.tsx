@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
-import { Box, Typography } from '@mui/material';
+import { Box, InputLabel, Typography, styled } from '@mui/material';
 
 type UploadButtonProps = {
   onAddPhoto: (files: FileList) => void;
 };
 
-const buttonWrapper = {
+const ButtonWrapper = styled(InputLabel)(({ theme }) => ({
   width: '206px',
   height: '165px',
   p: 4,
@@ -18,14 +18,11 @@ const buttonWrapper = {
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
-  backgroundImage: `url('/images/upload_photo.png')`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
+  border: `2px dashed ${theme.palette.primary.main}`,
   cursor: 'pointer',
   transition: '0.2s',
-  '&:hover': { backgroundColor: '#EDFFFD' },
-};
+  '&:hover': { backgroundColor: `${theme.palette.primaryExtended[50]}` },
+}));
 
 export const UploadButton = ({ onAddPhoto }: UploadButtonProps) => {
   const [error, setError] = useState('');
@@ -50,7 +47,7 @@ export const UploadButton = ({ onAddPhoto }: UploadButtonProps) => {
     <Box
       sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <Box component="label" sx={buttonWrapper}>
+      <ButtonWrapper>
         <Image
           src="/icons/mdi_camera.svg"
           alt="Іконка камери"
@@ -78,7 +75,7 @@ export const UploadButton = ({ onAddPhoto }: UploadButtonProps) => {
             e.target.value = '';
           }}
         />
-      </Box>
+      </ButtonWrapper>
 
       {error && (
         <Typography variant="caption" color="error" sx={{ mt: 1 }}>
