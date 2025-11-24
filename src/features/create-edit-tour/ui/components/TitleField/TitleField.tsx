@@ -19,7 +19,7 @@ export const TitleField = ({ control, errors, disabled }: FieldProps) => {
       render={({ field }) => (
         <FieldWithAsideHint
           describedById={titleHintId}
-          hintText={HINT_TEXT_TITLE}
+          hintText={disabled ? undefined : HINT_TEXT_TITLE}
         >
           <TextField
             {...field}

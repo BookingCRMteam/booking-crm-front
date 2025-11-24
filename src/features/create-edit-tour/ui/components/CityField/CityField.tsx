@@ -2,7 +2,7 @@ import { Controller } from 'react-hook-form';
 
 import { FieldProps } from '@/features/create-edit-tour/model/types';
 
-import { City } from '@/entities/city/model/types';
+import { City } from '@/entities/city';
 
 import { DropdownField } from '@/shared/ui';
 

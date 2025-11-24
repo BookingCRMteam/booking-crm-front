@@ -8,7 +8,7 @@ import { WarningCircleIcon } from '@phosphor-icons/react';
 
 interface FieldWithAsideHintProps {
   children: React.ReactNode;
-  hintText: string;
+  hintText: string | undefined;
   describedById: string;
 }
 
@@ -33,6 +33,8 @@ export const FieldWithAsideHint: FC<FieldWithAsideHintProps> = ({
   hintText,
   describedById,
 }) => {
+  if (hintText === undefined) return <>{children}</>;
+
   return (
     <Box sx={{ position: 'relative' }}>
       <Box id={describedById} sx={visuallyHidden}>

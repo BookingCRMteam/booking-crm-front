@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Alert,
@@ -12,9 +14,11 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
-import { useCities } from '@/entities/city/model/useCities';
-import { useCountries } from '@/entities/country/model/useCountries';
+import { useCities } from '@/entities/city';
+import { useCountries } from '@/entities/country';
 import { TourPhotoForm, useFetchTour } from '@/entities/tour';
+
+import { APP_ROUTE } from '@/shared/constants';
 
 import { useTourFormSubmit } from '../lib/useTourFormSubmit';
 import { TourFormSchema, TourFormValues } from '../model/schema';
@@ -30,16 +34,14 @@ import {
 } from './components';
 
 type TourFormProps = {
-  mode: 'create' | 'edit';
+  operatorId?: number;
   tourId?: number;
   onClose?: () => void;
 };
 
-export const TourForm = ({
-  mode = 'create',
-  tourId,
-  onClose,
-}: TourFormProps) => {
+type TourFormMode = 'create' | 'edit';
+
+export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
   const {
     control,
     watch,
@@ -62,6 +64,10 @@ export const TourForm = ({
       photos: [],
     },
   });
+
+  const mode: TourFormMode = tourId ? 'edit' : 'create';
+
+  const router = useRouter();
 
   const ISO2Code = watch('countryISO2Code');
   const start = watch('startDate');
@@ -87,9 +93,9 @@ export const TourForm = ({
 
   const { handleSubmitForm, isSubmitting, submitError } = useTourFormSubmit(
     mode,
+    operatorId,
     tourId,
     initialValues,
-    onClose,
   );
 
   useEffect(() => {
@@ -125,6 +131,7 @@ export const TourForm = ({
     return (
       <Box
         sx={{
+          minHeight: 'calc(100vh - 64px)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -136,79 +143,99 @@ export const TourForm = ({
     );
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '686px', pt: '40px', pb: '37px' }}>
-      <Typography variant="h1" textAlign="center" sx={{ mb: 4 }}>
-        {mode === 'create' && 'Додати тур'}
-        {mode === 'edit' && 'Редагувати тур'}
-      </Typography>
+    <Box
+      sx={{
+        width: '100%',
+        paddingY: 5,
+        paddingRight: '224px',
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'flex-end',
+      }}
+    >
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: '686px',
+        }}
+      >
+        <Typography variant="h1" textAlign="center" sx={{ mb: 4 }}>
+          {mode === 'create' && 'Додати тур'}
+          {mode === 'edit' && 'Редагувати тур'}
+        </Typography>
 
-      <Box component="form" onSubmit={handleSubmit(handleSubmitForm)}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 3,
-          }}
-        >
-          <TitleField
-            control={control}
-            errors={errors}
-            disabled={mode === 'edit'} //??
-          />
-          <DescriptionField control={control} errors={errors} />
-          <CountryField
-            countries={countries}
-            isLoading={countryLoading}
-            control={control}
-            errors={errors}
-            disabled={mode === 'edit'} //??
-          />
-          <CityField
-            cities={cities}
-            isLoading={citiesLoading}
-            control={control}
-            errors={errors}
-            disabled={mode === 'edit' || !ISO2Code} //??
-          />
-          <AvailableSpotsField control={control} errors={errors} mode={mode} />
-          <PriceField control={control} errors={errors} />
-          <DateRangeField
-            control={control}
-            errors={errors}
-            start={start}
-            end={end}
-            disabled={mode === 'edit'} //??
-          />
-          <Photos control={control} errors={errors} />
-        </Box>
-
-        {submitError && (
-          <Alert severity="error" sx={{ mb: 4 }}>
-            {submitError}
-          </Alert>
-        )}
-
-        <Box sx={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ width: '200px' }}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? <CircularProgress size={24} /> : 'Зберегти'}
-          </Button>
-          <Button
-            type="button"
-            onClick={() => {
-              reset(mode === 'edit' && tourData ? initialValues : undefined);
-              onClose?.();
+        <Box component="form" onSubmit={handleSubmit(handleSubmitForm)}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 3,
             }}
-            variant="outlined"
-            sx={{ width: '200px' }}
-            disabled={isSubmitting}
           >
-            Скасувати
-          </Button>
+            <TitleField
+              control={control}
+              errors={errors}
+              disabled={mode === 'edit'} //??
+            />
+            <DescriptionField control={control} errors={errors} />
+            <CountryField
+              countries={countries}
+              isLoading={countryLoading}
+              control={control}
+              errors={errors}
+              disabled={mode === 'edit'} //??
+            />
+            <CityField
+              cities={cities}
+              isLoading={citiesLoading}
+              control={control}
+              errors={errors}
+              disabled={mode === 'edit' || !ISO2Code} //??
+            />
+            <AvailableSpotsField
+              control={control}
+              errors={errors}
+              mode={mode}
+            />
+            <PriceField control={control} errors={errors} />
+            <DateRangeField
+              control={control}
+              errors={errors}
+              start={start}
+              end={end}
+              disabled={mode === 'edit'} //??
+            />
+            <Photos control={control} errors={errors} />
+          </Box>
+
+          {submitError && (
+            <Alert severity="error" sx={{ mb: 4 }}>
+              {submitError}
+            </Alert>
+          )}
+
+          <Box sx={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ width: '200px' }}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? <CircularProgress size={24} /> : 'Зберегти'}
+            </Button>
+            <Button
+              type="button"
+              onClick={() => {
+                reset(initialValues ?? undefined);
+                router.push(APP_ROUTE.OPERATOR_TOURS);
+              }}
+              variant="outlined"
+              sx={{ width: '200px' }}
+              disabled={isSubmitting}
+            >
+              Скасувати
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>
