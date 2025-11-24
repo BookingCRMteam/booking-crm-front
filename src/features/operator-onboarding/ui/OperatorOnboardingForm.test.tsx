@@ -20,8 +20,13 @@ jest.mock('@/entities/user', () => ({
 }));
 
 jest.mock('@/shared/ui', () => ({
-  SubmitButton: jest.fn((props) => (
-    <button data-testid="submit-button" type="submit" {...props}>
+  SubmitButton: jest.fn(({ isSuccess, disabled, ...props }) => (
+    <button
+      data-testid="submit-button"
+      type="submit"
+      disabled={isSuccess || disabled}
+      {...props}
+    >
       Submit
     </button>
   )),
