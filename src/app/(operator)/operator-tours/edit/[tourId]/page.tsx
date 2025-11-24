@@ -2,7 +2,7 @@ import { Container } from '@mui/material';
 
 import { OperatorMyToursFormPage } from '@/pages-layer/operator-my-tours';
 
-export default async function page({ params }: { params: { tourId: string } }) {
+export default async function Page({ params }: { params: { tourId: string } }) {
   const tourId = Number(params.tourId);
 
   return (
