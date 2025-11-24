@@ -8,11 +8,12 @@ import HeaderPure from './HeaderPure/HeaderPure';
 export const Header = () => {
   const { data: user } = useUserQuery();
   const { data: operator } = useOperatorQuery();
+  const firstPersonName = operator?.firstName || user?.firstPersonName;
   return (
     <HeaderPure
       operatorStatus={operator?.status}
       userRole={user?.role}
-      firstPersonName={user?.firstPersonName || undefined}
+      firstPersonName={firstPersonName}
     />
   );
 };
