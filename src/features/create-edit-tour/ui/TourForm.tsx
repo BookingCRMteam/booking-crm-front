@@ -62,7 +62,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
     },
   });
 
-  const modeEdite = Boolean(tourId);
+  const isEditMode = Boolean(tourId);
 
   const router = useRouter();
 
@@ -94,7 +94,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
   });
 
   useEffect(() => {
-    if (tourData && modeEdite) {
+    if (tourData && isEditMode) {
       const allowedCurrencies = ['USD', 'EUR', 'UAH'] as const;
       const currency = allowedCurrencies.includes(
         tourData.currency as (typeof allowedCurrencies)[number],
@@ -113,7 +113,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
       reset(values);
       setInitialValues(values);
     }
-  }, [modeEdite, reset, tourData]);
+  }, [isEditMode, reset, tourData]);
 
   useEffect(() => {
     if (prevISO2Code && prevISO2Code !== ISO2Code) {
@@ -155,7 +155,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
         }}
       >
         <Typography variant="h1" textAlign="center" sx={{ mb: 4 }}>
-          {modeEdite ? 'Редагувати тур' : 'Додати тур'}
+          {isEditMode ? 'Редагувати тур' : 'Додати тур'}
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit(handleSubmitForm)}>
@@ -169,7 +169,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
             <TitleField
               control={control}
               errors={errors}
-              disabled={modeEdite} //??
+              disabled={isEditMode} //??
             />
             <DescriptionField control={control} errors={errors} />
             <CountryField
@@ -177,19 +177,19 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
               isLoading={countryLoading}
               control={control}
               errors={errors}
-              disabled={modeEdite} //??
+              disabled={isEditMode} //??
             />
             <CityField
               cities={cities}
               isLoading={citiesLoading}
               control={control}
               errors={errors}
-              disabled={modeEdite || !ISO2Code} //??
+              disabled={isEditMode || !ISO2Code} //??
             />
             <AvailableSpotsField
               control={control}
               errors={errors}
-              modeEdit={modeEdite}
+              modeEdit={isEditMode}
             />
             <PriceField control={control} errors={errors} />
             <DateRangeField
@@ -197,7 +197,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
               errors={errors}
               start={start}
               end={end}
-              disabled={modeEdite} //??
+              disabled={isEditMode} //??
             />
             <Photos control={control} errors={errors} />
           </Box>

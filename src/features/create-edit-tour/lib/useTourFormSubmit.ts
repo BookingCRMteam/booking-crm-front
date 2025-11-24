@@ -33,7 +33,7 @@ export const useTourFormSubmit = ({
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const modeEdite = Boolean(tourId);
+  const isEditMode = Boolean(tourId);
 
   const toursQueryKey = operatorId
     ? ['tours', 'operator', operatorId]
@@ -104,10 +104,10 @@ export const useTourFormSubmit = ({
     try {
       const formData = transformFormData(data, initialValues);
 
-      if (!modeEdite) {
+      if (!isEditMode) {
         await handleCreateTour(formData);
         router.push(APP_ROUTE.OPERATOR_TOURS);
-      } else if (modeEdite) {
+      } else if (isEditMode) {
         await handleEditTour(formData, data);
         router.push(APP_ROUTE.OPERATOR_TOURS);
       }

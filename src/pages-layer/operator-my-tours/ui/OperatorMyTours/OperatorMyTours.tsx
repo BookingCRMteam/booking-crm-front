@@ -73,17 +73,20 @@ export const OperatorMyTours = ({ operatorId }: OperatorMyToursProps) => {
           right: 0,
         }}
       >
-        <Link href={APP_ROUTE.OPERATOR_TOURS_CREATE}>
-          <Button color="primary" variant="contained">
-            <Image
-              src="/icons/plus.svg"
-              alt="Іконка додати"
-              width={20}
-              height={20}
-            />
-            <Typography sx={{ ml: '4px' }}>Додати тур</Typography>
-          </Button>
-        </Link>
+        <Button
+          component={Link}
+          href={APP_ROUTE.OPERATOR_TOURS_CREATE}
+          color="primary"
+          variant="contained"
+        >
+          <Image
+            src="/icons/plus.svg"
+            alt="Іконка додати"
+            width={20}
+            height={20}
+          />
+          <Typography sx={{ ml: '4px' }}>Додати тур</Typography>
+        </Button>
       </Box>
 
       <ToursCollection {...props} variantTourCard="operator-tour" />

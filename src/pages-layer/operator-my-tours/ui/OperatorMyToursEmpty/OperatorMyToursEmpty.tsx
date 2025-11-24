@@ -32,11 +32,16 @@ export const OperatorMyToursEmpty = () => {
         <br />
         Додайте тур, щоб залучати нових клієнтів.
       </Typography>
-      <Link href={APP_ROUTE.OPERATOR_TOURS_CREATE}>
-        <Button color="primary" variant="contained" sx={{ width: '200px' }}>
-          Додати тур
-        </Button>
-      </Link>
+
+      <Button
+        component={Link}
+        href={APP_ROUTE.OPERATOR_TOURS_CREATE}
+        color="primary"
+        variant="contained"
+        sx={{ width: '200px' }}
+      >
+        Додати тур
+      </Button>
     </Box>
   );
 };

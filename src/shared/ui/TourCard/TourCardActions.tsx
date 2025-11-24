@@ -30,6 +30,10 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
   const deleteTour = useDeleteTour(operatorId);
 
   const handleDeleteTour = () => {
+    if (!window.confirm('Ви впевнені, що хочете видалити цей тур?')) {
+      return;
+    }
+
     deleteTour.mutate(tourId, {
       onSuccess: () => logger.info('Тур видалено!'),
       onError: (error) => logger.error('Помилка при видаленні туру', error),
@@ -76,17 +80,24 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
         width: '100%',
       }}
     >
-      <Link href={DYNAMIC_ROUTE.OPERATOR_TOURS_EDIT(tourId)}>
-        <Button variant="contained" color="primary" size="large" fullWidth>
-          Редагувати
-        </Button>
-      </Link>
+      <Button
+        component={Link}
+        href={DYNAMIC_ROUTE.OPERATOR_TOURS_EDIT(tourId)}
+        variant="contained"
+        color="primary"
+        size="large"
+        fullWidth
+      >
+        Редагувати
+      </Button>
 
       <Button
         variant="outlined"
         color="secondary"
         size="large"
         fullWidth
+        aria-busy={deleteTour.isPending}
+        aria-live="polite"
         onClick={handleDeleteTour}
         disabled={deleteTour.isPending}
         sx={(theme) => ({
