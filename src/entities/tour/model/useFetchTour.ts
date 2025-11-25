@@ -2,15 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { fetchTour } from '../api/toursApi';
 
-export const useFetchTour = (id: number | undefined, enabled: boolean) => {
+export const useFetchTour = (id: number | undefined) => {
+  const isValidId = typeof id === 'number' && !isNaN(id);
+
   return useQuery({
     queryKey: ['tour', id],
-    queryFn: () => {
-      if (id == null) throw new Error('Tour id is required when enabled');
-      return fetchTour(id);
-    },
+    queryFn: () => fetchTour(id!),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
-    enabled: enabled && id != null,
+    enabled: isValidId,
   });
 };
