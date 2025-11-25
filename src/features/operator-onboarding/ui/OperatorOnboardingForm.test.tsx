@@ -4,6 +4,7 @@ import { renderWithTheme } from '@/shared/tests';
 
 import { useOperatorOnboarding } from '../model/useOperatorOnboarding';
 import { OperatorOnboardingForm } from './OperatorOnboardingForm';
+import { FORM_SUBMIT_BUTTON } from './constants';
 import {
   FORM_CHECKBOX_LABEL,
   FORM_DESCRIPTION,
@@ -20,14 +21,16 @@ jest.mock('@/entities/user', () => ({
 }));
 
 jest.mock('@/shared/ui', () => ({
-  SubmitButton: jest.fn(({ isSuccess, disabled, ...props }) => (
+  SubmitButton: jest.fn((props) => (
     <button
       data-testid="submit-button"
       type="submit"
-      disabled={isSuccess || disabled}
-      {...props}
+      data-is-loading={props.isLoading}
+      data-is-success={props.isSuccess}
+      disabled={props.disabled || props.isSuccess}
+      data-text-idle={props.textIdle}
     >
-      Submit
+      {props.textIdle || 'Submit'}
     </button>
   )),
   CheckboxSmall: jest.fn((props) => <input type="checkbox" {...props} />),
@@ -90,6 +93,57 @@ describe('OperatorOnboardingForm', () => {
       expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('passes the correct state props to SubmitButton in loading state', () => {
+    (useOperatorOnboarding as jest.Mock).mockReturnValue({
+      form: {
+        handleSubmit: mockHandleSubmit,
+        register: mockRegister,
+        control: mockControl,
+        formState: {
+          errors: {},
+          isValid: false,
+        },
+      },
+      onSubmit: mockOnSubmit,
+      isPending: true,
+      isSuccess: false,
+    });
+
+    const { getByTestId } = renderWithTheme(<OperatorOnboardingForm />);
+    const submitButton = getByTestId('submit-button');
+
+    expect(submitButton).toHaveAttribute('data-is-loading', 'true');
+    expect(submitButton).toBeDisabled();
+  });
+
+  it('passes the correct state props to SubmitButton in success state', () => {
+    (useOperatorOnboarding as jest.Mock).mockReturnValue({
+      form: {
+        handleSubmit: mockHandleSubmit,
+        register: mockRegister,
+        control: mockControl,
+        formState: {
+          errors: {},
+          isValid: true,
+        },
+      },
+      onSubmit: mockOnSubmit,
+      isPending: false,
+      isSuccess: true,
+    });
+
+    const { getByTestId } = renderWithTheme(<OperatorOnboardingForm />);
+    const submitButtonSuccess = getByTestId('submit-button');
+
+    expect(submitButtonSuccess).toHaveAttribute('data-is-loading', 'false');
+    expect(submitButtonSuccess).toHaveAttribute('data-is-success', 'true');
+    expect(submitButtonSuccess).toBeDisabled();
+    expect(submitButtonSuccess).toHaveAttribute(
+      'data-text-idle',
+      FORM_SUBMIT_BUTTON.textIdle,
+    );
   });
 
   it('disables submit button when form is invalid', () => {
