@@ -23,7 +23,7 @@ export default async function RootLayout({
 }: Readonly<ProviderProps>) {
   const userWithToken = await getUser();
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="uk" suppressHydrationWarning>
       <body>
         <InitColorSchemeScript attribute="class" />
         <AppProviders userWithToken={userWithToken}>

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { ErrorPage } from '@/pages-layer/error';
 
-export default function Error({
+export default function ErrorBoundary({
   error,
   reset,
 }: {

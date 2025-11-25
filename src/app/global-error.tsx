@@ -15,7 +15,7 @@ export default function GlobalError({
     console.error(error);
   }, [error]);
   return (
-    <html>
+    <html lang="uk">
       <body>
         <ErrorPage onReset={reset} />
       </body>

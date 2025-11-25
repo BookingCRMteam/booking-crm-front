@@ -7,6 +7,7 @@ import { APP_ROUTE } from '@/shared/constants';
 
 import {
   NOT_FOUND_BUTTON_TEXT,
+  NOT_FOUND_IMAGE_ALT,
   NOT_FOUND_IMAGE_PATH,
   NOT_FOUND_MESSAGE,
 } from './constants';
@@ -28,7 +29,8 @@ export const NotFoundPage = () => {
         width={857}
         height={503}
         src={NOT_FOUND_IMAGE_PATH}
-        alt="not found"
+        alt={NOT_FOUND_IMAGE_ALT}
+        priority
       />
       <Box
         sx={{

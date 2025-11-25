@@ -17,3 +17,4 @@ export const ERROR_SUBTITLE_DESCRIPTION = [
   },
 ];
 export const ERROR_IMAGE_PATH = '/images/error.png';
+export const ERROR_IMAGE_ALT = 'Помилка';

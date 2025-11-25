@@ -6,6 +6,7 @@ import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
 import {
   ERROR_BUTTON_TEXT,
+  ERROR_IMAGE_ALT,
   ERROR_IMAGE_PATH,
   ERROR_SUBTITLE_DESCRIPTION,
   ERROR_SUBTITLE_MESSAGE,
@@ -34,7 +35,13 @@ export const ErrorPage = ({ onReset }: ErrorPageProps) => {
       </Typography>
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 5 }}>
-          <Image src={ERROR_IMAGE_PATH} alt="error" width={378} height={343} />
+          <Image
+            src={ERROR_IMAGE_PATH}
+            alt={ERROR_IMAGE_ALT}
+            width={378}
+            height={343}
+            priority
+          />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <Box
