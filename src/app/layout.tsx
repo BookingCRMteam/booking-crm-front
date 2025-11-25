@@ -1,4 +1,3 @@
-import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import type { Metadata } from 'next';
 
 import { Footer } from '@/widgets/Footer';
@@ -23,9 +22,8 @@ export default async function RootLayout({
 }: Readonly<ProviderProps>) {
   const userWithToken = await getUser();
   return (
-    <html lang="uk" suppressHydrationWarning>
+    <html lang="uk">
       <body>
-        <InitColorSchemeScript attribute="class" />
         <AppProviders userWithToken={userWithToken}>
           <Header />
           {children}

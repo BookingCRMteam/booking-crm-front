@@ -28,7 +28,7 @@ export const OperatorBookingEmpty = () => {
       </Typography>
       <Image
         src={BOOKING_EMPTY_IMAGE_URL}
-        alt="empty"
+        alt="Турів немає"
         width={495}
         height={192}
         priority
