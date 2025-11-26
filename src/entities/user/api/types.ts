@@ -7,7 +7,7 @@ export interface User {
   createdAt: string;
   updatedAt: string;
   operatorId: number | null;
-  firstPersonName: string | null;
+  firstPersonName: string;
   firstPersonSurname: string | null;
   secondPersonName: string | null;
   secondPersonSurname: string | null;

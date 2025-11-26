@@ -1,3 +1,4 @@
+export { AppLogo } from './AppLogo/AppLogo';
 export { Tabs } from './Tabs/Tabs';
 export { Notification } from './Notification/Notification';
 export { TourCard } from './TourCard/TourCard';

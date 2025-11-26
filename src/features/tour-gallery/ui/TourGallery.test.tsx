@@ -73,9 +73,11 @@ describe('TourGallery', () => {
     );
 
     expect(
-      getByRole('button', { name: /Previous image/i }),
+      getByRole('button', { name: /Попередня фотографія/i }),
     ).toBeInTheDocument();
-    expect(getByRole('button', { name: /Next image/i })).toBeInTheDocument();
+    expect(
+      getByRole('button', { name: /Наступна фотографія/i }),
+    ).toBeInTheDocument();
   });
 
   it('should NOT render navigation buttons when there are 5 or fewer photos', () => {
@@ -84,10 +86,10 @@ describe('TourGallery', () => {
     );
 
     expect(
-      queryByRole('button', { name: /Previous image/i }),
+      queryByRole('button', { name: /Попередня фотографія/i }),
     ).not.toBeInTheDocument();
     expect(
-      queryByRole('button', { name: /Next image/i }),
+      queryByRole('button', { name: /Наступна фотографія/i }),
     ).not.toBeInTheDocument();
   });
 
@@ -127,10 +129,10 @@ describe('TourGallery', () => {
       <TourGallery photos={MOCK_PHOTOS_SIX} />,
     );
 
-    await user.click(getByRole('button', { name: /Previous image/i }));
+    await user.click(getByRole('button', { name: /Попередня фотографія/i }));
     expect(mockScrollPrev).toHaveBeenCalledTimes(1);
 
-    await user.click(getByRole('button', { name: /Next image/i }));
+    await user.click(getByRole('button', { name: /Наступна фотографія/i }));
     expect(mockScrollNext).toHaveBeenCalledTimes(1);
   });
 
