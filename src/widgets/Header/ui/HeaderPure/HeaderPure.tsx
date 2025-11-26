@@ -1,19 +1,16 @@
 import type { FC } from 'react';
 
-import Image from 'next/image';
-import Link from 'next/link';
-
-import { AppBar, Container, Link as MuiLink, Toolbar } from '@mui/material';
+import { AppBar, Container, Toolbar } from '@mui/material';
 
 import type { OperatorStatus } from '@/entities/operator';
 
-import { APP_ROUTE } from '@/shared/constants';
 import { UserRole } from '@/shared/types';
+import { AppLogo } from '@/shared/ui';
 
-import { AuthorizedMenu } from './AuthorizedMenu';
-import { NavigationLinks } from './NavigationLinks';
-import { OperatorStatusHeader } from './OperatorStatusHeader';
-import { UnauthorizedMenu } from './UnauthorizedMenu';
+import { AuthorizedMenu } from '../AuthorizedMenu/AuthorizedMenu';
+import { NavigationLinks } from '../NavigationLinks/NavigationLinks';
+import { OperatorStatusHeader } from '../OperatorStatusHeader/OperatorStatusHeader';
+import { UnauthorizedMenu } from '../UnauthorizedMenu/UnauthorizedMenu';
 
 interface HeaderPureProps {
   userRole?: UserRole;
@@ -43,23 +40,7 @@ const HeaderPure: FC<HeaderPureProps> = ({
             alignItems: 'center',
           }}
         >
-          <MuiLink
-            component={Link}
-            href={APP_ROUTE.HOME}
-            sx={{
-              p: 0,
-              fontSize: 0,
-              lineHeight: 0,
-            }}
-          >
-            <Image
-              src="/images/logo.png"
-              width={127}
-              height={44}
-              alt="Booking CRM logo"
-              priority
-            />
-          </MuiLink>
+          <AppLogo />
           <NavigationLinks isOperator={isOperator} />
           {isAuthorized ? (
             <AuthorizedMenu
