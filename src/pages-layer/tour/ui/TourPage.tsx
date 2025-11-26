@@ -44,7 +44,12 @@ export const TourPage: FC<TourPageProps> = ({ tour }) => {
     <TourGallery photos={photos} />
   ) : (
     <Box sx={{ width: '100%', maxWidth: '419px', p: '20px 0' }}>
-      <Image alt="No photo" src={DEFAULT_IMAGE_URL} width={419} height={440} />
+      <Image
+        alt="Резервне фото туру"
+        src={DEFAULT_IMAGE_URL}
+        width={419}
+        height={440}
+      />
     </Box>
   );
 

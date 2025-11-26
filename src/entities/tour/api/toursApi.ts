@@ -116,10 +116,14 @@ export const fetchToursByOperator = async ({
     return data;
   } catch (error: unknown) {
     console.error('[fetchToursByOperator] Failed:', error);
-    return {
-      data: [],
-      meta: { total: '0', limit, offset },
-      message: 'Failed to fetch tours',
-    };
+    handleApiError(error);
+  }
+};
+
+export const deleteTour = async (tourId: number): Promise<void> => {
+  try {
+    await axiosInstance.delete(DYNAMIC_ROUTE.TOUR(tourId));
+  } catch (error: unknown) {
+    handleApiError(error);
   }
 };

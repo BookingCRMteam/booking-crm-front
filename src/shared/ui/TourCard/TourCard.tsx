@@ -102,9 +102,6 @@ export const TourCard: FC<TourCardProps> = ({
   const date = `${formattedDate(startDate)} — ${formattedDate(endDate)}`;
   const mainPhoto = photos.find((p) => p.isMain) ?? photos[0];
 
-  const handleDeleteTour = () => console.log(`Delete tour ${id}`);
-  const handleEditTour = () => console.log(`Edit tour ${id}`);
-
   return (
     <CardWrapper isAvailable={isAvailable}>
       <ImageWrapper className="tour-card-image-wrapper">
@@ -196,10 +193,9 @@ export const TourCard: FC<TourCardProps> = ({
         <CardActions sx={{ p: 0 }}>
           <TourCardActions
             variant={variant}
-            id={id}
+            tourId={id}
+            operatorId={operator.id}
             isAvailable={isAvailable}
-            onEdit={handleEditTour}
-            onDelete={handleDeleteTour}
           />
         </CardActions>
       </ContentWrapper>
