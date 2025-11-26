@@ -88,12 +88,12 @@ export const TourGallery: FC<TourGalleryProps> = ({ photos }) => {
           <GalleryNavButton
             direction="prev"
             onClick={scrollPrev}
-            ariaLabel="Previous image"
+            ariaLabel="Попередня фотографія"
           />
           <GalleryNavButton
             direction="next"
             onClick={scrollNext}
-            ariaLabel="Next image"
+            ariaLabel="Наступна фотографія"
           />
         </>
       )}

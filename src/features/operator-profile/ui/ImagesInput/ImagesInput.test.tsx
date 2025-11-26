@@ -71,7 +71,7 @@ describe('ImagesInput', () => {
     expect(image).toHaveAttribute('src', initialUrl);
 
     expect(
-      screen.getByRole('button', { name: 'delete photo' }),
+      screen.getByRole('button', { name: 'Видалити фото' }),
     ).toBeInTheDocument();
     expect(screen.queryByText('Завантажити фото')).not.toBeInTheDocument();
   });
@@ -112,7 +112,7 @@ describe('ImagesInput', () => {
       />,
     );
 
-    const deleteButton = screen.getByRole('button', { name: 'delete photo' });
+    const deleteButton = screen.getByRole('button', { name: 'Видалити фото' });
 
     await user.click(deleteButton);
 
