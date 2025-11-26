@@ -1,5 +1,8 @@
 import { type LinkProps, Menu, Link as MuLink, styled } from '@mui/material';
 
+const ELEVATED_SHADOW =
+  '0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3)';
+
 export const MuLinkStyled = styled(MuLink)<LinkProps>(({ theme }) => ({
   display: 'flex',
   gap: '8px',
@@ -7,16 +10,14 @@ export const MuLinkStyled = styled(MuLink)<LinkProps>(({ theme }) => ({
   alignItems: 'center',
   backgroundColor: theme.palette.common.white,
   color: theme.palette.common.black,
-  transition: 'all 0.3s ease-in-out',
+  transition: 'background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
   '&:hover': {
     backgroundColor: theme.palette.gray[50],
-    boxShadow:
-      '0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3)',
+    boxShadow: ELEVATED_SHADOW,
   },
   '&:focus-visible': {
     backgroundColor: theme.palette.gray[50],
-    boxShadow:
-      '0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3)',
+    boxShadow: ELEVATED_SHADOW,
 
     '& .MuiTypography-root': {
       textDecoration: 'underline',
@@ -24,8 +25,7 @@ export const MuLinkStyled = styled(MuLink)<LinkProps>(({ theme }) => ({
   },
   '&:active': {
     backgroundColor: theme.palette.gray[200],
-    boxShadow:
-      '0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3)',
+    boxShadow: ELEVATED_SHADOW,
   },
 }));
 
