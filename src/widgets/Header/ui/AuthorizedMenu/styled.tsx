@@ -34,10 +34,9 @@ export const MenuStyled = styled(Menu)(({ theme }) => ({
     borderRadius: 0,
   },
   '& ul.MuiMenu-list': {
-    padding: '12px',
+    padding: '4px 0 8px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '12px',
     boxShadow:
       '0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15)',
     backgroundColor: theme.palette.common.white,
