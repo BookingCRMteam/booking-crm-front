@@ -174,7 +174,7 @@ export const ImagesInput = ({
               <ImageWrapper>
                 <Image
                   src={preview}
-                  alt="preview"
+                  alt="Фото"
                   priority
                   width={180}
                   height={180}
@@ -193,7 +193,7 @@ export const ImagesInput = ({
                   }}
                 >
                   <DeletePhotoButton
-                    aria-label="delete photo"
+                    aria-label="Видалити фото"
                     onClick={() => {
                       onChange(undefined);
                       onDeleteFlagChange(true);
