@@ -171,7 +171,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
             <TitleField
               control={control}
               errors={errors}
-              disabled={isEditMode} //??
+              disabled={isEditMode}
             />
             <DescriptionField control={control} errors={errors} />
             <CountryField
@@ -179,14 +179,14 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
               isLoading={countryLoading}
               control={control}
               errors={errors}
-              disabled={isEditMode} //??
+              disabled={isEditMode}
             />
             <CityField
               cities={cities}
               isLoading={citiesLoading}
               control={control}
               errors={errors}
-              disabled={isEditMode || !ISO2Code} //??
+              disabled={isEditMode || !ISO2Code}
             />
             <AvailableSpotsField
               control={control}
@@ -199,7 +199,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
               errors={errors}
               start={start}
               end={end}
-              disabled={isEditMode} //??
+              disabled={isEditMode}
             />
             <Photos control={control} errors={errors} />
           </Box>
@@ -211,26 +211,6 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
           )}
 
           <Box sx={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-            {/* <Button
-              type="submit"
-              variant="contained"
-              sx={{ width: '200px' }}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? <CircularProgress size={24} /> : 'Зберегти'}
-            </Button>
-            <Button
-              type="button"
-              onClick={() => {
-                reset(initialValues ?? undefined);
-                router.push(APP_ROUTE.OPERATOR_TOURS);
-              }}
-              variant="outlined"
-              sx={{ width: '200px' }}
-              disabled={isSubmitting}
-            >
-              Скасувати
-            </Button> */}
             <SubmitButton
               textIdle={FORM_SUBMIT_BUTTON.textIdle}
               textLoading={FORM_SUBMIT_BUTTON.textLoading}
