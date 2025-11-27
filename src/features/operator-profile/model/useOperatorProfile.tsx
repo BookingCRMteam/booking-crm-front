@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { OperatorMe, operatorApi } from '@/entities/operator';
 import { useOperatorQuery } from '@/entities/operator';
 
+import { SUCCESS_FEEDBACK_DELAY_MS } from '@/shared/constants';
 import { delay } from '@/shared/lib/delay';
 import { useNotificationStore } from '@/shared/store';
 
@@ -31,7 +32,7 @@ export const useOperatorUpdateProfile = ({
   const {
     mutateAsync: mutateAsyncSet,
     isPending: isPendingData,
-    isSuccess,
+    isSuccess: isSuccessData,
   } = useMutation<OperatorMe, Error, FormData>({
     mutationFn: operatorApi.setPublicData,
   });
@@ -39,6 +40,7 @@ export const useOperatorUpdateProfile = ({
   const {
     mutateAsync: mutateAsyncDeletePhoto,
     isPending: isPendingDeletePhoto,
+    isSuccess: isSuccessDeletePhoto,
   } = useMutation<OperatorMe, Error, void>({
     mutationFn: operatorApi.deleteMyPhoto,
   });
@@ -91,7 +93,7 @@ export const useOperatorUpdateProfile = ({
 
           showNotification('Профіль оновлено', 'success');
 
-          await delay(700);
+          await delay(SUCCESS_FEEDBACK_DELAY_MS);
 
           onCancel();
         } else {
@@ -122,6 +124,6 @@ export const useOperatorUpdateProfile = ({
     onSubmit,
     operator,
     isPending: isPendingData || isPendingDeletePhoto,
-    isSuccess,
+    isSuccess: isSuccessData || isSuccessDeletePhoto,
   };
 };

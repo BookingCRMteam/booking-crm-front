@@ -9,10 +9,10 @@ import {
   styled,
 } from '@mui/material';
 
+import { FORM_SUBMIT_BUTTON } from '@/shared/constants';
 import { PhoneInputField, SubmitButton } from '@/shared/ui';
 
 import { useCoupleProfileForm } from '../../model/useCoupleProfileForm';
-import { FORM_SUBMIT_BUTTON } from './constants';
 
 type CoupleProfileFormProps = {
   onCancel: () => void;
@@ -152,7 +152,7 @@ export const CoupleProfileForm: FC<CoupleProfileFormProps> = ({ onCancel }) => {
           textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
           isLoading={isPending}
           isSuccess={isSuccess}
-          disabled={isPending}
+          disabled={isPending || isSuccess}
         />
         <Button
           type="button"

@@ -42,7 +42,7 @@ jest.mock('@/shared/ui', () => ({
       type="submit"
       data-is-loading={props.isLoading}
       data-is-success={props.isSuccess}
-      disabled={props.disabled || props.isSuccess}
+      disabled={props.disabled}
       data-text-idle={props.textIdle}
     >
       {props.textIdle || 'Submit'}

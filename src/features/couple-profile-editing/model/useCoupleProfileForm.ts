@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useUserQuery, userApi } from '@/entities/user';
 import { User, UserUpdate } from '@/entities/user';
 
+import { SUCCESS_FEEDBACK_DELAY_MS } from '@/shared/constants';
 import { delay } from '@/shared/lib/delay';
 import { useNotificationStore } from '@/shared/store';
 
@@ -66,8 +67,7 @@ export const useCoupleProfileForm = ({ onCancel }: UseCoupleProfileProps) => {
 
       qc.setQueryData(['user', 'me'], updatedUser);
       showNotification('Профіль оновлено', 'success');
-
-      await delay(700);
+      await delay(SUCCESS_FEEDBACK_DELAY_MS);
 
       onCancel();
     } catch (e) {

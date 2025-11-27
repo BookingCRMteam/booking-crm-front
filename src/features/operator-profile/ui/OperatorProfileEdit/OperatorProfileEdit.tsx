@@ -4,17 +4,14 @@ import { type FC, useId } from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
 
+import { FORM_SUBMIT_BUTTON } from '@/shared/constants';
 import { FieldWithAsideHint, SubmitButton } from '@/shared/ui';
 
 import { useOperatorUpdateProfile } from '../../model/useOperatorProfile';
 import { ImagesInput } from '../ImagesInput/ImagesInput';
 import { OperatorProfileHeader } from '../OperatorProfileHeader/OperatorProfileHeader';
 import { OperatorTitle } from '../OperatorTitle/OperatorTitle';
-import {
-  FORM_SUBMIT_BUTTON,
-  HINT_TEXT_DESCRIPTION,
-  HINT_TEXT_PHILOSOPHY,
-} from './constants';
+import { HINT_TEXT_DESCRIPTION, HINT_TEXT_PHILOSOPHY } from './constants';
 
 interface OperatorProfileEditProps {
   onCancel: () => void;
@@ -112,7 +109,7 @@ export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
           textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
           isLoading={isPending}
           isSuccess={isSuccess}
-          disabled={isPending}
+          disabled={isPending || isSuccess}
         />
         <Button
           type="button"

@@ -45,7 +45,6 @@ describe('useCoupleProfileForm', () => {
   };
 
   const defaultFormData = {
-    email: 'test@mail.com',
     firstPersonName: 'John',
     firstPersonSurname: 'Doe',
     secondPersonName: 'Jane',
@@ -92,7 +91,6 @@ describe('useCoupleProfileForm', () => {
       useCoupleProfileForm({ onCancel: mockOnCancel }),
     );
     expect(result.current.form.getValues()).toEqual({
-      email: 'test@mail.com',
       firstPersonName: 'John',
       firstPersonSurname: 'Doe',
       secondPersonName: 'Jane',
@@ -185,8 +183,8 @@ describe('useCoupleProfileForm', () => {
 
     const mockForm = {
       handleSubmit: jest.fn((cb) => cb),
-      formState: { isDirty: true, dirtyFields: { email: true } },
-      getValues: jest.fn().mockReturnValue({ email: 'fail@mail.com' }),
+      formState: { isDirty: true, dirtyFields: { firstPersonName: true } },
+      getValues: jest.fn().mockReturnValue({ firstPersonName: 'fail' }),
     };
 
     const { useForm } = jest.requireMock('react-hook-form');
@@ -223,8 +221,8 @@ describe('useCoupleProfileForm', () => {
 
     const mockForm = {
       handleSubmit: jest.fn((cb) => cb),
-      formState: { isDirty: true, dirtyFields: { email: true } },
-      getValues: jest.fn().mockReturnValue({ email: 'test@mail.com' }),
+      formState: { isDirty: true, dirtyFields: { firstPersonName: true } },
+      getValues: jest.fn().mockReturnValue({ firstPersonName: 'John' }),
     };
 
     (jest.requireMock('react-hook-form').useForm as jest.Mock).mockReturnValue(
