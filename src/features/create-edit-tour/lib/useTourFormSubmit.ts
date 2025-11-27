@@ -13,6 +13,8 @@ import {
 } from '@/entities/tour';
 
 import { APP_ROUTE } from '@/shared/constants';
+import { SUCCESS_FEEDBACK_DELAY_MS } from '@/shared/constants';
+import { delay } from '@/shared/lib/delay';
 
 import { transformFormData } from '../lib/transformFormData';
 import { TourFormValues } from '../model/schema';
@@ -29,6 +31,7 @@ export const useTourFormSubmit = ({
   initialValues,
 }: UseTourFormSubmitProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -100,27 +103,31 @@ export const useTourFormSubmit = ({
   const handleSubmitForm = async (data: TourFormValues) => {
     setIsSubmitting(true);
     setSubmitError(null);
+    setIsSuccess(false);
 
     try {
       const formData = transformFormData(data, initialValues);
 
       if (!isEditMode) {
         await handleCreateTour(formData);
-        router.push(APP_ROUTE.OPERATOR_TOURS);
       } else if (isEditMode) {
         await handleEditTour(formData, data);
-        router.push(APP_ROUTE.OPERATOR_TOURS);
       }
+
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      await delay(SUCCESS_FEEDBACK_DELAY_MS);
+      router.push(APP_ROUTE.OPERATOR_TOURS);
     } catch (error: unknown) {
+      setIsSubmitting(false);
+      setIsSuccess(false);
       const message =
         error instanceof Error
           ? error.message
           : 'Помилка при збереженні туру, спробуйте, будь ласка, ще раз';
       setSubmitError(message);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  return { handleSubmitForm, isSubmitting, submitError };
+  return { handleSubmitForm, isSubmitting, submitError, isSuccess };
 };

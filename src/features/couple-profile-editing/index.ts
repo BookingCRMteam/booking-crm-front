@@ -1,1 +1,1 @@
-export { CoupleProfileEditing } from './ui/CoupleProfileEditing';
+export { CoupleProfileEditing } from './ui/CoupleProfileEditing/CoupleProfileEditing';

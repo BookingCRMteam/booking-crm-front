@@ -23,7 +23,7 @@ export const useOperatorOnboarding = () => {
   const router = useRouter();
   const showNotification = useNotificationStore((s) => s.showNotification);
 
-  const { mutateAsync, isPending } = useMutation<
+  const { mutateAsync, isPending, isSuccess } = useMutation<
     Operator,
     Error,
     OperatorOnboarding
@@ -60,5 +60,5 @@ export const useOperatorOnboarding = () => {
       console.error('Mutation failed:', e);
     }
   };
-  return { form, onSubmit, isPending };
+  return { form, onSubmit, isPending, isSuccess };
 };

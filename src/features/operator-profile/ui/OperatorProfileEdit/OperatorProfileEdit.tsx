@@ -4,28 +4,26 @@ import { type FC, useId } from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
 
-import { FieldWithAsideHint } from '@/shared/ui';
+import { FORM_SUBMIT_BUTTON } from '@/shared/constants';
+import { FieldWithAsideHint, SubmitButton } from '@/shared/ui';
 
 import { useOperatorUpdateProfile } from '../../model/useOperatorProfile';
 import { ImagesInput } from '../ImagesInput/ImagesInput';
 import { OperatorProfileHeader } from '../OperatorProfileHeader/OperatorProfileHeader';
 import { OperatorTitle } from '../OperatorTitle/OperatorTitle';
+import { HINT_TEXT_DESCRIPTION, HINT_TEXT_PHILOSOPHY } from './constants';
 
 interface OperatorProfileEditProps {
   onCancel: () => void;
 }
 
-const HINT_TEXT_PHILOSOPHY =
-  'Ваші головні цінності при створенні авторських турів\nМаксимум 1000 символів';
-const HINT_TEXT_DESCRIPTION =
-  'Коротко опишіть себе чи свою діяльність. Підкресліть свою “родзинку”\nМаксимум 500 символів';
-
 export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
   onCancel,
 }) => {
-  const { form, onSubmit, operator, isPending } = useOperatorUpdateProfile({
-    onCancel,
-  });
+  const { form, onSubmit, operator, isPending, isSuccess } =
+    useOperatorUpdateProfile({
+      onCancel,
+    });
   const {
     register,
     control,
@@ -36,6 +34,7 @@ export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
 
   const philosophyHintId = useId();
   const descriptionHintId = useId();
+  const isFormLocked = isPending || isSuccess;
 
   return (
     <Box
@@ -105,22 +104,20 @@ export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
           width: '100%',
         }}
       >
-        <Button
-          type="submit"
-          variant="contained"
-          size="large"
-          fullWidth
-          loading={isPending}
-          disabled={isPending}
-        >
-          Зберегти
-        </Button>
+        <SubmitButton
+          textIdle={FORM_SUBMIT_BUTTON.textIdle}
+          textLoading={FORM_SUBMIT_BUTTON.textLoading}
+          textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
+          isLoading={isPending}
+          isSuccess={isSuccess}
+          disabled={isFormLocked}
+        />
         <Button
           type="button"
           variant="outlined"
           size="large"
           fullWidth
-          disabled={isPending}
+          disabled={isFormLocked}
           onClick={onCancel}
         >
           Скасувати

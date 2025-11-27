@@ -4,13 +4,13 @@ import { renderWithTheme } from '@/shared/tests';
 
 import { useOperatorOnboarding } from '../model/useOperatorOnboarding';
 import { OperatorOnboardingForm } from './OperatorOnboardingForm';
+import { FORM_SUBMIT_BUTTON } from './constants';
 import {
   FORM_CHECKBOX_LABEL,
   FORM_DESCRIPTION,
   FORM_FIRST_NAME_LABEL,
   FORM_LAST_NAME_LABEL,
   FORM_PHONE_PLACEHOLDER,
-  FORM_SUBMIT_BUTTON,
   FORM_TITLE,
   FORM_WEBSITE_LABEL,
 } from './constants';
@@ -21,6 +21,18 @@ jest.mock('@/entities/user', () => ({
 }));
 
 jest.mock('@/shared/ui', () => ({
+  SubmitButton: jest.fn((props) => (
+    <button
+      data-testid="submit-button"
+      type="submit"
+      data-is-loading={props.isLoading}
+      data-is-success={props.isSuccess}
+      disabled={props.disabled || props.isSuccess}
+      data-text-idle={props.textIdle}
+    >
+      {props.textIdle || 'Submit'}
+    </button>
+  )),
   CheckboxSmall: jest.fn((props) => <input type="checkbox" {...props} />),
   PhoneInputField: jest.fn(({ placeholder }) => (
     <input placeholder={placeholder} data-testid="phone-input" />
@@ -58,7 +70,7 @@ describe('OperatorOnboardingForm', () => {
   });
 
   it('renders all static texts and inputs', () => {
-    const { getByText, getByLabelText, getByPlaceholderText, getByRole } =
+    const { getByText, getByLabelText, getByPlaceholderText, getByTestId } =
       renderWithTheme(<OperatorOnboardingForm />);
 
     expect(getByText(FORM_TITLE)).toBeInTheDocument();
@@ -68,21 +80,70 @@ describe('OperatorOnboardingForm', () => {
     expect(getByPlaceholderText(FORM_PHONE_PLACEHOLDER)).toBeInTheDocument();
     expect(getByLabelText(FORM_WEBSITE_LABEL)).toBeInTheDocument();
     expect(getByText(FORM_CHECKBOX_LABEL)).toBeInTheDocument();
-    expect(
-      getByRole('button', { name: FORM_SUBMIT_BUTTON }),
-    ).toBeInTheDocument();
+    expect(getByTestId('submit-button')).toBeInTheDocument();
   });
 
   it('calls handleSubmit and onSubmit when form is submitted', async () => {
-    const { user, getByRole } = renderWithTheme(<OperatorOnboardingForm />);
+    const { user, getByTestId } = renderWithTheme(<OperatorOnboardingForm />);
 
-    const submitButton = getByRole('button', { name: FORM_SUBMIT_BUTTON });
+    const submitButton = getByTestId('submit-button');
     await user.click(submitButton);
 
     await waitFor(() => {
       expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('passes the correct state props to SubmitButton in loading state', () => {
+    (useOperatorOnboarding as jest.Mock).mockReturnValue({
+      form: {
+        handleSubmit: mockHandleSubmit,
+        register: mockRegister,
+        control: mockControl,
+        formState: {
+          errors: {},
+          isValid: false,
+        },
+      },
+      onSubmit: mockOnSubmit,
+      isPending: true,
+      isSuccess: false,
+    });
+
+    const { getByTestId } = renderWithTheme(<OperatorOnboardingForm />);
+    const submitButton = getByTestId('submit-button');
+
+    expect(submitButton).toHaveAttribute('data-is-loading', 'true');
+    expect(submitButton).toBeDisabled();
+  });
+
+  it('passes the correct state props to SubmitButton in success state', () => {
+    (useOperatorOnboarding as jest.Mock).mockReturnValue({
+      form: {
+        handleSubmit: mockHandleSubmit,
+        register: mockRegister,
+        control: mockControl,
+        formState: {
+          errors: {},
+          isValid: true,
+        },
+      },
+      onSubmit: mockOnSubmit,
+      isPending: false,
+      isSuccess: true,
+    });
+
+    const { getByTestId } = renderWithTheme(<OperatorOnboardingForm />);
+    const submitButtonSuccess = getByTestId('submit-button');
+
+    expect(submitButtonSuccess).toHaveAttribute('data-is-loading', 'false');
+    expect(submitButtonSuccess).toHaveAttribute('data-is-success', 'true');
+    expect(submitButtonSuccess).toBeDisabled();
+    expect(submitButtonSuccess).toHaveAttribute(
+      'data-text-idle',
+      FORM_SUBMIT_BUTTON.textIdle,
+    );
   });
 
   it('disables submit button when form is invalid', () => {
@@ -100,9 +161,8 @@ describe('OperatorOnboardingForm', () => {
       isPending: false,
     });
 
-    const { getByRole } = renderWithTheme(<OperatorOnboardingForm />);
-    const button = getByRole('button', { name: FORM_SUBMIT_BUTTON });
-    expect(button).toBeDisabled();
+    const { getByTestId } = renderWithTheme(<OperatorOnboardingForm />);
+    expect(getByTestId('submit-button')).toBeDisabled();
   });
 
   it('disables submit button when form is pending', () => {
@@ -120,9 +180,8 @@ describe('OperatorOnboardingForm', () => {
       isPending: true,
     });
 
-    const { getByRole } = renderWithTheme(<OperatorOnboardingForm />);
-    const button = getByRole('button', { name: FORM_SUBMIT_BUTTON });
-    expect(button).toBeDisabled();
+    const { getByTestId } = renderWithTheme(<OperatorOnboardingForm />);
+    expect(getByTestId('submit-button')).toBeDisabled();
   });
 
   it('renders validation errors when present', () => {

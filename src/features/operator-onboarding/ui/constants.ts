@@ -6,4 +6,8 @@ export const FORM_LAST_NAME_LABEL = 'Прізвище';
 export const FORM_WEBSITE_LABEL = 'Посилання на ваш Instagram / сайт';
 export const FORM_PHONE_PLACEHOLDER = 'Телефон';
 export const FORM_CHECKBOX_LABEL = 'Я погоджуюсь на обробку персональних даних';
-export const FORM_SUBMIT_BUTTON = 'Подати заявку';
+export const FORM_SUBMIT_BUTTON = {
+  textIdle: 'Подати заявку',
+  textLoading: 'Подаємо',
+  textSuccess: 'Успішно',
+};

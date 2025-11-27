@@ -3,16 +3,16 @@ import userEvent from '@testing-library/user-event';
 
 import { useUserQuery } from '@/entities/user';
 
-import { getCoupleProfileData } from '../model/getCoupleProfileData';
+import { getCoupleProfileData } from '../../model/getCoupleProfileData';
+import { UserInfo, UserInfoProps } from '../UserInfo/UserInfo';
 import { CoupleProfileView } from './CoupleProfileView';
-import { UserInfo, UserInfoProps } from './UserInfo';
 
 jest.mock('@/entities/user', () => ({
   useUserQuery: jest.fn(),
 }));
 const mockUseUserQuery = useUserQuery as jest.Mock;
 
-jest.mock('../model/getCoupleProfileData', () => ({
+jest.mock('../../model/getCoupleProfileData', () => ({
   getCoupleProfileData: jest.fn((user) => ({
     firstPersonName: user.firstPersonName,
     firstPersonSurname: user.firstPersonSurname,

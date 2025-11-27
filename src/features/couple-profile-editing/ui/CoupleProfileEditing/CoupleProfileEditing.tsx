@@ -4,8 +4,8 @@ import { useCallback, useState } from 'react';
 
 import { Box, Typography } from '@mui/material';
 
-import { CoupleProfileForm } from './CoupleProfileForm';
-import { CoupleProfileView } from './CoupleProfileView';
+import { CoupleProfileForm } from '../CoupleProfileForm/CoupleProfileForm';
+import { CoupleProfileView } from '../CoupleProfileView/CoupleProfileView';
 
 export const CoupleProfileEditing = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);

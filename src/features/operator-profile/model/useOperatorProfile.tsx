@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { OperatorMe, operatorApi } from '@/entities/operator';
 import { useOperatorQuery } from '@/entities/operator';
 
+import { SUCCESS_FEEDBACK_DELAY_MS } from '@/shared/constants';
+import { delay } from '@/shared/lib/delay';
 import { useNotificationStore } from '@/shared/store';
 
 import {
@@ -27,17 +29,18 @@ export const useOperatorUpdateProfile = ({
   const { data: operator } = useOperatorQuery();
   const qc = useQueryClient();
 
-  const { mutateAsync: mutateAsyncSet, isPending: isPendingData } = useMutation<
-    OperatorMe,
-    Error,
-    FormData
-  >({
+  const {
+    mutateAsync: mutateAsyncSet,
+    isPending: isPendingData,
+    isSuccess: isSuccessData,
+  } = useMutation<OperatorMe, Error, FormData>({
     mutationFn: operatorApi.setPublicData,
   });
 
   const {
     mutateAsync: mutateAsyncDeletePhoto,
     isPending: isPendingDeletePhoto,
+    isSuccess: isSuccessDeletePhoto,
   } = useMutation<OperatorMe, Error, void>({
     mutationFn: operatorApi.deleteMyPhoto,
   });
@@ -90,6 +93,8 @@ export const useOperatorUpdateProfile = ({
 
           showNotification('Профіль оновлено', 'success');
 
+          await delay(SUCCESS_FEEDBACK_DELAY_MS);
+
           onCancel();
         } else {
           showNotification('Змін не виявлено', 'info');
@@ -119,5 +124,6 @@ export const useOperatorUpdateProfile = ({
     onSubmit,
     operator,
     isPending: isPendingData || isPendingDeletePhoto,
+    isSuccess: isSuccessData || isSuccessDeletePhoto,
   };
 };
