@@ -36,6 +36,18 @@ jest.mock('../OperatorProfileHeader/OperatorProfileHeader', () => ({
 }));
 
 jest.mock('@/shared/ui', () => ({
+  SubmitButton: jest.fn((props) => (
+    <button
+      data-testid="submit-button"
+      type="submit"
+      data-is-loading={props.isLoading}
+      data-is-success={props.isSuccess}
+      disabled={props.disabled || props.isSuccess}
+      data-text-idle={props.textIdle}
+    >
+      {props.textIdle || 'Submit'}
+    </button>
+  )),
   FieldWithAsideHint: ({ children }: { children: ReactNode }) => (
     <div data-testid="field-with-aside-hint">{children}</div>
   ),

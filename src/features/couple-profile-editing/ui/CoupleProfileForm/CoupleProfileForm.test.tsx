@@ -4,10 +4,10 @@ import userEvent from '@testing-library/user-event';
 
 import { createMockHandleSubmit } from '@/shared/tests';
 
-import { useCoupleProfileForm } from '../model/useCoupleProfileForm';
+import { useCoupleProfileForm } from '../../model/useCoupleProfileForm';
 import { CoupleProfileForm } from './CoupleProfileForm';
 
-jest.mock('../model/useCoupleProfileForm');
+jest.mock('../../model/useCoupleProfileForm');
 
 jest.mock('@/entities/user', () => ({
   useUserQuery: jest.fn(),
@@ -18,6 +18,22 @@ const mockRegister = jest.fn();
 const mockControl = {};
 const mockOnSubmit = jest.fn();
 const mockOnCancel = jest.fn();
+
+jest.mock('@/shared/ui', () => ({
+  SubmitButton: jest.fn((props) => (
+    <button
+      data-testid="submit-button"
+      type="submit"
+      data-is-loading={props.isLoading}
+      data-is-success={props.isSuccess}
+      disabled={props.disabled || props.isSuccess}
+      data-text-idle={props.textIdle}
+    >
+      {props.textIdle || 'Submit'}
+    </button>
+  )),
+  PhoneInputField: jest.fn(() => <div data-testid="phone-input-field" />),
+}));
 
 jest.mock('react-hook-form', () => {
   const originalModule = jest.requireActual('react-hook-form');
@@ -63,7 +79,7 @@ describe('CoupleProfileForm', () => {
     expect(screen.getByLabelText('Прізвище партнера 1')).toBeInTheDocument();
     expect(screen.getByLabelText('Ім’я партнера 2')).toBeInTheDocument();
     expect(screen.getByLabelText('Прізвище партнера 2')).toBeInTheDocument();
-    expect(screen.getByLabelText('Номер телефону')).toBeInTheDocument();
+    expect(screen.getByTestId('phone-input-field')).toBeInTheDocument();
 
     expect(
       screen.getByRole('button', { name: 'Зберегти' }),
@@ -104,6 +120,26 @@ describe('CoupleProfileForm', () => {
       },
       onSubmit: mockOnSubmit,
       isPending: true,
+    });
+
+    render(<CoupleProfileForm onCancel={mockOnCancel} />);
+    const saveButton = screen.getByRole('button', { name: 'Зберегти' });
+    const cancelButton = screen.getByRole('button', { name: 'Скасувати' });
+
+    expect(saveButton).toBeDisabled();
+    expect(cancelButton).toBeDisabled();
+  });
+
+  it('disables buttons when isSuccess is true', () => {
+    (useCoupleProfileForm as jest.Mock).mockReturnValue({
+      form: {
+        handleSubmit: mockHandleSubmit,
+        register: mockRegister,
+        control: mockControl,
+        formState: { errors: {} },
+      },
+      onSubmit: mockOnSubmit,
+      isSuccess: true,
     });
 
     render(<CoupleProfileForm onCancel={mockOnCancel} />);

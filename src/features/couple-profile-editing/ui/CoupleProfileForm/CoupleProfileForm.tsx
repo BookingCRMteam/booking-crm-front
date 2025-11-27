@@ -9,13 +9,14 @@ import {
   styled,
 } from '@mui/material';
 
-import { PhoneInputField } from '@/shared/ui';
+import { PhoneInputField, SubmitButton } from '@/shared/ui';
 
-import { useCoupleProfileForm } from '../model/useCoupleProfileForm';
+import { useCoupleProfileForm } from '../../model/useCoupleProfileForm';
+import { FORM_SUBMIT_BUTTON } from './constants';
 
-interface CoupleProfileForm {
+type CoupleProfileFormProps = {
   onCancel: () => void;
-}
+};
 
 const NameWrapper = styled(Box)({
   display: 'flex',
@@ -59,8 +60,8 @@ const FormWrapper = styled(Box)<BoxProps>({
   margin: '0 auto',
 });
 
-export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
-  const { form, onSubmit, isPending, email } = useCoupleProfileForm({
+export const CoupleProfileForm: FC<CoupleProfileFormProps> = ({ onCancel }) => {
+  const { form, onSubmit, isPending, isSuccess, email } = useCoupleProfileForm({
     onCancel,
   });
   const {
@@ -145,25 +146,21 @@ export const CoupleProfileForm: FC<CoupleProfileForm> = ({ onCancel }) => {
         </HintWrapper>
       </InputWrapper>
       <ButtonWrapper>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          size="large"
-          fullWidth
+        <SubmitButton
+          textIdle={FORM_SUBMIT_BUTTON.textIdle}
+          textLoading={FORM_SUBMIT_BUTTON.textLoading}
+          textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
+          isLoading={isPending}
+          isSuccess={isSuccess}
           disabled={isPending}
-          loading={isPending}
-        >
-          Зберегти
-        </Button>
+        />
         <Button
           type="button"
           variant="outlined"
           size="large"
           fullWidth
-          color="secondary"
           onClick={onCancel}
-          disabled={isPending}
+          disabled={isPending || isSuccess}
         >
           Скасувати
         </Button>

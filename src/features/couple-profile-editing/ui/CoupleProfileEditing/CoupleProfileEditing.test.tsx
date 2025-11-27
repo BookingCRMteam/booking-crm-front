@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { CoupleProfileEditing } from './CoupleProfileEditing';
 
-jest.mock('./CoupleProfileView', () => ({
+jest.mock('../CoupleProfileView/CoupleProfileView', () => ({
   CoupleProfileView: ({ onEdit }: { onEdit: () => void }) => (
     <div data-testid="mock-view">
       Mock View
@@ -14,7 +14,7 @@ jest.mock('./CoupleProfileView', () => ({
   ),
 }));
 
-jest.mock('./CoupleProfileForm', () => ({
+jest.mock('../CoupleProfileForm/CoupleProfileForm', () => ({
   CoupleProfileForm: ({ onCancel }: { onCancel: () => void }) => (
     <div data-testid="mock-form">
       Mock Form

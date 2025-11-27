@@ -1,0 +1,10 @@
+export const HINT_TEXT_PHILOSOPHY =
+  'Ваші головні цінності при створенні авторських турів\nМаксимум 1000 символів';
+export const HINT_TEXT_DESCRIPTION =
+  'Коротко опишіть себе чи свою діяльність. Підкресліть свою “родзинку”\nМаксимум 500 символів';
+
+export const FORM_SUBMIT_BUTTON = {
+  textIdle: 'Зберегти',
+  textLoading: 'Зберігаємо',
+  textSuccess: 'Збережено',
+};

@@ -6,8 +6,8 @@ import { Box, Button, Typography } from '@mui/material';
 
 import { useUserQuery } from '@/entities/user';
 
-import { getCoupleProfileData } from '../model/getCoupleProfileData';
-import { UserInfo } from './UserInfo';
+import { getCoupleProfileData } from '../../model/getCoupleProfileData';
+import { UserInfo } from '../UserInfo/UserInfo';
 
 interface CoupleProfileViewProps {
   onEdit: () => void;

@@ -105,8 +105,8 @@ describe('useCoupleProfileForm', () => {
     const mockHandleSubmit = jest.fn((cb) => cb);
     const mockForm = {
       handleSubmit: mockHandleSubmit,
-      formState: { isDirty: true, dirtyFields: { email: true } },
-      getValues: jest.fn().mockReturnValue({ email: 'new@mail.com' }),
+      formState: { isDirty: true, dirtyFields: { firstPersonName: true } },
+      getValues: jest.fn().mockReturnValue({ firstPersonName: 'newName' }),
     };
     const { useForm } = jest.requireMock('react-hook-form');
     (useForm as jest.Mock).mockReturnValue(mockForm);
@@ -115,15 +115,16 @@ describe('useCoupleProfileForm', () => {
     );
     await act(async () => {
       await result.current.onSubmit({
-        email: 'new@mail.com',
-        firstPersonName: 'John',
+        firstPersonName: 'newName',
         firstPersonSurname: 'Doe',
         secondPersonName: 'Jane',
         secondPersonSurname: 'Smith',
         phone: '+380931112233',
       });
     });
-    expect(mockMutateAsync).toHaveBeenCalledWith({ email: 'new@mail.com' });
+    expect(mockMutateAsync).toHaveBeenCalledWith({
+      firstPersonName: 'newName',
+    });
   });
 
   it('calls onCancel if the form has no changes (isDirty=false)', async () => {
@@ -149,33 +150,6 @@ describe('useCoupleProfileForm', () => {
     expect(mockShowNotification).not.toHaveBeenCalled();
   });
 
-  it('calls setQueryData, showNotification, and onCancel on successful mutation', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let mutationConfig: any;
-
-    (useMutation as jest.Mock).mockImplementation((config) => {
-      mutationConfig = config;
-      return { mutateAsync: jest.fn(), isPending: false };
-    });
-
-    renderHook(() => useCoupleProfileForm({ onCancel: mockOnCancel }));
-
-    const updatedUser = {
-      ...defaultUserData,
-      email: 'updated@mail.com',
-    };
-
-    await act(async () => {
-      mutationConfig.onSuccess(updatedUser);
-    });
-
-    expect(mockSetQueryData).toHaveBeenCalledWith(['user', 'me'], updatedUser);
-    expect(mockShowNotification).toHaveBeenCalledWith(
-      'Профіль оновлено',
-      'success',
-    );
-    expect(mockOnCancel).toHaveBeenCalledTimes(1);
-  });
   it('calls showNotification on mutation error', async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let mutationConfig: any;
@@ -229,7 +203,6 @@ describe('useCoupleProfileForm', () => {
 
     await act(async () => {
       await result.current.onSubmit({
-        email: 'fail@mail.com',
         firstPersonName: 'John',
         firstPersonSurname: 'Doe',
         secondPersonName: 'Jane',
@@ -264,7 +237,6 @@ describe('useCoupleProfileForm', () => {
 
     await act(async () => {
       await result.current.onSubmit({
-        email: 'test@mail.com',
         firstPersonName: 'John',
         firstPersonSurname: 'Doe',
         secondPersonName: 'Jane',

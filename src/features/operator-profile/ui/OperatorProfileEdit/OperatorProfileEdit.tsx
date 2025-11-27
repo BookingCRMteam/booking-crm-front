@@ -4,28 +4,29 @@ import { type FC, useId } from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
 
-import { FieldWithAsideHint } from '@/shared/ui';
+import { FieldWithAsideHint, SubmitButton } from '@/shared/ui';
 
 import { useOperatorUpdateProfile } from '../../model/useOperatorProfile';
 import { ImagesInput } from '../ImagesInput/ImagesInput';
 import { OperatorProfileHeader } from '../OperatorProfileHeader/OperatorProfileHeader';
 import { OperatorTitle } from '../OperatorTitle/OperatorTitle';
+import {
+  FORM_SUBMIT_BUTTON,
+  HINT_TEXT_DESCRIPTION,
+  HINT_TEXT_PHILOSOPHY,
+} from './constants';
 
 interface OperatorProfileEditProps {
   onCancel: () => void;
 }
 
-const HINT_TEXT_PHILOSOPHY =
-  'Ваші головні цінності при створенні авторських турів\nМаксимум 1000 символів';
-const HINT_TEXT_DESCRIPTION =
-  'Коротко опишіть себе чи свою діяльність. Підкресліть свою “родзинку”\nМаксимум 500 символів';
-
 export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
   onCancel,
 }) => {
-  const { form, onSubmit, operator, isPending } = useOperatorUpdateProfile({
-    onCancel,
-  });
+  const { form, onSubmit, operator, isPending, isSuccess } =
+    useOperatorUpdateProfile({
+      onCancel,
+    });
   const {
     register,
     control,
@@ -105,22 +106,20 @@ export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
           width: '100%',
         }}
       >
-        <Button
-          type="submit"
-          variant="contained"
-          size="large"
-          fullWidth
-          loading={isPending}
+        <SubmitButton
+          textIdle={FORM_SUBMIT_BUTTON.textIdle}
+          textLoading={FORM_SUBMIT_BUTTON.textLoading}
+          textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
+          isLoading={isPending}
+          isSuccess={isSuccess}
           disabled={isPending}
-        >
-          Зберегти
-        </Button>
+        />
         <Button
           type="button"
           variant="outlined"
           size="large"
           fullWidth
-          disabled={isPending}
+          disabled={isPending || isSuccess}
           onClick={onCancel}
         >
           Скасувати
