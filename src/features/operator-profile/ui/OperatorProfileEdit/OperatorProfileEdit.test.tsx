@@ -108,6 +108,7 @@ describe('OperatorProfileEdit', () => {
       operator: mockOperator,
       onSubmit: mockOnSubmit,
       isPending: false,
+      isSuccess: false,
     });
   });
 
@@ -156,6 +157,7 @@ describe('OperatorProfileEdit', () => {
       },
       onSubmit: mockOnSubmit,
       isPending: true,
+      isSuccess: false,
     });
 
     renderWithTheme(<OperatorProfileEdit onCancel={mockOnCancel} />);
@@ -180,7 +182,8 @@ describe('OperatorProfileEdit', () => {
         },
       },
       onSubmit: mockOnSubmit,
-      isPending: true,
+      isPending: false,
+      isSuccess: false,
     });
 
     renderWithTheme(<OperatorProfileEdit onCancel={mockOnCancel} />);

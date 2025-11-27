@@ -1,11 +1,11 @@
 import { delay } from './delay';
 
 describe('delay', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     jest.useFakeTimers();
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.useRealTimers();
   });
 

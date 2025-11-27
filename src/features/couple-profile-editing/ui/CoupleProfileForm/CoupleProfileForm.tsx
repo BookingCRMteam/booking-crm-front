@@ -70,6 +70,7 @@ export const CoupleProfileForm: FC<CoupleProfileFormProps> = ({ onCancel }) => {
     control,
     formState: { errors },
   } = form;
+  const isFormLocked = isPending || isSuccess;
   return (
     <FormWrapper component="form" onSubmit={handleSubmit(onSubmit)}>
       <InputWrapper>
@@ -152,7 +153,7 @@ export const CoupleProfileForm: FC<CoupleProfileFormProps> = ({ onCancel }) => {
           textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
           isLoading={isPending}
           isSuccess={isSuccess}
-          disabled={isPending || isSuccess}
+          disabled={isFormLocked}
         />
         <Button
           type="button"
@@ -160,7 +161,7 @@ export const CoupleProfileForm: FC<CoupleProfileFormProps> = ({ onCancel }) => {
           size="large"
           fullWidth
           onClick={onCancel}
-          disabled={isPending || isSuccess}
+          disabled={isFormLocked}
         >
           Скасувати
         </Button>

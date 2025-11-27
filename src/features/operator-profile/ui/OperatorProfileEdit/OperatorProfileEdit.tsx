@@ -34,6 +34,7 @@ export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
 
   const philosophyHintId = useId();
   const descriptionHintId = useId();
+  const isFormLocked = isPending || isSuccess;
 
   return (
     <Box
@@ -109,14 +110,14 @@ export const OperatorProfileEdit: FC<OperatorProfileEditProps> = ({
           textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
           isLoading={isPending}
           isSuccess={isSuccess}
-          disabled={isPending || isSuccess}
+          disabled={isFormLocked}
         />
         <Button
           type="button"
           variant="outlined"
           size="large"
           fullWidth
-          disabled={isPending || isSuccess}
+          disabled={isFormLocked}
           onClick={onCancel}
         >
           Скасувати

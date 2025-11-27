@@ -18,7 +18,8 @@ import { useCities } from '@/entities/city';
 import { useCountries } from '@/entities/country';
 import { TourPhotoForm, useFetchTour } from '@/entities/tour';
 
-import { APP_ROUTE } from '@/shared/constants';
+import { APP_ROUTE, FORM_SUBMIT_BUTTON } from '@/shared/constants';
+import { SubmitButton } from '@/shared/ui';
 
 import { useTourFormSubmit } from '../lib/useTourFormSubmit';
 import { TourFormSchema, TourFormValues } from '../model/schema';
@@ -87,11 +88,12 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
     tourId ?? undefined,
   );
 
-  const { handleSubmitForm, isSubmitting, submitError } = useTourFormSubmit({
-    operatorId,
-    tourId,
-    initialValues,
-  });
+  const { handleSubmitForm, isSubmitting, submitError, isSuccess } =
+    useTourFormSubmit({
+      operatorId,
+      tourId,
+      initialValues,
+    });
 
   useEffect(() => {
     if (tourData && isEditMode) {
@@ -136,7 +138,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
         <CircularProgress size={48} />
       </Box>
     );
-
+  const isFormLocked = isSubmitting || isSuccess;
   return (
     <Box
       sx={{
@@ -209,7 +211,7 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
           )}
 
           <Box sx={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-            <Button
+            {/* <Button
               type="submit"
               variant="contained"
               sx={{ width: '200px' }}
@@ -226,6 +228,28 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
               variant="outlined"
               sx={{ width: '200px' }}
               disabled={isSubmitting}
+            >
+              Скасувати
+            </Button> */}
+            <SubmitButton
+              textIdle={FORM_SUBMIT_BUTTON.textIdle}
+              textLoading={FORM_SUBMIT_BUTTON.textLoading}
+              textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
+              isLoading={isSubmitting}
+              isSuccess={isSuccess}
+              disabled={isFormLocked}
+              sx={{ width: '200px' }}
+            />
+            <Button
+              type="button"
+              variant="outlined"
+              size="large"
+              sx={{ width: '200px' }}
+              disabled={isFormLocked}
+              onClick={() => {
+                reset(initialValues ?? undefined);
+                router.push(APP_ROUTE.OPERATOR_TOURS);
+              }}
             >
               Скасувати
             </Button>

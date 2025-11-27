@@ -69,6 +69,7 @@ describe('CoupleProfileForm', () => {
       },
       onSubmit: mockOnSubmit,
       isPending: false,
+      isSuccess: false,
     });
   });
 
@@ -120,6 +121,7 @@ describe('CoupleProfileForm', () => {
       },
       onSubmit: mockOnSubmit,
       isPending: true,
+      isSuccess: false,
     });
 
     render(<CoupleProfileForm onCancel={mockOnCancel} />);
@@ -140,6 +142,7 @@ describe('CoupleProfileForm', () => {
       },
       onSubmit: mockOnSubmit,
       isSuccess: true,
+      isPending: false,
     });
 
     render(<CoupleProfileForm onCancel={mockOnCancel} />);
@@ -166,7 +169,8 @@ describe('CoupleProfileForm', () => {
         },
       },
       onSubmit: mockOnSubmit,
-      isPending: true,
+      isPending: false,
+      isSuccess: false,
     });
 
     render(<CoupleProfileForm onCancel={mockOnCancel} />);
