@@ -1,12 +1,16 @@
 'use client';
 
+import { type FC } from 'react';
+
 import { Box, CircularProgress, Grid } from '@mui/material';
 
 import { ToursCollectionProps } from '@/entities/tour';
 
 import { TourCard } from '@/shared/ui';
 
-export const ToursCollection: React.FC<ToursCollectionProps> = ({
+import { ButtonTop } from '../ButtonTop';
+
+export const ToursCollection: FC<ToursCollectionProps> = ({
   data,
   isFetchingNextPage,
   ref,
@@ -46,6 +50,7 @@ export const ToursCollection: React.FC<ToursCollectionProps> = ({
           </Box>
         )}
       </Box>
+      <ButtonTop />
     </>
   );
 };
