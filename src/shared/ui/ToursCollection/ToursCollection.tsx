@@ -6,9 +6,7 @@ import { Box, CircularProgress, Grid } from '@mui/material';
 
 import { ToursCollectionProps } from '@/entities/tour';
 
-import { TourCard } from '@/shared/ui';
-
-import { ButtonTop } from '../ButtonTop';
+import { ButtonTop, TourCard } from '@/shared/ui';
 
 export const ToursCollection: FC<ToursCollectionProps> = ({
   data,
