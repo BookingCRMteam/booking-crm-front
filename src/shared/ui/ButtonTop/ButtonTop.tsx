@@ -17,27 +17,29 @@ const SCROLL_TO_TOP_THRESHOLD = 600;
 export const ButtonTop = () => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const { contextSafe } = useGSAP(() => {
-    if (!buttonRef.current) return;
-    const buttonTop = buttonRef.current;
+  const { contextSafe } = useGSAP(
+    () => {
+      if (!buttonRef.current) return;
+      const buttonTop = buttonRef.current;
 
-    gsap.set(buttonTop, {
-      y: '100vh',
-      autoAlpha: 0,
-    });
-    gsap.to(buttonTop, {
-      y: 0,
-      autoAlpha: 1,
-      duration: 0.5,
-      scrollTrigger: {
-        trigger: document.body,
-        start: `top -${SCROLL_TO_TOP_THRESHOLD}px`,
-        end: `top -${SCROLL_TO_TOP_THRESHOLD}px`,
-        toggleActions: 'play none reverse none',
-        markers: true,
-      },
-    });
-  });
+      gsap.set(buttonTop, {
+        y: '100vh',
+        autoAlpha: 0,
+      });
+      gsap.to(buttonTop, {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.5,
+        scrollTrigger: {
+          trigger: document.body,
+          start: `top -${SCROLL_TO_TOP_THRESHOLD}px`,
+          end: `top -${SCROLL_TO_TOP_THRESHOLD}px`,
+          toggleActions: 'play none reverse none',
+        },
+      });
+    },
+    { scope: buttonRef },
+  );
 
   const handleScrollToTop = contextSafe(() => {
     gsap.to(window, {
