@@ -8,6 +8,7 @@ import { ToursCollection } from './ToursCollection';
 
 jest.mock('@/shared/ui', () => ({
   TourCard: jest.fn(() => <div data-testid="tour-card" />),
+  ButtonTop: jest.fn(() => <div data-testid="button-top" />),
 }));
 
 const mockData: Tours = {
