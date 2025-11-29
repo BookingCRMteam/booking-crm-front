@@ -4,6 +4,8 @@ import Image from 'next/image';
 
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
+import { HEADER_HEIGHT } from '@/shared/constants';
+
 import {
   ERROR_BUTTON_TEXT,
   ERROR_IMAGE_ALT,
@@ -27,7 +29,7 @@ export const ErrorPage = ({ onReset }: ErrorPageProps) => {
         justifyContent: 'center',
         gap: '40px',
         padding: '113px 0',
-        minHeight: 'calc(100vh - 60px)',
+        minHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
       }}
     >
       <Typography variant="h2" component="h1" align="left">

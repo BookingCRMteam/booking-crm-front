@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { TableContainer, Typography } from '@mui/material';
 
-import type { OperatorBooking } from '@/entities/operator';
+import type { OperatorPaidBooking } from '@/entities/operator';
 
 import { OperatorBookingTableBody } from './TableBody';
 import { OperatorBookingTableHead } from './TableHead';
@@ -10,7 +10,7 @@ import { OPERATOR_BOOKING_ITEMS_TITLE } from './constants';
 import { OperatorBookingTable, OperatorBookingWrapper } from './styles';
 
 type OperatorBookingItemsProps = {
-  bookings: OperatorBooking[];
+  bookings: OperatorPaidBooking[];
 };
 
 export const OperatorBookingItems: FC<OperatorBookingItemsProps> = ({

@@ -4,10 +4,10 @@ import { axiosInstance, handleApiError } from '@/shared/api';
 
 import {
   Operator,
-  OperatorBooking,
   OperatorById,
   OperatorMe,
   OperatorOnboarding,
+  OperatorPaidBooking,
   OperatorPopular,
 } from './types';
 
@@ -70,10 +70,10 @@ export const operatorApi = {
       handleApiError(e);
     }
   },
-  getOperatorBookings: async (): Promise<OperatorBooking[]> => {
+  getOperatorBookings: async (): Promise<OperatorPaidBooking[]> => {
     try {
       const res =
-        await axiosInstance.get<OperatorBooking[]>(`/operator-bookings`);
+        await axiosInstance.get<OperatorPaidBooking[]>(`/operator-bookings`);
       return res.data;
     } catch (e: unknown) {
       handleApiError(e);

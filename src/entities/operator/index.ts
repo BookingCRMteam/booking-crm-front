@@ -1,10 +1,10 @@
 export { operatorApi } from './api/operatorApi';
 export { useOperatorQuery } from './model/useOperatorQuery';
 export { useGetOperatorPopularQuery } from './model/useGetOperatorPopularQuery';
-export { useGetOperatorBookingsQuery } from './model/useGetOperatorBookingsQuery';
+export { useGetOperatorPaidBookingsQuery } from './model/useGetOperatorPaidBookingsQuery';
 export type {
   Operator,
-  OperatorBooking,
+  OperatorPaidBooking,
   OperatorMe,
   OperatorOnboarding,
   OperatorStatus,

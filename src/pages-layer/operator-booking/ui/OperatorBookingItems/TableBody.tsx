@@ -2,14 +2,14 @@ import type { FC } from 'react';
 
 import { TableBody, TableRow, Typography } from '@mui/material';
 
-import type { OperatorBooking } from '@/entities/operator';
+import type { OperatorPaidBooking } from '@/entities/operator';
 
 import { formattedDate } from '@/shared/utils';
 
 import { TableCellBody } from './styles';
 
 type OperatorBookingTableBodyProps = {
-  bookings: OperatorBooking[];
+  bookings: OperatorPaidBooking[];
 };
 
 export const CURRENCY_SYMBOL = '₴';

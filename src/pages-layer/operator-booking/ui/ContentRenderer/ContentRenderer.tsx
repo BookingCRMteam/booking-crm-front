@@ -2,7 +2,7 @@
 
 import { CircularProgress } from '@mui/material';
 
-import { useGetOperatorBookingsQuery } from '@/entities/operator';
+import { useGetOperatorPaidBookingsQuery } from '@/entities/operator';
 
 import { ErrorLoading } from '@/shared/ui';
 
@@ -15,7 +15,7 @@ export const ContentRenderer = () => {
     isLoading,
     isError,
     isSuccess,
-  } = useGetOperatorBookingsQuery();
+  } = useGetOperatorPaidBookingsQuery();
 
   if (isLoading) {
     return <CircularProgress size={50} />;

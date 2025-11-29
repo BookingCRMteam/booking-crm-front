@@ -1,5 +1,7 @@
 import { Container } from '@mui/material';
 
+import { HEADER_HEIGHT } from '@/shared/constants';
+
 import { ContentRenderer } from './ContentRenderer/ContentRenderer';
 
 export const OperatorBookingPage = () => {
@@ -7,7 +9,7 @@ export const OperatorBookingPage = () => {
     <Container
       maxWidth="lg"
       sx={{
-        minHeight: 'calc(100vh - 60px)',
+        minHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
         display: 'grid',
         placeItems: 'center',
       }}

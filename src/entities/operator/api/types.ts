@@ -51,7 +51,7 @@ export interface OperatorPopular extends OperatorById {
   toursCount: number;
 }
 
-export interface OperatorBooking {
+export interface OperatorPaidBooking {
   bookingId: number;
   tourTitle: string;
   customerName: string;
