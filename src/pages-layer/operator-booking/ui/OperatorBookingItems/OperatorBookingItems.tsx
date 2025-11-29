@@ -2,14 +2,15 @@ import type { FC } from 'react';
 
 import { TableContainer, Typography } from '@mui/material';
 
-import type { Booking } from '../../mock/bookings';
+import type { OperatorBooking } from '@/entities/operator';
+
 import { OperatorBookingTableBody } from './TableBody';
 import { OperatorBookingTableHead } from './TableHead';
 import { OPERATOR_BOOKING_ITEMS_TITLE } from './constants';
 import { OperatorBookingTable, OperatorBookingWrapper } from './styles';
 
 type OperatorBookingItemsProps = {
-  bookings: Booking[];
+  bookings: OperatorBooking[];
 };
 
 export const OperatorBookingItems: FC<OperatorBookingItemsProps> = ({

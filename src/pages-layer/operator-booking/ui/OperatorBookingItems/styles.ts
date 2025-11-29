@@ -2,10 +2,10 @@
 
 import { Box, Table, TableCell, styled } from '@mui/material';
 
-const HEADER_HEIGHT = 60;
+import { HEADER_HEIGHT } from './constants';
 
 export const TableCellHead = styled(TableCell)(({ theme }) => ({
-  color: theme.palette.primaryExtended[950],
+  color: theme.palette.primaryExtended[900],
   padding: '11px 10px',
 }));
 

@@ -4,6 +4,7 @@ import { axiosInstance, handleApiError } from '@/shared/api';
 
 import {
   Operator,
+  OperatorBooking,
   OperatorById,
   OperatorMe,
   OperatorOnboarding,
@@ -64,6 +65,15 @@ export const operatorApi = {
         `/operator/popular`,
         { params: { limit } },
       );
+      return res.data;
+    } catch (e: unknown) {
+      handleApiError(e);
+    }
+  },
+  getOperatorBookings: async (): Promise<OperatorBooking[]> => {
+    try {
+      const res =
+        await axiosInstance.get<OperatorBooking[]>(`/operator-bookings`);
       return res.data;
     } catch (e: unknown) {
       handleApiError(e);

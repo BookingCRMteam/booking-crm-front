@@ -7,3 +7,5 @@ export const OPERATOR_BOOKING_TABLE_COLUMNS = [
   { label: 'Дати туру', width: 183 },
   { label: 'Ціна', width: 137 },
 ] as const;
+
+export const HEADER_HEIGHT = 60;
