@@ -28,9 +28,9 @@ export const MODALS: {
 
   'operator-verification-success': dynamic(
     () =>
-      import('../ui/OperatorVerification/OperatorVerificationSuccess').then(
-        (mod) => mod.OperatorVerificationSuccess,
-      ),
+      import(
+        '../ui/OperatorVerification/OperatorVerificationSuccess/OperatorVerificationSuccess'
+      ).then((mod) => mod.OperatorVerificationSuccess),
     { ssr: false },
   ) as ComponentType<ModalPropsMap['operator-verification-success']>,
 
