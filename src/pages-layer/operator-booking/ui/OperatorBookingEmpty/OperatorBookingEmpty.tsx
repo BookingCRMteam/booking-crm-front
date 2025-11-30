@@ -2,9 +2,9 @@ import Image from 'next/image';
 
 import { Box, Typography } from '@mui/material';
 
-import { BOOKING_EMPTY_IMAGE_URL, BOOKING_EMPTY_TEXT } from './constants';
+import { HEADER_HEIGHT } from '@/shared/constants';
 
-const HEADER_HEIGHT = 60;
+import { BOOKING_EMPTY_IMAGE_URL, BOOKING_EMPTY_TEXT } from './constants';
 
 export const OperatorBookingEmpty = () => {
   return (

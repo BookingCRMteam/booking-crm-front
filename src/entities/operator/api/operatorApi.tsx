@@ -7,6 +7,7 @@ import {
   OperatorById,
   OperatorMe,
   OperatorOnboarding,
+  OperatorPaidBooking,
   OperatorPopular,
 } from './types';
 
@@ -64,6 +65,15 @@ export const operatorApi = {
         `/operator/popular`,
         { params: { limit } },
       );
+      return res.data;
+    } catch (e: unknown) {
+      handleApiError(e);
+    }
+  },
+  getOperatorBookings: async (): Promise<OperatorPaidBooking[]> => {
+    try {
+      const res =
+        await axiosInstance.get<OperatorPaidBooking[]>(`/operator-bookings`);
       return res.data;
     } catch (e: unknown) {
       handleApiError(e);

@@ -8,8 +8,8 @@ import { APP_ROUTE } from '@/shared/constants';
 
 import { ModalWrapper } from '../../ModalWrapper';
 import { ModalVerificationFooter } from '../ModalVerificationFooter';
-import { MODAL_VERIFICATION_REJECTED_TITLE } from '../constants';
 import { OperatorVerificationRejectedView } from './OperatorVerificationRejectedView';
+import { MODAL_VERIFICATION_REJECTED_TITLE } from './constants';
 
 export type OperatorVerificationRejectedProps = {
   message: string;

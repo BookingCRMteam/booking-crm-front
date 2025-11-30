@@ -1,23 +1,23 @@
-import Link from 'next/link';
+'use client';
+
+import type { FC } from 'react';
 
 import { Button, Typography } from '@mui/material';
 
-import { APP_ROUTE } from '@/shared/constants';
-
-import { ModalWrapper } from '../ModalWrapper';
-import { ModalVerificationFooter } from './ModalVerificationFooter';
 import {
   MODAL_VERIFICATION_SUCCESS_BUTTON_TEXT,
   MODAL_VERIFICATION_SUCCESS_DESCRIPTION,
-  MODAL_VERIFICATION_SUCCESS_TITLE,
 } from './constants';
 
-export const OperatorVerificationSuccess = () => {
+type OperatorVerificationSuccessViewProps = {
+  onRedirect: () => void;
+};
+
+export const OperatorVerificationSuccessView: FC<
+  OperatorVerificationSuccessViewProps
+> = ({ onRedirect }) => {
   return (
-    <ModalWrapper
-      title={MODAL_VERIFICATION_SUCCESS_TITLE}
-      footer={<ModalVerificationFooter />}
-    >
+    <>
       <Typography
         component="p"
         variant="bodyLarge"
@@ -29,12 +29,11 @@ export const OperatorVerificationSuccess = () => {
         variant="contained"
         color="primary"
         size="large"
-        LinkComponent={Link}
-        href={APP_ROUTE.OPERATOR}
+        onClick={onRedirect}
         sx={{ width: 'fit-content' }}
       >
         {MODAL_VERIFICATION_SUCCESS_BUTTON_TEXT}
       </Button>
-    </ModalWrapper>
+    </>
   );
 };

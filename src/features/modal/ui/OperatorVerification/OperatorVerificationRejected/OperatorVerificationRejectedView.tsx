@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import {
   Box,
@@ -15,7 +15,7 @@ import {
   MODAL_VERIFICATION_REJECTED_DESCRIPTION,
   MODAL_VERIFICATION_REJECTED_PLACEHOLDER_TEXT,
   MODAL_VERIFICATION_REJECTED_REASON_LABEL,
-} from '../constants';
+} from './constants';
 
 const ErrorMessage = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontSize: '16px',

@@ -11,7 +11,7 @@ import {
   styled,
 } from '@mui/material';
 
-import { APP_ROUTE } from '@/shared/constants';
+import { APP_ROUTE, HEADER_HEIGHT } from '@/shared/constants';
 
 import { AccentHeading } from '../AccentHeading/AccentHeading';
 import { AdvantagesItem } from './AdvantagesItem';
@@ -29,7 +29,7 @@ const HeroWrapper = styled(Box)({
   margin: '0 auto',
   width: '100%',
   maxWidth: 1440,
-  height: 'calc(100dvh - 60px)',
+  height: `calc(100dvh - ${HEADER_HEIGHT}px)`,
   // minHeight: '663px',
   backgroundImage: 'url("/images/hero-bg.png")',
   backgroundSize: 'cover',

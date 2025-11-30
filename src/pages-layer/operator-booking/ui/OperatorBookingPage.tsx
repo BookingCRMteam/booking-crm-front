@@ -1,31 +1,20 @@
-'use client';
+import { Container } from '@mui/material';
 
-import { useState } from 'react';
+import { HEADER_HEIGHT } from '@/shared/constants';
 
-import { Container, ToggleButton } from '@mui/material';
-import { CheckFatIcon } from '@phosphor-icons/react';
-
-import { OPERATOR_BOOKINGS } from '../mock/bookings';
-import { OperatorBookingEmpty } from './OperatorBookingEmpty/OperatorBookingEmpty';
-import { OperatorBookingItems } from './OperatorBookingItems/OperatorBookingItems';
+import { ContentRenderer } from './ContentRenderer/ContentRenderer';
 
 export const OperatorBookingPage = () => {
-  const [isBookingEmpty, setIsBookingEmpty] = useState(false);
-  const toggleBookingEmpty = () => setIsBookingEmpty(!isBookingEmpty);
   return (
-    <Container maxWidth="lg">
-      <ToggleButton
-        selected={isBookingEmpty}
-        onChange={toggleBookingEmpty}
-        value="empty"
-      >
-        <CheckFatIcon />
-      </ToggleButton>
-      {isBookingEmpty ? (
-        <OperatorBookingEmpty />
-      ) : (
-        <OperatorBookingItems bookings={OPERATOR_BOOKINGS} />
-      )}
+    <Container
+      maxWidth="lg"
+      sx={{
+        minHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
+        display: 'grid',
+        placeItems: 'center',
+      }}
+    >
+      <ContentRenderer />
     </Container>
   );
 };

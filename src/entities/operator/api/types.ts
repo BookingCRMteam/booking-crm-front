@@ -50,3 +50,15 @@ export interface OperatorPopular extends OperatorById {
   bookingsCount: number;
   toursCount: number;
 }
+
+export interface OperatorPaidBooking {
+  bookingId: number;
+  tourTitle: string;
+  customerName: string;
+  customerPhone: string;
+  startDate: string;
+  endDate: string;
+  totalPriceUAH: string;
+  status: 'paid';
+  createdAt: string;
+}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Box, Button, Container, Typography } from '@mui/material';
 
-import { APP_ROUTE } from '@/shared/constants';
+import { APP_ROUTE, HEADER_HEIGHT } from '@/shared/constants';
 
 import {
   NOT_FOUND_BUTTON_TEXT,
@@ -22,7 +22,7 @@ export const NotFoundPage = () => {
         alignItems: 'center',
         justifyContent: 'center',
         paddingBottom: '60px',
-        minHeight: 'calc(100vh - 60px)',
+        minHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
       }}
     >
       <Image
