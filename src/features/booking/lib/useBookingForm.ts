@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
@@ -23,15 +25,27 @@ export const useBookingForm = () => {
 
   const form = useForm<BookingFormSchemaValues>({
     defaultValues: {
-      firstPersonName: user?.firstPersonName ?? '',
-      firstPersonSurname: user?.firstPersonSurname ?? '',
-      secondPersonName: user?.secondPersonName ?? '',
-      secondPersonSurname: user?.secondPersonSurname ?? '',
-      phone: user?.phone ?? '',
+      firstPersonName: '',
+      firstPersonSurname: '',
+      secondPersonName: '',
+      secondPersonSurname: '',
+      phone: '',
     },
     resolver: zodResolver(bookingFormSchema),
     mode: 'onSubmit',
   });
+
+  useEffect(() => {
+    if (user) {
+      form.reset({
+        firstPersonName: user.firstPersonName ?? '',
+        firstPersonSurname: user.firstPersonSurname ?? '',
+        secondPersonName: user.secondPersonName ?? '',
+        secondPersonSurname: user.secondPersonSurname ?? '',
+        phone: user.phone ?? '',
+      });
+    }
+  }, [user, form]);
 
   const onSubmit = async (data: BookingFormSchemaValues) => {
     if (!user || !tourData) {
@@ -43,6 +57,8 @@ export const useBookingForm = () => {
     await createAndRedirect({
       tourId: tourData.tourId,
       userId: user.id,
+      numberOfPeople: 2,
+      ...data,
       paymentProvider: 'liqpay',
     });
   };

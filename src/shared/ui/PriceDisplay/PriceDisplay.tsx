@@ -24,7 +24,7 @@ export const PriceDisplay: FC<PriceDisplayProps> = ({ price }) => (
       &#x20B4;
     </CurrencySymbol>
     <Typography variant="priceHighlight" component="p">
-      {price}
+      {Number(price).toLocaleString('ru-RU')}
     </Typography>
     <Typography variant="priceHighlight" component="p">
       (за двох)

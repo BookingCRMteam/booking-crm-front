@@ -22,7 +22,7 @@ const StyledModal = styled(Modal)({
 const ModalContent = styled(Box)(({ theme }) => ({
   position: 'relative',
   backgroundColor: theme.palette.common.white,
-  borderRadius: '24px',
+  borderRadius: '8px',
   width: '100%',
   maxWidth: '800px',
   padding: '60px 57px',
@@ -30,6 +30,7 @@ const ModalContent = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: '24px',
   boxShadow: theme.shadows[24],
+  outline: 'none',
 }));
 
 export const BookingModal = ({

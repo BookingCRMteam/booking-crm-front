@@ -44,9 +44,9 @@ export const BookingAuthPopover = ({
       if (forceOpen) return e.preventDefault();
 
       closeAuthPopover();
-      router.push(
-        `${AUTH_URL.LOGIN}?returnTo=${encodeURIComponent(currentPath)}`,
-      );
+
+      const returnTo = `${currentPath}?openBooking=true`;
+      router.push(`${AUTH_URL.LOGIN}?returnTo=${encodeURIComponent(returnTo)}`);
     },
     [router, currentPath, forceOpen, closeAuthPopover],
   );

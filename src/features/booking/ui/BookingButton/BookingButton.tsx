@@ -17,7 +17,7 @@ import { BookingModal } from '../BookingModal/BookingModal';
 type BookingButtonProps = {
   userData: User | null | undefined;
   isAvailable: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
   onUserClick: () => void;
 };
 
@@ -42,7 +42,7 @@ export const BookingButton = ({
 
   function onOperatorClick() {
     startRedirect();
-    router.push(APP_ROUTE.OPERATOR);
+    router.push(APP_ROUTE.OPERATOR_TOURS);
   }
 
   return (
