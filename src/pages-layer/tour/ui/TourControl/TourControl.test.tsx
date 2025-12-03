@@ -39,6 +39,17 @@ jest.mock('@/features/booking', () => ({
   ),
 }));
 
+jest.mock('next/navigation', () => ({
+  ...jest.requireActual('next/navigation'),
+  useSearchParams: () => ({
+    get: jest.fn().mockReturnValue(null),
+  }),
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+  }),
+}));
+
 const baseProps = {
   tourId: 11,
   title: 'Неймовірний тур у Карпати',

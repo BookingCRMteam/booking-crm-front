@@ -107,6 +107,10 @@ describe('useBookingForm', () => {
       secondPersonName: 'Mark',
       secondPersonSurname: 'Smith',
       phone: '123456',
+      paymentProvider: 'liqpay',
+      numberOfPeople: 2,
+      tourId: 42,
+      userId: 1,
     };
 
     await act(async () => {
@@ -115,8 +119,14 @@ describe('useBookingForm', () => {
 
     expect(mockUpdateIfMissing).toHaveBeenCalledWith(mockUser, formData);
     expect(mockCreateAndRedirect).toHaveBeenCalledWith({
-      tourId: mockTourData.tourId,
-      userId: mockUser.id,
+      tourId: 42,
+      userId: 1,
+      numberOfPeople: 2,
+      firstPersonName: 'Jane',
+      firstPersonSurname: 'Doe',
+      secondPersonName: 'Mark',
+      secondPersonSurname: 'Smith',
+      phone: '123456',
       paymentProvider: 'liqpay',
     });
     expect(mockShowNotification).not.toHaveBeenCalled();
