@@ -29,6 +29,8 @@ export const DYNAMIC_ROUTE = {
     `/tours/${tourId}/photos/${photoId}`,
   OPERATOR_TOURS_EDIT: (tourId: number) => `/operator-tours/edit/${tourId}`,
   OPERATOR_PUBLIC: (operatorId: number) => `/catalog/operator/${operatorId}`,
+  BOOKING_BY_ID: (tourId: number, bookingId: number) =>
+    `/bookings/${tourId}/${bookingId}`,
 };
 
 export const PUBLIC_PATHS = {

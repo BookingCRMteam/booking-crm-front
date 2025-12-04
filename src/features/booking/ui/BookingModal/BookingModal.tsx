@@ -2,11 +2,10 @@
 
 import { Box, Modal, styled } from '@mui/material';
 
+import { BookingForm, TourInfoBlock } from '@/features/booking';
+
 import { useBookingStore } from '@/shared/store';
 import { CloseButton } from '@/shared/ui';
-
-import { BookingForm } from '../BookingForm/BookingForm';
-import { TourInfoBlock } from '../TourInfoBlock/TourInfoBlock';
 
 type BookingModalProps = {
   forceOpen?: boolean;
@@ -45,7 +44,7 @@ export const BookingModal = ({
     <StyledModal
       open={open}
       onClose={closeBookingModal}
-      aria-labelledby="booking-modal-title"
+      aria-label="Бронювання туру"
     >
       <ModalContent role="dialog" aria-modal="true">
         <CloseButton onClick={closeBookingModal} top={16} right={16} />

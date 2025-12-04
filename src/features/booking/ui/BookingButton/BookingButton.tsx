@@ -6,13 +6,12 @@ import { useRouter } from 'next/navigation';
 
 import { Button, CircularProgress } from '@mui/material';
 
+import { BookingAuthPopover, BookingModal } from '@/features/booking';
+
 import { User } from '@/entities/user';
 
 import { APP_ROUTE } from '@/shared/constants';
 import { useBookingStore } from '@/shared/store';
-
-import { BookingAuthPopover } from '../BookingAuthPopover/BookingAuthPopover';
-import { BookingModal } from '../BookingModal/BookingModal';
 
 type BookingButtonProps = {
   userData: User | null | undefined;

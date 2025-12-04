@@ -27,27 +27,38 @@ export type BookingResponse = {
   paymentLink: string;
 };
 
-//endpoint is in progress
 export type BookingPaymentResponse = {
-  status: 'pending' | 'success' | 'failed';
-  booking: {
-    id: number;
-    userId: number;
-    firstPersonName: string;
-    firstPersonSurname: string;
-    secondPersonName: string;
-    secondPersonSurname: string;
-    phone: string;
-    email: string;
-    tourId: number;
-    totalPrice: string;
-    paymentLink: string;
-  };
-};
-
-export type PaymentModalData = BookingPaymentResponse & {
+  id: number;
+  userId: number;
+  firstPersonName: string;
+  firstPersonSurname: string;
+  secondPersonName: string;
+  secondPersonSurname: string;
+  phone: string;
+  numberOfPeople: number;
+  paymentProvider: string;
+  status: 'pending_payment' | 'confirmed' | 'failed'; //уточнити
+  totalPrice: string;
+  tourId: number;
+  paymentSessionId: string;
+  currency: string;
+  createdAt: string;
+  updatedAt: string;
   tour: {
-    date: string;
-    countryAndCity: string;
+    id: number;
+    operatorId: number;
+    title: string;
+    startDate: string;
+    endDate: string;
+    price: string;
+    cityId: number;
+    description: string;
+    availableSpots: number;
+    type: string;
+    isActive: boolean;
+    conditions: string;
+    countryISO2Code: string;
+    createdAt: string;
+    updatedAt: string;
   };
 };

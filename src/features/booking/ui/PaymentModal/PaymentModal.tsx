@@ -1,33 +1,28 @@
-import { CSSProperties } from 'react';
+import { Box, Modal, styled } from '@mui/material';
 
-import { Box, Button, Modal, Typography, styled } from '@mui/material';
-import { CheckFatIcon, SmileySadIcon } from '@phosphor-icons/react';
+import { PaymentFailed, PaymentSuccess } from '@/features/booking';
 
-import { PaymentModalData } from '@/entities/booking/model/type';
+import { BookingPaymentResponse } from '@/entities/booking';
 
-import {
-  CloseButton,
-  DateDisplay,
-  LocationDisplay,
-  PriceDisplay,
-} from '@/shared/ui';
-import { formattedPhone } from '@/shared/utils';
+import { CloseButton } from '@/shared/ui';
 
 type PaymentModalProps = {
-  status: string | null;
-  data: PaymentModalData;
+  data: BookingPaymentResponse;
   onClose: () => void;
 };
 
-const centeredBlock: CSSProperties = {
+const ModalWrapper = styled(Modal)({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-};
+});
 
 const ModalContent = styled(Box)(({ theme }) => ({
-  ...centeredBlock,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
   position: 'relative',
   backgroundColor: theme.palette.common.white,
   borderRadius: '8px',
@@ -38,89 +33,24 @@ const ModalContent = styled(Box)(({ theme }) => ({
   outline: 'none',
 }));
 
-export const PaymentModal = ({ status, data, onClose }: PaymentModalProps) => {
-  const {
-    firstPersonName,
-    firstPersonSurname,
-    secondPersonName,
-    secondPersonSurname,
-    email,
-    totalPrice,
-    phone,
-  } = data.booking;
-
-  const { countryAndCity, date } = data.tour;
-
-  const bookingPhone = formattedPhone(phone);
+export const PaymentModal = ({ data, onClose }: PaymentModalProps) => {
+  const { status } = data;
 
   return (
-    <Modal
-      open
-      onClose={onClose}
-      sx={centeredBlock}
-      aria-labelledby="booking-modal-title"
-    >
+    <ModalWrapper open onClose={onClose} aria-label="Оплата туру">
       <ModalContent
         role="dialog"
         aria-modal="true"
         sx={{
-          maxWidth: status === 'success' ? '592px' : '457px',
+          maxWidth: status === 'confirmed' ? '592px' : '457px',
         }}
       >
         <CloseButton onClick={onClose} top={16} right={16} />
 
-        {status === 'success' && (
-          <>
-            <Box sx={{ ...centeredBlock, flexDirection: 'row', gap: 1 }}>
-              <CheckFatIcon
-                size={28}
-                color="#83C5BE"
-                weight="fill"
-                data-testid="success-icon"
-              />
-              <Typography variant="h3">Бронювання підтверджено! </Typography>
-            </Box>
-            <Box sx={{ ...centeredBlock, gap: '12px' }}>
-              <Typography variant="bodyLarge">
-                Ваш тур, оформлений для:
-              </Typography>
-              <Box sx={{ ...centeredBlock, gap: '4px' }}>
-                <Typography variant="bodyDefault">{`${firstPersonName} ${firstPersonSurname} та ${secondPersonName} ${secondPersonSurname}`}</Typography>
-                <Typography variant="bodyDefault">{bookingPhone}</Typography>
-              </Box>
-              <Box sx={{ ...centeredBlock, gap: '4px' }}>
-                <LocationDisplay location={countryAndCity} />
-                <DateDisplay date={date} />
-              </Box>
-              <Typography variant="bodyLarge">
-                успішно оплачено у розмірі:
-              </Typography>
-              <PriceDisplay price={totalPrice} />
-            </Box>
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography variant="bodyLarge">{` Лист з підтвердженням бронювання надіслано за адресою: ${email}`}</Typography>
-            </Box>
-          </>
-        )}
+        {status === 'confirmed' && <PaymentSuccess data={data} />}
 
-        {status === 'failed' && (
-          <>
-            <Box sx={centeredBlock}>
-              <Typography variant="h3">Оплата не пройшла</Typography>
-            </Box>
-            <SmileySadIcon size={48} color={'#D89BF2'} />
-            <Typography variant="bodyLarge">
-              Схоже, щось пішло не так під час платежу.
-            </Typography>
-            <Typography variant="bodyLarge" sx={{ textAlign: 'center' }}>
-              Не хвилюйтеся — ваш тур нікуди не зник. Спробуйте оплатити ще раз
-              або перевірте дані картки.
-            </Typography>
-
-            <Button variant="contained">Спробувати ще раз</Button>
-          </>
-        )}
+        {status === 'pending_payment' && <PaymentFailed />}
       </ModalContent>
-    </Modal>
+    </ModalWrapper>
   );
 };

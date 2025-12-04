@@ -75,7 +75,7 @@ export const TourPage: FC<TourPageProps> = ({ tour }) => {
         </Grid>
       </Grid>
 
-      <BookingStatusListener countryAndCity={countryAndCity} date={date} />
+      <BookingStatusListener tourId={id} />
     </Container>
   );
 };

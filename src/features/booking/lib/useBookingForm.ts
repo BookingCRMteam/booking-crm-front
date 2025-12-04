@@ -1,17 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
+import { useCreateBooking, useUpdateUserIfNeeded } from '@/features/booking';
 import { coupleProfileSchema } from '@/features/couple-profile-editing/model/schema';
 
 import { useUserQuery } from '@/entities/user';
 
 import { useBookingStore, useNotificationStore } from '@/shared/store';
-
-import { useCreateBooking } from './useCreateBooking';
-import { useUpdateUserIfNeeded } from './useUpdateUserIfNeeded';
 
 const bookingFormSchema = coupleProfileSchema;
 type BookingFormSchemaValues = z.infer<typeof bookingFormSchema>;
@@ -35,16 +33,20 @@ export const useBookingForm = () => {
     mode: 'onSubmit',
   });
 
+  const hasInitializedFromUser = useRef(false);
+
   useEffect(() => {
-    if (user) {
-      form.reset({
-        firstPersonName: user.firstPersonName ?? '',
-        firstPersonSurname: user.firstPersonSurname ?? '',
-        secondPersonName: user.secondPersonName ?? '',
-        secondPersonSurname: user.secondPersonSurname ?? '',
-        phone: user.phone ?? '',
-      });
-    }
+    if (!user || hasInitializedFromUser.current) return;
+
+    form.reset({
+      firstPersonName: user.firstPersonName ?? '',
+      firstPersonSurname: user.firstPersonSurname ?? '',
+      secondPersonName: user.secondPersonName ?? '',
+      secondPersonSurname: user.secondPersonSurname ?? '',
+      phone: user.phone ?? '',
+    });
+
+    hasInitializedFromUser.current = true;
   }, [user, form]);
 
   const onSubmit = async (data: BookingFormSchemaValues) => {
@@ -53,12 +55,25 @@ export const useBookingForm = () => {
       return;
     }
 
+    const {
+      firstPersonName,
+      firstPersonSurname,
+      secondPersonName,
+      secondPersonSurname,
+      phone,
+    } = data;
+
     await updateIfMissing(user, data);
+
     await createAndRedirect({
       tourId: tourData.tourId,
       userId: user.id,
       numberOfPeople: 2,
-      ...data,
+      firstPersonName,
+      firstPersonSurname,
+      secondPersonName,
+      secondPersonSurname,
+      phone,
       paymentProvider: 'liqpay',
     });
   };

@@ -4,71 +4,52 @@ import { useEffect, useState } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import {
-  BookingPaymentResponse,
-  PaymentModalData,
-} from '@/entities/booking/model/type';
+import { PaymentModal } from '@/features/booking';
 
-import { PaymentModal } from '../PaymentModal/PaymentModal';
+import { BookingPaymentResponse, getBookingById } from '@/entities/booking';
+
+import { logger } from '@/shared/lib/logger';
 
 type BookingStatusListenerProps = {
-  countryAndCity: string;
-  date: string;
+  tourId: number;
 };
 
 export const BookingStatusListener = ({
-  countryAndCity,
-  date,
+  tourId,
 }: BookingStatusListenerProps) => {
   const params = useSearchParams();
   const router = useRouter();
 
-  const status = params.get('status');
-  const bookingId = params.get('bookingId');
+  const bookingId = Number(params.get('bookingId'));
 
-  const [modalData, setModalData] = useState<PaymentModalData | null>(null);
+  const [modalData, setModalData] = useState<BookingPaymentResponse | null>(
+    null,
+  );
 
   useEffect(() => {
-    if (!status || !bookingId) return;
+    if (!bookingId) return;
 
-    const fetchData = () => {
-      const bookingData: BookingPaymentResponse = {
-        status: 'success',
-        booking: {
-          id: 215,
-          userId: 19,
-          firstPersonName: 'Олена',
-          firstPersonSurname: 'Петренко',
-          secondPersonName: 'Іван',
-          secondPersonSurname: 'Іванов',
-          phone: '0501122333',
-          email: 'example@gmail.com',
-          tourId: 160,
-          totalPrice: '50000',
-          paymentLink: '#',
-        },
-      };
+    const fetchData = async () => {
+      try {
+        const bookingData = await getBookingById(tourId, bookingId);
+        setModalData(bookingData);
 
-      setModalData({
-        ...bookingData,
-        tour: {
-          date,
-          countryAndCity,
-        },
-      });
+        const url = new URL(window.location.href);
+        url.searchParams.delete('success');
+        url.searchParams.delete('bookingId');
+        router.replace(url.toString());
+      } catch (err: unknown) {
+        logger.error('Failed to fetch booking data:', err);
+      }
     };
 
     fetchData();
-  }, [status, bookingId, router, date, countryAndCity]);
+  }, [tourId, bookingId, router]);
 
   return (
     <>
       {modalData && (
-        <PaymentModal
-          status={status}
-          data={modalData}
-          onClose={() => setModalData(null)}
-        />
+        <PaymentModal data={modalData} onClose={() => setModalData(null)} />
       )}
     </>
   );

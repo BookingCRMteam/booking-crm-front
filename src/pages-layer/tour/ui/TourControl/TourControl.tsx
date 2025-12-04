@@ -91,9 +91,11 @@ const TourControl: FC<TourControlProps> = ({
       openBookingModal(tourData);
     }
 
-    const url = new URL(window.location.href);
-    url.searchParams.delete('openBooking');
-    router.replace(url.toString());
+    if (openBooking) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('openBooking');
+      router.replace(url.toString());
+    }
   }, [user, isTraveler, tourData, router, openBooking, openBookingModal]);
 
   const handleBookingUserClick = useCallback(() => {
