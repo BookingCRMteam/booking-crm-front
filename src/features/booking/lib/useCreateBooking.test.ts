@@ -18,6 +18,14 @@ jest.mock('@/shared/store', () => ({
   useNotificationStore: jest.fn(),
 }));
 
+jest.mock('@auth0/nextjs-auth0', () => ({
+  useUser: () => ({
+    user: null,
+    error: null,
+    isLoading: false,
+  }),
+}));
+
 jest.mock('../utils/handleBookingError', () => ({
   handleBookingError: jest.fn(),
 }));

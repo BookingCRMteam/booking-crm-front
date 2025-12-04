@@ -9,6 +9,14 @@ import { BookingForm } from './BookingForm';
 const mockOnSubmit = jest.fn();
 const mockHandleSubmit = createMockHandleSubmit();
 
+jest.mock('@auth0/nextjs-auth0', () => ({
+  useUser: () => ({
+    user: null,
+    error: null,
+    isLoading: false,
+  }),
+}));
+
 const mockUseBookingForm = {
   form: {
     register: jest.fn(() => ({})),
