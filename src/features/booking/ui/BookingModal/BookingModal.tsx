@@ -29,7 +29,9 @@ const ModalContent = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: '24px',
   boxShadow: theme.shadows[24],
-  outline: 'none',
+  '&:focus-visible': {
+    outline: `2px solid ${theme.palette.primary.main}`,
+  },
 }));
 
 export const BookingModal = ({

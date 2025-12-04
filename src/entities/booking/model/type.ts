@@ -16,7 +16,7 @@ export type BookingResponse = {
     id: number;
     userId: number;
     tourId: number;
-    status: 'pending_payment' | 'paid' | 'canceled';
+    status: 'pending_payment' | 'confirmed' | 'failed';
     totalPrice: string;
     currency: 'UAH' | 'EUR'; //зараз сервер повертає євро
     createdAt: string;
@@ -36,12 +36,12 @@ export type BookingPaymentResponse = {
   secondPersonSurname: string;
   phone: string;
   numberOfPeople: number;
-  paymentProvider: string;
+  paymentProvider: 'liqpay';
   status: 'pending_payment' | 'confirmed' | 'failed'; //уточнити
   totalPrice: string;
   tourId: number;
   paymentSessionId: string;
-  currency: string;
+  currency: 'UAH' | 'EUR';
   createdAt: string;
   updatedAt: string;
   tour: {
