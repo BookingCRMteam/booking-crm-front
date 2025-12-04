@@ -18,6 +18,14 @@ jest.mock('@/shared/store', () => ({
   useNotificationStore: jest.fn(),
 }));
 
+jest.mock('@auth0/nextjs-auth0', () => ({
+  useUser: () => ({
+    user: null,
+    error: null,
+    isLoading: false,
+  }),
+}));
+
 jest.mock('../utils/handleBookingError', () => ({
   handleBookingError: jest.fn(),
 }));
@@ -25,6 +33,18 @@ jest.mock('../utils/handleBookingError', () => ({
 jest.mock('../utils/submitLiqpayForm', () => ({
   submitLiqpayForm: jest.fn(),
 }));
+
+const mockData: BookingRequest = {
+  userId: 11,
+  tourId: 456,
+  firstPersonName: 'Олена',
+  firstPersonSurname: 'Петренко',
+  secondPersonName: 'Іван',
+  secondPersonSurname: 'Іванов',
+  phone: '+380501122333',
+  numberOfPeople: 2,
+  paymentProvider: 'liqpay',
+} as BookingRequest;
 
 describe('useCreateBooking', () => {
   const mockCloseBookingModal = jest.fn();
@@ -43,12 +63,6 @@ describe('useCreateBooking', () => {
   });
 
   it('calls createBooking and redirects via LiqPay on success', async () => {
-    const mockData: BookingRequest = {
-      userId: 10,
-      tourId: 123,
-      paymentProvider: 'liqpay',
-    } as BookingRequest;
-
     const mockBooking = {
       paymentLink: 'https://liqpay.ua/pay',
     };
@@ -68,12 +82,6 @@ describe('useCreateBooking', () => {
   });
 
   it('handles error correctly', async () => {
-    const mockData: BookingRequest = {
-      userId: 11,
-      tourId: 456,
-      paymentProvider: 'liqpay',
-    } as BookingRequest;
-
     const mockError = new Error('Booking failed') as ApiError;
     const mockMessage = 'Something went wrong';
 

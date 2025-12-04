@@ -18,16 +18,23 @@ const CurrencySymbol = styled(Typography)<TypographyProps>({
   padding: '0 4px 0 8px',
 });
 
-export const PriceDisplay: FC<PriceDisplayProps> = ({ price }) => (
-  <PriceContainer>
-    <CurrencySymbol variant="priceHighlight" component="p">
-      &#x20B4;
-    </CurrencySymbol>
-    <Typography variant="priceHighlight" component="p">
-      {price}
-    </Typography>
-    <Typography variant="priceHighlight" component="p">
-      (за двох)
-    </Typography>
-  </PriceContainer>
-);
+export const PriceDisplay: FC<PriceDisplayProps> = ({ price }) => {
+  const numeric = Number(price);
+  const display = Number.isNaN(numeric)
+    ? price
+    : numeric.toLocaleString('ru-RU');
+
+  return (
+    <PriceContainer>
+      <CurrencySymbol variant="priceHighlight" component="p">
+        &#x20B4;
+      </CurrencySymbol>
+      <Typography variant="priceHighlight" component="p">
+        {display}
+      </Typography>
+      <Typography variant="priceHighlight" component="p">
+        (за двох)
+      </Typography>
+    </PriceContainer>
+  );
+};

@@ -8,7 +8,7 @@ describe('PriceDisplay', () => {
 
     expect(screen.getByText('₴')).toBeInTheDocument();
 
-    expect(screen.getByText('2500')).toBeInTheDocument();
+    expect(screen.getByText(/2\s?500/)).toBeInTheDocument();
 
     expect(screen.getByText('(за двох)')).toBeInTheDocument();
   });

@@ -72,7 +72,7 @@ describe('BookingAuthPopover', () => {
     fireEvent.click(screen.getByRole('button', { name: /вхід\/реєстрація/i }));
     expect(closeAuthPopover).toHaveBeenCalled();
     expect(push).toHaveBeenCalledWith(
-      `${AUTH_URL.LOGIN}?returnTo=${encodeURIComponent('/current-page')}`,
+      `${AUTH_URL.LOGIN}?returnTo=${encodeURIComponent('/current-page?openBooking=true')}`,
     );
   });
 

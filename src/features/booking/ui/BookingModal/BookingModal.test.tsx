@@ -9,6 +9,14 @@ jest.mock('@/shared/store', () => ({
   useBookingStore: jest.fn(),
 }));
 
+jest.mock('@auth0/nextjs-auth0', () => ({
+  useUser: () => ({
+    user: null,
+    error: null,
+    isLoading: false,
+  }),
+}));
+
 jest.mock('../BookingForm/BookingForm', () => ({
   BookingForm: ({ disableSubmit }: { disableSubmit?: boolean }) => (
     <div data-testid="booking-form" data-disable={disableSubmit} />

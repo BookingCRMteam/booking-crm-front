@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import { Box, Container, Grid } from '@mui/material';
 
+import { BookingStatusListener } from '@/features/booking/ui/BookingStatusListener/BookingStatusListener';
 import { TourGallery } from '@/features/tour-gallery';
 
 import { mapTourToViewModel } from '@/entities/tour';
@@ -73,6 +74,8 @@ export const TourPage: FC<TourPageProps> = ({ tour }) => {
           <TourDescription description={description} />
         </Grid>
       </Grid>
+
+      <BookingStatusListener tourId={id} />
     </Container>
   );
 };

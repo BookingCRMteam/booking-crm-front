@@ -2,11 +2,10 @@
 
 import { Box, Modal, styled } from '@mui/material';
 
+import { BookingForm, TourInfoBlock } from '@/features/booking';
+
 import { useBookingStore } from '@/shared/store';
 import { CloseButton } from '@/shared/ui';
-
-import { BookingForm } from '../BookingForm/BookingForm';
-import { TourInfoBlock } from '../TourInfoBlock/TourInfoBlock';
 
 type BookingModalProps = {
   forceOpen?: boolean;
@@ -22,7 +21,7 @@ const StyledModal = styled(Modal)({
 const ModalContent = styled(Box)(({ theme }) => ({
   position: 'relative',
   backgroundColor: theme.palette.common.white,
-  borderRadius: '24px',
+  borderRadius: '8px',
   width: '100%',
   maxWidth: '800px',
   padding: '60px 57px',
@@ -30,6 +29,9 @@ const ModalContent = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: '24px',
   boxShadow: theme.shadows[24],
+  '&:focus-visible': {
+    outline: `2px solid ${theme.palette.primary.main}`,
+  },
 }));
 
 export const BookingModal = ({
@@ -44,7 +46,7 @@ export const BookingModal = ({
     <StyledModal
       open={open}
       onClose={closeBookingModal}
-      aria-labelledby="booking-modal-title"
+      aria-label="Бронювання туру"
     >
       <ModalContent role="dialog" aria-modal="true">
         <CloseButton onClick={closeBookingModal} top={16} right={16} />

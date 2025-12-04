@@ -1,6 +1,8 @@
 'use client';
 
-import { type FC, useCallback, useMemo } from 'react';
+import { type FC, useCallback, useEffect, useMemo } from 'react';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Box, Typography, styled } from '@mui/material';
 
@@ -9,8 +11,12 @@ import { BookingButton } from '@/features/booking';
 import { useUserQuery } from '@/entities/user';
 
 import { useBookingStore } from '@/shared/store';
-import { OperatorLink } from '@/shared/ui';
-import { DateDisplay, LocationDisplay, PriceDisplay } from '@/shared/ui';
+import {
+  DateDisplay,
+  LocationDisplay,
+  OperatorLink,
+  PriceDisplay,
+} from '@/shared/ui';
 
 import { AvailabilityBadge } from '../AvailabilityBadge/AvailabilityBadge';
 
@@ -62,15 +68,35 @@ const TourControl: FC<TourControlProps> = ({
   operator,
 }) => {
   const isAvailable = availableSpots > 0;
-  const { data: user, isLoading } = useUserQuery();
-  const { openAuthPopover, openBookingModal } = useBookingStore();
 
+  const { data: user, isLoading } = useUserQuery();
   const isOperator = user?.role === 'operator';
+  const isTraveler = user?.role === 'traveler';
+
+  const searchParams = useSearchParams();
+  const openBooking = searchParams.get('openBooking') === 'true';
+
+  const { openAuthPopover, openBookingModal } = useBookingStore();
+  const router = useRouter();
 
   const tourData = useMemo(
     () => ({ tourId, title, price, countryAndCity, date }),
     [tourId, title, price, countryAndCity, date],
   );
+
+  useEffect(() => {
+    if (!user) return;
+
+    if (isTraveler && openBooking) {
+      openBookingModal(tourData);
+    }
+
+    if (openBooking) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('openBooking');
+      router.replace(url.toString());
+    }
+  }, [user, isTraveler, tourData, router, openBooking, openBookingModal]);
 
   const handleBookingUserClick = useCallback(() => {
     if (isLoading) return;
@@ -79,10 +105,17 @@ const TourControl: FC<TourControlProps> = ({
       openAuthPopover();
       return;
     }
-    if (user?.role === 'traveler') {
+    if (isTraveler) {
       openBookingModal(tourData);
     }
-  }, [isLoading, user, tourData, openAuthPopover, openBookingModal]);
+  }, [
+    isLoading,
+    user,
+    isTraveler,
+    tourData,
+    openAuthPopover,
+    openBookingModal,
+  ]);
 
   return (
     <ControlWrapper>
