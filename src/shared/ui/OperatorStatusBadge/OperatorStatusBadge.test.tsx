@@ -1,22 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
-
-import '@testing-library/jest-dom';
-
 import { OperatorStatus } from '@/entities/operator';
 
-import { renderWithProviders } from '@/shared/tests';
+import { renderWithTheme } from '@/shared/tests';
 
 import { OperatorStatusBadge } from './OperatorStatusBadge';
 
 jest.mock('@phosphor-icons/react', () => ({
-  CertificateIcon: (props: any) => (
-    <svg data-testid="certificate-icon" {...props} />
-  ),
-  ClockIcon: (props: any) => <svg data-testid="clock-icon" {...props} />,
-  ProhibitInsetIcon: (props: any) => (
-    <svg data-testid="prohibit-icon" {...props} />
-  ),
+  CertificateIcon: () => <svg data-testid="certificate-icon" />,
+  WarningCircleIcon: () => <svg data-testid="warning-icon" />,
+  SpinnerIcon: () => <svg data-testid="spinner-icon" />,
 }));
 
 describe('OperatorStatusBadge Component', () => {
@@ -24,42 +15,34 @@ describe('OperatorStatusBadge Component', () => {
     status: OperatorStatus;
     expectedText: string;
     expectedIconTestId: string;
-    expectedRotation: string;
   }[] = [
     {
       status: 'approved',
       expectedText: 'Верифіковано',
       expectedIconTestId: 'certificate-icon',
-      expectedRotation: '0',
     },
     {
       status: 'pending',
       expectedText: 'На перевірці',
-      expectedIconTestId: 'clock-icon',
-      expectedRotation: '0',
+      expectedIconTestId: 'spinner-icon',
     },
     {
       status: 'rejected',
       expectedText: 'Відхилено',
-      expectedIconTestId: 'prohibit-icon',
-      expectedRotation: '-45deg',
+      expectedIconTestId: 'warning-icon',
     },
   ];
 
   test.each(testCases)(
     'should render correctly for status: $status with correct text and icon',
-    ({ status, expectedText, expectedIconTestId, expectedRotation }) => {
-      const { getByText, getByTestId, queryByTestId } = renderWithProviders(
+    ({ status, expectedText, expectedIconTestId }) => {
+      const { getByText, getByTestId, queryByTestId } = renderWithTheme(
         <OperatorStatusBadge status={status} />,
       );
 
       expect(getByText(expectedText)).toBeInTheDocument();
       const icon = getByTestId(expectedIconTestId);
       expect(icon).toBeInTheDocument();
-      expect(icon).toHaveAttribute(
-        'style',
-        expect.stringContaining(`transform: rotate(${expectedRotation})`),
-      );
 
       testCases.forEach((tc) => {
         if (tc.expectedIconTestId !== expectedIconTestId) {
@@ -71,7 +54,7 @@ describe('OperatorStatusBadge Component', () => {
 
   test('should pass the className prop to the root element', () => {
     const customClass = 'test-override-class';
-    const { container } = renderWithProviders(
+    const { container } = renderWithTheme(
       <OperatorStatusBadge status="approved" className={customClass} />,
     );
 

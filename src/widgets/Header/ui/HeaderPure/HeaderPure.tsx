@@ -6,10 +6,10 @@ import type { OperatorStatus } from '@/entities/operator';
 
 import { UserRole } from '@/shared/types';
 import { AppLogo } from '@/shared/ui';
+import { OperatorStatusBadge } from '@/shared/ui';
 
 import { AuthorizedMenu } from '../AuthorizedMenu/AuthorizedMenu';
 import { NavigationLinks } from '../NavigationLinks/NavigationLinks';
-import { OperatorStatusHeader } from '../OperatorStatusHeader/OperatorStatusHeader';
 import { UnauthorizedMenu } from '../UnauthorizedMenu/UnauthorizedMenu';
 
 interface HeaderPureProps {
@@ -48,7 +48,7 @@ const HeaderPure: FC<HeaderPureProps> = ({
               firstPersonName={firstPersonName}
             >
               {isOperator && operatorStatus && (
-                <OperatorStatusHeader status={operatorStatus} />
+                <OperatorStatusBadge status={operatorStatus} />
               )}
             </AuthorizedMenu>
           ) : (
