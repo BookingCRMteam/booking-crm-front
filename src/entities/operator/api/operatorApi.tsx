@@ -3,8 +3,6 @@ import { isAxiosError } from 'axios';
 import { axiosInstance, handleApiError } from '@/shared/api';
 
 import {
-  Operator,
-  OperatorById,
   OperatorMe,
   OperatorOnboarding,
   OperatorPaidBooking,
@@ -12,9 +10,9 @@ import {
 } from './types';
 
 export const operatorApi = {
-  setNewOperator: async (body: OperatorOnboarding): Promise<Operator> => {
+  setNewOperator: async (body: OperatorOnboarding): Promise<OperatorMe> => {
     try {
-      const res = await axiosInstance.post<Operator>('/operator', body);
+      const res = await axiosInstance.post<OperatorMe>('/operator', body);
       return res.data;
     } catch (e: unknown) {
       handleApiError(e);
@@ -51,9 +49,9 @@ export const operatorApi = {
       handleApiError(e);
     }
   },
-  getOperatorById: async (id: number): Promise<OperatorById> => {
+  getOperatorById: async (id: number): Promise<OperatorMe> => {
     try {
-      const res = await axiosInstance.get<OperatorById>(`/operator/${id}`);
+      const res = await axiosInstance.get<OperatorMe>(`/operator/${id}`);
       return res.data;
     } catch (e: unknown) {
       handleApiError(e);

@@ -1,6 +1,6 @@
 'use client';
 
-import { OperatorById } from '@/entities/operator/api/types';
+import { OperatorMe } from '@/entities/operator/api/types';
 import { Tours } from '@/entities/tour';
 
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants';
@@ -10,7 +10,7 @@ import { OperatorHeader } from '../OperatorHeader/OperatorHeader';
 import { OperatorTours } from '../OperatorTours/OperatorTours';
 
 type OperatorPublicPageProps = {
-  operator: OperatorById;
+  operator: OperatorMe;
   initialTours: Tours;
 };
 

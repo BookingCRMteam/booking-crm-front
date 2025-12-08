@@ -20,7 +20,7 @@ import type { OperatorProfileSchemaValues } from '../../model/schema';
 
 interface ImagesInputProps {
   control: Control<OperatorProfileSchemaValues>;
-  initialPreviewUrl?: string;
+  initialPreviewUrl: string | null;
   onDeleteFlagChange: (value: boolean) => void;
 }
 
