@@ -4,6 +4,8 @@ import { authGuard } from '@/features/auth';
 
 import { APP_ROUTE } from '@/shared/constants';
 
+export const dynamic = 'force-dynamic';
+
 export default async function OperatorLayout({
   children,
 }: {

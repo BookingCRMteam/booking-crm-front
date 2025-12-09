@@ -1,3 +1,5 @@
+'use client';
+
 import { NotFoundPage } from '@/pages-layer/not-found';
 
 export default function NotFound() {
