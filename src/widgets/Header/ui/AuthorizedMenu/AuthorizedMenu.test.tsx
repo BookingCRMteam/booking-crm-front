@@ -6,18 +6,19 @@ import type { UserRole } from '@/shared/types';
 
 import { AuthorizedMenu } from './AuthorizedMenu';
 
-jest.mock('next/link', () =>
-  // eslint-disable-next-line react/display-name
-  ({ children, href }: { children: ReactNode; href: string }) => (
-    <a
-      href={href}
-      onClick={(e) => {
-        e.preventDefault();
-      }}
-    >
-      {children}
-    </a>
-  ),
+jest.mock(
+  'next/link',
+  () =>
+    ({ children, href }: { children: ReactNode; href: string }) => (
+      <a
+        href={href}
+        onClick={(e) => {
+          e.preventDefault();
+        }}
+      >
+        {children}
+      </a>
+    ),
 );
 
 jest.mock('./constants', () => ({

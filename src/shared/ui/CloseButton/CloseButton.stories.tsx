@@ -1,5 +1,5 @@
 import { Box, styled } from '@mui/material';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { CloseButton } from './CloseButton';
 

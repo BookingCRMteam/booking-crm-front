@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Box, Button, Stack, Typography, styled } from '@mui/material';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { useBookingStore } from '@/shared/store';
 import { resetAllStores } from '@/shared/tests';

@@ -28,17 +28,17 @@ export const MODALS: {
 
   'operator-verification-success': dynamic(
     () =>
-      import(
-        '../ui/OperatorVerification/OperatorVerificationSuccess/OperatorVerificationSuccess'
-      ).then((mod) => mod.OperatorVerificationSuccess),
+      import('../ui/OperatorVerification/OperatorVerificationSuccess/OperatorVerificationSuccess').then(
+        (mod) => mod.OperatorVerificationSuccess,
+      ),
     { ssr: false },
   ) as ComponentType<ModalPropsMap['operator-verification-success']>,
 
   'operator-verification-rejected': dynamic(
     () =>
-      import(
-        '../ui/OperatorVerification/OperatorVerificationRejected/OperatorVerificationRejected'
-      ).then((mod) => mod.OperatorVerificationRejected),
+      import('../ui/OperatorVerification/OperatorVerificationRejected/OperatorVerificationRejected').then(
+        (mod) => mod.OperatorVerificationRejected,
+      ),
     { ssr: false },
   ) as ComponentType<ModalPropsMap['operator-verification-rejected']>,
   'support-request-modal': dynamic(

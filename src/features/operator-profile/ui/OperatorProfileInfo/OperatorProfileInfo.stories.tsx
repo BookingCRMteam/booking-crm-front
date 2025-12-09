@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { Box } from '@mui/material';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { mockOperator } from '@/jest/fixtures/operatorMocks';
 

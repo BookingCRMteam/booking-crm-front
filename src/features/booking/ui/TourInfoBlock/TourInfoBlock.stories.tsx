@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { Box } from '@mui/material';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { TourBookingInfo } from '@/entities/tour/model/types';
 
@@ -71,7 +71,6 @@ export const DefaultView: Story = {
         countryAndCity: typedArgs.countryAndCity,
         date: typedArgs.date,
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [openBookingModal]);
 
     return (

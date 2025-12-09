@@ -1,12 +1,12 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { withThemeFromJSXProvider } from '@storybook/addon-themes';
-import type { Preview } from '@storybook/nextjs';
+import type { Preview } from '@storybook/nextjs-vite';
 import {
   ReadonlyURLSearchParams,
   getRouter,
   usePathname,
   useSearchParams,
-} from '@storybook/nextjs/navigation.mock';
+} from '@storybook/nextjs-vite/navigation.mock';
 import mockRouter from 'next-router-mock';
 
 import { theme } from '../src/shared/theme';

@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { Meta, StoryObj } from '@storybook/nextjs';
+import { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useForm } from 'react-hook-form';
 
 import { PhoneInputField } from './PhoneInputField';
