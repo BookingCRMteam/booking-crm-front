@@ -15,4 +15,5 @@ export const mockOperator: OperatorMe = {
   status: 'approved',
   email: 'test@example.com',
   phone: '+380501112233',
+  rejectionReason: null,
 };

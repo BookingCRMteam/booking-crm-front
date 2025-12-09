@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 

@@ -16,11 +16,13 @@ import { useOperatorOnboarding } from '../model/useOperatorOnboarding';
 import {
   FORM_CHECKBOX_LABEL,
   FORM_DESCRIPTION,
+  FORM_DESCRIPTION_REJECTED,
   FORM_FIRST_NAME_LABEL,
   FORM_LAST_NAME_LABEL,
   FORM_PHONE_PLACEHOLDER,
   FORM_SUBMIT_BUTTON,
   FORM_TITLE,
+  FORM_TITLE_REJECTED,
   FORM_WEBSITE_LABEL,
 } from './constants';
 
@@ -50,26 +52,26 @@ const CheckboxLabel = styled(FormControlLabel)(({ theme }) => ({
 }));
 
 export const OperatorOnboardingForm = () => {
-  const { form, onSubmit, isPending, isSuccess } = useOperatorOnboarding();
+  const { form, onSubmit, isPending, isSuccess, isRejected } =
+    useOperatorOnboarding();
   const {
     handleSubmit,
     register,
     control,
     formState: { errors, isValid },
   } = form;
-
   return (
     <Form component="form" onSubmit={handleSubmit(onSubmit)}>
       <Typography component="h1" variant="h2" align="center">
-        {FORM_TITLE}
+        {isRejected ? FORM_TITLE_REJECTED : FORM_TITLE}
       </Typography>
       <Typography
         component="p"
         align="center"
         variant="bodyLarge"
-        maxWidth={440}
+        maxWidth={isRejected ? 494 : 440}
       >
-        {FORM_DESCRIPTION}
+        {isRejected ? FORM_DESCRIPTION_REJECTED : FORM_DESCRIPTION}
       </Typography>
       <TextField
         label={FORM_FIRST_NAME_LABEL}

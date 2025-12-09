@@ -6,7 +6,6 @@ import { render, screen } from '@testing-library/react';
 import { BreadCrumbs, BreadCrumbsItem } from './BreadCrumbs';
 
 jest.mock('@mui/icons-material/ArrowForwardIosRounded', () => {
-  // eslint-disable-next-line react/display-name
   return () => <div data-testid="separator-icon" />;
 });
 

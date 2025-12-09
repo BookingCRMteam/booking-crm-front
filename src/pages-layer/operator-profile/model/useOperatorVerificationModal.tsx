@@ -23,8 +23,7 @@ export const useOperatorVerificationModal = () => {
 
   const operatorId = operator?.id;
   const operatorStatus = operator?.status;
-  // TODO: Оновити після отримання реальної причини відмови з бекенду
-  const rejectedReason = 'Причина відмови';
+  const rejectedReason = operator?.rejectionReason;
 
   const useStore = useOperatorVerificationStore(operatorId);
   const store = useStore?.();

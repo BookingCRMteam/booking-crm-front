@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { Box, Typography } from '@mui/material';
 
-import { OperatorById } from '@/entities/operator/api/types';
+import { OperatorMe } from '@/entities/operator/api/types';
 
 import { OperatorStatusBadge, Phone } from '@/shared/ui';
 import { formattedPhone } from '@/shared/utils';
@@ -43,7 +43,7 @@ const textBlockStyles = {
   wordBreak: 'break-word',
 };
 
-export const OperatorHeader = ({ operator }: { operator: OperatorById }) => {
+export const OperatorHeader = ({ operator }: { operator: OperatorMe }) => {
   const secureUrl = operator.photo?.replace(/^http:\/\//, 'https://');
 
   const phoneDisplay = formattedPhone(operator.phone);

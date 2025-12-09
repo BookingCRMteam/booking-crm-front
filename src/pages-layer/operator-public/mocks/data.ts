@@ -1,6 +1,6 @@
-import { OperatorById } from '@/entities/operator/api/types';
+import { OperatorMe } from '@/entities/operator/api/types';
 
-export const mockOperator: OperatorById = {
+export const mockOperator: OperatorMe = {
   id: 1,
   email: 'email@example.com',
   createdAt: '2025-09-29T12:02:12.599Z',
@@ -18,4 +18,5 @@ export const mockOperator: OperatorById = {
     'Я вірю, що подорож — це про емоції та відчуття. Тому створюю маршрути так, щоб вони залишали не тільки спогади про місця, а й тепло в серці — від келиха вина серед тосканських пагорбів до вечері під звуки фаду в Лісабоні.',
 
   photo: '/images/public_operator.jpg',
+  rejectionReason: null,
 };

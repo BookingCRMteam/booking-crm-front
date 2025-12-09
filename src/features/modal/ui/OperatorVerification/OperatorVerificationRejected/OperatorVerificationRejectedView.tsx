@@ -2,30 +2,13 @@
 
 import type { FC } from 'react';
 
-import {
-  Box,
-  Button,
-  Typography,
-  type TypographyProps,
-  styled,
-} from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 
 import {
   MODAL_VERIFICATION_REJECTED_BUTTON_TEXT,
   MODAL_VERIFICATION_REJECTED_DESCRIPTION,
-  MODAL_VERIFICATION_REJECTED_PLACEHOLDER_TEXT,
   MODAL_VERIFICATION_REJECTED_REASON_LABEL,
 } from './constants';
-
-const ErrorMessage = styled(Typography)<TypographyProps>(({ theme }) => ({
-  fontSize: '16px',
-  padding: '6px 16px',
-  borderRadius: '4px',
-  width: '100%',
-  maxWidth: '408px',
-  border: `1px solid ${theme.palette.common.black}`,
-  color: theme.palette.gray[800],
-}));
 
 type OperatorVerificationRejectedViewProps = {
   message: string;
@@ -55,9 +38,14 @@ export const OperatorVerificationRejectedView: FC<
         <Typography component="p" variant="bodyDefault">
           {MODAL_VERIFICATION_REJECTED_REASON_LABEL}
         </Typography>
-        <ErrorMessage component="p" variant="inputPlaceholder">
-          {message || MODAL_VERIFICATION_REJECTED_PLACEHOLDER_TEXT}
-        </ErrorMessage>
+        <TextField
+          value={message}
+          disabled
+          multiline
+          minRows={2.5}
+          fullWidth
+          variant="outlined"
+        />
       </Box>
       <Button
         color="primary"

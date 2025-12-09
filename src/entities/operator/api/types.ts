@@ -3,8 +3,6 @@ export type Operator = {
   message: string;
 };
 
-export type OperatorStatus = 'pending' | 'approved' | 'rejected';
-
 export type OperatorOnboarding = {
   firstName: string;
   lastName: string;
@@ -12,7 +10,21 @@ export type OperatorOnboarding = {
   phone: string;
 };
 
-export interface OperatorMe {
+export type OperatorStatus = 'pending' | 'approved' | 'rejected';
+export type OperatorStatusApproved = {
+  status: 'approved';
+  rejectionReason: null;
+};
+export type OperatorStatusPending = {
+  status: 'pending';
+  rejectionReason: null;
+};
+export type OperatorStatusRejected = {
+  status: 'rejected';
+  rejectionReason: string;
+};
+
+export type OperatorBase = {
   id: number;
   email: string;
   createdAt: string;
@@ -24,34 +36,19 @@ export interface OperatorMe {
   lastName: string;
   website: string;
   phone: string;
-  status: OperatorStatus;
   philosophy: string;
-  photo: string;
-}
-
-export interface OperatorById {
-  id: number;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
-  userId: number;
-  companyName: string;
-  description: string | null;
-  firstName: string;
-  lastName: string;
-  website: string;
-  phone: string;
-  status: OperatorStatus;
-  philosophy: string | null;
   photo: string | null;
-}
+};
 
-export interface OperatorPopular extends OperatorById {
+export type OperatorMe = OperatorBase &
+  (OperatorStatusApproved | OperatorStatusPending | OperatorStatusRejected);
+
+export type OperatorPopular = OperatorMe & {
   bookingsCount: number;
   toursCount: number;
-}
+};
 
-export interface OperatorPaidBooking {
+export type OperatorPaidBooking = {
   bookingId: number;
   tourTitle: string;
   customerName: string;
@@ -61,4 +58,4 @@ export interface OperatorPaidBooking {
   totalPriceUAH: string;
   status: 'paid';
   createdAt: string;
-}
+};

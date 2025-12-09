@@ -1,7 +1,7 @@
 'use client';
 
 import { Box } from '@mui/material';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import type { Tours } from '@/entities/tour/model/types';
 

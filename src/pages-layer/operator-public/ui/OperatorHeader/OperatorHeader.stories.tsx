@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { mockOperator } from '../../mocks/data';
 import { OperatorHeader } from './OperatorHeader';

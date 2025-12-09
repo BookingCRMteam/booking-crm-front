@@ -3,8 +3,8 @@
 import { Box, BoxProps, Typography, styled } from '@mui/material';
 import {
   CertificateIcon,
-  ClockIcon,
-  ProhibitInsetIcon,
+  SpinnerIcon,
+  WarningCircleIcon,
 } from '@phosphor-icons/react';
 
 import { OperatorStatus } from '@/entities/operator';
@@ -23,28 +23,24 @@ const getStatusVisuals = (status: OperatorStatus) => {
         text: 'Верифіковано',
         accentColor: 3,
         Icon: CertificateIcon,
-        rotate: '0',
       };
     case 'pending':
       return {
         text: 'На перевірці',
         accentColor: 2,
-        Icon: ClockIcon,
-        rotate: '0',
+        Icon: SpinnerIcon,
       };
     case 'rejected':
       return {
         text: 'Відхилено',
         accentColor: 1,
-        Icon: ProhibitInsetIcon,
-        rotate: '-45deg',
+        Icon: WarningCircleIcon,
       };
     default: {
       return {
         text: 'Невідомий',
         accentColor: 3,
         Icon: CertificateIcon,
-        rotate: '0',
       };
     }
   }
@@ -58,14 +54,15 @@ const BadgeWrapper = styled(Box, {
 })<BadgeWrapper>(({ theme, accentColor, isSmall }) => ({
   display: 'flex',
   alignItems: 'center',
-  padding: isSmall ? '0px 4px' : '1.2px 8px',
+  padding: '0px 3.5px',
+  height: isSmall ? 'fit-content' : '31px',
   borderRadius: '4px',
-  width: isSmall ? '121px' : '153px',
+  width: isSmall ? '121px' : 'fit-content',
   gap: isSmall ? '2px' : '4px',
   userSelect: 'none',
   color: theme.palette.common.black,
   backgroundColor: theme.palette.accent[accentColor],
-  border: `1px solid ${theme.palette.primary.light}`,
+  border: `1px solid ${theme.palette.primaryExtended[700]}`,
 }));
 
 export const OperatorStatusBadge: React.FC<OperatorStatusBadgeProps> = ({
@@ -73,18 +70,16 @@ export const OperatorStatusBadge: React.FC<OperatorStatusBadgeProps> = ({
   className,
   size = 'medium',
 }) => {
-  const { text, accentColor, Icon, rotate } = getStatusVisuals(status);
+  const { text, accentColor, Icon } = getStatusVisuals(status);
   const isSmall = size === 'small';
-  const iconSize = isSmall ? 16 : 24;
-  const typographyVariant = isSmall ? 'bodySmall' : 'bodyDefault';
   return (
     <BadgeWrapper
       accentColor={accentColor}
       className={className}
       isSmall={isSmall}
     >
-      <Icon style={{ transform: `rotate(${rotate})` }} size={iconSize} />
-      <Typography variant={typographyVariant}>{text}</Typography>
+      <Icon size={16} />
+      <Typography variant="bodySmall">{text}</Typography>
     </BadgeWrapper>
   );
 };

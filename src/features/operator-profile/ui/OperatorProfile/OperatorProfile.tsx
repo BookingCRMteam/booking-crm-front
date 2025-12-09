@@ -12,6 +12,7 @@ import { OperatorPhilosophy } from '../OperatorPhilosophy/OperatorPhilosophy';
 import { OperatorProfileEdit } from '../OperatorProfileEdit/OperatorProfileEdit';
 import { OperatorProfileHeader } from '../OperatorProfileHeader/OperatorProfileHeader';
 import { OperatorProfileInfo } from '../OperatorProfileInfo/OperatorProfileInfo';
+import { OperatorRejection } from '../OperatorRejection/OperatorRejection';
 import { OperatorTitle } from '../OperatorTitle/OperatorTitle';
 
 const OperatorWrapper = styled(Box)({
@@ -53,6 +54,9 @@ export const OperatorProfile = () => {
               />
               <OperatorTitle {...operator} />
             </OperatorProfileHeader>
+            {operator.status === 'rejected' && (
+              <OperatorRejection message={operator.rejectionReason} />
+            )}
             <OperatorPhilosophy
               description={operator.description}
               philosophy={operator.philosophy}

@@ -37,7 +37,7 @@ export const AuthorizedMenu: FC<AuthorizedMenuProps> = ({
 
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         {children}
         <MenuTooltip
           onClick={handleOpenUserMenu}

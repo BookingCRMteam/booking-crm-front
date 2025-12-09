@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import operatorPhoto from '../../../../public/images/tourCard/operator.png';
 import tourPhoto from '../../../../public/images/tourCard/tour.png';

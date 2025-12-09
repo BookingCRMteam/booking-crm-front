@@ -1,6 +1,9 @@
 export const FORM_TITLE = 'Вітаємо зі створенням акаунту!';
+export const FORM_TITLE_REJECTED = 'Давайте спробуємо ще раз!';
 export const FORM_DESCRIPTION =
   'Для верифікації вашого статусу “Туроператор”, будь ласка внесіть наступні дані:';
+export const FORM_DESCRIPTION_REJECTED =
+  'У попередніх даних була неточність. Заповніть форму ще раз, щоб ми могли підтвердити ваш статус Туроператора.';
 export const FORM_FIRST_NAME_LABEL = "Ім'я";
 export const FORM_LAST_NAME_LABEL = 'Прізвище';
 export const FORM_WEBSITE_LABEL = 'Посилання на ваш Instagram / сайт';

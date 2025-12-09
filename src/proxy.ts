@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { auth0 } from '@/shared/lib/auth0/auth0';
 import { isPublicPath } from '@/shared/utils/access';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname, origin } = request.nextUrl;
   const authRes = await auth0.middleware(request);
 

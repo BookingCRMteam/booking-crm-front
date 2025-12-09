@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
