@@ -23,10 +23,11 @@ export const useOperatorVerificationModal = () => {
   const operatorStatus = operator?.status;
   const rejectedReason = operator?.rejectionReason;
 
-  const useStore = useOperatorVerificationStore(operatorId);
-
-  const { shownStatuses, markShown, isHydrated, resetShownStatuses } =
-    useStore();
+  const store = useOperatorVerificationStore(operatorId);
+  const shownStatuses = store((s) => s.shownStatuses);
+  const markShown = store((s) => s.markShown);
+  const isHydrated = store((s) => s.isHydrated);
+  const resetShownStatuses = store((s) => s.resetShownStatuses);
 
   useEffect(() => {
     if (!operatorId || !operatorStatus || !resetShownStatuses) return;
@@ -39,15 +40,8 @@ export const useOperatorVerificationModal = () => {
     const modalConfig = statusToModal[operatorStatus];
     if (!modalConfig) return;
 
-    let shouldShow = false;
-
-    if (operatorStatus === 'rejected') {
-      shouldShow = true;
-    } else {
-      if (!shownStatuses[operatorStatus]) {
-        shouldShow = true;
-      }
-    }
+    const shouldShow =
+      operatorStatus === 'rejected' || !shownStatuses[operatorStatus];
 
     if (shouldShow) {
       openModal({

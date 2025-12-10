@@ -9,7 +9,7 @@ import type { OperatorStatus } from '@/entities/operator';
 
 type StoredStatus = Exclude<OperatorStatus, 'rejected' | null>;
 
-interface OperatorVerificationState {
+type OperatorVerificationState = {
   shownStatuses: Record<StoredStatus, boolean>;
 
   markShown: (status: StoredStatus) => void;
@@ -17,8 +17,12 @@ interface OperatorVerificationState {
 
   isHydrated: boolean;
   setHydrated: (isHydrated: boolean) => void;
-}
-
+};
+type PersistedState = Pick<OperatorVerificationState, 'shownStatuses'>;
+type OperatorPersistOptions = PersistOptions<
+  OperatorVerificationState,
+  PersistedState
+>;
 const initialState: Pick<
   OperatorVerificationState,
   'shownStatuses' | 'isHydrated'
@@ -49,14 +53,12 @@ const createStateCreator: StateCreator<OperatorVerificationState> = (set) => ({
   setHydrated: (isHydrated) => set({ isHydrated }),
 });
 
-type PersistedState = Pick<OperatorVerificationState, 'shownStatuses'>;
-
 const storeCreator = (isPersistent: boolean, operatorId?: number) => {
   if (!isPersistent || !operatorId) {
     return create<OperatorVerificationState>()(createStateCreator);
   }
 
-  const persistOptions: PersistOptions<PersistedState> = {
+  const persistOptions: OperatorPersistOptions = {
     name: `operator-verification-${operatorId}`,
     storage:
       typeof window !== 'undefined'
@@ -71,10 +73,7 @@ const storeCreator = (isPersistent: boolean, operatorId?: number) => {
   };
 
   return create<OperatorVerificationState>()(
-    persist(
-      createStateCreator,
-      persistOptions as unknown as PersistOptions<OperatorVerificationState>,
-    ) as unknown as StateCreator<OperatorVerificationState>,
+    persist(createStateCreator, persistOptions),
   );
 };
 
