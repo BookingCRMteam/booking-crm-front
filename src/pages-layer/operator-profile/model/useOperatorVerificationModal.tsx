@@ -18,32 +18,56 @@ const statusToModal: Record<
 
 export const useOperatorVerificationModal = () => {
   const openModal = useModalStore((s) => s.openModal);
-
   const { data: operator } = useOperatorQuery();
-
   const operatorId = operator?.id;
   const operatorStatus = operator?.status;
   const rejectedReason = operator?.rejectionReason;
 
   const useStore = useOperatorVerificationStore(operatorId);
-  const store = useStore?.();
+
+  const { shownStatuses, markShown, isHydrated, resetShownStatuses } =
+    useStore();
 
   useEffect(() => {
-    if (!store) return;
-    const { shownStatuses, markShown, isHydrated } = store;
+    if (!operatorId || !operatorStatus || !resetShownStatuses) return;
+    resetShownStatuses(operatorStatus);
+  }, [operatorId, operatorStatus, resetShownStatuses]);
+
+  useEffect(() => {
     if (!isHydrated || !operatorStatus || !operatorId) return;
 
     const modalConfig = statusToModal[operatorStatus];
     if (!modalConfig) return;
 
-    if (shownStatuses[operatorStatus]) return;
+    let shouldShow = false;
 
-    openModal({
-      type: modalConfig.type,
-      ...(modalConfig.needsPayload
-        ? { payload: { message: rejectedReason } }
-        : {}),
-    });
-    markShown(operatorStatus);
-  }, [operatorStatus, rejectedReason, openModal, operatorId, store]);
+    if (operatorStatus === 'rejected') {
+      shouldShow = true;
+    } else {
+      if (!shownStatuses[operatorStatus]) {
+        shouldShow = true;
+      }
+    }
+
+    if (shouldShow) {
+      openModal({
+        type: modalConfig.type,
+        ...(modalConfig.needsPayload
+          ? { payload: { message: rejectedReason } }
+          : {}),
+      });
+
+      if (operatorStatus !== 'rejected') {
+        markShown(operatorStatus);
+      }
+    }
+  }, [
+    operatorStatus,
+    rejectedReason,
+    openModal,
+    operatorId,
+    isHydrated,
+    shownStatuses,
+    markShown,
+  ]);
 };
