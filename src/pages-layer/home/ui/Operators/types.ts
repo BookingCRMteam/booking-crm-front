@@ -6,6 +6,6 @@ export type OperatorCardProps = {
   lastName: string;
   status: OperatorStatus;
   description: string | null;
-  toursCount: number;
+  activeToursCount: number;
   id: number;
 };

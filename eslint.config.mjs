@@ -1,7 +1,7 @@
-import storybook from 'eslint-plugin-storybook';
 // import nextVitals from 'eslint-config-next/core-web-vitals'
 import nextTs from 'eslint-config-next/typescript';
 import prettier from 'eslint-config-prettier/flat';
+import storybook from 'eslint-plugin-storybook';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 const eslintConfig = defineConfig([
@@ -18,7 +18,7 @@ const eslintConfig = defineConfig([
     '.next/',
     'out/',
     '*.d.ts',
-    '!.storybook'
+    '!.storybook',
   ]),
 ]);
 

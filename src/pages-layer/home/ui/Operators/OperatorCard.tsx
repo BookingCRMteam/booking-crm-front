@@ -47,7 +47,7 @@ const OperatorDescription = styled(Typography)({
 });
 
 export const OperatorCard: FC<OperatorCardProps> = ({
-  toursCount,
+  activeToursCount,
   description,
   photo,
   firstName,
@@ -83,7 +83,7 @@ export const OperatorCard: FC<OperatorCardProps> = ({
         {description}
       </OperatorDescription>
       <Typography variant="bodyDefault" align="center">
-        {`Актуальні подорожі (${toursCount})`}
+        {`Актуальні подорожі (${activeToursCount})`}
       </Typography>
       <Button
         component={Link}
