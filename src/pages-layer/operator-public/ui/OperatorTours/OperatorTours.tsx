@@ -18,8 +18,6 @@ type OperatorToursProps = {
 const collectionWrapper = {
   paddingTop: 5,
   paddingBottom: '20px',
-  display: 'flex',
-  justifyContent: 'center',
 };
 
 export const OperatorTours = ({

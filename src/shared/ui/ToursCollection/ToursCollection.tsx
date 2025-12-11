@@ -16,7 +16,7 @@ export const ToursCollection: FC<ToursCollectionProps> = ({
 }) => {
   return (
     <>
-      <Grid container spacing={3} justifyContent="center">
+      <Grid container spacing={3}>
         {data?.pages.map((page) =>
           page.data.map((tour) => (
             <Grid key={tour.id} size={{ md: 4 }}>
