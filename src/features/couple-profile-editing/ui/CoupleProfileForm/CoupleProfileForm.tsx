@@ -148,6 +148,7 @@ export const CoupleProfileForm: FC<CoupleProfileFormProps> = ({ onCancel }) => {
       </InputWrapper>
       <ButtonWrapper>
         <SubmitButton
+          sx={{ width: '200px' }}
           textIdle={FORM_SUBMIT_BUTTON.textIdle}
           textLoading={FORM_SUBMIT_BUTTON.textLoading}
           textSuccess={FORM_SUBMIT_BUTTON.textSuccess}
@@ -156,6 +157,7 @@ export const CoupleProfileForm: FC<CoupleProfileFormProps> = ({ onCancel }) => {
           disabled={isFormLocked}
         />
         <Button
+          sx={{ width: '200px', height: '37px' }}
           type="button"
           variant="outlined"
           size="large"

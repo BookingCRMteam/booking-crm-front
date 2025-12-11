@@ -14,7 +14,7 @@ describe('OperatorCard', () => {
     lastName: 'Petrenko',
     status: 'approved',
     description: 'Мандрівник, який створює унікальні подорожі.',
-    toursCount: 7,
+    activeToursCount: 7,
     photo: '/test_photo.png',
   };
 

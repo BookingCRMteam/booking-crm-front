@@ -25,7 +25,7 @@ const meta: Meta<typeof OperatorCard> = {
 • \`firstName\`, \`lastName\` — ім’я та прізвище оператора.  
 • \`status\` — статус із системи (\`approved\`, \`rejected\`, \`pending\`, тощо).  
 • \`description\` — короткий текст про оператора.  
-• \`toursCount\` — кількість актуальних подорожей.  
+• \`activeToursCount\` — кількість актуальних подорожей.  
 • \`id\` — ідентифікатор оператора для формування посилання.  
         `,
       },
@@ -54,7 +54,7 @@ const meta: Meta<typeof OperatorCard> = {
       control: 'text',
       description: 'Короткий опис (3 рядки максимум).',
     },
-    toursCount: {
+    activeToursCount: {
       control: 'number',
       description: 'Кількість доступних турів.',
     },
@@ -86,7 +86,7 @@ export const Default: Story = {
     photo: '/images/public_operator.jpg',
     status: 'approved',
     description: 'Досвідчений гід, який створює подорожі з душею.',
-    toursCount: 5,
+    activeToursCount: 5,
   },
   parameters: {
     docs: {
