@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import operatorPhoto from '../../../../public/images/tourCard/operator.png';
 import tourPhoto from '../../../../public/images/tourCard/tour.png';
-import { mockCardProps } from '../../tests/mocks/data';
+import { mockCardProps } from '../../tests/mocks/mockTour';
 import { TourCard } from './TourCard';
 
 const meta: Meta<typeof TourCard> = {
