@@ -57,7 +57,7 @@ export const Default: Story = {
         value={value}
         onChange={setValue}
         getItemLabel={(item) => item.name}
-        getItemId={(item) => item.name}
+        getItemId={(item) => item.id}
       />
     );
   },
@@ -78,7 +78,7 @@ export const WithValue: Story = {
         value={value}
         onChange={setValue}
         getItemLabel={(item) => item.name}
-        getItemId={(item) => item.name}
+        getItemId={(item) => item.id}
       />
     );
   },
@@ -98,7 +98,7 @@ export const Disabled: Story = {
         value={value}
         onChange={setValue}
         getItemLabel={(item) => item.name}
-        getItemId={(item) => item.name}
+        getItemId={(item) => item.id}
       />
     );
   },

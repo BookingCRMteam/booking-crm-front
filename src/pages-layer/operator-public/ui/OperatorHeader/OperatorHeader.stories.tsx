@@ -14,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof OperatorHeader>;
 
 export const Default: Story = {
-  args: { operator: mockOperatorById },
+  args: { operator: { ...mockOperatorById } },
 };
 
 export const WithoutPhoto: Story = {

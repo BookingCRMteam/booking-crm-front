@@ -1,8 +1,6 @@
 import { OperatorMe } from '@/entities/operator';
 import { User } from '@/entities/user';
 
-import { UserRole } from '@/shared/types';
-
 export const mockUserOperator: User = {
   id: 10,
   email: 'operator@example.com',
@@ -15,7 +13,7 @@ export const mockUserOperator: User = {
   secondPersonName: null,
   secondPersonSurname: null,
   phone: '+380971234567',
-  role: 'operator' as UserRole,
+  role: 'operator',
 };
 
 export const mockUserTraveler: User = {
@@ -30,7 +28,7 @@ export const mockUserTraveler: User = {
   secondPersonName: 'Олена',
   secondPersonSurname: 'Іванова',
   phone: '+380971234568',
-  role: 'traveler' as UserRole,
+  role: 'traveler',
 };
 
 export const mockOperatorById: OperatorMe = {

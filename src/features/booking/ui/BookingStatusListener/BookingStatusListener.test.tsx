@@ -31,6 +31,8 @@ jest.mock('../PaymentModal/PaymentModal', () => ({
   )),
 }));
 
+const user = userEvent.setup();
+
 describe('BookingStatusListener', () => {
   const mockReplace = jest.fn();
 
@@ -104,7 +106,7 @@ describe('BookingStatusListener', () => {
       expect(screen.getByTestId('payment-modal')).toBeInTheDocument(),
     );
 
-    userEvent.click(screen.getByText('Close'));
+    user.click(screen.getByText('Close'));
 
     await waitFor(() =>
       expect(screen.queryByTestId('payment-modal')).toBeNull(),

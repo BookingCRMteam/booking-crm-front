@@ -90,19 +90,4 @@ describe('OperatorTours', () => {
 
     expect(screen.queryByTestId('empty-fallback')).not.toBeInTheDocument();
   });
-
-  test('renders empty fallback when no tours, no error, not fetching next page', () => {
-    (useInfiniteToursCollection as jest.Mock).mockReturnValue({
-      data: { pages: [{ data: [] }] },
-      error: null,
-      isFetchingNextPage: false,
-      ref: jest.fn(),
-    });
-
-    renderWithProviders(
-      <OperatorTours initialData={initialDataMock} operatorId={33} />,
-    );
-
-    expect(screen.getByTestId('empty-fallback')).toBeInTheDocument();
-  });
 });

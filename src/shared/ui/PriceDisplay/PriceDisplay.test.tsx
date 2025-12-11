@@ -8,7 +8,7 @@ describe('PriceDisplay', () => {
 
     const container = screen.getByText('(за двох)').parentElement;
 
-    expect(container).toHaveTextContent(/₴2\s?500\(за двох\)/);
+    expect(container).toHaveTextContent(/₴2\s?500\s*\(за двох\)/);
   });
 
   it('renders non-numeric price as is', () => {

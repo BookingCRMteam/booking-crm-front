@@ -15,23 +15,27 @@ describe('logger', () => {
     jest.clearAllMocks();
   });
 
-  it('calls log.info with [INFO]: prefix', () => {
-    logger.info('test message');
-    expect(log.info).toHaveBeenCalledWith('[INFO]:', 'test message');
-  });
+  const testCases: { method: keyof typeof logger; prefix: string }[] = [
+    { method: 'info', prefix: '[INFO]:' },
+    { method: 'warn', prefix: '[WARN]:' },
+    { method: 'error', prefix: '[ERROR]:' },
+    { method: 'debug', prefix: '[DEBUG]:' },
+  ];
 
-  it('calls log.warn with [WARN]: prefix', () => {
-    logger.warn('warning');
-    expect(log.warn).toHaveBeenCalledWith('[WARN]:', 'warning');
-  });
+  testCases.forEach(({ method, prefix }) => {
+    it(`calls log.${method} with prefix and single argument`, () => {
+      logger[method]('single message');
+      expect(log[method]).toHaveBeenCalledWith(prefix, 'single message');
+    });
 
-  it('calls log.error with [ERROR]: prefix', () => {
-    logger.error('error!');
-    expect(log.error).toHaveBeenCalledWith('[ERROR]:', 'error!');
-  });
-
-  it('calls log.debug with [DEBUG]: prefix', () => {
-    logger.debug('debugging');
-    expect(log.debug).toHaveBeenCalledWith('[DEBUG]:', 'debugging');
+    it(`forwards multiple arguments unchanged for ${method}()`, () => {
+      const args: Parameters<(typeof logger)[typeof method]> = [
+        'hello',
+        { a: 1 },
+        42,
+      ];
+      logger[method](...args);
+      expect(log[method]).toHaveBeenCalledWith(prefix, ...args);
+    });
   });
 });

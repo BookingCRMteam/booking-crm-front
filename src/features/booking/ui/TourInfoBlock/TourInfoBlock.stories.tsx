@@ -64,7 +64,13 @@ export const DefaultView: Story = {
         countryAndCity: typedArgs.countryAndCity,
         date: typedArgs.date,
       });
-    }, [openBookingModal]);
+    }, [
+      openBookingModal,
+      typedArgs.title,
+      typedArgs.price,
+      typedArgs.countryAndCity,
+      typedArgs.date,
+    ]);
 
     return (
       <Box sx={{ maxWidth: 400 }}>

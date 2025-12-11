@@ -1,7 +1,7 @@
 import type { Tour, TourBookingInfo } from '@/entities/tour';
 
 export const mockTour: Tour = {
-  id: 1,
+  id: 74,
   operatorId: 18,
   title: 'Романтична Флоренція',
   description:

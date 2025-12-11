@@ -56,10 +56,10 @@ describe('useUpdateUserIfNeeded', () => {
           mutateAsync: async (data: UserUpdate) => {
             try {
               const result = await mutationFn(data);
-              if (onSuccess) onSuccess(result, data, undefined, undefined);
+              if (onSuccess) onSuccess(result, data, undefined);
               return result;
             } catch (err) {
-              if (onError) onError(err, data, undefined, undefined);
+              if (onError) onError(err, data, undefined);
               throw err;
             }
           },
