@@ -46,6 +46,7 @@ export type OperatorMe = OperatorBase &
 export type OperatorPopular = OperatorMe & {
   bookingsCount: number;
   toursCount: number;
+  activeToursCount: number;
 };
 
 export type OperatorPaidBooking = {
