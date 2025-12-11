@@ -5,7 +5,6 @@ export { useGetOperatorPaidBookingsQuery } from './model/useGetOperatorPaidBooki
 export type {
   Operator,
   OperatorPaidBooking,
-  OperatorById,
   OperatorMe,
   OperatorOnboarding,
   OperatorStatus,

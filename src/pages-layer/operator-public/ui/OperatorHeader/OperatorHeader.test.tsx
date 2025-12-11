@@ -59,8 +59,8 @@ describe('OperatorHeader', () => {
   test('renders fallbacks when description and philosophy are missing', () => {
     const operator = {
       ...mockOperatorById,
-      description: null,
-      philosophy: null,
+      description: '',
+      philosophy: '',
     };
     renderWithTheme(<OperatorHeader operator={operator} />);
     const fallbacks = screen.getAllByText('Не заповнено');

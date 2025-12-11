@@ -1,4 +1,4 @@
-import { OperatorById } from '@/entities/operator';
+import { OperatorMe } from '@/entities/operator';
 import { User } from '@/entities/user';
 
 import { UserRole } from '@/shared/types';
@@ -33,7 +33,7 @@ export const mockUserTraveler: User = {
   role: 'traveler' as UserRole,
 };
 
-export const mockOperatorById: OperatorById = {
+export const mockOperatorById: OperatorMe = {
   id: 1,
   email: 'operator@example.com',
   createdAt: '2025-09-29T12:02:12.599Z',
