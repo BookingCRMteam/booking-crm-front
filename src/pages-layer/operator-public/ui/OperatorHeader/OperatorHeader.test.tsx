@@ -1,10 +1,10 @@
 import { ThemeProvider } from '@mui/material/styles';
 import { render, screen } from '@testing-library/react';
 
+import { mockOperatorById } from '@/shared/tests';
 import { theme } from '@/shared/theme';
 import { formattedPhone } from '@/shared/utils';
 
-import { mockOperator } from '../../mocks/data';
 import { OperatorHeader } from './OperatorHeader';
 
 const renderWithTheme = (ui: React.ReactElement) =>
@@ -12,28 +12,30 @@ const renderWithTheme = (ui: React.ReactElement) =>
 
 describe('OperatorHeader', () => {
   test('renders full operator info', () => {
-    renderWithTheme(<OperatorHeader operator={mockOperator} />);
+    renderWithTheme(<OperatorHeader operator={mockOperatorById} />);
 
     const image = screen.getByAltText(
-      `${mockOperator.firstName} ${mockOperator.lastName}`,
+      `${mockOperatorById.firstName} ${mockOperatorById.lastName}`,
     );
 
-    expect(mockOperator.photo).toBeTruthy();
-    expect(image).toHaveAttribute('src', mockOperator.photo!);
+    expect(mockOperatorById.photo).toBeTruthy();
+    expect(image).toHaveAttribute('src', mockOperatorById.photo!);
 
     expect(
-      screen.getByText(`${mockOperator.firstName} ${mockOperator.lastName}`),
+      screen.getByText(
+        `${mockOperatorById.firstName} ${mockOperatorById.lastName}`,
+      ),
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText(formattedPhone(mockOperator.phone)),
+      screen.getByText(formattedPhone(mockOperatorById.phone)),
     ).toBeInTheDocument();
-    expect(screen.getByText(mockOperator.description!)).toBeInTheDocument();
-    expect(screen.getByText(mockOperator.philosophy!)).toBeInTheDocument();
+    expect(screen.getByText(mockOperatorById.description!)).toBeInTheDocument();
+    expect(screen.getByText(mockOperatorById.philosophy!)).toBeInTheDocument();
   });
 
   test('renders placeholder image when photo is null', () => {
-    const operator = { ...mockOperator, photo: null };
+    const operator = { ...mockOperatorById, photo: null };
     renderWithTheme(<OperatorHeader operator={operator} />);
     expect(screen.getByAltText('Placeholder image')).toHaveAttribute(
       'src',
@@ -42,15 +44,24 @@ describe('OperatorHeader', () => {
   });
 
   test('replaces http with https', () => {
-    const operator = { ...mockOperator, photo: 'http://example.com/photo.jpg' };
+    const operator = {
+      ...mockOperatorById,
+      photo: 'http://example.com/photo.jpg',
+    };
     renderWithTheme(<OperatorHeader operator={operator} />);
     expect(
-      screen.getByAltText(`${mockOperator.firstName} ${mockOperator.lastName}`),
+      screen.getByAltText(
+        `${mockOperatorById.firstName} ${mockOperatorById.lastName}`,
+      ),
     ).toHaveAttribute('src', 'https://example.com/photo.jpg');
   });
 
   test('renders fallbacks when description and philosophy are missing', () => {
-    const operator = { ...mockOperator, description: null, philosophy: null };
+    const operator = {
+      ...mockOperatorById,
+      description: null,
+      philosophy: null,
+    };
     renderWithTheme(<OperatorHeader operator={operator} />);
     const fallbacks = screen.getAllByText('Не заповнено');
     expect(fallbacks).toHaveLength(2);

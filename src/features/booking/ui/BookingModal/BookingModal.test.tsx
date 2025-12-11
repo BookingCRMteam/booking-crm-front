@@ -1,4 +1,5 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { useBookingStore } from '@/shared/store';
 import { renderWithTheme } from '@/shared/tests/renderWithProviders';
@@ -48,21 +49,31 @@ describe('BookingModal', () => {
 
   it('renders modal with TourInfoBlock and BookingForm', () => {
     renderWithTheme(<BookingModal />);
-
     expect(screen.getByTestId('tour-info')).toBeInTheDocument();
     expect(screen.getByTestId('booking-form')).toBeInTheDocument();
   });
 
-  it('calls closeBookingModal when clicking CloseButton', () => {
+  it('calls closeBookingModal when clicking CloseButton', async () => {
     renderWithTheme(<BookingModal />);
-    fireEvent.click(screen.getByRole('button', { name: /close-button/i }));
+    const button = screen.getByRole('button', { name: /close-button/i });
+    await userEvent.click(button);
     expect(closeBookingModal).toHaveBeenCalledTimes(1);
   });
 
-  it('passes disableSubmit prop to BookingForm', () => {
+  it('passes disableSubmit=true to BookingForm', () => {
     renderWithTheme(<BookingModal disableSubmit />);
-    const bookingForm = screen.getByTestId('booking-form');
-    expect(bookingForm).toHaveAttribute('data-disable', 'true');
+    expect(screen.getByTestId('booking-form')).toHaveAttribute(
+      'data-disable',
+      'true',
+    );
+  });
+
+  it('passes disableSubmit=false to BookingForm by default', () => {
+    renderWithTheme(<BookingModal />);
+    expect(screen.getByTestId('booking-form')).toHaveAttribute(
+      'data-disable',
+      'false',
+    );
   });
 
   it('does not render modal if isBookingModalOpen=false and forceOpen=false', () => {
@@ -71,8 +82,7 @@ describe('BookingModal', () => {
       closeBookingModal,
     });
     renderWithTheme(<BookingModal />);
-    const modal = screen.queryByRole('dialog');
-    expect(modal).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('renders modal if forceOpen=true even when isBookingModalOpen=false', () => {

@@ -3,7 +3,7 @@
 import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { mockTour } from '../TourCard/data';
+import { mockTour } from '../../tests/mocks/data';
 import { ToursCollection } from './ToursCollection';
 
 const mockRef = () => {};

@@ -2,10 +2,11 @@
 
 import { Box, Modal, styled } from '@mui/material';
 
-import { BookingForm, TourInfoBlock } from '@/features/booking';
-
 import { useBookingStore } from '@/shared/store';
 import { CloseButton } from '@/shared/ui';
+
+import { BookingForm } from '../BookingForm/BookingForm';
+import { TourInfoBlock } from '../TourInfoBlock/TourInfoBlock';
 
 type BookingModalProps = {
   forceOpen?: boolean;

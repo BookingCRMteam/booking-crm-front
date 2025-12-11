@@ -4,49 +4,14 @@ import { Box, Button, Stack, Typography, styled } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { useBookingStore } from '@/shared/store';
-import { resetAllStores } from '@/shared/tests';
+import {
+  mockTourBookingInfo,
+  mockUserOperator,
+  mockUserTraveler,
+} from '@/shared/tests';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
-import { UserRole } from '@/shared/types';
 
 import { BookingButton } from './BookingButton';
-
-const mockTourData = {
-  tourId: 10,
-  title: 'Романтична Флоренція',
-  price: '78 567',
-  countryAndCity: 'Флоренція, Італія',
-  date: '01.10.25 — 07.10.25',
-};
-
-const mockUserOperator = {
-  id: 10,
-  email: 'existing@example.com',
-  sub: 'sub123',
-  createdAt: '2025-01-01',
-  updatedAt: '2025-01-01',
-  operatorId: 1,
-  firstPersonName: 'Олена',
-  firstPersonSurname: 'Петренко',
-  secondPersonName: 'Тимофій',
-  secondPersonSurname: 'Петренко',
-  phone: '+380971234567',
-  role: 'operator' as UserRole,
-};
-
-const mockUserTraveler = {
-  id: 12,
-  email: 'existing@example.com',
-  sub: 'sub123',
-  createdAt: '2025-01-01',
-  updatedAt: '2025-01-01',
-  operatorId: null,
-  firstPersonName: 'Олена',
-  firstPersonSurname: 'Петренко',
-  secondPersonName: 'Тимофій',
-  secondPersonSurname: 'Петренко',
-  phone: '+380971234567',
-  role: 'traveler' as UserRole,
-};
 
 const meta: Meta<typeof BookingButton> = {
   title: 'Features/Booking/BookingButton',
@@ -93,7 +58,7 @@ export const Interactive: StoryObj<typeof BookingButton> = {
   decorators: [
     (Story) => {
       useEffect(() => {
-        resetAllStores();
+        useBookingStore.getState().reset();
       }, []);
 
       return <Story />;
@@ -106,7 +71,7 @@ export const Interactive: StoryObj<typeof BookingButton> = {
     const handleClick = () => {
       if (userType === 'operator') return;
       if (userType === 'guest') openAuthPopover();
-      else if (userType === 'traveler') openBookingModal(mockTourData);
+      else if (userType === 'traveler') openBookingModal(mockTourBookingInfo);
     };
 
     const getUserMock = () => {

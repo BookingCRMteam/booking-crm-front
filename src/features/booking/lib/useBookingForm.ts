@@ -4,12 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
-import { useCreateBooking, useUpdateUserIfNeeded } from '@/features/booking';
 import { coupleProfileSchema } from '@/features/couple-profile-editing/model/schema';
 
 import { useUserQuery } from '@/entities/user';
 
 import { useBookingStore, useNotificationStore } from '@/shared/store';
+
+import { useCreateBooking } from './useCreateBooking';
+import { useUpdateUserIfNeeded } from './useUpdateUserIfNeeded';
 
 const bookingFormSchema = coupleProfileSchema;
 type BookingFormSchemaValues = z.infer<typeof bookingFormSchema>;

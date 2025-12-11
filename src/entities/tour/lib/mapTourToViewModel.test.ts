@@ -1,4 +1,4 @@
-import { mockTour } from '@/shared/ui/TourCard/data';
+import { mockTour } from '@/shared/tests';
 
 import { Tour } from '../model/types';
 import { mapTourToViewModel } from './mapTourToViewModel';

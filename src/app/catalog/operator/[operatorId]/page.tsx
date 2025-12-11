@@ -4,7 +4,7 @@ import { Container } from '@mui/material';
 
 import { OperatorPublicPage } from '@/pages-layer/operator-public';
 
-import { operatorApi } from '@/entities/operator/api/operatorApi';
+import { operatorApi } from '@/entities/operator';
 import { fetchToursByOperator } from '@/entities/tour';
 
 import { logger } from '@/shared/lib/logger';
@@ -22,14 +22,14 @@ export default async function OperatorPage({
   if (Number.isNaN(numericId)) notFound();
 
   try {
-    const [operator, tours] = await Promise.all([
-      operatorApi.getOperatorById(numericId),
-      fetchToursByOperator({ operatorId: numericId, limit: 6, offset: 0 }),
-    ]);
+    const operator = await operatorApi.getOperatorById(numericId);
+    if (!operator) notFound();
 
-    if (!operator) {
-      notFound();
-    }
+    const tours = await fetchToursByOperator({
+      operatorId: numericId,
+      limit: 6,
+      offset: 0,
+    });
 
     return (
       <Container maxWidth="lg">

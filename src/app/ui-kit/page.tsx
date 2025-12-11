@@ -18,9 +18,9 @@ import {
   UsersIcon,
 } from '@phosphor-icons/react/ssr';
 
+import { mockCardProps } from '@/shared/tests/mocks/data';
 import { OperatorStatusBadge } from '@/shared/ui';
 import { TourCard } from '@/shared/ui/TourCard/TourCard';
-import { mockCardProps } from '@/shared/ui/TourCard/data';
 
 const TOUR_CARDS = [
   { ...mockCardProps, id: 101, title: 'Романтична Флоренція' },

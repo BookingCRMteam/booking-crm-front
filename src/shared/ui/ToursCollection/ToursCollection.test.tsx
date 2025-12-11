@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 
-import { Tours } from '@/entities/tour/model/types';
+import { Tours } from '@/entities/tour';
 
-import { mockTour } from '@/shared/ui/TourCard/data';
+import { mockTour } from '@/shared/tests';
 
 import { ToursCollection } from './ToursCollection';
 

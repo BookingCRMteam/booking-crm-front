@@ -2,9 +2,8 @@ import { render, screen } from '@testing-library/react';
 
 import { Tours } from '@/entities/tour';
 
-import { mockTour } from '@/shared/ui/TourCard/data';
+import { mockOperatorById, mockTour } from '@/shared/tests';
 
-import { mockOperator } from '../../mocks/data';
 import { OperatorHeader } from '../OperatorHeader/OperatorHeader';
 import { OperatorPublicPage } from './OperatorPublicPage';
 
@@ -37,7 +36,10 @@ describe('OperatorPublicPage', () => {
 
   test('renders all main sections', () => {
     render(
-      <OperatorPublicPage operator={mockOperator} initialTours={mockTours} />,
+      <OperatorPublicPage
+        operator={mockOperatorById}
+        initialTours={mockTours}
+      />,
     );
 
     expect(screen.getByTestId('breadcrumbs')).toBeInTheDocument();
@@ -47,12 +49,15 @@ describe('OperatorPublicPage', () => {
 
   test('passes correct props to OperatorHeader', () => {
     render(
-      <OperatorPublicPage operator={mockOperator} initialTours={mockTours} />,
+      <OperatorPublicPage
+        operator={mockOperatorById}
+        initialTours={mockTours}
+      />,
     );
 
     expect(OperatorHeader).toHaveBeenCalledTimes(1);
     expect((OperatorHeader as jest.Mock).mock.calls[0][0]).toEqual({
-      operator: mockOperator,
+      operator: mockOperatorById,
     });
   });
 });

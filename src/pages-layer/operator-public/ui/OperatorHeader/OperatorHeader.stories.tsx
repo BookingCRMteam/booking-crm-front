@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { mockOperator } from '../../mocks/data';
+import { mockOperatorById } from '@/shared/tests';
+
 import { OperatorHeader } from './OperatorHeader';
 
 const meta: Meta<typeof OperatorHeader> = {
@@ -13,13 +14,13 @@ export default meta;
 type Story = StoryObj<typeof OperatorHeader>;
 
 export const Default: Story = {
-  args: { operator: mockOperator },
+  args: { operator: mockOperatorById },
 };
 
 export const WithoutPhoto: Story = {
   args: {
     operator: {
-      ...mockOperator,
+      ...mockOperatorById,
       photo: null,
     },
   },
@@ -28,7 +29,7 @@ export const WithoutPhoto: Story = {
 export const WithoutDescriptionAndPhilosophy: Story = {
   args: {
     operator: {
-      ...mockOperator,
+      ...mockOperatorById,
       description: '',
       philosophy: '',
     },

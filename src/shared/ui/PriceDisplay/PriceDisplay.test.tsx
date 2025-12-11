@@ -6,10 +6,16 @@ describe('PriceDisplay', () => {
   it('renders correctly with given price', () => {
     render(<PriceDisplay price="2500" />);
 
-    expect(screen.getByText('₴')).toBeInTheDocument();
+    const container = screen.getByText('(за двох)').parentElement;
 
-    expect(screen.getByText(/2\s?500/)).toBeInTheDocument();
+    expect(container).toHaveTextContent(/₴2\s?500\(за двох\)/);
+  });
 
-    expect(screen.getByText('(за двох)')).toBeInTheDocument();
+  it('renders non-numeric price as is', () => {
+    render(<PriceDisplay price="N/A" />);
+
+    const container = screen.getByText('(за двох)').parentElement;
+
+    expect(container).toHaveTextContent('₴N/A(за двох)');
   });
 });
