@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { resetAllStores } from '@/shared/tests';
+import { useBookingStore } from '@/shared/store';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 
 import TourControl from './TourControl';
@@ -62,7 +62,7 @@ const meta: Meta<typeof TourControl> = {
   },
   decorators: [
     (Story) => {
-      resetAllStores();
+      useBookingStore.getState().reset();
 
       return (
         <StorybookProviderWrapper

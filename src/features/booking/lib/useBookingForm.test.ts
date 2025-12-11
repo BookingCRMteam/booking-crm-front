@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
+import { BookingRequest } from '@/entities/booking';
 import { useUserQuery } from '@/entities/user';
 
 import { useBookingStore, useNotificationStore } from '@/shared/store';
@@ -39,12 +40,27 @@ jest.mock('./useCreateBooking', () => ({
   useCreateBooking: jest.fn(),
 }));
 
+const mockFormData: BookingRequest = {
+  tourId: 42,
+  userId: 1,
+  numberOfPeople: 2,
+  firstPersonName: 'Олена',
+  firstPersonSurname: 'Петренко',
+  secondPersonName: 'Олег',
+  secondPersonSurname: 'Петренко',
+  phone: '123456',
+  paymentProvider: 'liqpay',
+} as BookingRequest;
+
 describe('useBookingForm', () => {
   const mockShowNotification = jest.fn();
   const mockUpdateIfMissing = jest.fn();
   const mockCreateAndRedirect = jest.fn();
   const mockTourData = { tourId: 42 };
-  const mockUser = { id: 1, firstPersonName: 'John' };
+  const mockUser = {
+    id: 1,
+    firstPersonName: 'Олена',
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -70,10 +86,34 @@ describe('useBookingForm', () => {
     expect(result.current.form).toBeDefined();
     expect(useUserQuery).toHaveBeenCalled();
     expect(useBookingStore).toHaveBeenCalled();
+    expect(result.current.form.reset).toHaveBeenCalledTimes(1);
   });
 
-  it('shows error if no user or tourData', async () => {
+  it('does not reset form if already initialized', () => {
+    const { result, rerender } = renderHook(() => useBookingForm());
+    rerender();
+
+    expect(result.current.form.reset).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows error if no user', async () => {
     (useUserQuery as jest.Mock).mockReturnValue({ data: null });
+
+    const { result } = renderHook(() => useBookingForm());
+
+    await act(async () => {
+      await result.current.onSubmit(mockFormData);
+    });
+
+    expect(mockShowNotification).toHaveBeenCalledWith(
+      'Не вдалося знайти дані користувача або туру',
+      'error',
+    );
+    expect(mockUpdateIfMissing).not.toHaveBeenCalled();
+    expect(mockCreateAndRedirect).not.toHaveBeenCalled();
+  });
+
+  it('shows error if no tourData', async () => {
     (useBookingStore as unknown as jest.Mock).mockReturnValue({
       tourData: null,
     });
@@ -81,13 +121,7 @@ describe('useBookingForm', () => {
     const { result } = renderHook(() => useBookingForm());
 
     await act(async () => {
-      await result.current.onSubmit({
-        firstPersonName: 'Jane',
-        firstPersonSurname: 'Doe',
-        secondPersonName: '',
-        secondPersonSurname: '',
-        phone: '123456',
-      });
+      await result.current.onSubmit(mockFormData);
     });
 
     expect(mockShowNotification).toHaveBeenCalledWith(
@@ -101,31 +135,13 @@ describe('useBookingForm', () => {
   it('calls updateIfMissing and createAndRedirect on success', async () => {
     const { result } = renderHook(() => useBookingForm());
 
-    const formData = {
-      firstPersonName: 'Jane',
-      firstPersonSurname: 'Doe',
-      secondPersonName: 'Mark',
-      secondPersonSurname: 'Smith',
-      phone: '123456',
-    };
-
     await act(async () => {
-      await result.current.onSubmit(formData);
+      await result.current.onSubmit(mockFormData);
     });
 
-    expect(mockUpdateIfMissing).toHaveBeenCalledWith(mockUser, formData);
+    expect(mockUpdateIfMissing).toHaveBeenCalledWith(mockUser, mockFormData);
 
-    expect(mockCreateAndRedirect).toHaveBeenCalledWith({
-      tourId: 42,
-      userId: 1,
-      numberOfPeople: 2,
-      firstPersonName: 'Jane',
-      firstPersonSurname: 'Doe',
-      secondPersonName: 'Mark',
-      secondPersonSurname: 'Smith',
-      phone: '123456',
-      paymentProvider: 'liqpay',
-    });
+    expect(mockCreateAndRedirect).toHaveBeenCalledWith(mockFormData);
     expect(mockShowNotification).not.toHaveBeenCalled();
   });
 });

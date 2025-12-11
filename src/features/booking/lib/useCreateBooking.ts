@@ -1,9 +1,10 @@
-import { handleBookingError, submitLiqpayForm } from '@/features/booking';
-
 import { BookingRequest, createBooking } from '@/entities/booking';
 
 import { ApiError } from '@/shared/api/handleApiError';
 import { useBookingStore, useNotificationStore } from '@/shared/store';
+
+import { handleBookingError } from '../utils/handleBookingError';
+import { submitLiqpayForm } from '../utils/submitLiqpayForm';
 
 export const useCreateBooking = () => {
   const { closeBookingModal } = useBookingStore();

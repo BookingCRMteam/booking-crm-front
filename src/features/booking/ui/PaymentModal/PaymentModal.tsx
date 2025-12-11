@@ -1,10 +1,11 @@
 import { Box, Modal, styled } from '@mui/material';
 
-import { PaymentFailed, PaymentSuccess } from '@/features/booking';
-
 import { BookingPaymentResponse } from '@/entities/booking';
 
 import { CloseButton } from '@/shared/ui';
+
+import { PaymentFailed } from '../PaymentFailed/PaymentFailed';
+import { PaymentSuccess } from '../PaymentSuccess/PaymentSuccess';
 
 type PaymentModalProps = {
   data: BookingPaymentResponse;

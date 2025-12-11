@@ -2,9 +2,11 @@ export type {
   Tour,
   Tours,
   TourPhotoForm,
-  ToursCollectionProps,
   UpdatePhotoMeta,
+  ToursCollectionProps,
+  TourBookingInfo,
 } from './model/types';
+
 export { mapTourToViewModel } from './lib/mapTourToViewModel';
 export {
   fetchTour,

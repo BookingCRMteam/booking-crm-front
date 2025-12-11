@@ -6,16 +6,9 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { TourBookingInfo } from '@/entities/tour/model/types';
 
 import { useBookingStore } from '@/shared/store';
+import { mockTourBookingInfo } from '@/shared/tests';
 
 import { TourInfoBlock } from './TourInfoBlock';
-
-const mockTourData = {
-  tourId: 10,
-  title: 'Романтична Флоренція',
-  price: '78 567',
-  countryAndCity: 'Флоренція, Італія',
-  date: '01.10.25 — 07.10.25',
-};
 
 const meta: Meta<typeof TourInfoBlock> = {
   title: 'Features/Booking/TourInfoBlock',
@@ -53,10 +46,10 @@ type Story = StoryObj<typeof TourInfoBlock>;
 
 export const DefaultView: Story = {
   args: {
-    title: mockTourData.title,
-    price: mockTourData.price,
-    countryAndCity: mockTourData.countryAndCity,
-    date: mockTourData.date,
+    title: mockTourBookingInfo.title,
+    price: mockTourBookingInfo.price,
+    countryAndCity: mockTourBookingInfo.countryAndCity,
+    date: mockTourBookingInfo.date,
   },
   render: (args) => {
     const { openBookingModal } = useBookingStore();
@@ -65,13 +58,19 @@ export const DefaultView: Story = {
 
     useEffect(() => {
       openBookingModal({
-        tourId: mockTourData.tourId,
+        tourId: mockTourBookingInfo.tourId,
         title: typedArgs.title,
         price: typedArgs.price,
         countryAndCity: typedArgs.countryAndCity,
         date: typedArgs.date,
       });
-    }, [openBookingModal]);
+    }, [
+      openBookingModal,
+      typedArgs.title,
+      typedArgs.price,
+      typedArgs.countryAndCity,
+      typedArgs.date,
+    ]);
 
     return (
       <Box sx={{ maxWidth: 400 }}>

@@ -1,19 +1,11 @@
 import { Box, styled } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { resetAllStores } from '@/shared/tests';
+import { useBookingStore } from '@/shared/store';
+import { mockUserTraveler } from '@/shared/tests';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 
 import { BookingForm } from './BookingForm';
-
-const mockUserTraveler = {
-  firstPersonName: 'Олена',
-  firstPersonSurname: 'Петренко',
-  secondPersonName: 'Тимофій',
-  secondPersonSurname: 'Петренко',
-  phone: '+380971234567',
-  role: 'traveler',
-};
 
 const StyledContainer = styled(Box)({
   maxWidth: 800,
@@ -24,16 +16,6 @@ const StyledContainer = styled(Box)({
 const meta: Meta<typeof BookingForm> = {
   title: 'Features/Booking/BookingForm',
   component: BookingForm,
-  tags: ['autodocs'],
-
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Форма, яку користувач заповнює своїми даними при бронюванні туру. Має валідацію та відправку форми.',
-      },
-    },
-  },
 };
 
 export default meta;
@@ -43,7 +25,7 @@ type Story = StoryObj<typeof BookingForm>;
 export const EmptyForm: Story = {
   decorators: [
     (Story) => {
-      resetAllStores();
+      useBookingStore.getState().reset();
       return <Story />;
     },
   ],
@@ -62,7 +44,7 @@ export const EmptyForm: Story = {
 export const PrefilledForm: Story = {
   decorators: [
     (Story) => {
-      resetAllStores();
+      useBookingStore.getState().reset();
       return <Story />;
     },
   ],

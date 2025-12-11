@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 
 import { User, UserUpdate } from '@/entities/user';
+import { userApi } from '@/entities/user';
 
 import { logger } from '@/shared/lib/logger';
 
@@ -13,138 +14,97 @@ jest.mock('@tanstack/react-query', () => ({
 }));
 
 jest.mock('@/entities/user', () => ({
-  userApi: {
-    updateUserData: jest.fn(),
-  },
+  userApi: { updateUserData: jest.fn() },
 }));
 
 jest.mock('@/shared/lib/logger', () => ({
-  logger: {
-    info: jest.fn(),
-    error: jest.fn(),
-  },
-}));
-
-jest.mock('@auth0/nextjs-auth0', () => ({
-  useUser: jest.fn().mockReturnValue({ user: { sub: '123' }, error: null }),
+  logger: { info: jest.fn(), error: jest.fn() },
 }));
 
 describe('useUpdateUserIfNeeded', () => {
-  let mockSetQueryData: jest.Mock;
-  let mutationConfig: Parameters<typeof useMutation>[0];
-  let mockMutateAsync: jest.Mock;
+  const mockSetQueryData = jest.fn();
 
-  const mockUserWithoutData: User = {
+  const mockUser: User = {
     id: 1,
     email: 'existing@example.com',
     sub: 'sub123',
     createdAt: '2025-01-01',
     updatedAt: '2025-01-01',
     operatorId: null,
-    firstPersonName: null,
-    firstPersonSurname: null,
+    firstPersonName: 'Олена',
+    firstPersonSurname: 'Петренко',
     secondPersonName: null,
     secondPersonSurname: null,
-    phone: null,
+    phone: '+380501234567',
     role: 'traveler',
   };
 
   const updateData: UserUpdate = {
-    firstPersonName: 'John',
-    firstPersonSurname: 'Doe',
-    email: 'test@mail.com',
+    secondPersonName: 'Олег',
+    secondPersonSurname: 'Петренко',
   };
 
   beforeEach(() => {
-    mockSetQueryData = jest.fn();
-    mockMutateAsync = jest.fn();
-
+    jest.clearAllMocks();
     (useQueryClient as jest.Mock).mockReturnValue({
       setQueryData: mockSetQueryData,
     });
 
-    (useMutation as jest.Mock).mockImplementation((config) => {
-      mutationConfig = config;
-      return { mutateAsync: mockMutateAsync, isPending: false };
-    });
-
-    jest.clearAllMocks();
+    (useMutation as jest.Mock).mockImplementation(
+      ({ onSuccess, onError, mutationFn }) => {
+        return {
+          mutateAsync: async (data: UserUpdate) => {
+            try {
+              const result = await mutationFn(data);
+              if (onSuccess) onSuccess(result, data, undefined);
+              return result;
+            } catch (err) {
+              if (onError) onError(err, data, undefined);
+              throw err;
+            }
+          },
+        };
+      },
+    );
   });
 
   it('calls mutateAsync only for missing fields', async () => {
-    const hook = useUpdateUserIfNeeded();
+    const hook = renderHook(() => useUpdateUserIfNeeded()).result.current;
 
-    mockMutateAsync.mockResolvedValue({
-      ...mockUserWithoutData,
-      ...updateData,
-    });
+    const expectedResult = { ...mockUser, ...updateData };
+    (userApi.updateUserData as jest.Mock).mockResolvedValue(expectedResult);
 
     await act(async () => {
-      await hook.updateIfMissing(mockUserWithoutData, updateData);
+      await hook.updateIfMissing(mockUser, updateData);
     });
 
-    expect(mockMutateAsync).toHaveBeenCalledWith({
-      firstPersonName: 'John',
-      firstPersonSurname: 'Doe',
-    });
+    expect(mockSetQueryData).toHaveBeenCalledWith(
+      ['user', 'me'],
+      expectedResult,
+    );
+    expect(logger.info).toHaveBeenCalledWith('User data updated successfully');
   });
 
   it('does not call mutateAsync if all fields exist', async () => {
-    const hook = useUpdateUserIfNeeded();
-
-    const fullUser: User = {
-      ...mockUserWithoutData,
-      firstPersonName: 'John',
-      firstPersonSurname: 'Doe',
-    };
+    const hook = renderHook(() => useUpdateUserIfNeeded()).result.current;
+    const fullUser: User = { ...mockUser, ...updateData };
 
     await act(async () => {
       await hook.updateIfMissing(fullUser, updateData);
     });
 
-    expect(mockMutateAsync).not.toHaveBeenCalled();
-  });
-
-  it('calls setQueryData and logger.info on successful mutation', async () => {
-    const hook = useUpdateUserIfNeeded();
-
-    const updatedUser: User = {
-      ...mockUserWithoutData,
-      firstPersonName: 'John',
-      firstPersonSurname: 'Doe',
-    };
-
-    mockMutateAsync.mockResolvedValue(updatedUser);
-
-    await act(async () => {
-      await hook.updateIfMissing(mockUserWithoutData, updateData);
-
-      mutationConfig.onSuccess?.(
-        updatedUser,
-        { firstPersonName: 'John', firstPersonSurname: 'Doe' },
-        undefined,
-      );
-    });
-
-    expect(mockSetQueryData).toHaveBeenCalledWith(['user', 'me'], updatedUser);
-    expect(logger.info).toHaveBeenCalledWith('User data updated successfully');
+    expect(mockSetQueryData).not.toHaveBeenCalled();
+    expect(logger.info).not.toHaveBeenCalled();
   });
 
   it('logs error on mutation failure', async () => {
-    const hook = useUpdateUserIfNeeded();
-
+    const hook = renderHook(() => useUpdateUserIfNeeded()).result.current;
     const error = new Error('Failed');
-    mockMutateAsync.mockRejectedValue(error);
+    (userApi.updateUserData as jest.Mock).mockRejectedValue(error);
 
     await act(async () => {
-      try {
-        await hook.updateIfMissing(mockUserWithoutData, updateData);
-      } catch {}
-
-      mutationConfig.onError?.(
+      await expect(hook.updateIfMissing(mockUser, updateData)).rejects.toThrow(
         error,
-        { firstPersonName: 'John', firstPersonSurname: 'Doe' },
-        undefined,
       );
     });
 

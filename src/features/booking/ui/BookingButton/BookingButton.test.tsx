@@ -4,8 +4,8 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { useBookingStore } from '@/shared/store';
+import { mockUserOperator, mockUserTraveler } from '@/shared/tests';
 import { renderWithTheme } from '@/shared/tests/renderWithProviders';
-import { UserRole } from '@/shared/types';
 
 import { BookingButton } from './BookingButton';
 
@@ -36,36 +36,6 @@ jest.mock('../BookingAuthPopover/BookingAuthPopover', () => ({
 jest.mock('../BookingModal/BookingModal', () => ({
   BookingModal: () => <div data-testid="booking-modal">modal</div>,
 }));
-
-const mockUserOperator = {
-  id: 10,
-  email: 'existing@example.com',
-  sub: 'sub123',
-  createdAt: '2025-01-01',
-  updatedAt: '2025-01-01',
-  operatorId: 1,
-  firstPersonName: 'Олена',
-  firstPersonSurname: 'Петренко',
-  secondPersonName: 'Тимофій',
-  secondPersonSurname: 'Петренко',
-  phone: '+380971234567',
-  role: 'operator' as UserRole,
-} as const;
-
-const mockUserTraveler = {
-  id: 12,
-  email: 'existing@example.com',
-  sub: 'sub123',
-  createdAt: '2025-01-01',
-  updatedAt: '2025-01-01',
-  operatorId: null,
-  firstPersonName: 'Олена',
-  firstPersonSurname: 'Петренко',
-  secondPersonName: 'Тимофій',
-  secondPersonSurname: 'Петренко',
-  phone: '+380971234567',
-  role: 'traveler' as UserRole,
-};
 
 describe('BookingButton', () => {
   const push = jest.fn();

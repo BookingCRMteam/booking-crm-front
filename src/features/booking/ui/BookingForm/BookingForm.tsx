@@ -1,8 +1,8 @@
 import { Box, BoxProps, Button, TextField, styled } from '@mui/material';
 
-import { useBookingForm } from '@/features/booking';
-
 import { PhoneInputField } from '@/shared/ui';
+
+import { useBookingForm } from '../../lib/useBookingForm';
 
 type BookingFormProps = {
   disableSubmit?: boolean;
@@ -91,7 +91,7 @@ export const BookingForm = ({ disableSubmit }: BookingFormProps) => {
       <Button
         variant="contained"
         type="submit"
-        disabled={isSubmitting || disableSubmit}
+        disabled={!!isSubmitting}
         sx={buttonSx}
       >
         ПЕРЕЙТИ ДО ОПЛАТИ

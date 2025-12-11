@@ -3,39 +3,14 @@ import React, { useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { useBookingStore } from '@/shared/store';
+import { mockTourBookingInfo, mockUserTraveler } from '@/shared/tests';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 
 import { BookingModal } from './BookingModal';
 
-const mockTourData = {
-  tourId: 10,
-  title: 'Романтична Флоренція',
-  price: '78 567',
-  countryAndCity: 'Флоренція, Італія',
-  date: '01.10.25 — 07.10.25',
-};
-
-const mockUserTraveler = {
-  firstPersonName: 'Олена',
-  firstPersonSurname: 'Петренко',
-  secondPersonName: 'Тимофій',
-  secondPersonSurname: 'Петренко',
-  phone: '+380971234567',
-  role: 'traveler',
-};
-
 const meta: Meta<typeof BookingModal> = {
   title: 'Features/Booking/BookingModal',
   component: BookingModal,
-  tags: ['autodocs'],
-
-  parameters: {
-    docs: {
-      description: {
-        component: 'Модальне вікно бронювання — різні стани даних користувача.',
-      },
-    },
-  },
 };
 
 export default meta;
@@ -46,7 +21,7 @@ const useMockTourData = () => {
   const { openBookingModal } = useBookingStore();
 
   useEffect(() => {
-    openBookingModal(mockTourData);
+    openBookingModal(mockTourBookingInfo);
   }, [openBookingModal]);
 };
 

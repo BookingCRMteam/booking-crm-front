@@ -1,8 +1,39 @@
-import { OperatorMe } from '@/entities/operator/api/types';
+import { OperatorMe } from '@/entities/operator';
+import { User } from '@/entities/user';
 
-export const mockOperator: OperatorMe = {
+export const mockUserOperator: User = {
+  id: 10,
+  email: 'operator@example.com',
+  sub: 'sub123',
+  createdAt: '2025-01-01',
+  updatedAt: '2025-01-01',
+  operatorId: 1,
+  firstPersonName: 'Олена',
+  firstPersonSurname: 'Петренко',
+  secondPersonName: null,
+  secondPersonSurname: null,
+  phone: '+380971234567',
+  role: 'operator',
+};
+
+export const mockUserTraveler: User = {
+  id: 12,
+  email: 'traveler@example.com',
+  sub: 'sub123',
+  createdAt: '2025-01-01',
+  updatedAt: '2025-01-01',
+  operatorId: null,
+  firstPersonName: 'Тимофій',
+  firstPersonSurname: 'Іванов',
+  secondPersonName: 'Олена',
+  secondPersonSurname: 'Іванова',
+  phone: '+380971234568',
+  role: 'traveler',
+};
+
+export const mockOperatorById: OperatorMe = {
   id: 1,
-  email: 'email@example.com',
+  email: 'operator@example.com',
   createdAt: '2025-09-29T12:02:12.599Z',
   updatedAt: '2025-09-29T12:02:12.599Z',
   userId: 10,

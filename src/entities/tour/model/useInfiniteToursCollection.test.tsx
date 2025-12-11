@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 
 import { Tours } from '@/entities/tour/model/types';
 
-import { mockTour } from '@/shared/ui/TourCard/data';
+import { mockTour } from '@/shared/tests';
 
 import { useInfiniteToursCollection } from './useInfiniteToursCollection';
 

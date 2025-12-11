@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 import Image from 'next/image';
 
 import { Box, Typography } from '@mui/material';
@@ -13,30 +11,36 @@ import { formattedPhone } from '@/shared/utils';
 
 const sectionStyles = {
   display: 'flex',
-  gap: '111px',
+  flexDirection: { xs: 'column', md: 'row' },
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: { xs: 5, md: '111px' },
   py: 5,
 };
 
 const imageWrapper = {
   borderRadius: '4px',
   overflow: 'hidden',
-  width: 331,
-  height: 331,
+  width: '331px',
+  height: 'auto',
 };
 
 const columnStyles = {
-  maxWidth: '508px',
+  maxWidth: { xs: '100%', md: '508px' },
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: { xs: 'center', md: 'start' },
+  alignItems: { xs: 'center', md: 'start' },
+  textAlign: { xs: 'center', md: 'start' },
   gap: 3,
 };
 
 const badgePhoneContainerStyles = {
   display: 'flex',
   alignItems: 'center',
-  gap: '164px',
-  flexWrap: 'nowrap',
-  whiteSpace: 'nowrap',
+  gap: { xs: '20px', md: '164px' },
+  flexWrap: { xs: 'wrap', md: 'nowrap' },
+  whiteSpace: { xs: 'normal', md: 'nowrap' },
 };
 
 const textBlockStyles = {

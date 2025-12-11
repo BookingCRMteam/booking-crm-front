@@ -15,6 +15,11 @@ type OperatorToursProps = {
   operatorId: number;
 };
 
+const collectionWrapper = {
+  paddingTop: 5,
+  paddingBottom: '20px',
+};
+
 export const OperatorTours = ({
   initialData,
   operatorId,
@@ -43,7 +48,7 @@ export const OperatorTours = ({
       {showEmptyFallback ? (
         <OperatorToursEmpty />
       ) : hasTours ? (
-        <Box sx={{ paddingTop: 5, paddingBottom: '20px' }}>
+        <Box sx={collectionWrapper}>
           <ToursCollection {...props} />
         </Box>
       ) : (

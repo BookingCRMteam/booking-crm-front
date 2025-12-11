@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { PaymentModal } from '@/features/booking';
-
 import { BookingPaymentResponse, getBookingById } from '@/entities/booking';
 
 import { logger } from '@/shared/lib/logger';
+
+import { PaymentModal } from '../PaymentModal/PaymentModal';
 
 type BookingStatusListenerProps = {
   tourId: number;

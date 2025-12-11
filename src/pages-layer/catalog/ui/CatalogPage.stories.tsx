@@ -5,8 +5,8 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import type { Tours } from '@/entities/tour/model/types';
 
+import { mockTour } from '@/shared/tests';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
-import { mockTour } from '@/shared/ui/TourCard/data';
 
 import { CatalogPage } from './CatalogPage';
 

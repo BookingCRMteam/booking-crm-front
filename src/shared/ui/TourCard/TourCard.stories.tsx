@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import operatorPhoto from '../../../../public/images/tourCard/operator.png';
 import tourPhoto from '../../../../public/images/tourCard/tour.png';
+import { mockCardProps } from '../../tests/mocks/mockTour';
 import { TourCard } from './TourCard';
-import { mockCardProps } from './data';
 
 const meta: Meta<typeof TourCard> = {
   title: 'Shared/UI/TourCard/TourCard',
