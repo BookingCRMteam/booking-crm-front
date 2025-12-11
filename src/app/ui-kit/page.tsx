@@ -18,7 +18,7 @@ import {
   UsersIcon,
 } from '@phosphor-icons/react/ssr';
 
-import { mockCardProps } from '@/shared/tests/mocks/data';
+import { mockCardProps } from '@/shared/tests';
 import { OperatorStatusBadge } from '@/shared/ui';
 import { TourCard } from '@/shared/ui/TourCard/TourCard';
 
