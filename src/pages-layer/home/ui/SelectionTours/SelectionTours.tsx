@@ -46,7 +46,7 @@ export const SelectionTours = () => {
     isLoading,
     isSuccess,
     isError,
-  } = useFetchTours({ limit: 3 });
+  } = useFetchTours({ limit: 3, isFeatured: true });
   return (
     <SelectionWrapper>
       <ToursWrapper maxWidth="lg" component="section">
