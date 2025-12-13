@@ -6,7 +6,7 @@ import type { FetchToursArgs } from '../api/toursApi';
 export const useFetchTours = ({
   limit = 3,
   offset = 0,
-  isFeatured = false,
+  isFeatured,
 }: FetchToursArgs) => {
   return useQuery({
     queryKey: ['tours', limit, offset, isFeatured],
