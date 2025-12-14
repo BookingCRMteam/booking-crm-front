@@ -70,18 +70,20 @@ export const fetchTour = async (id: number): Promise<Tour> => {
   }
 };
 
-interface FetchToursArgs {
-  limit: number;
-  offset: number;
+export interface FetchToursArgs {
+  limit?: number;
+  offset?: number;
+  isFeatured?: boolean;
 }
 
 export const fetchTours = async ({
-  limit,
-  offset,
+  limit = 6,
+  offset = 0,
+  isFeatured,
 }: FetchToursArgs): Promise<Tours> => {
   try {
     const { data } = await axiosInstance.get<Tours>(APP_ROUTE.TOURS, {
-      params: { limit, offset },
+      params: { limit, offset, isFeatured },
     });
     return data;
   } catch (error: unknown) {
