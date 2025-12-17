@@ -1,7 +1,5 @@
 'use client';
 
-import type { FC } from 'react';
-
 import { Box, Typography, styled } from '@mui/material';
 
 const LabelRoot = styled(Box)(({ theme }) => ({
@@ -24,7 +22,7 @@ const LabelRoot = styled(Box)(({ theme }) => ({
   userSelect: 'none',
 }));
 
-export const BookingLabel: FC = () => {
+export const BookingLabel = () => {
   return (
     <LabelRoot>
       <Typography

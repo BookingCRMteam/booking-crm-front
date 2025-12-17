@@ -6,7 +6,7 @@ import { useUserBookingsQuery } from '@/entities/booking';
 
 import { TourCard } from '@/shared/ui';
 
-import { CoupleBookingEmpty } from './CoupleBookingEmpty';
+import { CoupleBookingEmpty } from '../CoupleBookingEmpty/CoupleBookingEmpty';
 
 export const CoupleBooking = () => {
   const { data: bookings, isLoading } = useUserBookingsQuery();

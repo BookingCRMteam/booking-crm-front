@@ -2,7 +2,7 @@
 
 import { Box, Container, styled } from '@mui/material';
 
-import { CoupleBooking } from '@/features/couple-booking/ui/CoupleBooking';
+import { CoupleBooking } from '@/features/couple-booking';
 import { CoupleProfileEditing } from '@/features/couple-profile-editing';
 
 import { BreadCrumbs } from '@/shared/ui';

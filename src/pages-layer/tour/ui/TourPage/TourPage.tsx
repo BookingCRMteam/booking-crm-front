@@ -15,10 +15,10 @@ import { APP_ROUTE } from '@/shared/constants';
 import { DYNAMIC_ROUTE } from '@/shared/constants';
 import { BreadCrumbs } from '@/shared/ui';
 
-import { BookingLabel } from './BookingLabel/BookingLabel';
-import TourControl from './TourControl/TourControl';
-import TourDescription from './TourDescription';
-import { TourInfo } from './TourInfo/TourInfo';
+import { BookingLabel } from '../BookingLabel/BookingLabel';
+import TourControl from '../TourControl/TourControl';
+import TourDescription from '../TourDescription/TourDescription';
+import { TourInfo } from '../TourInfo/TourInfo';
 
 const DEFAULT_IMAGE_URL = '/images/tourCard/tour.png';
 const ControlWrapper = styled(Box)({
