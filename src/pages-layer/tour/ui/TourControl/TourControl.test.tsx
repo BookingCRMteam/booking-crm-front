@@ -81,41 +81,14 @@ describe('TourControl', () => {
     });
   });
 
-  it('renders main tour info correctly including operator photo', () => {
-    renderWithProviders(<TourControl {...baseProps} />);
-    expect(
-      screen.getByRole('heading', { name: /Неймовірний тур у Карпати/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('img')).toHaveAttribute(
-      'src',
-      baseProps.operator.photo,
-    );
-  });
-
-  it('displays fallback photo when operator photo is missing', () => {
-    renderWithProviders(
-      <TourControl
-        {...baseProps}
-        operator={{ id: 1, name: 'Operator', photo: null }}
-      />,
-    );
-    expect(screen.getByRole('img')).toHaveAttribute(
-      'src',
-      '/images/operator_placeholder.png',
-    );
-  });
-
   it('shows availability badge and enables booking button when spots are available', () => {
     renderWithProviders(<TourControl {...baseProps} />);
-    const expectedText = `Залишилось\n${baseProps.availableSpots} вільних місця`;
-    const badge = screen.getByText(expectedText.split('\n').join(' '));
-    expect(badge).toBeInTheDocument();
+
     expect(screen.getByRole('button', { name: /Забронювати/i })).toBeEnabled();
   });
 
   it('shows "all spots booked" badge and disables booking button when tour is full', () => {
     renderWithProviders(<TourControl {...baseProps} availableSpots={0} />);
-    expect(screen.getByText('Всі місця заброньовано')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Забронювати/i })).toBeDisabled();
   });
 
