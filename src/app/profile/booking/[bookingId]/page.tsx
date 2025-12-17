@@ -36,13 +36,7 @@ export default async function BookingTourPage({
 
     const bookingViewModel = mapBookingToViewModel(booking);
 
-    return (
-      <TourPage
-        {...bookingViewModel}
-        variant="booking"
-        bookingId={booking.bookingId}
-      />
-    );
+    return <TourPage {...bookingViewModel} variant="booking" />;
   } catch (error) {
     console.error('BookingTourPage Error:', error);
     return notFound();

@@ -27,6 +27,7 @@ const ControlWrapper = styled(Box)({
   gap: '32px',
   paddingTop: '20px',
 });
+
 export type TourPageProps = {
   variant?: 'booking' | 'catalog';
   title: string;
@@ -42,7 +43,6 @@ export type TourPageProps = {
   availableSpots: number;
   description: string;
   price: string;
-  bookingId?: number;
 };
 
 export const TourPage: FC<TourPageProps> = ({
@@ -97,7 +97,7 @@ export const TourPage: FC<TourPageProps> = ({
               variant={variant}
               operator={operatorInfo}
             />
-            {variant === 'catalog' ? (
+            {isCatalog ? (
               <TourControl
                 title={title}
                 countryAndCity={countryAndCity}

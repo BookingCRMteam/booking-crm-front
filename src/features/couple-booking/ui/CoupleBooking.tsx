@@ -25,9 +25,8 @@ export const CoupleBooking = () => {
         Наші бронювання
       </Typography>
       {isLoading && <CircularProgress />}
-      {!isLoading && isBookingEmpty ? (
-        <CoupleBookingEmpty />
-      ) : (
+      {!isLoading && isBookingEmpty && <CoupleBookingEmpty />}
+      {!isLoading && !isBookingEmpty && (
         <Grid container spacing={3}>
           {bookings?.map(({ tour, bookingId, bookingPrice }) => (
             <Grid key={bookingId} size={{ xs: 12, sm: 6, md: 4 }}>
