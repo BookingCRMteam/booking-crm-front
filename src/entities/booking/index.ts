@@ -12,3 +12,5 @@ export {
   getUserBookings,
   getUserBookingById,
 } from './api/bookingApi';
+
+export { mapBookingToViewModel } from './lib/mapBookingToViewModel';

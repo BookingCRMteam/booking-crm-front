@@ -54,7 +54,7 @@ const ButtonStyled = styled(Button, {
 }));
 
 type BookingButtonProps = {
-  bookingId?: number;
+  bookingId: number;
 };
 
 export const BookingButton: FC<BookingButtonProps> = ({ bookingId }) => {

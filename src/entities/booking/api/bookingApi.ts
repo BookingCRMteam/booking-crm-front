@@ -52,13 +52,9 @@ export const getUserBookingById = async (
   accessToken: string,
 ): Promise<UserBooking> => {
   try {
-    let headers = {};
-    if (accessToken) {
-      headers = { Authorization: `Bearer ${accessToken}` };
-    }
     const { data: res } = await axiosInstance.get<UserBooking>(
       `user/bookings/${bookingId}`,
-      { headers },
+      { headers: { Authorization: `Bearer ${accessToken}` } },
     );
     return res;
   } catch (error: unknown) {

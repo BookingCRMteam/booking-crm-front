@@ -3,21 +3,23 @@ import { notFound } from 'next/navigation';
 import { TourPage } from '@/pages-layer/tour';
 
 import { getUserBookingById } from '@/entities/booking/api/bookingApi';
-import { mapTourBookingToViewModel } from '@/entities/tour/lib/mapTourBookingToViewModel';
+import { mapBookingToViewModel } from '@/entities/booking/lib/mapBookingToViewModel';
 
 import { auth0 } from '@/shared/lib/auth0';
 
-interface TourPageProps {
+interface BookingTourPageProps {
   params: Promise<{
-    tourId: string;
+    bookingId: string;
   }>;
 }
 
-export default async function BookingTourPage({ params }: TourPageProps) {
-  const { tourId } = await params;
-  const tourIdNum = Number(tourId);
+export default async function BookingTourPage({
+  params,
+}: BookingTourPageProps) {
+  const { bookingId } = await params;
+  const bookingIdNum = Number(bookingId);
 
-  if (isNaN(tourIdNum)) {
+  if (isNaN(bookingIdNum)) {
     return notFound();
   }
 
@@ -26,17 +28,17 @@ export default async function BookingTourPage({ params }: TourPageProps) {
     const accessToken = session?.tokenSet.accessToken;
 
     if (!session || !accessToken) throw new Error('Unauthorized');
-    const booking = await getUserBookingById(tourIdNum, accessToken);
+    const booking = await getUserBookingById(bookingIdNum, accessToken);
 
     if (!booking) {
       return notFound();
     }
 
-    const tourViewModel = mapTourBookingToViewModel(booking);
+    const bookingViewModel = mapBookingToViewModel(booking);
 
     return (
       <TourPage
-        {...tourViewModel}
+        {...bookingViewModel}
         variant="booking"
         bookingId={booking.bookingId}
       />

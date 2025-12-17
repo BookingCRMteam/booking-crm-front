@@ -43,7 +43,9 @@ export const CoupleBooking = () => {
                 countryName={tour.country.name}
                 operator={{
                   id: tour.operator.id,
-                  name: `${tour.operator.firstName} ${tour.operator.lastName}`,
+                  name:
+                    `${tour.operator.firstName || ''} ${tour.operator.lastName || ''}`.trim() ||
+                    'Unknown Operator',
                   photo: tour.operator.photo,
                 }}
                 bookingId={bookingId}

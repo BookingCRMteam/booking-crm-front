@@ -2,9 +2,9 @@ import { UserBooking } from '@/entities/booking';
 
 import { formattedDate } from '@/shared/utils';
 
-import { TourPhoto } from '../model/types';
+import { TourPhoto } from '../../tour/model/types';
 
-export type TourViewModel = {
+type BookingViewModel = {
   id: number;
   title: string;
   description: string;
@@ -20,10 +20,10 @@ export type TourViewModel = {
   date: string;
 };
 
-export const mapTourBookingToViewModel = ({
+export const mapBookingToViewModel = ({
   tour,
   bookingPrice,
-}: UserBooking): TourViewModel => ({
+}: UserBooking): BookingViewModel => ({
   id: tour.id,
   title: tour.title,
   description: tour.description,

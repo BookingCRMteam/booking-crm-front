@@ -6,10 +6,8 @@ import { UserBooking } from '../model/type';
 export const useUserBookingsQuery = () => {
   return useQuery<UserBooking[]>({
     queryKey: ['user', 'bookings'],
-    queryFn: async () => {
-      return getUserBookings();
-    },
-    staleTime: 1000 * 60 * 60 * 24,
+    queryFn: getUserBookings,
+    staleTime: 1000 * 60 * 15, // 15 minutes
     retry: 1,
     refetchOnWindowFocus: false,
     refetchOnMount: true,

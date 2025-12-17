@@ -29,7 +29,6 @@ const MetaGroup = styled(Box)({
 });
 
 type TourInfoProps = {
-  tourId: number;
   title: string;
   price: string;
   countryAndCity: string;

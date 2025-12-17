@@ -95,7 +95,6 @@ export const TourPage: FC<TourPageProps> = ({
               date={date}
               price={price}
               variant={variant}
-              tourId={id}
               operator={operatorInfo}
             />
             {variant === 'catalog' ? (
