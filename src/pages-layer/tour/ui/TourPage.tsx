@@ -4,42 +4,67 @@ import type { FC } from 'react';
 
 import Image from 'next/image';
 
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Grid, styled } from '@mui/material';
 
 import { BookingStatusListener } from '@/features/booking/ui/BookingStatusListener/BookingStatusListener';
 import { TourGallery } from '@/features/tour-gallery';
 
-import { mapTourToViewModel } from '@/entities/tour';
-import type { Tour } from '@/entities/tour';
+import type { TourPhoto } from '@/entities/tour';
 
 import { APP_ROUTE } from '@/shared/constants';
 import { DYNAMIC_ROUTE } from '@/shared/constants';
 import { BreadCrumbs } from '@/shared/ui';
 
+import { BookingLabel } from './BookingLabel/BookingLabel';
 import TourControl from './TourControl/TourControl';
 import TourDescription from './TourDescription';
+import { TourInfo } from './TourInfo/TourInfo';
 
 const DEFAULT_IMAGE_URL = '/images/tourCard/tour.png';
-
+const ControlWrapper = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '32px',
+  paddingTop: '20px',
+});
 export type TourPageProps = {
-  tour: Tour;
+  variant?: 'booking' | 'catalog';
+  title: string;
+  countryAndCity: string;
+  date: string;
+  id: number;
+  operatorInfo: {
+    id: number;
+    name: string;
+    photo: string | null;
+  };
+  photos: Pick<TourPhoto, 'url' | 'description' | 'isMain'>[];
+  availableSpots: number;
+  description: string;
+  price: string;
+  bookingId?: number;
 };
 
-export const TourPage: FC<TourPageProps> = ({ tour }) => {
-  const {
-    title,
-    countryAndCity,
-    date,
-    id,
-    operatorInfo,
-    photos,
-    availableSpots,
-    description,
-    price,
-  } = mapTourToViewModel(tour);
+export const TourPage: FC<TourPageProps> = ({
+  title,
+  countryAndCity,
+  date,
+  id,
+  operatorInfo,
+  photos,
+  availableSpots,
+  description,
+  price,
+  variant = 'catalog',
+}) => {
+  const isCatalog = variant === 'catalog';
   const breadcrumbsItems = [
     { href: APP_ROUTE.HOME, title: 'Головна' },
-    { href: APP_ROUTE.CATALOG, title: 'Каталог' },
+    {
+      ...(isCatalog
+        ? { href: APP_ROUTE.CATALOG, title: 'Каталог' }
+        : { href: APP_ROUTE.PROFILE, title: 'Наш профіль' }),
+    },
     { href: DYNAMIC_ROUTE.TOUR(id), title: title },
   ];
 
@@ -62,22 +87,36 @@ export const TourPage: FC<TourPageProps> = ({ tour }) => {
       <Grid container rowSpacing="54px" columnSpacing={3}>
         <Grid size={{ xs: 6 }}>{tourGalleryBlock}</Grid>
         <Grid size={{ xs: 5 }} offset={{ xs: 1 }}>
-          <TourControl
-            tourId={id}
-            title={title}
-            countryAndCity={countryAndCity}
-            availableSpots={availableSpots}
-            date={date}
-            operator={operatorInfo}
-            price={price}
-          />
+          <ControlWrapper>
+            <TourInfo
+              title={title}
+              countryAndCity={countryAndCity}
+              availableSpots={availableSpots}
+              date={date}
+              price={price}
+              variant={variant}
+              tourId={id}
+              operator={operatorInfo}
+            />
+            {variant === 'catalog' ? (
+              <TourControl
+                title={title}
+                countryAndCity={countryAndCity}
+                availableSpots={availableSpots}
+                date={date}
+                price={price}
+                tourId={id}
+              />
+            ) : (
+              <BookingLabel />
+            )}
+          </ControlWrapper>
         </Grid>
         <Grid size={{ xs: 8 }} offset={{ xs: 2 }} justifyItems="center">
           <TourDescription description={description} />
         </Grid>
       </Grid>
-
-      <BookingStatusListener tourId={id} />
+      {isCatalog && <BookingStatusListener tourId={id} />}
     </Container>
   );
 };

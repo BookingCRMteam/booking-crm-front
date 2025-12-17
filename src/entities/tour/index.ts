@@ -5,6 +5,7 @@ export type {
   UpdatePhotoMeta,
   ToursCollectionProps,
   TourBookingInfo,
+  TourPhoto,
 } from './model/types';
 
 export { mapTourToViewModel } from './lib/mapTourToViewModel';

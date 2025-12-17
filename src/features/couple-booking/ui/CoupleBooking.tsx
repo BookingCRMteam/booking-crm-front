@@ -1,26 +1,22 @@
 'use client';
 
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Grid, Typography } from '@mui/material';
 
-import { fetchTours, useInfiniteToursCollection } from '@/entities/tour';
+import { useUserBookingsQuery } from '@/entities/booking';
 
-import { ToursCollection } from '@/shared/ui';
+import { TourCard } from '@/shared/ui';
 
 import { CoupleBookingEmpty } from './CoupleBookingEmpty';
 
 export const CoupleBooking = () => {
-  // TODO: change queryFn to fetch couple bookings
-  const props = useInfiniteToursCollection({
-    queryKey: ['tours', 'my-bookings'],
-    queryFn: fetchTours,
-  });
-
-  const isBookingEmpty = !props.data?.pages?.[0]?.data?.length || props.error;
+  const { data: bookings, isLoading } = useUserBookingsQuery();
+  const isBookingEmpty = !bookings?.length;
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         gap: '24px',
       }}
       data-testid="couple-booking"
@@ -28,10 +24,33 @@ export const CoupleBooking = () => {
       <Typography align="center" variant="h2" component="h2" gutterBottom>
         Наші бронювання
       </Typography>
-      {isBookingEmpty ? (
+      {isLoading && <CircularProgress />}
+      {!isLoading && isBookingEmpty ? (
         <CoupleBookingEmpty />
       ) : (
-        <ToursCollection {...props} variantTourCard="couple-booking" />
+        <Grid container spacing={3}>
+          {bookings?.map(({ tour, bookingId, bookingPrice }) => (
+            <Grid key={bookingId} size={{ xs: 12, sm: 6, md: 4 }}>
+              <TourCard
+                id={tour.id}
+                variant="booking"
+                title={tour.title}
+                availableSpots={tour.availableSpots}
+                price={bookingPrice}
+                photos={tour.photos}
+                startDate={tour.startDate}
+                endDate={tour.endDate}
+                countryName={tour.country.name}
+                operator={{
+                  id: tour.operator.id,
+                  name: `${tour.operator.firstName} ${tour.operator.lastName}`,
+                  photo: tour.operator.photo,
+                }}
+                bookingId={bookingId}
+              />
+            </Grid>
+          ))}
+        </Grid>
       )}
     </Box>
   );

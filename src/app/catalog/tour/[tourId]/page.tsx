@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { TourPage } from '@/pages-layer/tour';
 
+import { mapTourToViewModel } from '@/entities/tour';
 import { fetchTour } from '@/entities/tour/api/toursApi';
 
 interface TourPageProps {
@@ -23,7 +24,8 @@ export default async function Tour({ params }: TourPageProps) {
     if (!tour) {
       return notFound();
     }
-    return <TourPage tour={tour} />;
+    const props = mapTourToViewModel(tour);
+    return <TourPage {...props} />;
   } catch {
     return notFound();
   }

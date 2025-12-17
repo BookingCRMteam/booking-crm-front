@@ -17,6 +17,7 @@ const CoupleWrapper = styled(Container)({
   flexDirection: 'column',
   gap: '13px',
   paddingBottom: '60px',
+  minHeight: '100vh',
 });
 
 const ContentWrapper = styled(Box)({

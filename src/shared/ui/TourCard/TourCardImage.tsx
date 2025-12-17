@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { TourPhoto } from '@/entities/tour/model/types';
 
 interface TourCardImageProps {
-  mainPhoto: TourPhoto | null;
+  mainPhoto: Pick<TourPhoto, 'isMain' | 'url' | 'description'> | null;
   title: string;
 }
 

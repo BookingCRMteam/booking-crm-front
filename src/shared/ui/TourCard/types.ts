@@ -1,16 +1,13 @@
 import type { TourPhoto } from '@/entities/tour/model/types';
 
-export type TourCardVariantType =
-  | 'catalog'
-  | 'couple-booking'
-  | 'operator-tour';
+export type TourCardVariantType = 'catalog' | 'booking' | 'operator';
 
 export type TourCardProps = {
   id: number;
   title: string;
   availableSpots: number;
   price: string;
-  photos: TourPhoto[];
+  photos: Pick<TourPhoto, 'isMain' | 'url' | 'description'>[];
   startDate: string;
   endDate: string;
   countryName: string;
@@ -20,5 +17,6 @@ export type TourCardProps = {
     id: number;
   };
   bookingCount?: number;
+  bookingId?: number;
   variant?: TourCardVariantType;
 };
