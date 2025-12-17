@@ -13,7 +13,7 @@ import { Thumb } from './Thumb';
 import { useTourGallery } from './useTourGallery';
 
 type TourGalleryProps = {
-  photos: TourPhoto[];
+  photos: Pick<TourPhoto, 'url' | 'description' | 'isMain'>[];
 };
 
 const GalleryWrapper = styled(Box)({
@@ -73,7 +73,7 @@ export const TourGallery: FC<TourGalleryProps> = ({ photos }) => {
     () =>
       photos.map((image, index) => (
         <Thumb
-          key={image.id}
+          key={image.url}
           onClick={() => onThumbClick(index)}
           selected={index === selectedIndex}
           image={image}
@@ -109,8 +109,8 @@ export const TourGallery: FC<TourGalleryProps> = ({ photos }) => {
       <Box sx={{ width: '100%', maxWidth: '419px' }}>
         <MainViewport ref={emblaMainRef}>
           <MainContainer>
-            {photos.map(({ description, id, url }) => (
-              <MainSlide key={id}>
+            {photos.map(({ description, url }) => (
+              <MainSlide key={url}>
                 <Image alt={description} src={url} width={419} height={440} />
               </MainSlide>
             ))}

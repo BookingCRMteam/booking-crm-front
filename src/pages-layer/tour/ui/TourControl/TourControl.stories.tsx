@@ -55,10 +55,6 @@ const meta: Meta<typeof TourControl> = {
       control: 'number',
       description: 'Кількість вільних місць.',
     },
-    operator: {
-      control: 'object',
-      description: 'Об’єкт з даними туроператора.',
-    },
   },
   decorators: [
     (Story) => {

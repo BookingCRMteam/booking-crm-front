@@ -4,45 +4,13 @@ import { type FC, useCallback, useEffect, useMemo } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { Box, Typography, styled } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import { BookingButton } from '@/features/booking';
 
 import { useUserQuery } from '@/entities/user';
 
 import { useBookingStore } from '@/shared/store';
-import {
-  DateDisplay,
-  LocationDisplay,
-  OperatorLink,
-  PriceDisplay,
-} from '@/shared/ui';
-
-import { AvailabilityBadge } from '../AvailabilityBadge/AvailabilityBadge';
-
-const ControlWrapper = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '32px',
-  paddingTop: '20px',
-});
-
-const InfoSection = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '21px',
-});
-
-const InfoRow = styled(Box)({
-  display: 'flex',
-  justifyContent: 'space-between',
-});
-
-const MetaGroup = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '16px',
-});
 
 type TourControlProps = {
   tourId: number;
@@ -50,11 +18,6 @@ type TourControlProps = {
   price: string;
   countryAndCity: string;
   date: string;
-  operator: {
-    id: number;
-    name: string;
-    photo: string | null;
-  };
   availableSpots: number;
 };
 
@@ -65,7 +28,6 @@ const TourControl: FC<TourControlProps> = ({
   date,
   price,
   availableSpots,
-  operator,
 }) => {
   const isAvailable = availableSpots > 0;
 
@@ -118,26 +80,7 @@ const TourControl: FC<TourControlProps> = ({
   ]);
 
   return (
-    <ControlWrapper>
-      <Typography
-        variant="h2"
-        component="h1"
-        sx={{ letterSpacing: '-0.01em', lineHeight: '129%' }}
-      >
-        {title}
-      </Typography>
-      <InfoSection>
-        <InfoRow>
-          <MetaGroup>
-            <LocationDisplay location={countryAndCity} />
-            <DateDisplay date={date} />
-          </MetaGroup>
-          <AvailabilityBadge availableSpots={availableSpots} />
-        </InfoRow>
-        <PriceDisplay price={price} />
-      </InfoSection>
-      <OperatorLink {...operator} variant="page" />
-
+    <>
       {isOperator && (
         <Typography variant="bodyLarge" component="p" color="error" mb={1}>
           Ви як авторизований туроператор можете тільки переглядати вже створені
@@ -151,7 +94,7 @@ const TourControl: FC<TourControlProps> = ({
         onUserClick={handleBookingUserClick}
         isLoading={isLoading}
       />
-    </ControlWrapper>
+    </>
   );
 };
 

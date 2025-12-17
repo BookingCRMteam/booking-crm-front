@@ -8,7 +8,7 @@ import { TourPhoto } from '@/entities/tour/model/types';
 
 type ThumbProp = {
   selected: boolean;
-  image: TourPhoto;
+  image: Pick<TourPhoto, 'url' | 'description' | 'isMain'>;
   onClick: () => void;
 };
 

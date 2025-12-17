@@ -89,7 +89,7 @@ export const OperatorMyTours = ({ operatorId }: OperatorMyToursProps) => {
         </Button>
       </Box>
 
-      <ToursCollection {...props} variantTourCard="operator-tour" />
+      <ToursCollection {...props} variantTourCard="operator" />
     </Box>
   );
 };
