@@ -95,6 +95,7 @@ export const TourCard: FC<TourCardProps> = ({
   startDate,
   endDate,
   countryName,
+  bookingId,
   bookingCount = 0,
   variant = 'catalog',
 }) => {
@@ -156,7 +157,7 @@ export const TourCard: FC<TourCardProps> = ({
               </Box>
             </Box>
 
-            {variant !== 'operator-tour' && (
+            {variant !== 'operator' && (
               <OperatorLink
                 variant="card"
                 id={operator.id}
@@ -165,7 +166,7 @@ export const TourCard: FC<TourCardProps> = ({
               />
             )}
 
-            {variant === 'operator-tour' && (
+            {variant === 'operator' && (
               <Box
                 sx={{
                   display: 'flex',
@@ -195,6 +196,7 @@ export const TourCard: FC<TourCardProps> = ({
             variant={variant}
             tourId={id}
             title={title}
+            bookingId={bookingId}
             operatorId={operator.id}
             isAvailable={isAvailable}
           />

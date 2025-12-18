@@ -20,3 +20,4 @@ export { DropdownField } from './DropdownField/DropdownField';
 export { SubmitButton } from './SubmitButton/SubmitButton';
 export { ErrorLoading } from './ErrorLoading/ErrorLoading';
 export { ButtonTop } from './ButtonTop/ButtonTop';
+export { BookingButton } from './BookingButton/BookingButton';

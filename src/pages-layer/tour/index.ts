@@ -1,1 +1,1 @@
-export { TourPage } from './ui/TourPage';
+export { TourPage } from './ui/TourPage/TourPage';

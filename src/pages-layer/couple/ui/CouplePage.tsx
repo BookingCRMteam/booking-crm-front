@@ -2,7 +2,7 @@
 
 import { Box, Container, styled } from '@mui/material';
 
-import { CoupleBooking } from '@/features/couple-booking/ui/CoupleBooking';
+import { CoupleBooking } from '@/features/couple-booking';
 import { CoupleProfileEditing } from '@/features/couple-profile-editing';
 
 import { BreadCrumbs } from '@/shared/ui';
@@ -17,6 +17,7 @@ const CoupleWrapper = styled(Container)({
   flexDirection: 'column',
   gap: '13px',
   paddingBottom: '60px',
+  minHeight: '100vh',
 });
 
 const ContentWrapper = styled(Box)({

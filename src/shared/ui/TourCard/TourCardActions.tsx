@@ -11,8 +11,9 @@ import { useDeleteTour } from '@/entities/tour/model/useDeleteTour';
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants';
 import { useNotificationStore } from '@/shared/store';
 
-import { BookingButton } from './BookingButton';
+import { BookingButton } from '../BookingButton/BookingButton';
 import { DeleteTourModal } from './DeleteTourModal/DeleteTourModal';
+
 import type { TourCardVariantType } from './types';
 
 type TourCardActionsProps = {
@@ -21,6 +22,7 @@ type TourCardActionsProps = {
   tourId: number;
   title: string;
   isAvailable: boolean;
+  bookingId?: number;
 };
 
 export const TourCardActions: FC<TourCardActionsProps> = ({
@@ -29,6 +31,7 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
   tourId,
   title,
   isAvailable,
+  bookingId,
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -76,19 +79,8 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
     );
   }
 
-  if (variant === 'couple-booking') {
-    return (
-      <BookingButton
-        variant="contained"
-        color="primary"
-        size="large"
-        fullWidth
-        component={Link}
-        href={`${APP_ROUTE.CATALOG}${APP_ROUTE.TOUR}/${tourId}`}
-      >
-        Заброньовано
-      </BookingButton>
-    );
+  if (variant === 'booking' && bookingId) {
+    return <BookingButton bookingId={bookingId} />;
   }
 
   return (
