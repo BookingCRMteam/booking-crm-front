@@ -52,7 +52,7 @@ export const OperatorMyTours = ({ operatorId }: OperatorMyToursProps) => {
         flexDirection: 'column',
         alignItems: 'center',
         paddingTop: 5,
-        paddingBottom: '70px',
+        paddingBottom: 8.75,
       }}
     >
       <Typography variant="h1" sx={{ mb: 5 }}>

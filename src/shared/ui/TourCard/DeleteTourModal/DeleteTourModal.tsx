@@ -12,11 +12,6 @@ type DeleteTourModalProps = {
   onConfirm: () => void;
 };
 
-const QUOTES = {
-  left: '«',
-  right: '»',
-};
-
 const StyledModal = styled(Modal)({
   display: 'flex',
   justifyContent: 'center',
@@ -46,19 +41,34 @@ export const DeleteTourModal = ({
   onClose,
   onConfirm,
 }: DeleteTourModalProps) => {
+  const dialogTitleId = 'delete-tour-dialog-title';
+  const dialogDescriptionId = 'delete-tour-dialog-description';
+
   return (
-    <StyledModal open={open} onClose={onClose} aria-label="Видалення туру">
+    <StyledModal
+      open={open}
+      onClose={onClose}
+      aria-labelledby={dialogTitleId}
+      aria-describedby={dialogDescriptionId}
+    >
       <ModalContent role="dialog" aria-modal="true">
         <CloseButton onClick={onClose} top={16} right={16} />
-        <Typography variant="h3" align="center">
+        <Typography id={dialogTitleId} variant="h3" align="center">
           Видалити тур?
         </Typography>
-        <Typography component="p" variant="bodyLarge" align="center">
-          Ви впевнені, що хочете видалити тур <br />
-          {QUOTES.left}
-          {title}
-          {QUOTES.right}?
-        </Typography>
+        <Box>
+          <Typography
+            id={dialogDescriptionId}
+            component="p"
+            variant="bodyLarge"
+            align="center"
+          >
+            Ви впевнені, що хочете видалити тур
+          </Typography>
+          <Typography component="p" variant="bodyLarge" align="center">
+            «{title}»?
+          </Typography>
+        </Box>
         <Typography component="p" variant="bodyLarge" align="center">
           Відновити його буде неможливо.
         </Typography>

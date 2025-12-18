@@ -6,14 +6,13 @@ import Link from 'next/link';
 
 import { Box, Button } from '@mui/material';
 
-import { DeleteTourModal } from '@/pages-layer/operator-my-tours';
-
 import { useDeleteTour } from '@/entities/tour/model/useDeleteTour';
 
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants';
-import { logger } from '@/shared/lib/logger';
+import { useNotificationStore } from '@/shared/store';
 
 import { BookingButton } from './BookingButton';
+import { DeleteTourModal } from './DeleteTourModal/DeleteTourModal';
 import type { TourCardVariantType } from './types';
 
 type TourCardActionsProps = {
@@ -33,6 +32,10 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  const showNotification = useNotificationStore(
+    (state) => state.showNotification,
+  );
+
   const deleteTour = useDeleteTour(operatorId);
 
   const handleDeleteClick = () => {
@@ -42,12 +45,11 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
   const handleConfirmDelete = () => {
     deleteTour.mutate(tourId, {
       onSuccess: () => {
-        logger.info('Тур видалено!');
+        showNotification('Тур успішно видалено', 'success');
         setIsDeleteModalOpen(false);
       },
-      onError: (error) => {
-        logger.error('Помилка при видаленні туру', error);
-        setIsDeleteModalOpen(false);
+      onError: () => {
+        showNotification('Не вдалося видалити тур. Спробуйте ще раз.', 'error');
       },
     });
   };

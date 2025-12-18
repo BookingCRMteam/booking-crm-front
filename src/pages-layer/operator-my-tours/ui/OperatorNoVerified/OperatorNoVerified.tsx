@@ -73,7 +73,7 @@ export const OperatorNoVerified = () => {
           </Typography>
         </Box>
         <Button
-          component="a"
+          component={NextLink}
           href={APP_ROUTE.OPERATOR}
           color="primary"
           variant="contained"
