@@ -9,12 +9,14 @@ import { useOperatorQuery } from '@/entities/operator';
 import { useBookingStore } from '@/shared/store';
 
 import { OperatorMyTours } from '../OperatorMyTours/OperatorMyTours';
+import { OperatorNoVerified } from '../OperatorNoVerified/OperatorNoVerified';
 
 export const OperatorMyToursPage = () => {
   const { data: operator, isLoading } = useOperatorQuery();
   const { stopRedirect } = useBookingStore();
 
   const operatorId = operator?.id;
+  const operatorStatus = operator?.status;
 
   useEffect(() => {
     stopRedirect();
@@ -36,6 +38,8 @@ export const OperatorMyToursPage = () => {
   }
 
   if (!operatorId) return null;
+
+  if (operatorStatus === 'pending') return <OperatorNoVerified />;
 
   return <OperatorMyTours operatorId={operatorId} />;
 };
