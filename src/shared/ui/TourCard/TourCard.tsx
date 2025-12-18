@@ -18,6 +18,7 @@ import { formattedDate } from '@/shared/utils';
 
 import Label from './Label';
 import { TourCardActions } from './TourCardActions';
+import { TourCardBookingActions } from './TourCardBookingActions/TourCardBookingActions';
 import { TourCardImage } from './TourCardImage';
 import type { TourCardProps } from './types';
 
@@ -95,14 +96,15 @@ export const TourCard: FC<TourCardProps> = ({
   startDate,
   endDate,
   countryName,
-  bookingId,
-  bookingCount = 0,
   variant = 'catalog',
+  bookingCount = 0,
+  bookingId,
+  bookingStatus,
 }) => {
   const isAvailable = availableSpots > 0;
   const date = `${formattedDate(startDate)} — ${formattedDate(endDate)}`;
   const mainPhoto = photos.find((p) => p.isMain) ?? photos[0];
-
+  const isBooking = variant === 'booking' && bookingId && bookingStatus;
   return (
     <CardWrapper isAvailable={isAvailable}>
       <ImageWrapper className="tour-card-image-wrapper">
@@ -192,13 +194,21 @@ export const TourCard: FC<TourCardProps> = ({
         </CardContentStyle>
 
         <CardActions sx={{ p: 0 }}>
-          <TourCardActions
-            variant={variant}
-            tourId={id}
-            bookingId={bookingId}
-            operatorId={operator.id}
-            isAvailable={isAvailable}
-          />
+          {isBooking && (
+            <TourCardBookingActions
+              bookingStatus={bookingStatus}
+              bookingId={bookingId}
+            />
+          )}
+
+          {!isBooking && (
+            <TourCardActions
+              variant={variant}
+              tourId={id}
+              operatorId={operator.id}
+              isAvailable={isAvailable}
+            />
+          )}
         </CardActions>
       </ContentWrapper>
     </CardWrapper>

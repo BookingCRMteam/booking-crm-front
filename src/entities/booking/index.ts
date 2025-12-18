@@ -3,6 +3,7 @@ export type {
   BookingResponse,
   BookingPaymentResponse,
   UserBooking,
+  BookingStatus,
 } from './model/type';
 
 export { useUserBookingsQuery } from './model/useUserBookings';
@@ -11,6 +12,7 @@ export {
   getBookingById,
   getUserBookings,
   getUserBookingById,
+  createRepayLink,
 } from './api/bookingApi';
 
 export { mapBookingToViewModel } from './lib/mapBookingToViewModel';

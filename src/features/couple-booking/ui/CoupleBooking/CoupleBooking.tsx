@@ -28,7 +28,7 @@ export const CoupleBooking = () => {
       {!isLoading && isBookingEmpty && <CoupleBookingEmpty />}
       {!isLoading && !isBookingEmpty && (
         <Grid container spacing={3}>
-          {bookings?.map(({ tour, bookingId, bookingPrice }) => (
+          {bookings?.map(({ tour, bookingId, bookingPrice, status }) => (
             <Grid key={bookingId} size={{ xs: 12, sm: 6, md: 4 }}>
               <TourCard
                 id={tour.id}
@@ -48,6 +48,7 @@ export const CoupleBooking = () => {
                   photo: tour.operator.photo,
                 }}
                 bookingId={bookingId}
+                bookingStatus={status}
               />
             </Grid>
           ))}

@@ -7,7 +7,7 @@ import {
 import { axiosInstance, handleApiError } from '@/shared/api';
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants/routes';
 
-import { UserBooking } from '../model/type';
+import { RepayLink, UserBooking } from '../model/type';
 
 export const createBooking = async (
   data: BookingRequest,
@@ -16,6 +16,17 @@ export const createBooking = async (
     const { data: res } = await axiosInstance.post<BookingResponse>(
       APP_ROUTE.BOOKINGS,
       data,
+    );
+    return res;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
+
+export const createRepayLink = async (id: number): Promise<RepayLink> => {
+  try {
+    const { data: res } = await axiosInstance.post<RepayLink>(
+      `${DYNAMIC_ROUTE.BOOKING_REPAY(id)}`,
     );
     return res;
   } catch (error: unknown) {
@@ -39,8 +50,9 @@ export const getBookingById = async (
 
 export const getUserBookings = async (): Promise<UserBooking[]> => {
   try {
-    const { data: res } =
-      await axiosInstance.get<UserBooking[]>('user/bookings');
+    const { data: res } = await axiosInstance.get<UserBooking[]>(
+      APP_ROUTE.USER_BOOKINGS,
+    );
     return res;
   } catch (error: unknown) {
     handleApiError(error);
@@ -53,7 +65,7 @@ export const getUserBookingById = async (
 ): Promise<UserBooking> => {
   try {
     const { data: res } = await axiosInstance.get<UserBooking>(
-      `user/bookings/${bookingId}`,
+      `${DYNAMIC_ROUTE.USER_BOOKING_BY_ID(bookingId)}`,
       { headers: { Authorization: `Bearer ${accessToken}` } },
     );
     return res;

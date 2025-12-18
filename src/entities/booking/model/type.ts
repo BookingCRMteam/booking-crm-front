@@ -1,3 +1,5 @@
+export type BookingStatus = 'confirmed' | 'pending_payment' | 'expired';
+
 export type BookingRequest = {
   tourId: number;
   userId: number;
@@ -16,7 +18,7 @@ export type BookingResponse = {
     id: number;
     userId: number;
     tourId: number;
-    status: 'pending_payment' | 'confirmed';
+    status: BookingStatus;
     totalPrice: string;
     currency: 'UAH' | 'EUR'; //зараз сервер повертає євро
     createdAt: string;
@@ -37,7 +39,7 @@ export type BookingPaymentResponse = {
   secondPersonName: string;
   secondPersonSurname: string;
   phone: string;
-  status: 'pending_payment' | 'confirmed';
+  status: BookingStatus;
   totalPrice: string;
   currency: 'UAH' | 'EUR';
   createdAt: string;
@@ -66,7 +68,7 @@ export type BookingPaymentResponse = {
 
 export type UserBooking = {
   bookingId: number;
-  status: string;
+  status: BookingStatus;
   bookingPrice: string;
   currency: string;
   numberOfPeople: number;
@@ -112,4 +114,8 @@ export type UserBooking = {
       name: string;
     };
   };
+};
+
+export type RepayLink = {
+  paymentLink: string;
 };
