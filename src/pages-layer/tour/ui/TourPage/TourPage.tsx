@@ -9,13 +9,14 @@ import { Box, Container, Grid, styled } from '@mui/material';
 import { BookingStatusListener } from '@/features/booking/ui/BookingStatusListener/BookingStatusListener';
 import { TourGallery } from '@/features/tour-gallery';
 
+import { BookingStatus } from '@/entities/booking';
 import type { TourPhoto } from '@/entities/tour';
 
 import { APP_ROUTE } from '@/shared/constants';
 import { DYNAMIC_ROUTE } from '@/shared/constants';
 import { BreadCrumbs } from '@/shared/ui';
 
-import { BookingLabel } from '../BookingLabel/BookingLabel';
+import { TourBookingControl } from '../TourBookingControl/TourBookingControl';
 import TourControl from '../TourControl/TourControl';
 import TourDescription from '../TourDescription/TourDescription';
 import { TourInfo } from '../TourInfo/TourInfo';
@@ -43,6 +44,8 @@ export type TourPageProps = {
   availableSpots: number;
   description: string;
   price: string;
+  bookingStatus?: BookingStatus;
+  bookingId?: number;
 };
 
 export const TourPage: FC<TourPageProps> = ({
@@ -56,8 +59,11 @@ export const TourPage: FC<TourPageProps> = ({
   description,
   price,
   variant = 'catalog',
+  bookingStatus,
+  bookingId,
 }) => {
   const isCatalog = variant === 'catalog';
+  const isBooking = variant === 'booking' && bookingStatus && bookingId;
   const breadcrumbsItems = [
     { href: APP_ROUTE.HOME, title: 'Головна' },
     {
@@ -97,7 +103,7 @@ export const TourPage: FC<TourPageProps> = ({
               variant={variant}
               operator={operatorInfo}
             />
-            {isCatalog ? (
+            {isCatalog && (
               <TourControl
                 title={title}
                 countryAndCity={countryAndCity}
@@ -106,8 +112,12 @@ export const TourPage: FC<TourPageProps> = ({
                 price={price}
                 tourId={id}
               />
-            ) : (
-              <BookingLabel />
+            )}
+            {isBooking && (
+              <TourBookingControl
+                bookingStatus={bookingStatus}
+                bookingId={bookingId}
+              />
             )}
           </ControlWrapper>
         </Grid>

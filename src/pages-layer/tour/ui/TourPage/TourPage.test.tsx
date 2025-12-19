@@ -25,8 +25,8 @@ jest.mock('../TourInfo/TourInfo', () => ({
   TourInfo: () => <div data-testid="tour-info" />,
 }));
 
-jest.mock('../BookingLabel/BookingLabel', () => ({
-  BookingLabel: () => <div data-testid="booking-label" />,
+jest.mock('../TourBookingControl/TourBookingControl', () => ({
+  TourBookingControl: () => <div data-testid="tour-booking-control" />,
 }));
 
 jest.mock('../TourControl/TourControl', () => ({
@@ -72,10 +72,17 @@ describe('TourPage Component', () => {
   });
 
   describe('when variant is "booking"', () => {
-    it('should render BookingLabel and hide catalog-specific components', () => {
-      renderWithTheme(<TourPage {...mockProps} variant="booking" />);
+    it('should render TourBookingControl and hide catalog-specific components', () => {
+      renderWithTheme(
+        <TourPage
+          {...mockProps}
+          variant="booking"
+          bookingId={1}
+          bookingStatus="confirmed"
+        />,
+      );
 
-      expect(screen.getByTestId('booking-label')).toBeInTheDocument();
+      expect(screen.getByTestId('tour-booking-control')).toBeInTheDocument();
       expect(screen.queryByTestId('tour-control')).not.toBeInTheDocument();
       expect(
         screen.queryByTestId('booking-status-listener'),

@@ -1,4 +1,4 @@
-import { UserBooking } from '@/entities/booking';
+import { BookingStatus, UserBooking } from '@/entities/booking';
 
 import { formattedDate } from '@/shared/utils';
 
@@ -18,11 +18,15 @@ type BookingViewModel = {
   };
   countryAndCity: string;
   date: string;
+  bookingId: number;
+  bookingStatus: BookingStatus;
 };
 
 export const mapBookingToViewModel = ({
   tour,
   bookingPrice,
+  bookingId,
+  status,
 }: UserBooking): BookingViewModel => ({
   id: tour.id,
   title: tour.title,
@@ -39,4 +43,6 @@ export const mapBookingToViewModel = ({
   },
   countryAndCity: `${tour.country.name || 'Unknown'}, ${tour.city.name || 'Unknown'}`,
   date: `${formattedDate(tour.startDate)} — ${formattedDate(tour.endDate)}`,
+  bookingId,
+  bookingStatus: status,
 });
