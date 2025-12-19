@@ -9,7 +9,7 @@ import { TourCard } from '@/shared/ui';
 import { CoupleBookingEmpty } from '../CoupleBookingEmpty/CoupleBookingEmpty';
 
 export const CoupleBooking = () => {
-  const { data: bookings, isLoading } = useUserBookingsQuery({});
+  const { data: bookings, isLoading } = useUserBookingsQuery({ limit: 99 });
   const isBookingEmpty = !bookings?.length;
   return (
     <Box
