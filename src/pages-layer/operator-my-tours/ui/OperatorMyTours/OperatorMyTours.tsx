@@ -45,34 +45,21 @@ export const OperatorMyTours = ({ operatorId }: OperatorMyToursProps) => {
     );
   }
 
-  const totalTours = props.data.pages.reduce(
-    (acc, page) => acc + page.data.length,
-    0,
-  );
-  const isOnlyOneTour = totalTours === 1;
-
   return (
     <Box
       sx={{
-        position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        pt: 5,
-        pb: '70px',
+        paddingTop: 5,
+        paddingBottom: 8.75,
       }}
     >
-      <Typography variant="h1" sx={{ mb: '116px' }}>
+      <Typography variant="h1" sx={{ mb: 5 }}>
         Список турів
       </Typography>
 
-      <Box
-        sx={{
-          position: 'absolute',
-          top: isOnlyOneTour ? '118px' : '20px',
-          right: 0,
-        }}
-      >
+      <Box alignSelf={'end'} sx={{ mb: 5 }}>
         <Button
           component={Link}
           href={APP_ROUTE.OPERATOR_TOURS_CREATE}
