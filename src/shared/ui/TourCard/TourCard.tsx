@@ -195,6 +195,7 @@ export const TourCard: FC<TourCardProps> = ({
           <TourCardActions
             variant={variant}
             tourId={id}
+            title={title}
             bookingId={bookingId}
             operatorId={operator.id}
             isAvailable={isAvailable}
