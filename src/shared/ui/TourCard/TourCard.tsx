@@ -104,7 +104,10 @@ export const TourCard: FC<TourCardProps> = ({
   const isAvailable = availableSpots > 0;
   const date = `${formattedDate(startDate)} — ${formattedDate(endDate)}`;
   const mainPhoto = photos.find((p) => p.isMain) ?? photos[0];
-  const isBooking = variant === 'booking' && bookingId && bookingStatus;
+  const isBooking =
+    variant === 'booking' &&
+    bookingId !== undefined &&
+    bookingStatus !== undefined;
   return (
     <CardWrapper isAvailable={isAvailable}>
       <ImageWrapper className="tour-card-image-wrapper">
@@ -204,10 +207,10 @@ export const TourCard: FC<TourCardProps> = ({
           {!isBooking && (
             <TourCardActions
               variant={variant}
-            tourId={id}
-            title={title}
-            operatorId={operator.id}
-            isAvailable={isAvailable}
+              tourId={id}
+              title={title}
+              operatorId={operator.id}
+              isAvailable={isAvailable}
             />
           )}
         </CardActions>

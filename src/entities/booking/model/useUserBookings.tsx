@@ -9,9 +9,9 @@ export const useUserBookingsQuery = ({
   offset = 0,
 }: GetUserBookingsQueryProps) => {
   return useQuery<UserBooking[]>({
-    queryKey: ['user', 'bookings', status],
+    queryKey: ['user', 'bookings', status, limit, offset],
     queryFn: () => getUserBookings({ status, limit, offset }),
-    staleTime: 1000 * 60 * 15, // 15 minutes
+    staleTime: 1000 * 60 * 5, // 5 minutes
     retry: 1,
     refetchOnWindowFocus: false,
     refetchOnMount: true,

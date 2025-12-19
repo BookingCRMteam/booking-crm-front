@@ -26,15 +26,19 @@ export const PaymentReminderListener = ({ user }: { user?: User | null }) => {
 
       const firstUnpaidBooking = bookings[0];
 
-      sessionStorage.setItem('payment_reminder_dismissed', 'true');
-
-      openModal({
-        type: 'payment-reminder-modal',
-        payload: {
-          bookingId: firstUnpaidBooking.bookingId,
-        },
-        dismissible: true,
-      });
+      try {
+        openModal({
+          type: 'payment-reminder-modal',
+          payload: {
+            bookingId: firstUnpaidBooking.bookingId,
+          },
+          dismissible: true,
+        });
+        sessionStorage.setItem('payment_reminder_dismissed', 'true');
+      } catch (error) {
+        // TODO: handle error and notify user
+        console.error('Failed to open payment reminder modal:', error);
+      }
     }
   }, [bookings, isLoading, open, openModal, user]);
 

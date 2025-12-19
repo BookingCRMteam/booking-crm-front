@@ -21,11 +21,16 @@ export const RepayBookingButton: FC<RepayBookingButtonProps> = ({
   const [loading, setLoading] = useState(false);
 
   const handleRepayBooking = async () => {
-    // TODO: додати обробку помилок
     setLoading(true);
-    const booking = await createRepayLink(bookingId);
-    submitLiqpayForm(booking.paymentLink);
-    setLoading(false);
+    try {
+      const booking = await createRepayLink(bookingId);
+      submitLiqpayForm(booking.paymentLink);
+    } catch (error) {
+      // TODO: handle error and notify user
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
