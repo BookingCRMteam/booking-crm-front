@@ -5,12 +5,14 @@ import type { ComponentType } from 'react';
 import dynamic from 'next/dynamic';
 
 import { type OperatorVerificationRejectedProps } from '../ui/OperatorVerification/OperatorVerificationRejected/OperatorVerificationRejected';
+import { type PaymentReminderModalProps } from '../ui/PaymentReminderModal/PaymentReminderModal';
 
 export type ModalPropsMap = {
   'operator-verification-pending': object;
   'operator-verification-success': object;
   'operator-verification-rejected': OperatorVerificationRejectedProps;
   'support-request-modal': object;
+  'payment-reminder-modal': PaymentReminderModalProps;
 };
 
 export type ModalType = keyof ModalPropsMap;
@@ -48,4 +50,11 @@ export const MODALS: {
       ),
     { ssr: false },
   ) as ComponentType<ModalPropsMap['support-request-modal']>,
+  'payment-reminder-modal': dynamic(
+    () =>
+      import('../ui/PaymentReminderModal/PaymentReminderModal').then(
+        (mod) => mod.PaymentReminderModal,
+      ),
+    { ssr: false },
+  ) as ComponentType<ModalPropsMap['payment-reminder-modal']>,
 };

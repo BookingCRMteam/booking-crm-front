@@ -4,6 +4,7 @@ import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/Header';
 
 import { getUser } from '@/features/auth';
+import { PaymentReminderListener } from '@/features/booking';
 import { ModalHost } from '@/features/modal';
 
 import type { ProviderProps } from '@/shared/types';
@@ -30,6 +31,7 @@ export default async function RootLayout({
           <Footer />
           <Notification />
           <ModalHost />
+          <PaymentReminderListener user={userWithToken?.user} />
         </AppProviders>
       </body>
     </html>

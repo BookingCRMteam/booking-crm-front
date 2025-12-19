@@ -2,13 +2,13 @@
 
 import { type FC, useState } from 'react';
 
-import { Button } from '@mui/material';
+import { Button, ButtonProps } from '@mui/material';
 
 import { submitLiqpayForm } from '@/features/booking/utils/submitLiqpayForm';
 
 import { createRepayLink } from '@/entities/booking';
 
-type RepayBookingButtonProps = {
+type RepayBookingButtonProps = ButtonProps & {
   bookingId: number;
   buttonTitle?: string;
 };
@@ -16,6 +16,7 @@ type RepayBookingButtonProps = {
 export const RepayBookingButton: FC<RepayBookingButtonProps> = ({
   bookingId,
   buttonTitle = 'Продовжити оплату',
+  ...props
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -35,6 +36,7 @@ export const RepayBookingButton: FC<RepayBookingButtonProps> = ({
       fullWidth
       onClick={handleRepayBooking}
       disabled={loading}
+      {...props}
     >
       {buttonTitle}
     </Button>

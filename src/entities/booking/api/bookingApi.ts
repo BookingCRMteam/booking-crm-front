@@ -7,7 +7,11 @@ import {
 import { axiosInstance, handleApiError } from '@/shared/api';
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants/routes';
 
-import { RepayLink, UserBooking } from '../model/type';
+import {
+  GetUserBookingsQueryProps,
+  RepayLink,
+  UserBooking,
+} from '../model/type';
 
 export const createBooking = async (
   data: BookingRequest,
@@ -48,10 +52,15 @@ export const getBookingById = async (
   }
 };
 
-export const getUserBookings = async (): Promise<UserBooking[]> => {
+export const getUserBookings = async ({
+  status,
+  limit = 6,
+  offset = 0,
+}: GetUserBookingsQueryProps): Promise<UserBooking[]> => {
   try {
     const { data: res } = await axiosInstance.get<UserBooking[]>(
       APP_ROUTE.USER_BOOKINGS,
+      { params: { status, limit, offset } },
     );
     return res;
   } catch (error: unknown) {

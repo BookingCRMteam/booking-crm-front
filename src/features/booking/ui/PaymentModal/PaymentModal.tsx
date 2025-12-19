@@ -35,7 +35,7 @@ const ModalContent = styled(Box)(({ theme }) => ({
 }));
 
 export const PaymentModal = ({ data, onClose }: PaymentModalProps) => {
-  const { status } = data;
+  const { status, id } = data;
 
   return (
     <ModalWrapper open onClose={onClose} aria-label="Оплата туру">
@@ -50,7 +50,7 @@ export const PaymentModal = ({ data, onClose }: PaymentModalProps) => {
 
         {status === 'confirmed' && <PaymentSuccess data={data} />}
 
-        {status === 'pending_payment' && <PaymentFailed />}
+        {status === 'pending_payment' && <PaymentFailed bookingId={id} />}
       </ModalContent>
     </ModalWrapper>
   );

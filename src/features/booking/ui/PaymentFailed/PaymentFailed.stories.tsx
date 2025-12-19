@@ -34,7 +34,7 @@ type Story = StoryObj<typeof PaymentFailed>;
 export const Default: Story = {
   render: () => (
     <CenteredContainer>
-      <PaymentFailed />
+      <PaymentFailed bookingId={1} />
     </CenteredContainer>
   ),
 };

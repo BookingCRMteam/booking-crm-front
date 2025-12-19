@@ -119,3 +119,9 @@ export type UserBooking = {
 export type RepayLink = {
   paymentLink: string;
 };
+
+export type GetUserBookingsQueryProps = {
+  status?: BookingStatus;
+  limit?: number;
+  offset?: number;
+};
