@@ -63,7 +63,10 @@ export const TourPage: FC<TourPageProps> = ({
   bookingId,
 }) => {
   const isCatalog = variant === 'catalog';
-  const isBooking = variant === 'booking' && bookingStatus && bookingId;
+  const isBooking =
+    variant === 'booking' &&
+    bookingStatus !== undefined &&
+    bookingId !== undefined;
   const breadcrumbsItems = [
     { href: APP_ROUTE.HOME, title: 'Головна' },
     {
