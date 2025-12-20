@@ -4,6 +4,11 @@ import { renderWithTheme } from '@/shared/tests';
 
 import { TourBookingControl } from './TourBookingControl';
 
+const BOOKING_STATUS_LABELS = {
+  confirmed: 'Заброньовано',
+  expired: 'Скасовано',
+};
+
 jest.mock('@/shared/ui', () => ({
   RepayBookingButton: ({ bookingId }: { bookingId: number }) => (
     <div data-testid="repay-button">Repay ID: {bookingId}</div>
@@ -43,7 +48,7 @@ describe('TourBookingControl Component', () => {
 
     const label = screen.getByTestId('booking-label');
     expect(label).toBeInTheDocument();
-    expect(label).toHaveTextContent('Заброньовано');
+    expect(label).toHaveTextContent(BOOKING_STATUS_LABELS.confirmed);
 
     expect(screen.queryByTestId('repay-button')).not.toBeInTheDocument();
   });
@@ -55,7 +60,7 @@ describe('TourBookingControl Component', () => {
 
     const label = screen.getByTestId('booking-label');
     expect(label).toBeInTheDocument();
-    expect(label).toHaveTextContent('Скасовано');
+    expect(label).toHaveTextContent(BOOKING_STATUS_LABELS.expired);
 
     expect(screen.queryByTestId('repay-button')).not.toBeInTheDocument();
   });

@@ -8,6 +8,8 @@ import { submitLiqpayForm } from '@/features/booking/utils/submitLiqpayForm';
 
 import { createRepayLink } from '@/entities/booking';
 
+import { useNotificationStore } from '@/shared/store/notificationSlice';
+
 type RepayBookingButtonProps = ButtonProps & {
   bookingId: number;
   buttonTitle?: string;
@@ -19,6 +21,7 @@ export const RepayBookingButton: FC<RepayBookingButtonProps> = ({
   ...props
 }) => {
   const [loading, setLoading] = useState(false);
+  const { showNotification } = useNotificationStore();
 
   const handleRepayBooking = async () => {
     setLoading(true);
@@ -26,8 +29,7 @@ export const RepayBookingButton: FC<RepayBookingButtonProps> = ({
       const booking = await createRepayLink(bookingId);
       submitLiqpayForm(booking.paymentLink);
     } catch (error) {
-      // TODO: handle error and notify user
-      console.error(error);
+      showNotification((error as string) || 'Помилка оплати', 'error');
     } finally {
       setLoading(false);
     }

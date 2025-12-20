@@ -35,10 +35,10 @@ describe('Header Container', () => {
 
   it('should pass operator name as priority over user name', () => {
     (useUserQuery as jest.Mock).mockReturnValue({
-      data: { firstPersonName: 'User Name', role: 'user' },
+      data: { firstPersonName: 'User Name', role: 'traveler' },
     });
     (useOperatorQuery as jest.Mock).mockReturnValue({
-      data: { firstName: 'Operator Name', status: 'active' },
+      data: { firstName: 'Operator Name', status: 'approved' },
     });
     (useUserBookingsQuery as jest.Mock).mockReturnValue({
       data: [],
@@ -49,8 +49,8 @@ describe('Header Container', () => {
     const header = screen.getByTestId('header-pure');
 
     expect(header).toHaveAttribute('data-name', 'Operator Name');
-    expect(header).toHaveAttribute('data-op-status', 'active');
-    expect(header).toHaveAttribute('data-role', 'user');
+    expect(header).toHaveAttribute('data-op-status', 'approved');
+    expect(header).toHaveAttribute('data-role', 'traveler');
     expect(header).toHaveAttribute('data-pending', 'false');
   });
 
@@ -69,7 +69,7 @@ describe('Header Container', () => {
 
   it('should use user name if operator data is missing', () => {
     (useUserQuery as jest.Mock).mockReturnValue({
-      data: { firstPersonName: 'Only User Name', role: 'admin' },
+      data: { firstPersonName: 'Only User Name', role: 'traveler' },
     });
     (useOperatorQuery as jest.Mock).mockReturnValue({ data: null });
     (useUserBookingsQuery as jest.Mock).mockReturnValue({ data: [] });
@@ -79,7 +79,7 @@ describe('Header Container', () => {
     const header = screen.getByTestId('header-pure');
 
     expect(header).toHaveAttribute('data-name', 'Only User Name');
-    expect(header).toHaveAttribute('data-role', 'admin');
+    expect(header).toHaveAttribute('data-role', 'traveler');
     expect(header).not.toHaveAttribute('data-op-status');
   });
 

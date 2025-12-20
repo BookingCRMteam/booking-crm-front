@@ -7,8 +7,11 @@ import { useModalStore } from '@/features/modal';
 import { useUserBookingsQuery } from '@/entities/booking';
 import { User } from '@/entities/user';
 
+import { useNotificationStore } from '@/shared/store';
+
 export const PaymentReminderListener = ({ user }: { user?: User | null }) => {
   const { open, openModal } = useModalStore();
+  const { showNotification } = useNotificationStore();
 
   const { data: bookings, isLoading } = useUserBookingsQuery({
     status: 'pending_payment',
@@ -36,8 +39,10 @@ export const PaymentReminderListener = ({ user }: { user?: User | null }) => {
         });
         sessionStorage.setItem('payment_reminder_dismissed', 'true');
       } catch (error) {
-        // TODO: handle error and notify user
-        console.error('Failed to open payment reminder modal:', error);
+        showNotification(
+          (error as string) || 'Помилка відкриття модалки',
+          'error',
+        );
       }
     }
   }, [bookings, isLoading, open, openModal, user]);

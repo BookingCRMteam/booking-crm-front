@@ -21,10 +21,4 @@ describe('ReplayLabel Component', () => {
 
     expect(icon).toHaveAttribute('data-size', '16');
   });
-
-  it('should have correct wrapper styles (via snapshot or container check)', () => {
-    const { container } = renderWithTheme(<ReplayLabel />);
-
-    expect(container.firstChild).toBeInTheDocument();
-  });
 });
