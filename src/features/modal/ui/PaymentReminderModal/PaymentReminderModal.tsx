@@ -2,8 +2,7 @@ import type { FC } from 'react';
 
 import { Box, Typography } from '@mui/material';
 
-import { BookingTimer } from '@/shared/ui';
-import { RepayBookingButton } from '@/shared/ui';
+import { BookingTimer, RepayBookingButton } from '@/shared/ui';
 
 import { ModalWrapper } from '../ModalWrapper';
 import {
@@ -18,11 +17,12 @@ export type PaymentReminderModalProps = {
 export const PaymentReminderModal: FC<PaymentReminderModalProps> = ({
   bookingId,
 }) => {
+  const [firstLine, secondLine, thirdLine] = MODAL_PAYMENT_REMINDER_DESCRIPTION;
   return (
     <ModalWrapper size="large" title={MODAL_PAYMENT_REMINDER_TITLE}>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Typography variant="bodyLarge" align="center">
-          {MODAL_PAYMENT_REMINDER_DESCRIPTION[0].text}
+          {firstLine.text}
         </Typography>
         <Box
           sx={{
@@ -33,12 +33,12 @@ export const PaymentReminderModal: FC<PaymentReminderModalProps> = ({
           }}
         >
           <Typography variant="bodyLarge" align="center">
-            {MODAL_PAYMENT_REMINDER_DESCRIPTION[1].text}
+            {secondLine.text}
           </Typography>
           <BookingTimer bookingId={bookingId} variant="modal" />
         </Box>
         <Typography variant="bodyLarge" align="center">
-          {MODAL_PAYMENT_REMINDER_DESCRIPTION[2].text}
+          {thirdLine.text}
         </Typography>
       </Box>
       <RepayBookingButton sx={{ maxWidth: '331px' }} bookingId={bookingId} />

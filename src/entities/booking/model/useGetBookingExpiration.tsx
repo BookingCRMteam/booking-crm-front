@@ -8,5 +8,6 @@ export const useGetBookingExpirationQuery = (bookingId: number) => {
     queryFn: () => getBookingExpiration(bookingId),
     refetchOnWindowFocus: true,
     staleTime: 30000,
+    retry: 1,
   });
 };

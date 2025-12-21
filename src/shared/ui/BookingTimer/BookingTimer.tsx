@@ -40,17 +40,12 @@ export const BookingTimer: FC<BookingTimerProps> = ({
     const updateTimer = () => {
       const mins = getMinutesRemaining(data.expiresAt);
       setMinutesLeft(mins);
-
-      if (mins <= 0) {
-        return true;
-      }
-      return false;
     };
 
-    const isEnded = updateTimer();
-    if (isEnded) return;
+    updateTimer();
+    if (minutesLeft !== null && minutesLeft <= 0) return;
 
-    const intervalId = setInterval(updateTimer, 10000);
+    const intervalId = setInterval(updateTimer, 1000);
 
     return () => clearInterval(intervalId);
   }, [data]);

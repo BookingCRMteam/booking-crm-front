@@ -31,7 +31,7 @@ export const createBooking = async (
 export const createRepayLink = async (id: number): Promise<RepayLink> => {
   try {
     const { data: res } = await axiosInstance.post<RepayLink>(
-      `${DYNAMIC_ROUTE.BOOKING_REPAY(id)}`,
+      DYNAMIC_ROUTE.BOOKING_REPAY(id),
     );
     return res;
   } catch (error: unknown) {
@@ -45,7 +45,7 @@ export const getBookingById = async (
 ): Promise<BookingPaymentResponse> => {
   try {
     const { data: res } = await axiosInstance.get<BookingPaymentResponse>(
-      `${DYNAMIC_ROUTE.BOOKING_BY_ID(tourId, bookingId)}`,
+      DYNAMIC_ROUTE.BOOKING_BY_ID(tourId, bookingId),
     );
     return res;
   } catch (error: unknown) {
@@ -75,7 +75,7 @@ export const getUserBookingById = async (
 ): Promise<UserBooking> => {
   try {
     const { data: res } = await axiosInstance.get<UserBooking>(
-      `${DYNAMIC_ROUTE.USER_BOOKING_BY_ID(bookingId)}`,
+      DYNAMIC_ROUTE.USER_BOOKING_BY_ID(bookingId),
       { headers: { Authorization: `Bearer ${accessToken}` } },
     );
     return res;
@@ -89,7 +89,7 @@ export const getBookingExpiration = async (
 ): Promise<BookingExpirationResponse> => {
   try {
     const { data: res } = await axiosInstance.get<BookingExpirationResponse>(
-      `${DYNAMIC_ROUTE.BOOKING_EXPIRATION(bookingId)}`,
+      DYNAMIC_ROUTE.BOOKING_EXPIRATION(bookingId),
     );
     return res;
   } catch (error: unknown) {
