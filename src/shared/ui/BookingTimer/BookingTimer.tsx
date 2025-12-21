@@ -48,7 +48,7 @@ export const BookingTimer: FC<BookingTimerProps> = ({
     const intervalId = setInterval(updateTimer, 1000);
 
     return () => clearInterval(intervalId);
-  }, [data]);
+  }, [data, minutesLeft]);
 
   if (isLoading) return <Skeleton width={80} height={20} />;
   if (
