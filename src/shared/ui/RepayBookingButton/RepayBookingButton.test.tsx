@@ -71,8 +71,8 @@ describe('RepayBookingButton Component', () => {
   });
 
   it('should show notification on error', async () => {
-    const errorText = 'API Error';
-    (createRepayLink as jest.Mock).mockRejectedValue(errorText);
+    const error = { message: 'API Error' };
+    (createRepayLink as jest.Mock).mockRejectedValue(error);
 
     const { getByRole, user } = renderWithTheme(
       <RepayBookingButton bookingId={mockBookingId} />,
@@ -81,7 +81,7 @@ describe('RepayBookingButton Component', () => {
     await user.click(getByRole('button'));
 
     await waitFor(() => {
-      expect(mockShowNotification).toHaveBeenCalledWith(errorText, 'error');
+      expect(mockShowNotification).toHaveBeenCalledWith(error.message, 'error');
     });
 
     expect(screen.getByRole('button')).not.toBeDisabled();

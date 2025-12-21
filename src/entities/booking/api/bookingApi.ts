@@ -1,4 +1,5 @@
 import {
+  BookingExpirationResponse,
   BookingPaymentResponse,
   BookingRequest,
   BookingResponse,
@@ -76,6 +77,19 @@ export const getUserBookingById = async (
     const { data: res } = await axiosInstance.get<UserBooking>(
       `${DYNAMIC_ROUTE.USER_BOOKING_BY_ID(bookingId)}`,
       { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+    return res;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
+
+export const getBookingExpiration = async (
+  bookingId: number,
+): Promise<BookingExpirationResponse> => {
+  try {
+    const { data: res } = await axiosInstance.get<BookingExpirationResponse>(
+      `${DYNAMIC_ROUTE.BOOKING_EXPIRATION(bookingId)}`,
     );
     return res;
   } catch (error: unknown) {

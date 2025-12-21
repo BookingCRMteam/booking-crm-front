@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { CalendarDotsIcon, MapPinLineIcon } from '@phosphor-icons/react';
 
-import { OperatorLink } from '@/shared/ui';
+import { BookingTimer, OperatorLink } from '@/shared/ui';
 import { formattedDate } from '@/shared/utils';
 
 import Label from './Label';
@@ -115,7 +115,9 @@ export const TourCard: FC<TourCardProps> = ({
       </ImageWrapper>
 
       {variant === 'catalog' && <Label count={availableSpots} />}
-
+      {variant === 'booking' &&
+        bookingStatus === 'pending_payment' &&
+        bookingId !== undefined && <BookingTimer bookingId={bookingId} />}
       <ContentWrapper className="tour-card-content-wrapper">
         <CardContentStyle>
           <Typography

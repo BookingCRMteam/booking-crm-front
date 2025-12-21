@@ -6,7 +6,7 @@ export const MODAL_PAYMENT_REMINDER_DESCRIPTION = [
   },
   {
     id: 2,
-    text: 'Бронювання буде дійсним ще 59 хвилин.', // TODO: додати реалізацію таймера
+    text: 'Бронювання буде дійсним ще',
   },
   {
     id: 3,

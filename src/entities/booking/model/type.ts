@@ -125,3 +125,11 @@ export type GetUserBookingsQueryProps = {
   limit?: number;
   offset?: number;
 };
+
+export type BookingExpirationResponse = {
+  bookingId: number;
+  status: string;
+  updatedAt: string;
+  expiresAt: string;
+  isExpired: boolean;
+};

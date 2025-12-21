@@ -28,8 +28,8 @@ export const RepayBookingButton: FC<RepayBookingButtonProps> = ({
     try {
       const booking = await createRepayLink(bookingId);
       submitLiqpayForm(booking.paymentLink);
-    } catch (error) {
-      showNotification((error as string) || 'Помилка оплати', 'error');
+    } catch (error: unknown) {
+      showNotification((error as Error).message || 'Помилка оплати', 'error');
     } finally {
       setLoading(false);
     }

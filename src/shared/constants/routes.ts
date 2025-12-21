@@ -34,6 +34,8 @@ export const DYNAMIC_ROUTE = {
     `/bookings/${tourId}/${bookingId}`,
   BOOKING_REPAY: (bookingId: number) => `/bookings/${bookingId}/repay`,
   USER_BOOKING_BY_ID: (bookingId: number) => `/user/bookings/${bookingId}`,
+  BOOKING_EXPIRATION: (bookingId: number) =>
+    `/bookings/${bookingId}/expiration`,
 };
 
 export const PUBLIC_PATHS = {

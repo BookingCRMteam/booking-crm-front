@@ -22,3 +22,4 @@ export { ErrorLoading } from './ErrorLoading/ErrorLoading';
 export { ButtonTop } from './ButtonTop/ButtonTop';
 export { BookingButton } from './BookingButton/BookingButton';
 export { RepayBookingButton } from './RepayBookingButton/RepayBookingButton';
+export { BookingTimer } from './BookingTimer/BookingTimer';

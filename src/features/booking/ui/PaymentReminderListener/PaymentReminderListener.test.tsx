@@ -89,9 +89,9 @@ describe('PaymentReminderListener', () => {
   });
 
   it('should show notification if openModal throws an error', () => {
-    const errorMessage = 'Modal error';
+    const error = { message: 'Modal error' };
     mockOpenModal.mockImplementation(() => {
-      throw errorMessage;
+      throw error;
     });
 
     (useUserBookingsQuery as jest.Mock).mockReturnValue({
@@ -101,6 +101,6 @@ describe('PaymentReminderListener', () => {
 
     render(<PaymentReminderListener user={mockUserTraveler} />);
 
-    expect(mockShowNotification).toHaveBeenCalledWith(errorMessage, 'error');
+    expect(mockShowNotification).toHaveBeenCalledWith(error.message, 'error');
   });
 });

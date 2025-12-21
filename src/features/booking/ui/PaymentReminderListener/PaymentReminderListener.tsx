@@ -27,7 +27,7 @@ export const PaymentReminderListener = ({ user }: { user?: User | null }) => {
 
       if (isDismissed) return;
 
-      const firstUnpaidBooking = bookings[0];
+      const firstUnpaidBooking = bookings[bookings.length - 1];
 
       try {
         openModal({
@@ -38,9 +38,9 @@ export const PaymentReminderListener = ({ user }: { user?: User | null }) => {
           dismissible: true,
         });
         sessionStorage.setItem('payment_reminder_dismissed', 'true');
-      } catch (error) {
+      } catch (error: unknown) {
         showNotification(
-          (error as string) || 'Помилка відкриття модалки',
+          (error as Error).message || 'Помилка відкриття модалки',
           'error',
         );
       }
