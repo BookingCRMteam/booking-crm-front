@@ -124,6 +124,7 @@ export type GetUserBookingsQueryProps = {
   status?: BookingStatus;
   limit?: number;
   offset?: number;
+  skip?: boolean;
 };
 
 export type BookingExpirationResponse = {

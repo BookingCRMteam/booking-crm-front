@@ -25,11 +25,11 @@ describe('BookingTimer Component', () => {
       isLoading: true,
     });
 
-    const { container } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <BookingTimer bookingId={mockBookingId} />,
     );
 
-    expect(container.querySelector('.MuiSkeleton-root')).toBeInTheDocument();
+    expect(getByTestId('booking-timer-skeleton')).toBeInTheDocument();
   });
 
   it('should return null if there is an error or data is expired', () => {

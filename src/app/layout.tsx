@@ -31,7 +31,9 @@ export default async function RootLayout({
           <Footer />
           <Notification />
           <ModalHost />
-          <PaymentReminderListener user={userWithToken?.user} />
+          {userWithToken?.user && (
+            <PaymentReminderListener user={userWithToken.user} />
+          )}
         </AppProviders>
       </body>
     </html>

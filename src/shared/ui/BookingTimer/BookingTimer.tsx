@@ -39,18 +39,29 @@ export const BookingTimer: FC<BookingTimerProps> = ({
 
     const updateTimer = () => {
       const mins = getMinutesRemaining(data.expiresAt);
+      if (mins <= 0) {
+        setMinutesLeft(0);
+        return false;
+      }
       setMinutesLeft(mins);
+      return true;
     };
 
-    updateTimer();
-    if (minutesLeft !== null && minutesLeft <= 0) return;
+    if (!updateTimer()) return;
 
-    const intervalId = setInterval(updateTimer, 1000);
+    const intervalId = setInterval(() => {
+      if (!updateTimer()) {
+        clearInterval(intervalId);
+      }
+    }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [data, minutesLeft]);
+  }, [data]);
 
-  if (isLoading) return <Skeleton width={80} height={20} />;
+  if (isLoading)
+    return (
+      <Skeleton width={80} height={20} data-testid="booking-timer-skeleton" />
+    );
   if (
     error ||
     !data ||

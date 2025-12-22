@@ -1,3 +1,5 @@
+import { getAccessToken } from '@auth0/nextjs-auth0';
+
 import {
   BookingExpirationResponse,
   BookingPaymentResponse,
@@ -59,9 +61,13 @@ export const getUserBookings = async ({
   offset = 0,
 }: GetUserBookingsQueryProps): Promise<UserBooking[]> => {
   try {
+    const token = await getAccessToken();
     const { data: res } = await axiosInstance.get<UserBooking[]>(
       APP_ROUTE.USER_BOOKINGS,
-      { params: { status, limit, offset } },
+      {
+        params: { status, limit, offset },
+        headers: { Authorization: `Bearer ${token}` },
+      },
     );
     return res;
   } catch (error: unknown) {

@@ -9,12 +9,13 @@ import { User } from '@/entities/user';
 
 import { useNotificationStore } from '@/shared/store';
 
-export const PaymentReminderListener = ({ user }: { user?: User | null }) => {
+export const PaymentReminderListener = ({ user }: { user: User }) => {
   const { open, openModal } = useModalStore();
   const { showNotification } = useNotificationStore();
 
   const { data: bookings, isLoading } = useUserBookingsQuery({
     status: 'pending_payment',
+    skip: !user,
   });
 
   useEffect(() => {

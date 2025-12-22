@@ -11,6 +11,7 @@ export const Header = () => {
   const { data: operator } = useOperatorQuery();
   const { data: bookings } = useUserBookingsQuery({
     status: 'pending_payment',
+    skip: !user,
   });
 
   const isPendingPayment = !!bookings?.length;

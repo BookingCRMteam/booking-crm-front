@@ -7,6 +7,7 @@ export const useUserBookingsQuery = ({
   status,
   limit = 6,
   offset = 0,
+  skip = false,
 }: GetUserBookingsQueryProps) => {
   return useQuery<UserBooking[]>({
     queryKey: ['user', 'bookings', status, limit, offset],
@@ -15,5 +16,6 @@ export const useUserBookingsQuery = ({
     retry: 1,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
+    enabled: !skip,
   });
 };
