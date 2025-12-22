@@ -14,7 +14,7 @@ import {
   TextField,
 } from '@mui/material';
 
-type DropdownFieldProps<T> = {
+type DropdownFieldProps<T, K extends string = string> = {
   items: T[];
   value: T | null;
   onChange: (item: T) => void;
@@ -29,9 +29,11 @@ type DropdownFieldProps<T> = {
   inputAdornment?: React.ReactNode;
   error?: boolean;
   helperText?: React.ReactNode;
+  clearErrors?: (name: K) => void;
+  fieldName?: K;
 };
 
-export const DropdownField = <T,>({
+export const DropdownField = <T, K extends string = string>({
   items,
   value,
   onChange,
@@ -46,7 +48,9 @@ export const DropdownField = <T,>({
   isLoading,
   error,
   helperText,
-}: DropdownFieldProps<T>) => {
+  clearErrors,
+  fieldName,
+}: DropdownFieldProps<T, K>) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [search, setSearch] = useState('');
   const [highlightedIndex, setHighlightedIndex] = useState(0);
@@ -87,6 +91,7 @@ export const DropdownField = <T,>({
   const handleOpen = () => {
     if (disabled) return;
     if (inputRef.current) setAnchorEl(inputRef.current);
+    if (fieldName) clearErrors?.(fieldName);
   };
 
   const handleClose = () => {

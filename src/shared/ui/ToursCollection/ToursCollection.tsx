@@ -36,7 +36,7 @@ export const ToursCollection: FC<ToursCollectionProps> = ({
                 photos={tour.photos}
                 startDate={tour.startDate}
                 endDate={tour.endDate}
-                countryName={tour.country.translations[0].name}
+                countryName={tour.country.translations[1].name}
                 operator={{
                   id: tour.operator.id,
                   name: `${tour.operator.firstName} ${tour.operator.lastName}`,

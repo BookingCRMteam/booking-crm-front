@@ -1,10 +1,14 @@
 import { useRef } from 'react';
 
-import CloseIcon from '@mui/icons-material/Close';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { Box, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
+import { StarIcon, TrashIcon, WarningCircleIcon } from '@phosphor-icons/react';
 import { Controller } from 'react-hook-form';
 
 import { FieldProps } from '@/features/create-edit-tour/model/types';
@@ -14,8 +18,13 @@ import { TourPhotoForm } from '@/entities/tour';
 import { PhotoImage } from './PhotoImage';
 import { UploadButton } from './UploadButton';
 
-export const Photos = ({ control, errors }: FieldProps) => {
+export const Photos = ({ control, errors, clearErrors }: FieldProps) => {
   const baseId = useRef(Date.now());
+  const theme = useTheme();
+
+  const isMd = useMediaQuery(theme.breakpoints.up('md'));
+  const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const columns = isMd ? 3 : isSm ? 2 : 1;
 
   const handleAddPhoto = (
     files: FileList,
@@ -35,11 +44,11 @@ export const Photos = ({ control, errors }: FieldProps) => {
   };
 
   const handleRemovePhoto = (
-    index: number,
+    photoIndex: number,
     value: TourPhotoForm[],
     onChange: (val: TourPhotoForm[]) => void,
   ) => {
-    const updated = value.filter((_, i) => i !== index);
+    const updated = value.filter((_, i) => i !== photoIndex);
 
     if (!updated.some((photo) => photo.isMain) && updated.length > 0) {
       updated[0].isMain = true;
@@ -49,15 +58,26 @@ export const Photos = ({ control, errors }: FieldProps) => {
   };
 
   const handleSetMainPhoto = (
-    index: number,
+    photoIndex: number,
     value: TourPhotoForm[],
     onChange: (val: TourPhotoForm[]) => void,
   ) => {
     const updated = value.map((photo, i) => ({
       ...photo,
-      isMain: i === index,
+      isMain: i === photoIndex,
     }));
     onChange(updated);
+  };
+
+  const createGridRows = (
+    items: (TourPhotoForm | { isUploadButton: true })[],
+    columns: number,
+  ) => {
+    const rows: (TourPhotoForm | { isUploadButton: true })[][] = [];
+    for (let i = 0; i < items.length; i += columns) {
+      rows.push(items.slice(i, i + columns));
+    }
+    return rows;
   };
 
   return (
@@ -66,72 +86,93 @@ export const Photos = ({ control, errors }: FieldProps) => {
       control={control}
       render={({ field: { onChange, value } }) => {
         const photos = value ?? [];
-        const canUpload = photos.length < 10;
+        const items: (TourPhotoForm | { isUploadButton: true })[] =
+          photos.length < 10 ? [...photos, { isUploadButton: true }] : photos;
+
+        const rows = createGridRows(items, columns);
 
         return (
-          <Box sx={{ pt: '5px', pb: 4 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-              {canUpload && (
-                <UploadButton
-                  onAddPhoto={(files) =>
-                    handleAddPhoto(files, photos, onChange)
+          <Box
+            sx={{
+              mb: 3,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: photos.length ? 3 : 0,
+            }}
+          >
+            {rows.map((row, rowIndex) => (
+              <Box
+                key={rowIndex}
+                sx={{
+                  display: 'grid',
+                  gap: 3,
+                  justifyContent: 'center',
+                  gridTemplateColumns: `repeat(${row.length}, 200px)`,
+                }}
+              >
+                {row.map((item) => {
+                  if ('isUploadButton' in item) {
+                    return (
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <UploadButton
+                          onAddPhoto={(files) => {
+                            handleAddPhoto(files, photos, onChange);
+                            clearErrors?.('photos');
+                          }}
+                        />
+                      </Box>
+                    );
                   }
-                />
-              )}
 
-              {photos.length > 0 && (
-                <Box
-                  sx={{
-                    display: 'grid',
-                    gap: 1,
-                    gridTemplateColumns: 'repeat(5, 1fr)',
-                    maxWidth: '100%',
-                    justifyContent: 'start',
-                  }}
-                >
-                  {photos.map((photo, index) => (
+                  const photoIndex = photos.findIndex((p) => p.id === item.id);
+
+                  return (
                     <Box
-                      key={photo.id}
+                      key={item.id}
                       sx={{
                         position: 'relative',
-                        width: '100%',
-                        maxWidth: 150,
-                        paddingTop: '100%',
-                        border: '1px solid #ccc',
+                        width: 200,
+                        height: 200,
                         borderRadius: '4px',
                         overflow: 'hidden',
                       }}
                     >
-                      <PhotoImage photo={photo} index={index} />
+                      <PhotoImage photo={item} index={photoIndex} />
 
                       <Box
                         sx={{
                           position: 'absolute',
-                          top: 2,
-                          right: 2,
+                          top: 4,
+                          right: 10,
                           display: 'flex',
-                          gap: 1,
-                          backgroundColor: 'rgba(255,255,255,0.7)',
-                          borderRadius: '4px',
-                          padding: '2px',
+                          flexDirection: 'column',
+                          gap: '4px',
                         }}
                       >
                         <Tooltip
                           title={
-                            photo.isMain ? 'Головне фото' : 'Зробити головним'
+                            item.isMain ? 'Головне фото' : 'Зробити головним'
                           }
                         >
                           <IconButton
                             size="small"
                             onClick={() =>
-                              handleSetMainPhoto(index, photos, onChange)
+                              handleSetMainPhoto(photoIndex, photos, onChange)
                             }
+                            sx={{ padding: 0 }}
                           >
-                            {photo.isMain ? (
-                              <StarIcon fontSize="small" />
-                            ) : (
-                              <StarBorderIcon fontSize="small" />
-                            )}
+                            <StarIcon
+                              size={20}
+                              weight={item.isMain ? 'fill' : 'regular'}
+                              color="#000500"
+                            />
                           </IconButton>
                         </Tooltip>
 
@@ -139,27 +180,48 @@ export const Photos = ({ control, errors }: FieldProps) => {
                           <IconButton
                             size="small"
                             onClick={() =>
-                              handleRemovePhoto(index, photos, onChange)
+                              handleRemovePhoto(photoIndex, photos, onChange)
                             }
+                            sx={{ padding: 0 }}
                           >
-                            <CloseIcon fontSize="small" />
+                            <TrashIcon
+                              size={20}
+                              weight="regular"
+                              color="#000500"
+                            />
                           </IconButton>
                         </Tooltip>
                       </Box>
                     </Box>
-                  ))}
-                </Box>
-              )}
-            </Box>
+                  );
+                })}
+              </Box>
+            ))}
 
             {errors?.photos && (
               <Typography
                 variant="caption"
                 color="error"
-                sx={{ display: 'flex', justifyContent: 'center' }}
+                sx={{ mt: 1, width: '100%', textAlign: 'center' }}
               >
                 {errors.photos.message?.toString()}
               </Typography>
+            )}
+
+            {photos.length === 10 && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 1,
+                }}
+              >
+                <WarningCircleIcon size={16} color="#dc3545" />
+                <Typography variant="bodySmall" color="error">
+                  Максимум 10 фото
+                </Typography>
+              </Box>
             )}
           </Box>
         );

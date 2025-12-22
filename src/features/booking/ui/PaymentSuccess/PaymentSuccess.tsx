@@ -26,7 +26,9 @@ export const PaymentSuccess = ({ data }: { data: BookingPaymentResponse }) => {
 
   const email = 'email';
 
-  const countryAndCity = `${tour.countryISO2Code}, ${tour.cityId}`;
+  const country = tour.country.translations[1].name;
+  const city = tour.city.translations[1].name;
+
   const date = `${formattedDate(data.tour.startDate)} — ${formattedDate(data.tour.endDate)}`;
 
   const bookingPhone = formattedPhone(phone);
@@ -49,7 +51,7 @@ export const PaymentSuccess = ({ data }: { data: BookingPaymentResponse }) => {
           <Typography variant="bodyDefault">{bookingPhone}</Typography>
         </Box>
         <Box sx={{ ...centeredBlock, gap: '4px' }}>
-          <LocationDisplay location={countryAndCity} />
+          <LocationDisplay location={`${country}, ${city}`} />
           <DateDisplay date={date} />
         </Box>
         <Typography variant="bodyLarge">успішно оплачено у розмірі:</Typography>

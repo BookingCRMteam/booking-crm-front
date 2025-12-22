@@ -17,6 +17,7 @@ export const DateRangeField = ({
   start,
   end,
   disabled,
+  clearErrors,
 }: DateRangeFieldProps) => {
   return (
     <Box>
@@ -50,6 +51,7 @@ export const DateRangeField = ({
           disabled={disabled}
           rangeStart={start ? dayjs(start) : null}
           rangeEnd={end ? dayjs(end) : null}
+          clearErrors={clearErrors}
         />
 
         <CustomDatePicker<TourFormValues>
@@ -63,6 +65,7 @@ export const DateRangeField = ({
           disabled={disabled}
           rangeStart={start ? dayjs(start) : null}
           rangeEnd={end ? dayjs(end) : null}
+          clearErrors={clearErrors}
         />
       </Box>
     </Box>

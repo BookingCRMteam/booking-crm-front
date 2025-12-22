@@ -11,7 +11,13 @@ import { DateCalendar, PickersDay } from '@mui/x-date-pickers';
 import { CalendarDotsIcon } from '@phosphor-icons/react';
 import { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  FieldValues,
+  Path,
+  UseFormClearErrors,
+} from 'react-hook-form';
 
 type CustomDatePickerProps<T extends FieldValues> = {
   name: Path<T>;
@@ -25,6 +31,7 @@ type CustomDatePickerProps<T extends FieldValues> = {
   disabled?: boolean;
   rangeStart?: Dayjs | null;
   rangeEnd?: Dayjs | null;
+  clearErrors?: UseFormClearErrors<T>;
 };
 
 export const CustomDatePicker = <T extends FieldValues>({
@@ -39,6 +46,7 @@ export const CustomDatePicker = <T extends FieldValues>({
   disabled,
   rangeStart,
   rangeEnd,
+  clearErrors,
 }: CustomDatePickerProps<T>) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement | null>(null);
@@ -63,7 +71,11 @@ export const CustomDatePicker = <T extends FieldValues>({
                 error={error}
                 helperText={helperText}
                 disabled={disabled}
-                onClick={() => !disabled && setOpen((prev) => !prev)}
+                onClick={() => {
+                  if (disabled) return;
+                  clearErrors?.(name);
+                  setOpen((prev) => !prev);
+                }}
                 slotProps={{
                   input: {
                     readOnly: true,

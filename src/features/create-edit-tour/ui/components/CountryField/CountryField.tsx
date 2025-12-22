@@ -19,6 +19,7 @@ export const CountryField = ({
   errors,
   countries,
   isLoading,
+  clearErrors,
   disabled,
 }: CountryFieldProps) => {
   return (
@@ -45,6 +46,8 @@ export const CountryField = ({
             }
             error={!!errors?.countryISO2Code}
             helperText={errors?.countryISO2Code?.message}
+            fieldName="countryISO2Code"
+            clearErrors={clearErrors}
             renderItem={(c) => (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <CountryFlag countryCode={c.iso2} />

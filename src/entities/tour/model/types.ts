@@ -15,13 +15,11 @@ export type Tour = {
   startDate: string;
   endDate: string;
   availableSpots: number;
+  bookedSpots: number;
+  totalSpots: number;
   conditions: string | null;
   isActive: boolean;
-  adults: number;
-  children: number;
-  petsAllowed: boolean;
-  departureCityId: string | null;
-  departureCountryISO2Code: string | null;
+  isFeatured: boolean;
   createdAt: string;
   updatedAt: string;
   photos: TourPhoto[];
@@ -47,7 +45,6 @@ export type Tour = {
       name: string;
     }[];
   };
-  departureCity: string | null;
 };
 
 type TourOperator = {
@@ -63,8 +60,9 @@ type TourOperator = {
   website: string;
   phone: string;
   status: 'approved' | 'pending' | 'rejected';
-  philosophy: string | null;
+  philosophy: string;
   photo: string | null;
+  rejectionReason: string | null;
 };
 
 export type TourPhoto = {
@@ -72,7 +70,7 @@ export type TourPhoto = {
   tourId: number;
   url: string;
   isMain: boolean;
-  description: string;
+  description: string | null;
 };
 
 export type TourPhotoForm = {

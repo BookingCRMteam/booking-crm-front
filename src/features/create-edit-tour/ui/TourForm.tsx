@@ -46,6 +46,8 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
     setValue,
     handleSubmit,
     reset,
+    clearErrors,
+    trigger,
     formState: { errors },
   } = useForm<TourFormValues>({
     resolver: zodResolver(TourFormSchema),
@@ -61,6 +63,8 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
       endDate: '',
       photos: [],
     },
+    mode: 'onSubmit',
+    reValidateMode: 'onBlur',
   });
 
   const isEditMode = Boolean(tourId);
@@ -87,6 +91,8 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
   const { data: tourData, isLoading: tourDataLoading } = useFetchTour(
     tourId ?? undefined,
   );
+
+  const isBooked = Boolean(tourData?.bookedSpots);
 
   const { handleSubmitForm, isSubmitting, submitError, isSuccess } =
     useTourFormSubmit({
@@ -144,10 +150,10 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
       sx={{
         width: '100%',
         paddingY: 5,
-        paddingRight: '224px',
+        paddingRight: { md: '224px' },
         position: 'relative',
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: { xs: 'center', md: 'flex-end' },
       }}
     >
       <Box
@@ -171,37 +177,56 @@ export const TourForm = ({ operatorId, tourId }: TourFormProps) => {
             <TitleField
               control={control}
               errors={errors}
-              disabled={isEditMode}
+              clearErrors={clearErrors}
+              disabled={isBooked}
             />
-            <DescriptionField control={control} errors={errors} />
+            <DescriptionField
+              control={control}
+              errors={errors}
+              clearErrors={clearErrors}
+            />
             <CountryField
               countries={countries}
               isLoading={countryLoading}
               control={control}
               errors={errors}
-              disabled={isEditMode}
+              clearErrors={clearErrors}
+              disabled={isBooked}
             />
             <CityField
               cities={cities}
               isLoading={citiesLoading}
               control={control}
               errors={errors}
-              disabled={isEditMode || !ISO2Code}
+              clearErrors={clearErrors}
+              disabled={isBooked || !ISO2Code}
             />
             <AvailableSpotsField
               control={control}
               errors={errors}
+              clearErrors={clearErrors}
               modeEdit={isEditMode}
+              trigger={trigger}
             />
-            <PriceField control={control} errors={errors} />
+            <PriceField
+              control={control}
+              errors={errors}
+              clearErrors={clearErrors}
+              trigger={trigger}
+            />
             <DateRangeField
               control={control}
               errors={errors}
+              clearErrors={clearErrors}
               start={start}
               end={end}
-              disabled={isEditMode}
+              disabled={isBooked}
             />
-            <Photos control={control} errors={errors} />
+            <Photos
+              control={control}
+              errors={errors}
+              clearErrors={clearErrors}
+            />
           </Box>
 
           {submitError && (

@@ -24,8 +24,10 @@ describe('PaymentSuccess', () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/\+380 50 111 22 33/i)).toBeInTheDocument();
 
-    expect(screen.getByTestId('location')).toHaveTextContent('AT, 60');
-    expect(screen.getByTestId('date')).toHaveTextContent('28.12.25 — 31.12.25');
+    expect(screen.getByTestId('location')).toHaveTextContent(
+      'Австрія, Зальцбург',
+    );
+    expect(screen.getByTestId('date')).toHaveTextContent('01.01.26 — 07.01.26');
     expect(screen.getByTestId('price')).toHaveTextContent('20000');
 
     expect(

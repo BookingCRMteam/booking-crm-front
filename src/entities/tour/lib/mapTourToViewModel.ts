@@ -32,6 +32,6 @@ export const mapTourToViewModel = (tour: Tour): TourViewModel => ({
       'Unknown Operator',
     photo: tour.operator.photo,
   },
-  countryAndCity: `${tour.country.translations[0]?.name || 'Unknown'}, ${tour.city.translations[0]?.name || 'Unknown'}`,
+  countryAndCity: `${tour.country.translations[1]?.name || 'Unknown'}, ${tour.city.translations[1]?.name || 'Unknown'}`,
   date: `${formattedDate(tour.startDate)} — ${formattedDate(tour.endDate)}`,
 });

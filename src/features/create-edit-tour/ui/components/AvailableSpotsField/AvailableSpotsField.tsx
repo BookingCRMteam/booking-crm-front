@@ -18,6 +18,8 @@ const HINT_TEXT_EDIT =
 export const AvailableSpotsField = ({
   control,
   errors,
+  clearErrors,
+  trigger,
   modeEdit = false,
 }: AvailableSpotsFieldProps) => {
   const spotsHintId = useId();
@@ -63,7 +65,7 @@ export const AvailableSpotsField = ({
                 const raw = e.target.value;
 
                 if (raw === '') {
-                  field.onChange(undefined);
+                  field.onChange(0);
                   return;
                 }
 
@@ -73,11 +75,13 @@ export const AvailableSpotsField = ({
 
                 field.onChange(val);
               }}
-              onBlur={() => {
+              onBlur={async () => {
                 if (modeEdit && field.value < initialSpotsRef.current) {
                   field.onChange(initialSpotsRef.current);
                 }
+                await trigger?.('availableSpots');
               }}
+              onFocus={() => clearErrors?.('availableSpots')}
             />
           </FieldWithAsideHint>
         );
