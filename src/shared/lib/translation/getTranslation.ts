@@ -1,10 +1,10 @@
-type Translation = {
+type TranslationEntry = {
   languageCode: string;
   name: string;
 };
 
 export const getTranslation = (
-  translations: Translation[] | undefined,
+  translations: TranslationEntry[] | undefined,
   lang: string,
   fallback = 'Unknown',
 ): string => {

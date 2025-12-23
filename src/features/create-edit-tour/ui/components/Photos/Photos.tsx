@@ -177,7 +177,7 @@ export const Photos = ({ control, errors, clearErrors }: FieldProps) => {
                             <StarIcon
                               size={20}
                               weight={item.isMain ? 'fill' : 'regular'}
-                              color="#000500"
+                              color={theme.palette.neutral.black}
                             />
                           </IconButton>
                         </Tooltip>
@@ -193,7 +193,7 @@ export const Photos = ({ control, errors, clearErrors }: FieldProps) => {
                             <TrashIcon
                               size={20}
                               weight="regular"
-                              color="#000500"
+                              color={theme.palette.neutral.black}
                             />
                           </IconButton>
                         </Tooltip>
@@ -223,8 +223,11 @@ export const Photos = ({ control, errors, clearErrors }: FieldProps) => {
                   gap: 1,
                 }}
               >
-                <WarningCircleIcon size={16} color="#dc3545" />
-                <Typography variant="bodySmall" color="error">
+                <WarningCircleIcon size={16} color={theme.palette.error.main} />
+                <Typography
+                  variant="bodySmall"
+                  color={theme.palette.error.main}
+                >
                   Максимум 10 фото
                 </Typography>
               </Box>

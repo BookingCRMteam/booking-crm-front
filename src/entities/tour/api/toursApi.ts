@@ -9,12 +9,14 @@ import {
   UpdatePhotoMeta,
 } from '../model/types';
 
+const TOUR_UPLOAD_TIMEOUT = 20000; // 20 seconds for tour upload operations
+
 export const createTour = async (data: FormData): Promise<Tour> => {
   try {
     const { data: res } = await axiosInstance.post<Tour>(
       APP_ROUTE.TOURS,
       data,
-      { timeout: 20000 },
+      { timeout: TOUR_UPLOAD_TIMEOUT },
     );
     return res;
   } catch (error: unknown) {
@@ -27,7 +29,7 @@ export const editTour = async (id: number, data: FormData): Promise<Tour> => {
     const { data: res } = await axiosInstance.patch<Tour>(
       DYNAMIC_ROUTE.TOUR(id),
       data,
-      { timeout: 20000 },
+      { timeout: TOUR_UPLOAD_TIMEOUT },
     );
     return res;
   } catch (error: unknown) {
@@ -44,7 +46,7 @@ export const updateTourPhotoMeta = async (
     const { data: res } = await axiosInstance.patch<TourPhoto>(
       DYNAMIC_ROUTE.TOUR_PHOTO(tourId, photoId),
       data,
-      { timeout: 20000 },
+      { timeout: TOUR_UPLOAD_TIMEOUT },
     );
 
     return res;
