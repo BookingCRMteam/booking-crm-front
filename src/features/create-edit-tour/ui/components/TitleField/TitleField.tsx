@@ -9,7 +9,12 @@ import { FieldWithAsideHint } from '@/shared/ui';
 
 const HINT_TEXT_TITLE = 'Максимум 150 символів';
 
-export const TitleField = ({ control, errors, disabled }: FieldProps) => {
+export const TitleField = ({
+  control,
+  errors,
+  clearErrors,
+  disabled,
+}: FieldProps) => {
   const titleHintId = useId();
 
   return (
@@ -32,6 +37,7 @@ export const TitleField = ({ control, errors, disabled }: FieldProps) => {
             minRows={1}
             maxRows={3}
             disabled={disabled}
+            onFocus={() => clearErrors?.('title')}
           />
         </FieldWithAsideHint>
       )}

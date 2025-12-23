@@ -13,7 +13,12 @@ import { CurrencyField } from './CurrencyField';
 const HINT_TEXT_PRICE =
   'Число від 100 до 100 000, без символів, допускається крапка';
 
-export const PriceField = ({ control, errors }: FieldProps) => {
+export const PriceField = ({
+  control,
+  errors,
+  clearErrors,
+  trigger,
+}: FieldProps) => {
   const priceHintId = useId();
 
   const sanitize = (value: string) => {
@@ -39,6 +44,7 @@ export const PriceField = ({ control, errors }: FieldProps) => {
               placeholder="Введіть вартість"
               fullWidth
               error={!!errors?.price}
+              onFocus={() => clearErrors?.('price')}
               helperText={errors?.price?.message as string}
               autoComplete="off"
               inputMode="decimal"
@@ -50,13 +56,12 @@ export const PriceField = ({ control, errors }: FieldProps) => {
               onBlur={(e) => {
                 const cleaned = sanitize(e.target.value);
 
-                if (!cleaned) {
-                  field.onChange('');
-                  return;
-                }
+                const valueToSet = cleaned ? String(Number(cleaned)) : '';
+                field.onChange(valueToSet);
 
-                const num = Number(cleaned);
-                field.onChange(isNaN(num) ? '' : String(num));
+                setTimeout(() => {
+                  trigger?.('price');
+                }, 0); // defer validation until after RHF state update
               }}
             />
           )}

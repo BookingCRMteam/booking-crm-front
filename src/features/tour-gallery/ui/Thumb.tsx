@@ -73,7 +73,7 @@ export const Thumb: FC<ThumbProp> = ({ image, onClick, selected }) => {
         <Image
           fill={true}
           src={image.url}
-          alt={image.description}
+          alt={image.description || 'Фотографія туру'}
           sizes={`${THUMB_SIZE}px`}
           style={{ borderRadius: selected ? 0 : '4px' }}
         />
