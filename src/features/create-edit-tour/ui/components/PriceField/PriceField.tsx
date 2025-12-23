@@ -61,7 +61,7 @@ export const PriceField = ({
 
                 setTimeout(() => {
                   trigger?.('price');
-                });
+                }, 0); // defer validation until after RHF state update
               }}
             />
           )}

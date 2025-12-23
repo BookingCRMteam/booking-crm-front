@@ -1,3 +1,4 @@
+import { getTranslation } from '@/shared/lib/translation';
 import { formattedDate } from '@/shared/utils';
 
 import { Tour, TourPhoto } from '../model/types';
@@ -32,6 +33,9 @@ export const mapTourToViewModel = (tour: Tour): TourViewModel => ({
       'Unknown Operator',
     photo: tour.operator.photo,
   },
-  countryAndCity: `${tour.country.translations[1]?.name || 'Unknown'}, ${tour.city.translations[1]?.name || 'Unknown'}`,
+  countryAndCity: `${getTranslation(tour.country.translations, 'uk')}, ${getTranslation(
+    tour.city.translations,
+    'uk',
+  )}`,
   date: `${formattedDate(tour.startDate)} — ${formattedDate(tour.endDate)}`,
 });

@@ -30,7 +30,7 @@ describe('mapTourToViewModel', () => {
     expect(viewModel.operatorInfo.name).toBe('Олена Петренко');
     expect(viewModel.operatorInfo.photo).toBe(tour.operator.photo);
 
-    expect(viewModel.countryAndCity).toBe('Австрія, Зальцбург');
+    expect(viewModel.countryAndCity).toBe('Італія, Флоренція');
 
     expect(viewModel.date).toBe('01.01.2026 — 07.01.2026');
   });

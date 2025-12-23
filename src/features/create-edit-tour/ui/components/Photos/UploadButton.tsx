@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Box, InputLabel, Typography, styled } from '@mui/material';
 
 type UploadButtonProps = {
-  onAddPhoto: (files: FileList) => void;
+  onAddPhoto: (files: File[]) => void;
 };
 
 const ButtonWrapper = styled(InputLabel)(({ theme }) => ({
@@ -50,7 +50,7 @@ export const UploadButton = ({ onAddPhoto }: UploadButtonProps) => {
     }
 
     if (validFiles.length > 0) {
-      onAddPhoto(validFiles as unknown as FileList);
+      onAddPhoto(validFiles);
     }
   };
 

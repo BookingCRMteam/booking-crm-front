@@ -11,7 +11,11 @@ import {
 
 export const createTour = async (data: FormData): Promise<Tour> => {
   try {
-    const { data: res } = await axiosInstance.post<Tour>(APP_ROUTE.TOURS, data);
+    const { data: res } = await axiosInstance.post<Tour>(
+      APP_ROUTE.TOURS,
+      data,
+      { timeout: 20000 },
+    );
     return res;
   } catch (error: unknown) {
     handleApiError(error);
@@ -23,6 +27,7 @@ export const editTour = async (id: number, data: FormData): Promise<Tour> => {
     const { data: res } = await axiosInstance.patch<Tour>(
       DYNAMIC_ROUTE.TOUR(id),
       data,
+      { timeout: 20000 },
     );
     return res;
   } catch (error: unknown) {
@@ -39,6 +44,7 @@ export const updateTourPhotoMeta = async (
     const { data: res } = await axiosInstance.patch<TourPhoto>(
       DYNAMIC_ROUTE.TOUR_PHOTO(tourId, photoId),
       data,
+      { timeout: 20000 },
     );
 
     return res;

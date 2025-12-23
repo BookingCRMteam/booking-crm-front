@@ -3,6 +3,7 @@ import { CheckFatIcon } from '@phosphor-icons/react';
 
 import { BookingPaymentResponse } from '@/entities/booking';
 
+import { getTranslation } from '@/shared/lib/translation';
 import { DateDisplay, LocationDisplay, PriceDisplay } from '@/shared/ui';
 import { formattedDate, formattedPhone } from '@/shared/utils';
 
@@ -26,8 +27,8 @@ export const PaymentSuccess = ({ data }: { data: BookingPaymentResponse }) => {
 
   const email = 'email';
 
-  const country = tour.country.translations[1].name;
-  const city = tour.city.translations[1].name;
+  const country = getTranslation(tour.country.translations, 'uk');
+  const city = getTranslation(tour.city.translations, 'uk');
 
   const date = `${formattedDate(data.tour.startDate)} — ${formattedDate(data.tour.endDate)}`;
 

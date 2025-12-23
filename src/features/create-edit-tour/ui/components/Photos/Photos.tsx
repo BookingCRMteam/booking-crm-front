@@ -27,11 +27,11 @@ export const Photos = ({ control, errors, clearErrors }: FieldProps) => {
   const columns = isMd ? 3 : isSm ? 2 : 1;
 
   const handleAddPhoto = (
-    files: FileList,
+    files: File[],
     value: TourPhotoForm[],
     onChange: (value: TourPhotoForm[]) => void,
   ) => {
-    const newPhotos = Array.from(files).map((file, index) => ({
+    const newPhotos = files.map((file, index) => ({
       id: baseId.current++,
       file,
       url: null,
@@ -91,6 +91,11 @@ export const Photos = ({ control, errors, clearErrors }: FieldProps) => {
 
         const rows = createGridRows(items, columns);
 
+        const photoIndexMap = new Map<number, number>();
+        photos.forEach((photo, index) => {
+          photoIndexMap.set(photo.id, index);
+        });
+
         return (
           <Box
             sx={{
@@ -114,6 +119,7 @@ export const Photos = ({ control, errors, clearErrors }: FieldProps) => {
                   if ('isUploadButton' in item) {
                     return (
                       <Box
+                        key="upload-button"
                         sx={{
                           display: 'flex',
                           flexDirection: 'column',
@@ -131,7 +137,7 @@ export const Photos = ({ control, errors, clearErrors }: FieldProps) => {
                     );
                   }
 
-                  const photoIndex = photos.findIndex((p) => p.id === item.id);
+                  const photoIndex = photoIndexMap.get(item.id)!;
 
                   return (
                     <Box
