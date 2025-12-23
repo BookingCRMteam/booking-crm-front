@@ -111,7 +111,12 @@ export const TourGallery: FC<TourGalleryProps> = ({ photos }) => {
           <MainContainer>
             {photos.map(({ description, url }) => (
               <MainSlide key={url}>
-                <Image alt={description} src={url} width={419} height={440} />
+                <Image
+                  alt={description || 'Фотографія туру'}
+                  src={url}
+                  width={419}
+                  height={440}
+                />
               </MainSlide>
             ))}
           </MainContainer>
