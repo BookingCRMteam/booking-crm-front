@@ -1,40 +1,61 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
-import { Tours } from '@/entities/tour';
-
-interface UseInfiniteToursCollectionProps {
-  initialData?: Tours;
+interface UseInfiniteCollectionProps<TResponse> {
+  initialData?: TResponse;
   queryKey: (string | number)[];
-  queryFn: (params: { limit: number; offset: number }) => Promise<Tours>;
+  queryFn: (params: { limit: number; offset: number }) => Promise<TResponse>;
 }
 
-export const useInfiniteToursCollection = ({
+export interface PaginationMeta {
+  limit: number;
+  offset: number;
+  total: number | string;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  meta: PaginationMeta;
+}
+
+export const useInfiniteToursCollection = <
+  TItem,
+  TResponse extends PaginatedResponse<TItem>,
+>({
   initialData,
   queryKey,
   queryFn,
-}: UseInfiniteToursCollectionProps) => {
+}: UseInfiniteCollectionProps<TResponse>) => {
   const limit = initialData?.meta?.limit ?? 6;
 
-  const { data, fetchNextPage, error, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery<Tours, Error>({
-      queryKey: [...queryKey, limit],
-      queryFn: ({ pageParam = 0 }) =>
-        queryFn({ limit, offset: pageParam as number }),
+  const {
+    data,
+    fetchNextPage,
+    error,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useInfiniteQuery<TResponse, Error, InfiniteData<TResponse>>({
+    queryKey: [...queryKey, limit],
+    queryFn: ({ pageParam = 0 }) =>
+      queryFn({ limit, offset: pageParam as number }),
 
-      getNextPageParam: (lastPage) => {
-        const nextOffset = lastPage.meta.offset + lastPage.meta.limit;
-        const total = Number(lastPage.meta.total);
-        return nextOffset < total ? nextOffset : undefined;
-      },
-      initialPageParam: 0,
-      staleTime: 1000 * 60 * 2,
-      refetchOnWindowFocus: true,
-      initialData: initialData && {
-        pages: [initialData],
-        pageParams: [0],
-      },
-    });
+    getNextPageParam: (lastPage) => {
+      const nextOffset = lastPage.meta.offset + lastPage.meta.limit;
+      const total = Number(lastPage.meta.total);
+      return nextOffset < total ? nextOffset : undefined;
+    },
+    initialPageParam: 0,
+    staleTime: 1000 * 60 * 2,
+    refetchOnWindowFocus: true,
+    initialData: initialData
+      ? {
+          pages: [initialData],
+          pageParams: [0],
+        }
+      : undefined,
+  });
+
   const { ref } = useInView({
     threshold: 0,
     rootMargin: '400px',
@@ -45,5 +66,5 @@ export const useInfiniteToursCollection = ({
     },
   });
 
-  return { data, isFetchingNextPage, ref, error };
+  return { data, isFetchingNextPage, ref, error, isLoading };
 };

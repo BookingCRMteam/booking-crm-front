@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getUserBookings } from '../api/bookingApi';
-import { GetUserBookingsQueryProps, UserBooking } from '../model/type';
+import { GetUserBookingsQueryProps, UserBookingResponse } from '../model/type';
 
 export const useUserBookingsQuery = ({
   status,
@@ -9,7 +9,7 @@ export const useUserBookingsQuery = ({
   offset = 0,
   skip = false,
 }: GetUserBookingsQueryProps) => {
-  return useQuery<UserBooking[]>({
+  return useQuery<UserBookingResponse>({
     queryKey: ['user', 'bookings', status, limit, offset],
     queryFn: () => getUserBookings({ status, limit, offset }),
     staleTime: 1000 * 60 * 5, // 5 minutes

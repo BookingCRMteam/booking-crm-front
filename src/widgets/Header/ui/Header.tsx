@@ -14,7 +14,7 @@ export const Header = () => {
     skip: !user,
   });
 
-  const isPendingPayment = !!bookings?.length;
+  const isPendingPayment = !!bookings?.data?.length;
   const firstPersonName = operator?.firstName || user?.firstPersonName;
   return (
     <HeaderPure

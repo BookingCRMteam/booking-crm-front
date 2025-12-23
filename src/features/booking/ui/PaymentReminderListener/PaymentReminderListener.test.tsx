@@ -34,7 +34,9 @@ describe('PaymentReminderListener', () => {
 
   it('should not open modal if there are no pending bookings', () => {
     (useUserBookingsQuery as jest.Mock).mockReturnValue({
-      data: [],
+      data: {
+        data: [],
+      },
       isLoading: false,
     });
 
@@ -46,7 +48,9 @@ describe('PaymentReminderListener', () => {
   it('should open modal and set sessionStorage if booking exists and not dismissed', () => {
     const mockBooking = { bookingId: 123 };
     (useUserBookingsQuery as jest.Mock).mockReturnValue({
-      data: [mockBooking],
+      data: {
+        data: [mockBooking],
+      },
       isLoading: false,
     });
 
@@ -64,7 +68,9 @@ describe('PaymentReminderListener', () => {
   it('should not open modal if it was already dismissed in this session', () => {
     sessionStorage.setItem('payment_reminder_dismissed', 'true');
     (useUserBookingsQuery as jest.Mock).mockReturnValue({
-      data: [{ bookingId: 123 }],
+      data: {
+        data: [{ bookingId: 123 }],
+      },
       isLoading: false,
     });
 
@@ -79,7 +85,9 @@ describe('PaymentReminderListener', () => {
       openModal: mockOpenModal,
     });
     (useUserBookingsQuery as jest.Mock).mockReturnValue({
-      data: [{ bookingId: 123 }],
+      data: {
+        data: [{ bookingId: 123 }],
+      },
       isLoading: false,
     });
 
@@ -95,7 +103,9 @@ describe('PaymentReminderListener', () => {
     });
 
     (useUserBookingsQuery as jest.Mock).mockReturnValue({
-      data: [{ bookingId: 123 }],
+      data: {
+        data: [{ bookingId: 123 }],
+      },
       isLoading: false,
     });
 

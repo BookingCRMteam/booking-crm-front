@@ -19,7 +19,7 @@ export const PaymentReminderListener = ({ user }: { user: User }) => {
   });
 
   useEffect(() => {
-    if (isLoading || !bookings?.length || !user) return;
+    if (isLoading || !bookings?.data?.length || !user) return;
 
     if (open) return;
 
@@ -28,13 +28,13 @@ export const PaymentReminderListener = ({ user }: { user: User }) => {
 
       if (isDismissed) return;
 
-      const lastUnpaidBooking = bookings[bookings.length - 1];
+      const lastUnpaidBooking = bookings?.data?.[bookings.data.length - 1];
 
       try {
         openModal({
           type: 'payment-reminder-modal',
           payload: {
-            bookingId: lastUnpaidBooking.bookingId,
+            bookingId: lastUnpaidBooking?.bookingId,
           },
           dismissible: true,
         });

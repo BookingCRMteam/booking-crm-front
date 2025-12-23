@@ -14,6 +14,7 @@ import {
   GetUserBookingsQueryProps,
   RepayLink,
   UserBooking,
+  UserBookingResponse,
 } from '../model/type';
 
 export const createBooking = async (
@@ -59,10 +60,10 @@ export const getUserBookings = async ({
   status,
   limit = 6,
   offset = 0,
-}: GetUserBookingsQueryProps): Promise<UserBooking[]> => {
+}: GetUserBookingsQueryProps): Promise<UserBookingResponse> => {
   try {
     const token = await getAccessToken();
-    const { data: res } = await axiosInstance.get<UserBooking[]>(
+    const { data: res } = await axiosInstance.get<UserBookingResponse>(
       APP_ROUTE.USER_BOOKINGS,
       {
         params: { status, limit, offset },

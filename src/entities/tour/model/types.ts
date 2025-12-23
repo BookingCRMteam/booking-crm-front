@@ -1,6 +1,10 @@
+import type { ReactNode } from 'react';
+
+import type { InfiniteData } from '@tanstack/react-query';
+
 import type { TourCardVariantType } from '@/shared/ui/TourCard/types';
 
-import { useInfiniteToursCollection } from './useInfiniteToursCollection';
+import { PaginatedResponse } from './useInfiniteToursCollection';
 
 export type Tour = {
   id: number;
@@ -111,8 +115,11 @@ export type TourBookingInfo = {
   price: string;
 };
 
-export type ToursCollectionProps = ReturnType<
-  typeof useInfiniteToursCollection
-> & {
+export type ToursCollectionProps<T = Tour> = {
+  data: InfiniteData<PaginatedResponse<T>> | null;
+  isFetchingNextPage: boolean;
+  ref: (node?: Element | null) => void;
+  error: Error | null;
   variantTourCard?: TourCardVariantType;
+  children?: ReactNode;
 };

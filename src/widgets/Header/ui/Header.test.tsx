@@ -58,7 +58,9 @@ describe('Header Container', () => {
     (useUserQuery as jest.Mock).mockReturnValue({ data: null });
     (useOperatorQuery as jest.Mock).mockReturnValue({ data: null });
     (useUserBookingsQuery as jest.Mock).mockReturnValue({
-      data: [{ id: 1 }, { id: 2 }],
+      data: {
+        data: [{ id: 1 }, { id: 2 }],
+      },
     });
 
     render(<Header />);

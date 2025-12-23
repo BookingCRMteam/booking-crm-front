@@ -116,6 +116,15 @@ export type UserBooking = {
   };
 };
 
+export type UserBookingResponse = {
+  data: UserBooking[];
+  meta: {
+    limit: number;
+    offset: number;
+    total: number;
+  };
+};
+
 export type RepayLink = {
   paymentLink: string;
 };
