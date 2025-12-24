@@ -34,10 +34,13 @@ const TourControl: FC<TourControlProps> = ({
   const isAvailable = availableSpots > 0;
 
   const { data: user, isLoading } = useUserQuery();
-  const { data: bookings } = useUserBookingsQuery({
-    status: 'pending_payment',
-    skip: !user,
-  });
+  const { data: bookings, isLoading: isLoadingBookings } = useUserBookingsQuery(
+    {
+      status: 'pending_payment',
+      limit: 20,
+      skip: !user || user?.role !== 'traveler',
+    },
+  );
 
   const bookingPendingPayment = bookings?.data?.find(
     (booking) => booking.tour.id === tourId,
@@ -103,7 +106,7 @@ const TourControl: FC<TourControlProps> = ({
           userData={user}
           isAvailable={isAvailable}
           onUserClick={handleBookingUserClick}
-          isLoading={isLoading}
+          isLoading={isLoading || isLoadingBookings}
         />
       )}
       {bookingPendingPayment && (
