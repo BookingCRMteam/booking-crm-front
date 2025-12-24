@@ -1,5 +1,7 @@
 import { Tour } from '@/entities/tour';
 
+export type BookingStatus = 'confirmed' | 'pending_payment' | 'expired';
+
 export type BookingRequest = {
   tourId: number;
   userId: number;
@@ -18,7 +20,7 @@ export type BookingResponse = {
     id: number;
     userId: number;
     tourId: number;
-    status: 'pending_payment' | 'confirmed';
+    status: BookingStatus;
     totalPrice: string;
     currency: 'UAH' | 'EUR';
     createdAt: string;
@@ -39,7 +41,7 @@ export type BookingPaymentResponse = {
   secondPersonName: string;
   secondPersonSurname: string;
   phone: string;
-  status: 'pending_payment' | 'confirmed';
+  status: BookingStatus;
   totalPrice: string;
   currency: 'UAH' | 'EUR';
   createdAt: string;
@@ -51,7 +53,7 @@ export type BookingPaymentResponse = {
 
 export type UserBooking = {
   bookingId: number;
-  status: string;
+  status: BookingStatus;
   bookingPrice: string;
   currency: string;
   numberOfPeople: number;
@@ -97,4 +99,32 @@ export type UserBooking = {
       name: string;
     };
   };
+};
+
+export type UserBookingResponse = {
+  data: UserBooking[];
+  meta: {
+    limit: number;
+    offset: number;
+    total: number;
+  };
+};
+
+export type RepayLink = {
+  paymentLink: string;
+};
+
+export type GetUserBookingsQueryProps = {
+  status?: BookingStatus;
+  limit?: number;
+  offset?: number;
+  skip?: boolean;
+};
+
+export type BookingExpirationResponse = {
+  bookingId: number;
+  status: Extract<BookingStatus, 'pending_payment'>;
+  updatedAt: string;
+  expiresAt: string;
+  isExpired: boolean;
 };

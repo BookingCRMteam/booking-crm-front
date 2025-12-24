@@ -13,11 +13,12 @@ import {
 } from '@mui/material';
 import { CalendarDotsIcon, MapPinLineIcon } from '@phosphor-icons/react';
 
-import { OperatorLink } from '@/shared/ui';
+import { BookingTimer, OperatorLink } from '@/shared/ui';
 import { formattedDate } from '@/shared/utils';
 
 import Label from './Label';
 import { TourCardActions } from './TourCardActions';
+import { TourCardBookingActions } from './TourCardBookingActions/TourCardBookingActions';
 import { TourCardImage } from './TourCardImage';
 import type { TourCardProps } from './types';
 
@@ -95,14 +96,18 @@ export const TourCard: FC<TourCardProps> = ({
   startDate,
   endDate,
   countryName,
-  bookingId,
-  bookingCount = 0,
   variant = 'catalog',
+  bookingCount = 0,
+  bookingId,
+  bookingStatus,
 }) => {
   const isAvailable = availableSpots > 0;
   const date = `${formattedDate(startDate)} — ${formattedDate(endDate)}`;
   const mainPhoto = photos.find((p) => p.isMain) ?? photos[0];
-
+  const isBooking =
+    variant === 'booking' &&
+    bookingId !== undefined &&
+    bookingStatus !== undefined;
   return (
     <CardWrapper isAvailable={isAvailable}>
       <ImageWrapper className="tour-card-image-wrapper">
@@ -110,7 +115,9 @@ export const TourCard: FC<TourCardProps> = ({
       </ImageWrapper>
 
       {variant === 'catalog' && <Label count={availableSpots} />}
-
+      {variant === 'booking' &&
+        bookingStatus === 'pending_payment' &&
+        bookingId !== undefined && <BookingTimer bookingId={bookingId} />}
       <ContentWrapper className="tour-card-content-wrapper">
         <CardContentStyle>
           <Typography
@@ -192,14 +199,22 @@ export const TourCard: FC<TourCardProps> = ({
         </CardContentStyle>
 
         <CardActions sx={{ p: 0 }}>
-          <TourCardActions
-            variant={variant}
-            tourId={id}
-            title={title}
-            bookingId={bookingId}
-            operatorId={operator.id}
-            isAvailable={isAvailable}
-          />
+          {isBooking && (
+            <TourCardBookingActions
+              bookingStatus={bookingStatus}
+              bookingId={bookingId}
+            />
+          )}
+
+          {!isBooking && (
+            <TourCardActions
+              variant={variant}
+              tourId={id}
+              title={title}
+              operatorId={operator.id}
+              isAvailable={isAvailable}
+            />
+          )}
         </CardActions>
       </ContentWrapper>
     </CardWrapper>

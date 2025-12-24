@@ -1,4 +1,5 @@
-import type { TourPhoto } from '@/entities/tour/model/types';
+import type { BookingStatus } from '@/entities/booking';
+import type { TourPhoto } from '@/entities/tour';
 
 export type TourCardVariantType = 'catalog' | 'booking' | 'operator';
 
@@ -19,4 +20,5 @@ export type TourCardProps = {
   bookingCount?: number;
   bookingId?: number;
   variant?: TourCardVariantType;
+  bookingStatus?: BookingStatus;
 };

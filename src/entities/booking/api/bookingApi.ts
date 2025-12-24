@@ -1,4 +1,7 @@
+import { getAccessToken } from '@auth0/nextjs-auth0';
+
 import {
+  BookingExpirationResponse,
   BookingPaymentResponse,
   BookingRequest,
   BookingResponse,
@@ -7,7 +10,12 @@ import {
 import { axiosInstance, handleApiError } from '@/shared/api';
 import { APP_ROUTE, DYNAMIC_ROUTE } from '@/shared/constants/routes';
 
-import { UserBooking } from '../model/type';
+import {
+  GetUserBookingsQueryProps,
+  RepayLink,
+  UserBooking,
+  UserBookingResponse,
+} from '../model/type';
 
 export const createBooking = async (
   data: BookingRequest,
@@ -23,13 +31,10 @@ export const createBooking = async (
   }
 };
 
-export const getBookingById = async (
-  tourId: number,
-  bookingId: number,
-): Promise<BookingPaymentResponse> => {
+export const createRepayLink = async (id: number): Promise<RepayLink> => {
   try {
-    const { data: res } = await axiosInstance.get<BookingPaymentResponse>(
-      `${DYNAMIC_ROUTE.BOOKING_BY_ID(tourId, bookingId)}`,
+    const { data: res } = await axiosInstance.post<RepayLink>(
+      DYNAMIC_ROUTE.BOOKING_REPAY(id),
     );
     return res;
   } catch (error: unknown) {
@@ -37,10 +42,34 @@ export const getBookingById = async (
   }
 };
 
-export const getUserBookings = async (): Promise<UserBooking[]> => {
+export const getBookingById = async (
+  tourId: number,
+  bookingId: number,
+): Promise<BookingPaymentResponse> => {
   try {
-    const { data: res } =
-      await axiosInstance.get<UserBooking[]>('user/bookings');
+    const { data: res } = await axiosInstance.get<BookingPaymentResponse>(
+      DYNAMIC_ROUTE.BOOKING_BY_ID(tourId, bookingId),
+    );
+    return res;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
+
+export const getUserBookings = async ({
+  status,
+  limit = 6,
+  offset = 0,
+}: GetUserBookingsQueryProps): Promise<UserBookingResponse> => {
+  try {
+    const token = await getAccessToken();
+    const { data: res } = await axiosInstance.get<UserBookingResponse>(
+      APP_ROUTE.USER_BOOKINGS,
+      {
+        params: { status, limit, offset },
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
     return res;
   } catch (error: unknown) {
     handleApiError(error);
@@ -53,8 +82,21 @@ export const getUserBookingById = async (
 ): Promise<UserBooking> => {
   try {
     const { data: res } = await axiosInstance.get<UserBooking>(
-      `user/bookings/${bookingId}`,
+      DYNAMIC_ROUTE.USER_BOOKING_BY_ID(bookingId),
       { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+    return res;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
+
+export const getBookingExpiration = async (
+  bookingId: number,
+): Promise<BookingExpirationResponse> => {
+  try {
+    const { data: res } = await axiosInstance.get<BookingExpirationResponse>(
+      DYNAMIC_ROUTE.BOOKING_EXPIRATION(bookingId),
     );
     return res;
   } catch (error: unknown) {

@@ -1,7 +1,7 @@
-import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { useUserBookingsQuery } from '@/entities/booking';
 import { User, useUserQuery } from '@/entities/user';
 
 import { useBookingStore } from '@/shared/store';
@@ -19,6 +19,10 @@ jest.mock('@/shared/store', () => ({
 
 jest.mock('@/entities/user', () => ({
   useUserQuery: jest.fn(),
+}));
+
+jest.mock('@/entities/booking', () => ({
+  useUserBookingsQuery: jest.fn(),
 }));
 
 jest.mock('@/features/booking', () => ({
@@ -77,6 +81,15 @@ describe('TourControl', () => {
 
     (useUserQuery as jest.Mock).mockReturnValue({
       data: travelerUser,
+      isLoading: false,
+    });
+    (useUserBookingsQuery as jest.Mock).mockReturnValue({
+      data: {
+        data: [],
+        meta: {
+          total: 0,
+        },
+      },
       isLoading: false,
     });
   });

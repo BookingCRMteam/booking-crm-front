@@ -2,26 +2,20 @@ import type { FC } from 'react';
 
 import { AppBar, Container, Toolbar } from '@mui/material';
 
-import type { OperatorStatus } from '@/entities/operator';
-
-import { UserRole } from '@/shared/types';
 import { AppLogo } from '@/shared/ui';
 import { OperatorStatusBadge } from '@/shared/ui';
 
 import { AuthorizedMenu } from '../AuthorizedMenu/AuthorizedMenu';
 import { NavigationLinks } from '../NavigationLinks/NavigationLinks';
+import { ReplayLabel } from '../ReplayLabel/ReplayLabel';
 import { UnauthorizedMenu } from '../UnauthorizedMenu/UnauthorizedMenu';
-
-interface HeaderPureProps {
-  userRole?: UserRole;
-  firstPersonName?: string;
-  operatorStatus?: OperatorStatus;
-}
+import type { HeaderPureProps } from './types';
 
 const HeaderPure: FC<HeaderPureProps> = ({
   operatorStatus,
   userRole,
   firstPersonName,
+  isPendingPayment = false,
 }) => {
   const isOperator = userRole === 'operator';
   const isAuthorized = userRole !== undefined && firstPersonName !== undefined;
@@ -50,6 +44,7 @@ const HeaderPure: FC<HeaderPureProps> = ({
               {isOperator && operatorStatus && (
                 <OperatorStatusBadge status={operatorStatus} />
               )}
+              {isPendingPayment && <ReplayLabel />}
             </AuthorizedMenu>
           ) : (
             <UnauthorizedMenu />

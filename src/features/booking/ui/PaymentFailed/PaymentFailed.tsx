@@ -1,8 +1,10 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { SmileySadIcon } from '@phosphor-icons/react';
 
+import { RepayBookingButton } from '@/shared/ui';
+
 type PaymentFailedProps = {
-  onRetry?: () => void;
+  bookingId: number;
 };
 
 const centeredBlock = {
@@ -12,7 +14,7 @@ const centeredBlock = {
   alignItems: 'center',
 };
 
-export const PaymentFailed = ({ onRetry }: PaymentFailedProps) => {
+export const PaymentFailed = ({ bookingId }: PaymentFailedProps) => {
   return (
     <>
       <Box sx={centeredBlock}>
@@ -27,9 +29,11 @@ export const PaymentFailed = ({ onRetry }: PaymentFailedProps) => {
         перевірте дані картки.
       </Typography>
 
-      <Button variant="contained" onClick={onRetry} data-testid="retry-button">
-        Спробувати ще раз
-      </Button>
+      <RepayBookingButton
+        bookingId={bookingId}
+        buttonTitle="Спробувати ще раз"
+        data-testid="retry-button"
+      />
     </>
   );
 };

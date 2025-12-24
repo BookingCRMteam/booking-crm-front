@@ -1,11 +1,15 @@
 import { renderWithTheme } from '@/shared/tests';
-import { UserRole } from '@/shared/types';
+import type { UserRole } from '@/shared/types';
 
 import HeaderPure from './HeaderPure';
 
 const userRole: UserRole = 'traveler';
 
 const mockUser = { userRole, firstPersonName: 'Jane' };
+
+jest.mock('../ReplayLabel/ReplayLabel', () => ({
+  ReplayLabel: () => <div data-testid="replay-label">Replay Label</div>,
+}));
 
 describe('HeaderPure UI', () => {
   it('should render UnauthorizedMenu when no user is provided', () => {
@@ -68,5 +72,43 @@ describe('HeaderPure UI', () => {
     );
 
     expect(getByText(/Відхилено/i)).toBeInTheDocument();
+  });
+});
+
+describe('isPendingPayment logic', () => {
+  it('should render ReplayLabel when isPendingPayment is true', () => {
+    const { getByTestId } = renderWithTheme(
+      <HeaderPure
+        userRole="traveler"
+        firstPersonName="Jane"
+        isPendingPayment={true}
+      />,
+    );
+
+    expect(getByTestId('replay-label')).toBeInTheDocument();
+  });
+
+  it('should NOT render ReplayLabel when isPendingPayment is false', () => {
+    const { queryByTestId } = renderWithTheme(
+      <HeaderPure
+        userRole="traveler"
+        firstPersonName="Jane"
+        isPendingPayment={false}
+      />,
+    );
+
+    expect(queryByTestId('replay-label')).not.toBeInTheDocument();
+  });
+
+  it('should NOT render ReplayLabel even if true but user is NOT authorized', () => {
+    const { queryByTestId } = renderWithTheme(
+      <HeaderPure
+        userRole={undefined}
+        firstPersonName={undefined}
+        isPendingPayment={true}
+      />,
+    );
+
+    expect(queryByTestId('replay-label')).not.toBeInTheDocument();
   });
 });

@@ -12,7 +12,6 @@ export enum APP_ROUTE {
   COUNTRIES = '/countries',
   ABOUT = `/#step_section_id`,
   CONTACT = '/contact',
-  BOOKINGS = '/bookings',
   CATALOG = '/catalog',
   FAQ = '/#faq_section_id',
   AUTH_REDIRECT = '/auth-redirect/',
@@ -20,6 +19,8 @@ export enum APP_ROUTE {
   OPERATOR_ONBOARDING = '/operator-onboarding',
   UI_KIT = '/ui-kit',
   TOUR = '/tour',
+  BOOKINGS = '/bookings',
+  USER_BOOKINGS = '/user/bookings',
 }
 
 export const DYNAMIC_ROUTE = {
@@ -31,6 +32,10 @@ export const DYNAMIC_ROUTE = {
   OPERATOR_PUBLIC: (operatorId: number) => `/catalog/operator/${operatorId}`,
   BOOKING_BY_ID: (tourId: number, bookingId: number) =>
     `/bookings/${tourId}/${bookingId}`,
+  BOOKING_REPAY: (bookingId: number) => `/bookings/${bookingId}/repay`,
+  USER_BOOKING_BY_ID: (bookingId: number) => `/user/bookings/${bookingId}`,
+  BOOKING_EXPIRATION: (bookingId: number) =>
+    `/bookings/${bookingId}/expiration`,
 };
 
 export const PUBLIC_PATHS = {

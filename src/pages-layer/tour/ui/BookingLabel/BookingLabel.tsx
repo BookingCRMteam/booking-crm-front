@@ -1,5 +1,7 @@
 'use client';
 
+import type { FC } from 'react';
+
 import { Box, Typography, styled } from '@mui/material';
 
 const LabelRoot = styled(Box)(({ theme }) => ({
@@ -22,7 +24,11 @@ const LabelRoot = styled(Box)(({ theme }) => ({
   userSelect: 'none',
 }));
 
-export const BookingLabel = () => {
+type BookingLabelProps = {
+  label: string;
+};
+
+export const BookingLabel: FC<BookingLabelProps> = ({ label }) => {
   return (
     <LabelRoot>
       <Typography
@@ -30,7 +36,7 @@ export const BookingLabel = () => {
         textTransform="capitalize"
         component="p"
       >
-        Заброньовано
+        {label}
       </Typography>
     </LabelRoot>
   );

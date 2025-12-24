@@ -47,10 +47,10 @@ export const ModalHost = () => {
       open={open}
       onClose={handleClose}
       slots={{ transition: Transition }}
-      sx={{ width: 'fit-content', margin: '0 auto', borderRadius: 0 }}
+      sx={{ width: 'fit-content', margin: '0 auto', borderRadius: '8px' }}
       slotProps={{
         paper: {
-          sx: { borderRadius: 0 },
+          sx: { borderRadius: '8px' },
         },
       }}
       keepMounted
