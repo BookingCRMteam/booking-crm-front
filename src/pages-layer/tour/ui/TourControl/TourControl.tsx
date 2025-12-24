@@ -8,9 +8,11 @@ import { Typography } from '@mui/material';
 
 import { BookingButton } from '@/features/booking';
 
+import { useUserBookingsQuery } from '@/entities/booking';
 import { useUserQuery } from '@/entities/user';
 
 import { useBookingStore } from '@/shared/store';
+import { RepayBookingButton } from '@/shared/ui';
 
 type TourControlProps = {
   tourId: number;
@@ -32,6 +34,15 @@ const TourControl: FC<TourControlProps> = ({
   const isAvailable = availableSpots > 0;
 
   const { data: user, isLoading } = useUserQuery();
+  const { data: bookings } = useUserBookingsQuery({
+    status: 'pending_payment',
+    skip: !user,
+  });
+
+  const bookingPendingPayment = bookings?.data?.find(
+    (booking) => booking.tour.id === tourId,
+  );
+
   const isOperator = user?.role === 'operator';
   const isTraveler = user?.role === 'traveler';
 
@@ -87,13 +98,17 @@ const TourControl: FC<TourControlProps> = ({
           тури
         </Typography>
       )}
-
-      <BookingButton
-        userData={user}
-        isAvailable={isAvailable}
-        onUserClick={handleBookingUserClick}
-        isLoading={isLoading}
-      />
+      {!bookingPendingPayment && (
+        <BookingButton
+          userData={user}
+          isAvailable={isAvailable}
+          onUserClick={handleBookingUserClick}
+          isLoading={isLoading}
+        />
+      )}
+      {bookingPendingPayment && (
+        <RepayBookingButton bookingId={bookingPendingPayment.bookingId} />
+      )}
     </>
   );
 };

@@ -123,7 +123,7 @@ export type GetUserBookingsQueryProps = {
 
 export type BookingExpirationResponse = {
   bookingId: number;
-  status: 'pending_payment';
+  status: Extract<BookingStatus, 'pending_payment'>;
   updatedAt: string;
   expiresAt: string;
   isExpired: boolean;
