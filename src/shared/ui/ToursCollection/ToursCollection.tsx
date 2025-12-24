@@ -6,6 +6,7 @@ import { Box, CircularProgress, Grid } from '@mui/material';
 
 import { Tour, ToursCollectionProps } from '@/entities/tour';
 
+import { getTranslation } from '@/shared/lib/translation';
 import { ButtonTop, TourCard } from '@/shared/ui';
 
 export const ToursCollection: FC<ToursCollectionProps<Tour>> = ({
@@ -38,7 +39,7 @@ export const ToursCollection: FC<ToursCollectionProps<Tour>> = ({
                   photos={tour.photos}
                   startDate={tour.startDate}
                   endDate={tour.endDate}
-                  countryName={tour.country.translations[0].name}
+                  countryName={getTranslation(tour.country.translations, 'uk')}
                   operator={{
                     id: tour.operator.id,
                     name: `${tour.operator.firstName} ${tour.operator.lastName}`,

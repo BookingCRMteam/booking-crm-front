@@ -10,7 +10,11 @@ import { FieldWithAsideHint } from '@/shared/ui';
 const HINT_TEXT_DESCRIPTION =
   'Коротко опишіть тур: основні локації, формат подорожі, для кого підходить. Максимум 5000 символів';
 
-export const DescriptionField = ({ control, errors }: FieldProps) => {
+export const DescriptionField = ({
+  control,
+  errors,
+  clearErrors,
+}: FieldProps) => {
   const descriptionHintId = useId();
 
   return (
@@ -31,6 +35,7 @@ export const DescriptionField = ({ control, errors }: FieldProps) => {
             fullWidth
             multiline
             rows={7}
+            onFocus={() => clearErrors?.('description')}
           />
         </FieldWithAsideHint>
       )}

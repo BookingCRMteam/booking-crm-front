@@ -1,3 +1,5 @@
+import { Tour } from '@/entities/tour';
+
 export type BookingStatus = 'confirmed' | 'pending_payment' | 'expired';
 
 export type BookingRequest = {
@@ -20,7 +22,7 @@ export type BookingResponse = {
     tourId: number;
     status: BookingStatus;
     totalPrice: string;
-    currency: 'UAH' | 'EUR'; //зараз сервер повертає євро
+    currency: 'UAH' | 'EUR';
     createdAt: string;
     updatedAt: string;
     paymentProvider: 'liqpay';
@@ -46,24 +48,7 @@ export type BookingPaymentResponse = {
   updatedAt: string;
   paymentProvider: 'liqpay';
   paymentSessionId: string;
-  tour: {
-    id: number;
-    operatorId: number;
-    title: string;
-    description: string;
-    countryISO2Code: string;
-    cityId: number;
-    type: string | null;
-    price: string;
-    currency: 'UAH' | 'EUR';
-    startDate: string;
-    endDate: string;
-    availableSpots: number;
-    isActive: boolean;
-    conditions: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+  tour: Tour;
 };
 
 export type UserBooking = {

@@ -17,6 +17,7 @@ export const CityField = ({
   cities,
   isLoading,
   disabled,
+  clearErrors,
 }: CityFieldProps) => {
   return (
     <Controller
@@ -39,6 +40,8 @@ export const CityField = ({
             disabled={disabled}
             error={!!errors?.cityId}
             helperText={errors?.cityId?.message}
+            fieldName="cityId"
+            clearErrors={clearErrors}
           />
         );
       }}

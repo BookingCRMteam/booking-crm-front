@@ -5,12 +5,12 @@ import Image from 'next/image';
 import { Box, InputLabel, Typography, styled } from '@mui/material';
 
 type UploadButtonProps = {
-  onAddPhoto: (files: FileList) => void;
+  onAddPhoto: (files: File[]) => void;
 };
 
 const ButtonWrapper = styled(InputLabel)(({ theme }) => ({
-  width: '206px',
-  height: '165px',
+  width: '200px',
+  height: '156px',
   p: 4,
   display: 'flex',
   flexDirection: 'column',
@@ -29,23 +29,38 @@ export const UploadButton = ({ onAddPhoto }: UploadButtonProps) => {
 
   const handleFiles = (files: FileList) => {
     const maxSize = 5 * 1024 * 1024;
-    const invalidFiles = Array.from(files).filter(
-      (file) =>
-        !['image/jpeg', 'image/png'].includes(file.type) || file.size > maxSize,
-    );
+    const validFiles: File[] = [];
+    const invalidFiles: File[] = [];
+
+    Array.from(files).forEach((file) => {
+      if (
+        ['image/jpeg', 'image/png'].includes(file.type) &&
+        file.size <= maxSize
+      ) {
+        validFiles.push(file);
+      } else {
+        invalidFiles.push(file);
+      }
+    });
 
     if (invalidFiles.length > 0) {
       setError('Деякі файли не відповідають вимогам і не були завантажені');
-      return;
+    } else {
+      setError('');
     }
 
-    setError('');
-    onAddPhoto(files);
+    if (validFiles.length > 0) {
+      onAddPhoto(validFiles);
+    }
   };
 
   return (
     <Box
-      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
     >
       <ButtonWrapper>
         <Image
@@ -69,6 +84,7 @@ export const UploadButton = ({ onAddPhoto }: UploadButtonProps) => {
           accept="image/jpeg,image/png"
           hidden
           multiple
+          onClick={() => setError('')}
           onChange={(e) => {
             if (!e.target.files) return;
             handleFiles(e.target.files);
@@ -78,7 +94,15 @@ export const UploadButton = ({ onAddPhoto }: UploadButtonProps) => {
       </ButtonWrapper>
 
       {error && (
-        <Typography variant="caption" color="error" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          color="error"
+          sx={{
+            mt: 0.5,
+            textAlign: 'center',
+            width: '100%',
+          }}
+        >
           {error}
         </Typography>
       )}

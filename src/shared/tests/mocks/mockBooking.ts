@@ -1,5 +1,7 @@
 import { BookingPaymentResponse } from '@/entities/booking';
 
+import { mockTour } from './mockTour';
+
 export const mockPaidBooking: BookingPaymentResponse = {
   id: 101,
   userId: 10,
@@ -17,23 +19,5 @@ export const mockPaidBooking: BookingPaymentResponse = {
   updatedAt: '2025-12-06T12:55:12.441Z',
   paymentProvider: 'liqpay',
   paymentSessionId: 'booking_22234_session_56789',
-  tour: {
-    id: 100,
-    operatorId: 19,
-    title: 'Новий тур до Відня',
-    description:
-      'Відвідайте чарівний Відень з нашим новим туром! Насолоджуйтеся архітектурою, культурою та гастрономією цього неймовірного міста.',
-    countryISO2Code: 'AT',
-    cityId: 60,
-    type: null,
-    price: '10000',
-    currency: 'UAH',
-    startDate: '2025-12-28',
-    endDate: '2025-12-31',
-    availableSpots: 2,
-    isActive: true,
-    conditions: null,
-    createdAt: '2025-12-02T09:34:01.401Z',
-    updatedAt: '2025-12-02T09:34:01.401Z',
-  },
+  tour: mockTour,
 };

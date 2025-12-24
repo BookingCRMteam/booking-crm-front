@@ -7,8 +7,8 @@ const MOCKED_DATE_FORMAT = '01.10.2025';
 
 jest.mock('@/shared/utils', () => ({
   formattedDate: jest.fn((dateString) => {
-    if (dateString === mockTour.startDate) return '01.10.2025';
-    if (dateString === mockTour.endDate) return '07.10.2025';
+    if (dateString === mockTour.startDate) return '01.01.2026';
+    if (dateString === mockTour.endDate) return '07.01.2026';
     return MOCKED_DATE_FORMAT;
   }),
 }));
@@ -32,7 +32,7 @@ describe('mapTourToViewModel', () => {
 
     expect(viewModel.countryAndCity).toBe('Італія, Флоренція');
 
-    expect(viewModel.date).toBe('01.10.2025 — 07.10.2025');
+    expect(viewModel.date).toBe('01.01.2026 — 07.01.2026');
   });
 
   test('should handle null operator photo correctly', () => {
