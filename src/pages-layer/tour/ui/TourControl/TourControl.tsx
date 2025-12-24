@@ -34,20 +34,20 @@ const TourControl: FC<TourControlProps> = ({
   const isAvailable = availableSpots > 0;
 
   const { data: user, isLoading } = useUserQuery();
+  const isOperator = user?.role === 'operator';
+  const isTraveler = user?.role === 'traveler';
+
   const { data: bookings, isLoading: isLoadingBookings } = useUserBookingsQuery(
     {
       status: 'pending_payment',
       limit: 20,
-      skip: !user || user?.role !== 'traveler',
+      skip: !user || !isTraveler,
     },
   );
 
   const bookingPendingPayment = bookings?.data?.find(
     (booking) => booking.tour.id === tourId,
   );
-
-  const isOperator = user?.role === 'operator';
-  const isTraveler = user?.role === 'traveler';
 
   const searchParams = useSearchParams();
   const openBooking = searchParams.get('openBooking') === 'true';
@@ -109,7 +109,7 @@ const TourControl: FC<TourControlProps> = ({
           isLoading={isLoading || isLoadingBookings}
         />
       )}
-      {bookingPendingPayment && (
+      {bookingPendingPayment && isTraveler && (
         <RepayBookingButton bookingId={bookingPendingPayment.bookingId} />
       )}
     </>
