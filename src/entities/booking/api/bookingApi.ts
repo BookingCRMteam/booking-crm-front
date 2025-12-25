@@ -47,8 +47,12 @@ export const getBookingById = async (
   bookingId: number,
 ): Promise<BookingPaymentResponse> => {
   try {
+    const token = await getAccessToken();
     const { data: res } = await axiosInstance.get<BookingPaymentResponse>(
       DYNAMIC_ROUTE.BOOKING_BY_ID(tourId, bookingId),
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
     );
     return res;
   } catch (error: unknown) {
