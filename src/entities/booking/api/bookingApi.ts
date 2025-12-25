@@ -48,6 +48,9 @@ export const getBookingById = async (
 ): Promise<BookingPaymentResponse> => {
   try {
     const token = await getAccessToken();
+    if (!token) {
+      throw new Error('Authentication required: No access token available');
+    }
     const { data: res } = await axiosInstance.get<BookingPaymentResponse>(
       DYNAMIC_ROUTE.BOOKING_BY_ID(tourId, bookingId),
       {
@@ -67,6 +70,9 @@ export const getUserBookings = async ({
 }: GetUserBookingsQueryProps): Promise<UserBookingResponse> => {
   try {
     const token = await getAccessToken();
+    if (!token) {
+      throw new Error('Authentication required: No access token available');
+    }
     const { data: res } = await axiosInstance.get<UserBookingResponse>(
       APP_ROUTE.USER_BOOKINGS,
       {
