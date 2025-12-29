@@ -91,9 +91,7 @@ export const EditTour: Story = {
           client.setQueryData(['tour', 74], mockTour);
         }}
       >
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="uk">
-          <Story />
-        </LocalizationProvider>
+        <Story />
       </StorybookProviderWrapper>
     ),
   ],
@@ -131,9 +129,7 @@ export const BookedEditTourForm: Story = {
           });
         }}
       >
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="uk">
-          <Story />
-        </LocalizationProvider>
+        <Story />
       </StorybookProviderWrapper>
     ),
   ],
