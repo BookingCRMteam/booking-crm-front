@@ -69,7 +69,6 @@ export const useBookingForm = () => {
 
     await createAndRedirect({
       tourId: tourData.tourId,
-      userId: user.id,
       numberOfPeople: 2,
       firstPersonName,
       firstPersonSurname,

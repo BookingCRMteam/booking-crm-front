@@ -2,19 +2,10 @@ import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { useBookingStore } from '@/shared/store';
+import { mockOperatorById, mockUserTraveler } from '@/shared/tests';
 import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 
 import TourControl from './TourControl';
-
-const mockUser = {
-  name: 'username',
-};
-
-const mockOperator = {
-  id: 101,
-  name: 'Олена Петренко',
-  photo: '/images/tourCard/operator.png',
-};
 
 const baseArgs = {
   tourId: 10,
@@ -22,7 +13,7 @@ const baseArgs = {
   price: '78 567',
   countryAndCity: 'Флоренція, Італія',
   date: '01.10.25 — 07.10.25',
-  operator: mockOperator,
+  operator: mockOperatorById,
   availableSpots: 2,
 };
 
@@ -63,7 +54,9 @@ const meta: Meta<typeof TourControl> = {
       return (
         <StorybookProviderWrapper
           token={null}
-          setQueryMocks={(qc) => qc.setQueryData(['user', 'me'], mockUser)}
+          setQueryMocks={(qc) =>
+            qc.setQueryData(['user', 'me'], mockUserTraveler)
+          }
         >
           <Box
             sx={{

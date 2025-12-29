@@ -1,6 +1,7 @@
 import { BookingPaymentResponse } from '@/entities/booking';
 
 import { mockTour } from './mockTour';
+import { mockUserTraveler } from './mockUser';
 
 export const mockPaidBooking: BookingPaymentResponse = {
   id: 101,
@@ -20,4 +21,5 @@ export const mockPaidBooking: BookingPaymentResponse = {
   paymentProvider: 'liqpay',
   paymentSessionId: 'booking_22234_session_56789',
   tour: mockTour,
+  user: mockUserTraveler,
 };

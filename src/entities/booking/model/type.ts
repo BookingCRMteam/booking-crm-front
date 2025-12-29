@@ -1,10 +1,10 @@
 import { Tour } from '@/entities/tour';
+import { User } from '@/entities/user';
 
 export type BookingStatus = 'confirmed' | 'pending_payment' | 'expired';
 
 export type BookingRequest = {
   tourId: number;
-  userId: number;
   numberOfPeople: number;
   firstPersonName: string;
   firstPersonSurname: string;
@@ -49,6 +49,7 @@ export type BookingPaymentResponse = {
   paymentProvider: 'liqpay';
   paymentSessionId: string;
   tour: Tour;
+  user: User;
 };
 
 export type UserBooking = {
