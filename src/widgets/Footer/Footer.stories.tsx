@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
+import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
+
 import { Footer } from './Footer';
 
 const meta: Meta<typeof Footer> = {
@@ -13,7 +15,7 @@ const meta: Meta<typeof Footer> = {
         component: `
     Основний компонент футера (Footer).
     Відображається на всіх сторінках застосунку та має статичну структуру.
-    
+
     Складається з трьох ключових, адаптивних колонок:
 
     1.  Брендинг та Контакти: Містить логотип (посилання на головну сторінку) та контактну електронну адресу для запитань.
@@ -23,6 +25,14 @@ const meta: Meta<typeof Footer> = {
       },
     },
   },
+
+  decorators: [
+    (Story) => (
+      <StorybookProviderWrapper token={null}>
+        <Story />
+      </StorybookProviderWrapper>
+    ),
+  ],
 };
 
 export default meta;

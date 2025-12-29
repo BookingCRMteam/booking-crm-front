@@ -5,6 +5,7 @@ import type { FC } from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import 'dayjs/locale/uk';
 
 import type { UserWithToken } from '@/features/auth';
 
@@ -34,7 +35,7 @@ export const AppProviders: FC<AppProviderProps> = ({
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="uk">
           <QueryProvider operator={operator} user={user}>
             <AccessTokenStoreProvider accessToken={accessToken}>
               <ApiClientProvider>{children}</ApiClientProvider>

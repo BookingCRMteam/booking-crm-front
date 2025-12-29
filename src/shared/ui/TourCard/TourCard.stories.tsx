@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
+import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
+
 import operatorPhoto from '../../../../public/images/tourCard/operator.png';
 import tourPhoto from '../../../../public/images/tourCard/tour.png';
 import { mockCardProps } from '../../tests/mocks/mockTour';
@@ -9,6 +11,14 @@ const meta: Meta<typeof TourCard> = {
   title: 'Shared/UI/TourCard/TourCard',
   component: TourCard,
   tags: ['autodocs'],
+
+  decorators: [
+    (Story) => (
+      <StorybookProviderWrapper token={null}>
+        <Story />
+      </StorybookProviderWrapper>
+    ),
+  ],
 };
 export default meta;
 
@@ -18,6 +28,7 @@ const BASE_PROPS = {
   ...mockCardProps,
   photos: [{ ...mockCardProps.photos[0], url: tourPhoto.src }],
   operator: { ...mockCardProps.operator, photo: operatorPhoto.src },
+  onDelete: async () => {},
 };
 
 export const StandardState: Story = {

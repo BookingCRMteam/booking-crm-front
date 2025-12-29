@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { mockTour } from '@/shared/tests';
+import { StorybookProviderWrapper } from '@/shared/tests/StorybookProviderWrapper';
 
 import { ToursCollection } from './ToursCollection';
 
@@ -31,9 +32,11 @@ const meta: Meta<typeof ToursCollection> = {
   },
   decorators: [
     (Story) => (
-      <Box sx={{ maxWidth: '1040px', margin: '0 auto' }}>
-        <Story />
-      </Box>
+      <StorybookProviderWrapper token={null}>
+        <Box sx={{ maxWidth: '1040px', margin: '0 auto' }}>
+          <Story />
+        </Box>
+      </StorybookProviderWrapper>
     ),
   ],
 };

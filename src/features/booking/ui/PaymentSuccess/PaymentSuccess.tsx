@@ -22,11 +22,11 @@ export const PaymentSuccess = ({ data }: { data: BookingPaymentResponse }) => {
     secondPersonSurname,
     totalPrice,
     phone,
+    user,
     tour,
   } = data;
 
-  const email = 'email';
-
+  const email = user.email;
   const country = getTranslation(tour.country.translations, 'uk');
   const city = getTranslation(tour.city.translations, 'uk');
 

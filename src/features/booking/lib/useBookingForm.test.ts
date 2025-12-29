@@ -42,7 +42,6 @@ jest.mock('./useCreateBooking', () => ({
 
 const mockFormData: BookingRequest = {
   tourId: 42,
-  userId: 1,
   numberOfPeople: 2,
   firstPersonName: 'Олена',
   firstPersonSurname: 'Петренко',
