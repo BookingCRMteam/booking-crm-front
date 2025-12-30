@@ -4,7 +4,7 @@ import { type FC, useCallback, useEffect, useMemo } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { BookingButton } from '@/features/booking';
 
@@ -12,7 +12,7 @@ import { useUserBookingsQuery } from '@/entities/booking';
 import { useUserQuery } from '@/entities/user';
 
 import { useBookingStore } from '@/shared/store';
-import { RepayBookingButton } from '@/shared/ui';
+import { BookingTimer, RepayBookingButton } from '@/shared/ui';
 
 type TourControlProps = {
   tourId: number;
@@ -110,7 +110,17 @@ const TourControl: FC<TourControlProps> = ({
         />
       )}
       {bookingPendingPayment && isTraveler && (
-        <RepayBookingButton bookingId={bookingPendingPayment.bookingId} />
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          <RepayBookingButton bookingId={bookingPendingPayment.bookingId} />
+          <Typography color="error" variant="labelCaption" align="center">
+            Ми зберегли для вас місце в турі. Завершіть оплату протягом
+            <BookingTimer
+              bookingId={bookingPendingPayment.bookingId}
+              variant="tour"
+            />
+            , щоб підтвердити бронювання.
+          </Typography>
+        </Box>
       )}
     </>
   );
