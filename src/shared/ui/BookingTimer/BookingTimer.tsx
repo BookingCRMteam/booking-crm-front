@@ -11,7 +11,7 @@ import { getMinutesRemaining, getPluralMinutes } from '@/shared/utils';
 
 interface BookingTimerProps {
   bookingId: number;
-  variant?: 'card' | 'modal';
+  variant?: 'card' | 'modal' | 'tour';
 }
 
 const TimerWrapper = styled(Box)(({ theme }) => ({
@@ -84,6 +84,19 @@ export const BookingTimer: FC<BookingTimerProps> = ({
       {variant === 'modal' && (
         <Typography variant="bodyLarge" fontWeight={700}>
           {minutesLeft} {minutesWord}
+        </Typography>
+      )}
+      {variant === 'tour' && (
+        <Typography
+          variant="labelCaption"
+          component="span"
+          fontSize={14}
+          fontWeight={600}
+          fontStyle="semi-bold"
+          color="error"
+          marginLeft={0.3}
+        >
+          {minutesLeft} хв
         </Typography>
       )}
     </>
