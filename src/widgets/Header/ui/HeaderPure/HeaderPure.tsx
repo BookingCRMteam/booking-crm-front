@@ -7,7 +7,7 @@ import { OperatorStatusBadge } from '@/shared/ui';
 
 import { AuthorizedMenu } from '../AuthorizedMenu/AuthorizedMenu';
 import { NavigationLinks } from '../NavigationLinks/NavigationLinks';
-import { ReplayLabel } from '../ReplayLabel/ReplayLabel';
+import { ReplayButton } from '../ReplayButton/ReplayButton';
 import { UnauthorizedMenu } from '../UnauthorizedMenu/UnauthorizedMenu';
 import type { HeaderPureProps } from './types';
 
@@ -44,7 +44,7 @@ const HeaderPure: FC<HeaderPureProps> = ({
               {isOperator && operatorStatus && (
                 <OperatorStatusBadge status={operatorStatus} />
               )}
-              {isPendingPayment && <ReplayLabel />}
+              {isPendingPayment && <ReplayButton />}
             </AuthorizedMenu>
           ) : (
             <UnauthorizedMenu />
