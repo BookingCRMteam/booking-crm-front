@@ -29,11 +29,13 @@ export const PaymentFailed = ({ bookingId }: PaymentFailedProps) => {
         перевірте дані картки.
       </Typography>
 
-      <RepayBookingButton
-        bookingId={bookingId}
-        buttonTitle="Спробувати ще раз"
-        data-testid="retry-button"
-      />
+      <Box sx={{ width: '100%', maxWidth: 256 }}>
+        <RepayBookingButton
+          bookingId={bookingId}
+          buttonTitle="Спробувати ще раз"
+          data-testid="retry-button"
+        />
+      </Box>
     </>
   );
 };
