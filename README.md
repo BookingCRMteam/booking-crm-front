@@ -1,160 +1,219 @@
-# Booking CRM Frontend
+# Booking CRM
 
-Booking CRM is a customer relationship management system tailored for service-based businesses. It allows businesses to register, manage services, set schedules, and accept online bookings from clients. The platform is designed to streamline the booking process and enhance communication with clients.
+Booking CRM is a **production-ready MVP frontend application** for an online booking and tour management system.
 
----
-
-## Key Features
-
-### MVP 1.0
-
-- Business registration, login & profile
-- Service creation and management
-- Schedule & availability setup
-- Guest online booking (name & contact)
-- Admin booking management (view, edit, cancel)
-- Email booking confirmations & reminders
-
-### MVP 2.0 (Planned)
-
-- Client accounts (auth, booking history, rebook)
-- Multi-employee management with individual schedules
-- Business analytics (clients, bookings, revenue)
-- Optional: payment integration, reviews, calendar sync
+The project demonstrates a real-world role-based product with authentication, payments, business logic, and a scalable frontend architecture. It was built as a team project and reflects practical engineering decisions rather than a demo-only app.
 
 ---
 
-## System Requirements
+## 🔗 Links
 
-### Version requirements
-
-- **Node.js** 18.x or later (recommended LTS)
-- **npm** 9.x or later
-
-### Required software
-
-- Git
-- Code Editor
-- Prettier
-- ESLint
+- **Live demo:** [https://booking-crm-dev.netlify.app/](https://booking-crm-dev.netlify.app/)
+- **Frontend repository:** [https://github.com/BookingCRMteam/booking-crm-front](https://github.com/BookingCRMteam/booking-crm-front)
+- **Backend repository:** [https://github.com/BookingCRMteam/booking-crm-back](https://github.com/BookingCRMteam/booking-crm-back)
+- **Admin panel:** [https://booking-crm-admin.netlify.app/](https://booking-crm-admin.netlify.app/) (operator approval flow)
 
 ---
 
-## Architecture
+## 🚀 Product Overview
 
-The project uses the **App Router** in Next.js and follows a **modular architecture**, which can evolve toward FSD (Feature-Sliced Design) as complexity grows.
+Booking CRM allows users to browse tours, book them online, and manage bookings, while operators can create and manage their own tours after approval.
 
-### `src/` folder structure:
-
-- **app/** — Main app configuration, routing, layout
-- **components/** — Reusable UI components
-- **features/** — Feature-level logic (e.g., auth, booking)
-- **entities/** — Domain models and logic (e.g., User, Booking)
-- **shared/** — Common utils, constants, API client, hooks, styles
-
-_Note: folders like `features/`, `entities/`, etc., will be added as needed during development._
+The system supports **different user roles**, real payment flows, and complex booking states.
 
 ---
 
-## Installing Dependencies
+## 👥 Roles & Access Model
 
-Make sure Node.js and npm are installed. Check with:
+### Guest / User
+
+- Browse tour catalog
+- View tour details
+- Veiw information about operator
+- Book tours
+- Access personal dashboard
+- See booked tours with payment status:
+  - paid
+  - awaiting payment
+
+- Retry payment if the previous attempt expired
+
+### Operator
+
+- Starts as a regular user
+- Can **apply to become an operator**
+- Gets access after **admin approval**
+- Has a dedicated operator dashboard
+
+### Operator Capabilities
+
+- Create tours
+- Edit tours
+- Delete tours _(only if there are no bookings)_
+- View booked tours and booking details
+
+---
+
+## 🧭 Key Features (Implemented MVP)
+
+- Auth0 authentication
+- Role-based access control (user / operator / admin)
+- Operator approval flow via admin panel
+- Public tour catalog
+- Tour details page
+- Public operator page
+- Conditional UI behavior based on role
+- Booking flow with multiple states
+- **Payment integration via LiqPay**
+  - payment timeout (60 minutes)
+  - retry payment
+
+- User dashboard (bookings & statuses)
+- Operator dashboard (tour & booking management)
+
+---
+
+## 🧱 Architecture
+
+The project uses **Next.js App Router** with a modular architecture inspired by **Feature-Sliced Design (FSD)**.
+
+### `src/` structure
+
+- **app/** — routing, layouts, pages
+- **components/** — shared UI components
+- **features/** — feature-level logic (auth, booking, payment)
+- **entities/** — domain entities (Tour, Booking, User)
+- **shared/** — API clients, hooks, constants, UI primitives
+
+This structure allows the project to scale without large refactors.
+
+---
+
+## 🛠 Tech Stack
+
+- **Next.js (App Router)**
+- **React 19**
+- **TypeScript**
+- **MUI**
+- **React Hook Form + Zod**
+- **TanStack Query**
+- **Zustand**
+- **Auth0**
+- **Axios**
+
+---
+
+## 🧪 Testing Strategy
+
+The project follows a balanced testing strategy with a focus on both business logic and UI reliability:
+
+Unit tests cover core logic:
+
+- form validation schemas (Zod)
+
+- business rules and helpers
+
+- custom hooks and API-related logic
+
+- utility functions
+
+Component tests are used where they bring real value.
+
+Highly complex UI interactions (e.g. large forms with multiple dependencies, date pickers, file uploads):
+
+- are tested indirectly via schema and hook tests
+
+- are considered better candidates for e2e testing
+
+---
+
+## 📚 Storybook
+
+Storybook is used for isolated UI development and component validation.
 
 ```bash
-node -v
-npm -v
+npm run storybook
 ```
 
-### Clone the project
+It helps:
 
-Using HTTPS:
+- develop reusable components
+- test visual states (loading, error, disabled)
+- collaborate within a team
+
+---
+
+## ▶️ Getting Started
+
+### Requirements
+
+- Node.js **18+** (LTS recommended)
+- npm **9+**
+
+### Installation
 
 ```bash
 git clone https://github.com/BookingCRMteam/booking-crm-front.git
-```
-
-Using SSH:
-
-```bash
-git clone git@github.com:BookingCRMteam/booking-crm-front.git
-```
-
-Navigate into the project folder:
-
-```bash
 cd booking-crm-front
-```
-
-Install dependencies:
-
-```bash
 npm install
 ```
 
----
+### Run locally
 
-## Project Scripts
-
-| Script            | Description                                                      |
-| ----------------- | ---------------------------------------------------------------- |
-| `dev`             | Starts the development server using Next.js (`localhost:3000`)   |
-| `build`           | Builds the app for production                                    |
-| `start`           | Starts the production server after build                         |
-| `lint`            | Runs ESLint on the codebase                                      |
-| `format`          | Formats the code using Prettier                                  |
-| `prepare`         | Initializes Husky to enable Git hooks                            |
-| `test`            | Runs all tests using Jest                                        |
-| `test:watch`      | Runs tests in watch mode for continuous testing                  |
-| `coverage`        | Runs tests and generates code coverage report                    |
-| `storybook`       | Starts Storybook for UI component development (`localhost:6006`) |
-| `build-storybook` | Builds a static version of Storybook for deployment              |
-
----
-
-## Code Quality
-
-### Pre-commit hooks (via Husky + lint-staged)
-
-Automatically formats and lints staged files before every commit:
-
-```json
-"lint-staged": {
-  "*.{js,jsx,ts,tsx,json,css,md}": [
-    "prettier --write",
-    "eslint --fix"
-  ]
-}
+```bash
+npm run dev
 ```
 
 ---
 
-## Contribution
+## 📜 Scripts
 
-1. Checkout the latest version of `dev` branch:
-
-   ```bash
-   git checkout dev
-   git pull origin dev
-   ```
-
-2. Create a feature branch:
-
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-3. Code your feature, commit with Conventional Commits:
-
-   ```
-   feat: implement booking form
-   ```
-
-4. Push and open a Pull Request into `dev`
-
-5. Use the `.github/pull_request_template.md`
-
-6. Delete the feature branch after merge
+| Script    | Description              |
+| --------- | ------------------------ |
+| dev       | Start development server |
+| build     | Production build         |
+| start     | Run production build     |
+| lint      | ESLint                   |
+| format    | Prettier                 |
+| test      | Run Jest tests           |
+| coverage  | Test coverage report     |
+| storybook | Run Storybook            |
 
 ---
+
+## 🔒 Code Quality
+
+- ESLint + Prettier
+- Husky + lint-staged
+- Conventional Commits
+
+---
+
+## 💡 Project Notes
+
+- This project represents an MVP stage
+- Focused on real business logic rather than visual polish
+- Designed to be extended with analytics, calendar sync, and payments expansion
+
+---
+
+## 🖼 Screenshots
+
+### Tour Catalog
+
+![Tour Catalog](./media/tour-catalog.png)  
+_Example view of the public tour catalog page._
+
+---
+
+## 🎥 Demo Video
+
+### Operator Tour Creation
+
+Click the image below to watch a 2-minute walkthrough of creating a tour as an operator:
+
+[![Operator Tour Creation](./media/operator-demo-thumbnail.png)](./media/operator-demo.mp4)
+
+_Video demonstrates the operator dashboard, creating a tour, and managing bookings._
 
 **Made with ❤️ by the Booking CRM Frontend team**
