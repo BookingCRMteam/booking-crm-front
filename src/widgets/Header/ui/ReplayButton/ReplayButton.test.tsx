@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 
 import { renderWithTheme } from '@/shared/tests';
 
-import { ReplayLabel } from './ReplayLabel';
+import { ReplayButton } from './ReplayButton';
 
 jest.mock('@phosphor-icons/react', () => ({
   CreditCardIcon: ({ size }: { size: number }) => (
@@ -10,9 +10,9 @@ jest.mock('@phosphor-icons/react', () => ({
   ),
 }));
 
-describe('ReplayLabel Component', () => {
+describe('ReplayButton Component', () => {
   it('should render correctly with icon and text', () => {
-    renderWithTheme(<ReplayLabel />);
+    renderWithTheme(<ReplayButton />);
 
     expect(screen.getByText(/Оплатити/i)).toBeInTheDocument();
 

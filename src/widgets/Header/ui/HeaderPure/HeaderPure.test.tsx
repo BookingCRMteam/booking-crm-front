@@ -7,8 +7,8 @@ const userRole: UserRole = 'traveler';
 
 const mockUser = { userRole, firstPersonName: 'Jane' };
 
-jest.mock('../ReplayLabel/ReplayLabel', () => ({
-  ReplayLabel: () => <div data-testid="replay-label">Replay Label</div>,
+jest.mock('../ReplayButton/ReplayButton', () => ({
+  ReplayButton: () => <div data-testid="replay-button">Replay Button</div>,
 }));
 
 describe('HeaderPure UI', () => {
@@ -76,7 +76,7 @@ describe('HeaderPure UI', () => {
 });
 
 describe('isPendingPayment logic', () => {
-  it('should render ReplayLabel when isPendingPayment is true', () => {
+  it('should render ReplayButton when isPendingPayment is true', () => {
     const { getByTestId } = renderWithTheme(
       <HeaderPure
         userRole="traveler"
@@ -85,10 +85,10 @@ describe('isPendingPayment logic', () => {
       />,
     );
 
-    expect(getByTestId('replay-label')).toBeInTheDocument();
+    expect(getByTestId('replay-button')).toBeInTheDocument();
   });
 
-  it('should NOT render ReplayLabel when isPendingPayment is false', () => {
+  it('should NOT render ReplayButton when isPendingPayment is false', () => {
     const { queryByTestId } = renderWithTheme(
       <HeaderPure
         userRole="traveler"
@@ -97,10 +97,10 @@ describe('isPendingPayment logic', () => {
       />,
     );
 
-    expect(queryByTestId('replay-label')).not.toBeInTheDocument();
+    expect(queryByTestId('replay-button')).not.toBeInTheDocument();
   });
 
-  it('should NOT render ReplayLabel even if true but user is NOT authorized', () => {
+  it('should NOT render ReplayButton even if true but user is NOT authorized', () => {
     const { queryByTestId } = renderWithTheme(
       <HeaderPure
         userRole={undefined}
@@ -109,6 +109,6 @@ describe('isPendingPayment logic', () => {
       />,
     );
 
-    expect(queryByTestId('replay-label')).not.toBeInTheDocument();
+    expect(queryByTestId('replay-button')).not.toBeInTheDocument();
   });
 });
