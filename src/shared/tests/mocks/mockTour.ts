@@ -1,3 +1,5 @@
+import { TourFormValues } from '@/features/create-edit-tour/model/schema';
+
 import type { Tour, TourBookingInfo } from '@/entities/tour';
 
 export const mockTour: Tour = {
@@ -165,4 +167,29 @@ export const mockTourBookingInfo: TourBookingInfo = {
   countryAndCity: 'Флоренція, Італія',
   date: '01.01.26 — 07.01.26',
   price: '78 567',
+};
+
+export const newTourData: TourFormValues = {
+  title: 'Подорож до Флоренції',
+  description:
+    'Незабутня романтична подорож до Флоренції з екскурсіями та гідом',
+  countryISO2Code: 'FR',
+  cityId: 123,
+  availableSpots: 10,
+  price: '500',
+  currency: 'UAH',
+  startDate: '2026-01-10',
+  endDate: '2026-01-20',
+  photos: [
+    {
+      id: 1,
+      file: new File(['photo1'], 'photo1.jpg', { type: 'image/jpeg' }),
+      isMain: true,
+    },
+    {
+      id: 2,
+      file: new File(['photo2'], 'photo2.jpg', { type: 'image/jpeg' }),
+      isMain: false,
+    },
+  ],
 };
