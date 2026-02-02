@@ -20,6 +20,7 @@ type TourCardActionsProps = {
   tourId: number;
   title: string;
   isAvailable: boolean;
+  bookingCount: number;
 };
 
 export const TourCardActions: FC<TourCardActionsProps> = ({
@@ -28,6 +29,7 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
   tourId,
   title,
   isAvailable,
+  bookingCount,
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -101,7 +103,7 @@ export const TourCardActions: FC<TourCardActionsProps> = ({
           size="large"
           fullWidth
           onClick={handleDeleteClick}
-          disabled={deleteTour.isPending}
+          disabled={bookingCount > 0 || deleteTour.isPending}
           sx={(theme) => ({
             color: theme.palette.common.white,
             '&:hover, &:focus-visible, &:active': {
