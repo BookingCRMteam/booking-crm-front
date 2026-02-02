@@ -40,6 +40,7 @@ export const ToursCollection: FC<ToursCollectionProps<Tour>> = ({
                   startDate={tour.startDate}
                   endDate={tour.endDate}
                   countryName={getTranslation(tour.country.translations, 'uk')}
+                  bookingCount={tour.bookedSpots}
                   operator={{
                     id: tour.operator.id,
                     name: `${tour.operator.firstName} ${tour.operator.lastName}`,
