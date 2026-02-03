@@ -39,7 +39,7 @@ export const OperatorMyToursPage = () => {
 
   if (!operatorId) return null;
 
-  if (operatorStatus === 'pending') return <OperatorNoVerified />;
+  if (operatorStatus !== 'approved') return <OperatorNoVerified />;
 
   return <OperatorMyTours operatorId={operatorId} />;
 };
