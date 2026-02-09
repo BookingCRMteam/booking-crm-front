@@ -10,9 +10,17 @@ describe('handleBookingError', () => {
   });
 
   it('returns existing booking message for status 409', () => {
-    const err = new ApiError('Conflict error', 409);
+    const err = new ApiError('This pair has already booked this tour.', 409);
     const result = handleBookingError(err);
-    expect(result).toBe('Бронювання вже існує та очікує на оплату');
+    expect(result).toBe(
+      'Місця з такими даними пари вже заброньовані! Але Ви можете забронювати для когось іншого :)',
+    );
+  });
+
+  it('returns original message for status 409 with different message', () => {
+    const err = new ApiError('Some other conflict error', 409);
+    const result = handleBookingError(err);
+    expect(result).toBe('Some other conflict error');
   });
 
   it.each([400, 404])(
